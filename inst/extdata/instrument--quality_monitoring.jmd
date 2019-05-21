@@ -1,0 +1,32 @@
+---
+assertion:
+  -
+    ### A unique identifier for this instrument
+    id: quality_monitoring
+
+    ### A human-readable brief name for this instrument
+    label: "Quality monitoring"
+
+    ### A more extensive explanation of this instrument
+    description: "Whether an infrastructure exists that allows monitoring the quality of the substance."
+
+    ### The list of policy options 'within' this instrument; each
+    ### consisting of a numeric integer value, and a human-readable
+    ### label and description (like the instrument itself).
+    allowedValues:
+      -
+        value: 1
+        label: "None"
+        description: "There is no quality monitoring whatsoever."
+      -
+        value: 2
+        label: "Incidently"
+        description: "Monitoring occurs but only incidently, precluding detecting patterns in the substance's quality and dose over time."
+      -
+        value: 3
+        label: "Structurally"
+        description: "Structural monitoring of the substance dose and quality occurs, enabling mapping of the substance's quality and dose over time."
+
+    ### Specify the type of this assertion (in this case, 'instrument'
+    type: "instrument"
+---

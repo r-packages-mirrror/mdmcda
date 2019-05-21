@@ -1,0 +1,364 @@
+---
+title: "Minimal Dynamic Multi-Criteria Decision Analysis example"
+author: "Gjalt-Jorn Peters"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Minimal Dynamic Multi-Criteria Decision Analysis example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, message=FALSE, echo=FALSE, results='asis'}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dev="png", 
+	dev.args=list(type="cairo"),
+	dpi=100
+);
+
+suppressMessages(remotes::install_gitlab("r-packages/yum",
+                                         upgrade="never", quietly=TRUE));
+suppressMessages(remotes::install_gitlab("r-packages/justifier",
+                                         upgrade="never", quietly=TRUE));
+
+### First get the directory where 'dmcda' is installed
+currentDir <- system.file(package="dmcda");
+
+### Specify the path of the example DMCDA files
+currentDir <- file.path(currentDir, "extdata");
+
+```
+
+
+
+
+```{r load-instruments}
+
+instruments_and_options <-
+  load_instruments(currentDir);
+instrumentsDf <-
+  instruments_and_options$instrumentsDf;
+optionsDf <-
+  instruments_and_options$optionsDf;
+
+```
+
+## Summary
+
+```{r instruments-summary, results="asis"}
+
+knitr::kable(instrumentsDf,
+             row.names = FALSE);
+
+```
+
+## Details
+
+```{r instruments-details, results="asis"}
+
+for (x in instruments_and_options) {
+  ufs::cat0("\n\n### ", x$label, "\n\n");
+  ufs::cat0("\n\n", x$description, "\n\n");
+  for (i in x$allowedValues) {
+    ufs::cat0("- **", i$label, "**: ", i$description, "\n");
+  }
+}
+
+```
+
+# Gedefineerde uitkomsten {.tabset}
+
+De uitkomsten ('criteria' genoemd in de meeste MCDA publicaties; de 'C' in MCDA) zijn de gevolgen van beleid voor verschillende maatschappelijke indicatoren. Deze gevolgen vormen de criteria op basis waarvan overheden tussen beleidsopties per sturingsinstrument en uiteindelijk tussen scenario's kiezen (zie onder). Voorbeelden van mogelijke uitkomsten zijn bijvoorbeeld de volksgezondheid, de kleine criminaliteit, en de milieubelasting.
+
+```{r load-outcomes}
+
+outcomes <-
+  load_outcomes(currentDir);
+outcomesTree <-
+  outcomes$outcomesTree;
+outcomesDf <-
+  outcomes$outcomesDf;
+
+```
+
+## Samenvatting
+
+Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
+
+```{r outcomes-summary, fig.width=16, fig.height=12}
+
+suppressWarnings(
+  plot(rev(as.dendrogram(outcomesTree)),
+       horiz=TRUE,
+       center=FALSE,
+       asp=25,
+       nodePar = list(pch = c(18, 20),
+                      cex=1,
+                      lab.cex = 3))
+);
+
+```
+
+## Details
+
+```{r outcomes-details}
+
+knitr::kable(outcomesDf);
+
+```
+
+# Overzicht van de schattingen {.tabset}
+
+Hier staan de inschattingen van de denktank met betrekking tot de gevolgen van elke mogelijke beleidsoptie in elk sturingsinstrument op elke uitkomst. Om bij de eerder gegeven voorbeelden te blijven: de twee beleidsopties die een overheid maakt in het sturingsinstrument met betrekking tot of MDMA getest mag worden en in het sturingsinstrument met betrekking tot of verkoop strafbaar is hebben elk een invloed op de verschillende uitkomsten, bijvoorbeeld de volksgezondheid, de kleine criminaliteit, en de milieubelasting. Het eerste van deze sturingsinstrumenten, of MDMA getest mag worden, bestaat in dit voorbeeld uit twee beleidsopties (wel of niet). Beleidsoptie 'wel' heeft een verwacht effect op de drie uitkomsten, en dit kan worden uitgedrukt in drie schattingen. Het effect van beleidsoptie 'niet' op die drie uitkomsten kan ook worden uitgedrukt in drie schattingen. Het tweede sturingsinstrument had drie beleidsopties, en elke beleidsoptie heeft weer verwachte effecten op de drie uitkomsten (negen schattingen in totaal). Door die twee sturingsinstrumenten zo te definieren (de eerste met twee, en de tweede met drie keuzes), en door drie uitkomsten te hanteren, moeten er dus in totaal vijftien schattingen worden gemaakt (zes plus negen).
+
+```{r load-estimates, fig.width=10}
+
+estimates <-
+  load_estimates(currentDir,
+                 instruments_and_options = instruments_and_options,
+                 outcomes = outcomes);
+estimatesDf <-
+  estimates$estimatesDf;
+
+```
+
+## Samenvatting
+
+Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
+
+Hier komt een samenvatting.
+
+## Details
+
+```{r estimates-details, fig.width=10}
+
+knitr::kable(estimatesDf);
+
+```
+
+# Definities van scenario's {.tabset}
+
+```{r read-scenarios}
+
+scenarios_and_options <-
+  load_scenarios(currentDir,
+                 instruments_and_options = instruments_and_options);
+scenariosMetadataDf <-
+  scenarios_and_options$scenariosMetadataDf;
+scenarioOptionsDf <-
+  scenarios_and_options$scenarioOptionsDf;
+
+```
+
+## Samenvatting
+
+Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
+
+```{r scenarios-summary, results="asis"}
+
+knitr::kable(scenariosMetadataDf);
+
+```
+
+## Details
+
+```{r scenarios-details, results="asis"}
+
+knitr::kable(scenarioOptionsDf);
+
+```
+
+# Gewichten van de wegingen van de uitkomsten {.tabset}
+
+```{r read-weights}
+
+weights <-
+  load_weights(currentDir,
+               outcomes=outcomes);
+weightsDf <-
+  weights$weightsDf;
+multipliedWeights <-
+  weights$multipliedWeights;
+
+
+```
+
+## Samenvatting
+
+Hier komt een samenvatting van de gewichten.
+
+## Details
+
+```{r weights-summary, results="asis"}
+
+knitr::kable(weightsDf);
+
+knitr::kable(multipliedWeights);
+
+```
+
+# Totaaloverzicht {.tabset}
+
+```{r total-overview-autofill}
+
+autofillLogs <- "\n";
+autofilledEstimatesDf <-
+  estimatesDf;
+for (i in 1:nrow(optionsDf)) {
+  for (j in which(outcomesDf$isLeaf)) {
+    if (any((estimatesDf$instrument_id == optionsDf[i, 'instrument_id']) &
+            (estimatesDf$instrument_option_value == optionsDf[i, 'value']) &
+            (estimatesDf$outcome_id == outcomesDf[j, 'id']))) {
+      autofillLogs <-
+        c(autofillLogs,
+          paste0("- Estimate found for the effect of option '",
+                 optionsDf[i, 'label'],
+                 "' for instrument '",
+                 instrumentsDf[instrumentsDf$id==optionsDf[i, 'instrument_id'], 'label'],
+                 "' for outcome '",
+                 outcomesDf[j, 'id'],
+                 "': ",
+                 estimatesDf[(estimatesDf$instrument_id==optionsDf[i, 'instrument_id']) &
+                             (estimatesDf$instrument_option_value==optionsDf[i, 'value']) &
+                             (estimatesDf$outcome_id==outcomesDf[j, 'id']),
+                             "value"]));
+    } else {
+      autofillLogs <-
+        c(autofillLogs,
+          paste0("- **No** estimate found for the effect of option '",
+                 optionsDf[i, 'label'],
+                 "' for instrument '",
+                 instrumentsDf[instrumentsDf$id==optionsDf[i, 'instrument_id'], 'label'],
+                 "' for outcome '",
+                 outcomesDf[j, 'id'],
+                 "'. Setting this estimate to 0."));
+      autofilledEstimatesDf <-
+        rbind(autofilledEstimatesDf,
+              data.frame(instrument_id = optionsDf[i, 'instrument_id'],
+                         instrument_label = optionsDf[i, 'instrument_label'],
+                         instrument_option_value = optionsDf[i, 'value'],
+                         option_label = optionsDf[i, 'label'],
+                         outcome_id = outcomesDf[j, 'id'],
+                         outcome_label = outcomesDf[j, 'label'],
+                         value = 0,
+                         label = "Autofilled",
+                         description = "This estimate was not 'manually' specified, and has therefore been autofilled with 0.",
+                         id = paste0("id_", max(as.numeric(gsub("id_", "", estimatesDf$id)))+1),
+                         stringsAsFactors = FALSE));
+    }
+  }
+}
+
+```
+
+## Samenvatting
+
+Er zijn `r sum(outcomesDf$isLeaf)` uitkomsten gedefinieerd, en `r nrow(instrumentsDf)` sturingsinstrumenten met in totaal `r nrow(optionsDf)` beleidsopties. Dit betekent dat er `r sum(outcomesDf$isLeaf) * nrow(optionsDf)` schattingen nodig zijn. Hiervan zijn er `r length(estimates)` gespecificeerd.
+
+## Details
+
+```{r total-overview-details, results="asis"}
+
+knitr::kable(estimatesDf);
+
+```
+
+## Counterfactuals
+
+Bij assertions is het goed om counterfactuals te definieren. Dat zijn dan verwijzingen naar andere assertions die ook sources hebben. Scoren voor # counterfactuals en kwaliteit van evidentie per assertion?
+
+## Logs
+
+```{r total-overview-autofill-logs, results='asis'}
+cat(paste0(autofillLogs,
+           collapse="\n"));
+```
+
+# Scores per scenario en wegingsprofiel
+
+```{r scores-summary, results="asis"}
+
+### Multiply each estimate with the multiplied weights for each
+### profile
+for (wtProf in unique(weightsDf$weight_profile_id)) {
+  convenienceVector <-
+    multipliedWeights[multipliedWeights$profile_id==wtProf,
+                      "multipliedWeight"];
+  names(convenienceVector) <-
+    multipliedWeights[multipliedWeights$profile_id==wtProf,
+                      "outcome_id"];
+  
+  estimatesDf[, paste0(wtProf,
+                       '___score')] <-
+    estimatesDf$value * convenienceVector[estimatesDf$outcome_id];
+  autofilledEstimatesDf[, paste0(wtProf,
+                                 '___score')] <-
+    autofilledEstimatesDf$value * convenienceVector[autofilledEstimatesDf$outcome_id];
+  rm(convenienceVector);
+}
+
+### Select all multiplied estimates for each scenario
+scenarioScores <- list();
+
+### Separately per each weight profile
+for (currentScenario in scenariosMetadataDf$scenario_id) {
+  scenarioScores[[currentScenario]] <- list();
+  ### And per scenario
+  for (currentWtProf in unique(weightsDf$weight_profile_id)) {
+    scenarioScores[[currentScenario]][[currentWtProf]] <- data.frame();
+    ### And per instrument
+    for (currentInstr in instrumentsDf$id) {
+      ### And only for the chosen option
+      currentOption <-
+        scenarioOptionsDf[scenarioOptionsDf$scenario_id==currentScenario &
+                          scenarioOptionsDf$instrument_id==currentInstr, 'instrument_option_value'];
+      if (length(currentOption) == 0) {
+        warning("For scenario '",
+                currentScenario,
+                "' and instrument '",
+                currentInstr,
+                "', no option is selected!");
+      } else {
+        ### And per outcome
+        for (currentOutcome in outcomesDf$id[outcomesDf$isLeaf]) {
+          scenarioScores[[currentScenario]][[currentWtProf]] <-
+            rbind(scenarioScores[[currentScenario]][[currentWtProf]],
+                  data.frame(scenario_id = currentScenario,
+                             weight_profile_id = currentWtProf,
+                             instrument_id = currentInstr,
+                             instrument_option_value = currentOption,
+                             outcome_id = currentOutcome,
+                             score = autofilledEstimatesDf[
+                               autofilledEstimatesDf$instrument_id==currentInstr &
+                               autofilledEstimatesDf$instrument_option_value==currentOption &
+                               autofilledEstimatesDf$outcome_id==currentOutcome,
+                               paste0(currentWtProf, "___score")]));
+        }
+      }
+    }
+  }
+}
+
+for (i in names(scenarioScores)) {
+  for (j in names(scenarioScores[[i]])) {
+    ufs::cat0("\n\n## Scenario: ",
+              i,
+              "\n\n");
+    ufs::cat0("\n\n### Wegingsprofiel: ",
+              j,
+              "{.tabset}\n\n");
+    ufs::cat0("\n\n#### Samenvatting\n\n");
+    ufs::cat0("**Score:** ", sum(scenarioScores[[i]][[j]]$score), "\n\n");
+    ufs::cat0("\n\n#### Details\n\n");
+    print(knitr::kable(scenarioScores[[i]][[j]][, c('instrument_id',
+                                                    'instrument_option_value',
+                                                    'outcome_id',
+                                                    'score')]));
+  }
+}
+
+```
+

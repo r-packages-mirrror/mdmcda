@@ -1,0 +1,92 @@
+load_scenarios <- function(path,
+                           instruments_and_options) {
+
+  instrumentsDf <-
+    instruments_and_options$instrumentsDf;
+  optionsDf <-
+    instruments_and_options$optionsDf;
+
+  ### Use suppressWarnings because we do not need identifiers
+  suppressWarnings(
+    scenarios_raw <-
+      justifier::load_justifications_dir(path)
+  );
+
+  ### Get all policy scenario metadata and choices
+  scenariosMetadata <-
+    lapply(scenarios_raw$supplemented$justifications,
+           function(x) {
+             if (x$type == "scenario_metadata") {
+               return(x);
+             } else {
+               return(NULL);
+             }
+           });
+
+  scenariosMetadata <-
+    scenariosMetadata[!unlist(lapply(scenariosMetadata,
+                                     is.null))];
+
+  scenarioOptions <-
+    lapply(scenarios_raw$supplemented$justifications,
+           function(x) {
+             if (x$type == "scenario_option_specification") {
+               return(x);
+             } else {
+               return(NULL);
+             }
+           });
+
+  ### Remove NULL elements
+  scenarioOptions <-
+    scenarioOptions[!unlist(lapply(scenarioOptions, is.null))];
+
+  ### Convert to dataframes
+  scenariosMetadataDf <-
+    do.call(rbind,
+            lapply(scenariosMetadata,
+                   function(x) {
+                     return(data.frame(scenario_id = x$scenario_id,
+                                       label = x$label,
+                                       description = x$description,
+                                       stringsAsFactors = FALSE));
+                   }));
+
+  row.names(scenariosMetadataDf) <-
+    NULL;
+
+  scenarioOptionsDf <-
+    do.call(rbind,
+            lapply(scenarioOptions,
+                   function(x) {
+                     res <-
+                       data.frame(scenario = scenariosMetadataDf[scenariosMetadataDf$scenario_id==x$scenario_id, 'label'],
+                                  instrument = instrumentsDf[instrumentsDf$id==x$instrument_id, 'label'],
+                                  option = optionsDf[optionsDf$instrument_id==x$instrument_id &
+                                                       optionsDf$value==x$value, 'label'],
+                                  scenario_id = x$scenario_id,
+                                  instrument_id = x$instrument_id,
+                                  instrument_option_value = x$value,
+                                  stringsAsFactors = FALSE);
+                     names(res) <-
+                       c('scenario',
+                         'instrument',
+                         'option',
+                         'scenario_id',
+                         'instrument_id',
+                         'instrument_option_value');
+                     return(res);
+                   }));
+
+  row.names(scenarioOptionsDf) <-
+    NULL;
+
+  res <- list(scenarios_raw = scenarios_raw,
+              scenariosMetadata = scenariosMetadata,
+              scenariosMetadataDf = scenariosMetadataDf,
+              scenarioOptions = scenarioOptions,
+              scenarioOptionsDf = scenarioOptionsDf);
+
+  return(res);
+
+}

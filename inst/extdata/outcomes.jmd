@@ -1,0 +1,68 @@
+---
+outcomes:
+  id: outcomes
+  label: "Outcomes"
+  children:
+    -
+      id: user_health
+      label: "User health"
+      children:
+        -
+          id: shift_to_other_drugs
+          label: "Shift to other drugs"
+          description: "Consumption of other more harmful substances."
+        -
+          id: drug_quality_information
+          label: "Drug quality / information"
+          description: "Product quality (adulteration, unknown dose/purity) and proper information about risky use."
+    -
+      id: public
+      label: "Public"
+      children:
+        -
+          id: the_vulnerable
+          label: "The vulnerable"
+          description: "Protection of the vulnerable (children, young adults and psychiatric patients), including patients (development of medical applications) and parental control about MDMA use by minors."
+        -
+          id: cultural_values
+          label: "Cultural Values"
+          description: "Respect for self-determination to use recreational drugs, includes the availability of ‘clean’ pills without an environmental burden."
+    -
+      id: crime
+      label: "Crime"
+      children:
+        -
+          id: criminalisation_of_users
+          label: "Criminalisation of users"
+          description: "Criminalisation of users (criminal record, stigmatisation)."
+        -
+          id: small_crime
+          label: "Small crime"
+          description: "Acquisitive crime, public violence and dealing in the public space."
+        -
+          id: corporate_crime
+          label: "Corporate crime"
+          description: "Undermining and involvement in violence (assassination, extortion), money-laundering, prostitution, smuggling (does not include costs of enforcement)."
+    -
+      id: economy
+      label: "Economy"
+      children:
+        -
+          id: state_revenues
+          label: "State revenues" 
+          description: "State revenues (VAT, licences)."
+        -
+          id: costs_financial
+          label: "Costs (financial)"
+          description: "Public financial costs: health costs, addiction treatment, absenteeism, casualties (traffic), environmental pollution, enforcement (prison, police, judiciary, rehabilitation)."
+    -
+      id: political
+      label: "Political"
+      children:
+        -
+          id: international_policy
+          label: "International Policy"
+          description: "Violation of international drug treaties. Damage of international image."
+---
+
+

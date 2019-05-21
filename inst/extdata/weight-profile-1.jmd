@@ -1,0 +1,215 @@
+
+---
+justification:
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: user_health
+    
+    ### Specify the weight
+    weight: 1
+        
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: shift_to_other_drugs
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: drug_quality_information
+    
+    ### Specify the weight
+    weight: 1
+
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: public
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: the_vulnerable
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: cultural_values
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: crime
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: criminalisation_of_users
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: small_crime
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: corporate_crime
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: economy
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: state_revenues
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: costs_financial
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: political
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    outcome_id: international_policy
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'outcome_weight' for all weights)
+    type: outcome_weight
+    
+    ###########################################################################
+---
+

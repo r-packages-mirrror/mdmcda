@@ -1,0 +1,35 @@
+---
+assertion:
+  -
+    ### A unique identifier for this instrument
+    id: legal_status_possession
+
+    ### A human-readable brief name for this instrument
+    label: "Legal status of possession"
+
+    ### A more extensive explanation of this instrument
+    description: "Whether possession of the substance is legal or illegal; or 'gedoogd', a construction where possession is formally illegal but that status is not enforced."
+
+    ### The list of policy options 'within' this instrument; each
+    ### consisting of a numeric integer value, and a human-readable
+    ### label and description (like the instrument itself).
+    allowedValues:
+      -
+        value: 1
+        label: "Illegal"
+        description: "Possession is illegal, and this is actively enforced."
+      -
+        value: 2
+        label: "'Gedoogd'"
+        description: "Possession is illegal, but this is not actively enforced."
+      -
+        value: 3
+        label: "Legal"
+        description: "Possession is legal."
+
+    ### Specify the type of this assertion (in this case, 'instrument'
+    type: "instrument"
+---
+
+
+

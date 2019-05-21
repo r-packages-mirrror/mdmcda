@@ -1,0 +1,53 @@
+
+---
+justification:
+  -
+    ### This is meta-data about this policy option
+    scenario_id: liberal
+    label: "A liberal policy"
+    description: "This is the scenario where the most liberal policy option is chosen for every instrument."
+
+    ### Don't change this (has to be 'scenario_metadata' for the
+    ### metadata, and 'scenario_option_specification' for the choices)
+    type: scenario_metadata
+
+    ###########################################################################
+  -
+    ### Specify the id of the policy instrument
+    instrument_id: quality_monitoring
+
+    ### Specify the chosen option
+    value: 3
+
+    ### Optionally, justify or explain why this choice fits with this option
+    description: ""
+
+    ### Indicate to which scenario this choice belongs
+    scenario_id: liberal
+
+    ### Don't change this (has to be 'scenario_metadata' for the
+    ### metadata, and 'scenario_option_specification' for the choices)
+    type: scenario_option_specification
+
+    ###########################################################################
+  -
+    ### Specify the id of the policy instrument
+    instrument_id: legal_status_possession
+
+    ### Specify the chosen option
+    value: 3
+
+    ### Optionally, justify or explain why this choice fits with this option
+    description: ""
+
+    ### Indicate to which scenario this choice belongs
+    scenario_id: liberal
+
+    ### Don't change this (has to be 'scenario_metadata' for the
+    ### metadata, and 'scenario_option_specification' for the choices)
+    type: scenario_option_specification
+
+    ###########################################################################
+
+---
+

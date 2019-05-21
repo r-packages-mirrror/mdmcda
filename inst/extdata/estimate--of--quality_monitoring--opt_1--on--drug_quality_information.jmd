@@ -1,0 +1,58 @@
+
+---
+justification:
+  -
+    ### Specify the id of the regulatory instrument and the value of the
+    ### option within that instrument that this estimate pertains to.
+    instrument_id: quality_monitoring
+    instrument_option_value: 1
+    
+    ### Specify the outcome to which this estimate applies
+    outcome_id: drug_quality_information
+    
+    ### Specify the estimate on the agreed-upon scale
+    value: -1
+
+    ### Specify a human-readable short label
+    label: "Without monitoring, there is poor information."
+    
+    ### Specify a description that can be as long as you want.
+    description: "Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see 'value') is arrived at, based on the referenced assertion(s)."
+    
+    ### Specify the identifier of one or more assertions that this
+    ### justifications is based on. Separate identifiers using commas.
+    assertion: [placeholder_assertion]
+    
+    ### Don't change this (has to be 'estimate' for all estimates)
+    type: estimate
+---
+
+
+---
+assertion:
+  -
+    ### Specify a unique identifier for this assertion. It can only contain
+    ### upper- and lowercase Latin letters, digits, and underscores.
+    id: placeholder_assertion
+    
+    ### Specify a human-readable name for this assertion
+    label: "Description of this assertion"
+    
+    ### Specify a more extensive description
+    description: ""
+    
+    ### Specify the identifier of one or more sources that this assertion
+    ### is based on. Separate identifiers using commas.
+    source: [some_nonexistent_source]
+---
+
+
+---
+source:
+  -
+    id: some_nonexistent_source
+    label: "There's not really a source for this, but I need an example."
+    description: "This DOI links to another project where the 'justifier' R package is used."
+    xdoi: "doi:10.17605/osf.io/ndxha"
+---
+
