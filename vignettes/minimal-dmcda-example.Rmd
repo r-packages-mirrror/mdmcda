@@ -23,6 +23,8 @@ suppressMessages(remotes::install_gitlab("r-packages/yum",
                                          upgrade="never", quietly=TRUE));
 suppressMessages(remotes::install_gitlab("r-packages/justifier",
                                          upgrade="never", quietly=TRUE));
+suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+                                         upgrade="never", quietly=TRUE));
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");
@@ -38,7 +40,7 @@ currentDir <- file.path(currentDir, "extdata");
 ```{r load-instruments}
 
 instruments_and_options <-
-  load_instruments(currentDir);
+  dmcda::load_instruments(currentDir);
 instrumentsDf <-
   instruments_and_options$instrumentsDf;
 optionsDf <-
@@ -76,7 +78,7 @@ De uitkomsten ('criteria' genoemd in de meeste MCDA publicaties; de 'C' in MCDA)
 ```{r load-outcomes}
 
 outcomes <-
-  load_outcomes(currentDir);
+  dmcda::load_outcomes(currentDir);
 outcomesTree <-
   outcomes$outcomesTree;
 outcomesDf <-
@@ -117,9 +119,9 @@ Hier staan de inschattingen van de denktank met betrekking tot de gevolgen van e
 ```{r load-estimates, fig.width=10}
 
 estimates <-
-  load_estimates(currentDir,
-                 instruments_and_options = instruments_and_options,
-                 outcomes = outcomes);
+  dmcda::load_estimates(currentDir,
+                        instruments_and_options = instruments_and_options,
+                        outcomes = outcomes);
 estimatesDf <-
   estimates$estimatesDf;
 
@@ -144,8 +146,8 @@ knitr::kable(estimatesDf);
 ```{r read-scenarios}
 
 scenarios_and_options <-
-  load_scenarios(currentDir,
-                 instruments_and_options = instruments_and_options);
+  dmcda::load_scenarios(currentDir,
+                        instruments_and_options = instruments_and_options);
 scenariosMetadataDf <-
   scenarios_and_options$scenariosMetadataDf;
 scenarioOptionsDf <-
@@ -176,8 +178,8 @@ knitr::kable(scenarioOptionsDf);
 ```{r read-weights}
 
 weights <-
-  load_weights(currentDir,
-               outcomes=outcomes);
+  dmcda::load_weights(currentDir,
+                      outcomes=outcomes);
 weightsDf <-
   weights$weightsDf;
 multipliedWeights <-
