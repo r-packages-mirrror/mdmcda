@@ -34,6 +34,9 @@ load_outcomes <- function(path) {
               outcomesTree = outcomesTree,
               outcomesDf = outcomesDf);
 
+  class(res) <-
+    c("dmcda", "outcomes");
+
   return(res);
 
 }

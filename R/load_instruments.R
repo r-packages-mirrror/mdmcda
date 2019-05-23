@@ -55,6 +55,9 @@ load_instruments <- function(path) {
               instrumentsDf = instrumentsDf,
               optionsDf = optionsDf);
 
+  class(res) <-
+    c("dmcda", "instruments_and_options");
+
   return(res);
 
 }

@@ -34,8 +34,7 @@ currentDir <- file.path(currentDir, "extdata");
 
 ```
 
-
-
+# Defined instruments
 
 ```{r load-instruments}
 
