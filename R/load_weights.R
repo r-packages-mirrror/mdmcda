@@ -1,3 +1,4 @@
+#' @export
 load_weights <- function(path,
                          outcomes) {
 

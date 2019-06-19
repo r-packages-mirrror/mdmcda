@@ -1,3 +1,4 @@
+#' @export
 load_instruments <- function(path) {
 
   ### Use suppressWarnings because we do not need identifiers

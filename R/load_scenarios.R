@@ -1,3 +1,4 @@
+#' @export
 load_scenarios <- function(path,
                            instruments_and_options) {
 

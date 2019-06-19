@@ -1,3 +1,4 @@
+#' @export
 load_estimates <- function(path,
                            instruments_and_options,
                            outcomes) {

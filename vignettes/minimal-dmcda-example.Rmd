@@ -19,12 +19,14 @@ knitr::opts_chunk$set(
 	dpi=100
 );
 
-suppressMessages(remotes::install_gitlab("r-packages/yum",
-                                         upgrade="never", quietly=TRUE));
-suppressMessages(remotes::install_gitlab("r-packages/justifier",
-                                         upgrade="never", quietly=TRUE));
-suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-                                         upgrade="never", quietly=TRUE));
+tryCatch({
+  suppressMessages(remotes::install_gitlab("r-packages/yum",
+                                           upgrade="never", quietly=TRUE));
+  suppressMessages(remotes::install_gitlab("r-packages/justifier",
+                                           upgrade="never", quietly=TRUE));
+  suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+                                           upgrade="never", quietly=TRUE));
+}, error=invisible);
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");
@@ -47,26 +49,15 @@ optionsDf <-
 
 ```
 
-## Summary
-
 ```{r instruments-summary, results="asis"}
 
-knitr::kable(instrumentsDf,
-             row.names = FALSE);
+dmcda::summary_instruments(instruments_and_options);
 
 ```
 
-## Details
-
 ```{r instruments-details, results="asis"}
 
-for (x in instruments_and_options) {
-  ufs::cat0("\n\n### ", x$label, "\n\n");
-  ufs::cat0("\n\n", x$description, "\n\n");
-  for (i in x$allowedValues) {
-    ufs::cat0("- **", i$label, "**: ", i$description, "\n");
-  }
-}
+dmcda::details_instruments(instruments_and_options);
 
 ```
 

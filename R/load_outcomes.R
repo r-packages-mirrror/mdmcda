@@ -1,3 +1,4 @@
+#' @export
 load_outcomes <- function(path) {
 
   outcomes <-
