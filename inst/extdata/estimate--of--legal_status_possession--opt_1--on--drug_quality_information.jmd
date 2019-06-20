@@ -1,13 +1,13 @@
 ---
 justification:
   -
-    ### Specify the id of the regulatory instrument and the value of the
-    ### option within that instrument that this estimate pertains to.
-    instrument_id: legal_status_possession
-    instrument_option_value: 1
+    ### Specify the id of the regulatory decision and the value of the
+    ### option within that decision that this estimate pertains to.
+    decision_id: legal_status_possession
+    decision_option_value: 1
     
     ### Specify the outcome to which this estimate applies
-    outcome_id: drug_quality_information
+    criterion_id: drug_quality_information
     
     ### Specify the estimate on the agreed-upon scale
     value: 0

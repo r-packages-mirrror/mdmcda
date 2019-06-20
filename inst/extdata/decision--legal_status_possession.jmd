@@ -1,18 +1,18 @@
 ---
 assertion:
   -
-    ### A unique identifier for this instrument
+    ### A unique identifier for this decision
     id: legal_status_possession
 
-    ### A human-readable brief name for this instrument
+    ### A human-readable brief name for this decision
     label: "Legal status of possession"
 
-    ### A more extensive explanation of this instrument
+    ### A more extensive explanation of this decision
     description: "Whether possession of the substance is legal or illegal; or 'gedoogd', a construction where possession is formally illegal but that status is not enforced."
 
-    ### The list of policy options 'within' this instrument; each
+    ### The list of policy options 'within' this decision; each
     ### consisting of a numeric integer value, and a human-readable
-    ### label and description (like the instrument itself).
+    ### label and description (like the decision itself).
     allowedValues:
       -
         value: 1
@@ -27,8 +27,8 @@ assertion:
         label: "Legal"
         description: "Possession is legal."
 
-    ### Specify the type of this assertion (in this case, 'instrument'
-    type: "instrument"
+    ### Specify the type of this assertion (in this case, 'decision'
+    type: "decision"
 ---
 
 

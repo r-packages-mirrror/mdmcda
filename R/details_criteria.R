@@ -1,8 +1,7 @@
 #' @export
-summary_instruments <- function(instruments_and_options,
-                                header = "Summary",
+details_criteria <- function(criteria,
+                                header = "Details of criteria",
                                 headerLevel = 2) {
-
   if (is.null(header)) {
     res <- "\n\n";
   } else {
@@ -14,10 +13,7 @@ summary_instruments <- function(instruments_and_options,
   }
 
   res <-
-    paste0(res,
-           paste0(knitr::kable(instruments_and_options$instrumentsDf,
-                             row.names = FALSE),
-                  collapse="\n"));
+    knitr::kable(criteria$criteriaDf);
 
   res <- knitr::asis_output(res);
 

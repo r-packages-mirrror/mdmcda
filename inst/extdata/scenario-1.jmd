@@ -5,7 +5,7 @@ justification:
     ### This is meta-data about this policy option
     scenario_id: repressive
     label: "A repressive policy"
-    description: "This is the scenario where the most repressive policy option is chosen for every instrument."
+    description: "This is the scenario where the most repressive policy option is chosen for every decision."
 
     ### Don't change this (has to be 'scenario_metadata' for the
     ### metadata, and 'scenario_option_specification' for the choices)
@@ -13,8 +13,8 @@ justification:
 
     ###########################################################################
   -
-    ### Specify the id of the policy instrument
-    instrument_id: quality_monitoring
+    ### Specify the id of the policy decision
+    decision_id: quality_monitoring
 
     ### Specify the chosen option
     value: 1
@@ -31,8 +31,8 @@ justification:
 
     ###########################################################################
   -
-    ### Specify the id of the policy instrument
-    instrument_id: legal_status_possession
+    ### Specify the id of the policy decision
+    decision_id: legal_status_possession
 
     ### Specify the chosen option
     value: 1

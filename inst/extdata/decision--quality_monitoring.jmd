@@ -1,18 +1,18 @@
 ---
 assertion:
   -
-    ### A unique identifier for this instrument
+    ### A unique identifier for this decision
     id: quality_monitoring
 
-    ### A human-readable brief name for this instrument
+    ### A human-readable brief name for this decision
     label: "Quality monitoring"
 
-    ### A more extensive explanation of this instrument
+    ### A more extensive explanation of this decision
     description: "Whether an infrastructure exists that allows monitoring the quality of the substance."
 
-    ### The list of policy options 'within' this instrument; each
+    ### The list of policy options 'within' this decision; each
     ### consisting of a numeric integer value, and a human-readable
-    ### label and description (like the instrument itself).
+    ### label and description (like the decision itself).
     allowedValues:
       -
         value: 1
@@ -27,6 +27,6 @@ assertion:
         label: "Structurally"
         description: "Structural monitoring of the substance dose and quality occurs, enabling mapping of the substance's quality and dose over time."
 
-    ### Specify the type of this assertion (in this case, 'instrument'
-    type: "instrument"
+    ### Specify the type of this assertion (in this case, 'decision'
+    type: "decision"
 ---

@@ -1,10 +1,10 @@
 ---
-title: "Minimal Dynamic Multi-Criteria Decision Analysis example"
+title: "Minimal Dynamic Multi-Criteria Decision Aid example"
 author: "Gjalt-Jorn Peters"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Minimal Dynamic Multi-Criteria Decision Analysis example}
+  %\VignetteIndexEntry{Minimal Dynamic Multi-Criteria Decision Aid example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,6 +18,14 @@ knitr::opts_chunk$set(
 	dev.args=list(type="cairo"),
 	dpi=100
 );
+
+### Show code and table of contents label in HTML only
+if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  knitr::opts_chunk$set(echo=TRUE);
+  cat("\n\n# Contents\n\n");
+} else {
+  knitr::opts_chunk$set(echo=FALSE);
+}
 
 tryCatch({
   suppressMessages(remotes::install_gitlab("r-packages/yum",
@@ -36,84 +44,64 @@ currentDir <- file.path(currentDir, "extdata");
 
 ```
 
-# Defined instruments
+# Defined decisions
 
-```{r load-instruments}
+```{r load-decisions}
 
-instruments_and_options <-
-  dmcda::load_instruments(currentDir);
-instrumentsDf <-
-  instruments_and_options$instrumentsDf;
-optionsDf <-
-  instruments_and_options$optionsDf;
+decisions_and_options <-
+  dmcda::load_decisions(currentDir);
 
 ```
 
-```{r instruments-summary, results="asis"}
+```{r decisions-summary, results="asis"}
 
-dmcda::summary_instruments(instruments_and_options);
-
-```
-
-```{r instruments-details, results="asis"}
-
-dmcda::details_instruments(instruments_and_options);
+dmcda::summary_decisions(decisions_and_options);
 
 ```
 
-# Gedefineerde uitkomsten {.tabset}
+```{r decisions-details, results="asis"}
 
-De uitkomsten ('criteria' genoemd in de meeste MCDA publicaties; de 'C' in MCDA) zijn de gevolgen van beleid voor verschillende maatschappelijke indicatoren. Deze gevolgen vormen de criteria op basis waarvan overheden tussen beleidsopties per sturingsinstrument en uiteindelijk tussen scenario's kiezen (zie onder). Voorbeelden van mogelijke uitkomsten zijn bijvoorbeeld de volksgezondheid, de kleine criminaliteit, en de milieubelasting.
+dmcda::details_decisions(decisions_and_options);
+
+```
+
+# Defined criteria {.tabset}
+
+Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario.
 
 ```{r load-outcomes}
 
-outcomes <-
-  dmcda::load_outcomes(currentDir);
-outcomesTree <-
-  outcomes$outcomesTree;
-outcomesDf <-
-  outcomes$outcomesDf;
+criteria <-
+  dmcda::load_criteria(currentDir);
 
 ```
 
-## Samenvatting
+## Summary
 
-Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
+`r insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
-```{r outcomes-summary, fig.width=16, fig.height=12}
+```{r criteria-summary, fig.width=16, fig.height=12}
 
-suppressWarnings(
-  plot(rev(as.dendrogram(outcomesTree)),
-       horiz=TRUE,
-       center=FALSE,
-       asp=25,
-       nodePar = list(pch = c(18, 20),
-                      cex=1,
-                      lab.cex = 3))
-);
+dmcda::summary_criteria(criteria);
 
 ```
 
 ## Details
 
-```{r outcomes-details}
+```{r criteria-details}
 
-knitr::kable(outcomesDf);
+dmcda::details_criteria(criteria);
 
 ```
 
-# Overzicht van de schattingen {.tabset}
-
-Hier staan de inschattingen van de denktank met betrekking tot de gevolgen van elke mogelijke beleidsoptie in elk sturingsinstrument op elke uitkomst. Om bij de eerder gegeven voorbeelden te blijven: de twee beleidsopties die een overheid maakt in het sturingsinstrument met betrekking tot of MDMA getest mag worden en in het sturingsinstrument met betrekking tot of verkoop strafbaar is hebben elk een invloed op de verschillende uitkomsten, bijvoorbeeld de volksgezondheid, de kleine criminaliteit, en de milieubelasting. Het eerste van deze sturingsinstrumenten, of MDMA getest mag worden, bestaat in dit voorbeeld uit twee beleidsopties (wel of niet). Beleidsoptie 'wel' heeft een verwacht effect op de drie uitkomsten, en dit kan worden uitgedrukt in drie schattingen. Het effect van beleidsoptie 'niet' op die drie uitkomsten kan ook worden uitgedrukt in drie schattingen. Het tweede sturingsinstrument had drie beleidsopties, en elke beleidsoptie heeft weer verwachte effecten op de drie uitkomsten (negen schattingen in totaal). Door die twee sturingsinstrumenten zo te definieren (de eerste met twee, en de tweede met drie keuzes), en door drie uitkomsten te hanteren, moeten er dus in totaal vijftien schattingen worden gemaakt (zes plus negen).
+# Estimates {.tabset}
 
 ```{r load-estimates, fig.width=10}
 
 estimates <-
   dmcda::load_estimates(currentDir,
-                        instruments_and_options = instruments_and_options,
-                        outcomes = outcomes);
-estimatesDf <-
-  estimates$estimatesDf;
+                        decisions_and_options = decisions_and_options,
+                        criteria = criteria);
 
 ```
 
