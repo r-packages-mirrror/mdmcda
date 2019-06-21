@@ -1,17 +1,17 @@
 #' @export
-summary_decisions <- function(decisions_and_options,
-                              header = "Summary of decisions",
-                              headerLevel = 2,
-                              pdfCols = c(2, 3, 4),
-                              pdfColLabels = c("Decision",
-                                               "Description",
-                                               "Options"),
-                              pdfColWidths = c("5cm", "5cm", "5cm")) {
+details_multiplied_weights <- function(weights,
+                                       header = "Details of multiplied weights",
+                                       headerLevel = 2,
+                                       pdfCols = c(1, 2, 3),
+                                       pdfColLabels = c("Criterion id",
+                                                        "Weight after multiplication",
+                                                        "Weight profile"),
+                                       pdfColWidths = c("4cm", "4cm", "4cm")) {
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(decisions_and_options$decisionsDf);
+    return(weights$multipliedWeights);
   }
 
   if (is.null(header)) {
@@ -32,7 +32,7 @@ summary_decisions <- function(decisions_and_options,
 
   if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf[, pdfCols],
+      knitr::kable(weights$multipliedWeights[, pdfCols],
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
@@ -44,7 +44,7 @@ summary_decisions <- function(decisions_and_options,
     }
   } else {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf,
+      knitr::kable(weights$multipliedWeights,
                    row.names = FALSE);
   }
 

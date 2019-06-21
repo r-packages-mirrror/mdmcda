@@ -62,7 +62,7 @@ load_estimates <- function(path,
                      res <-
                        data.frame(decision_id = x$decision_id,
                                   decision_label = decisionsDf[decisionsDf$id==x$decision_id, 'label'],
-                                  decisions_option_value = x$decision_option_value,
+                                  decision_option_value = x$decision_option_value,
                                   option_label = optionsDf[optionsDf$decision_id==x$decision_id &
                                                              optionsDf$value==x$decision_option_value, 'label'],
                                   criterion_id = x$criterion_id,

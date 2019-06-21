@@ -1,17 +1,25 @@
 #' @export
-summary_decisions <- function(decisions_and_options,
-                              header = "Summary of decisions",
-                              headerLevel = 2,
-                              pdfCols = c(2, 3, 4),
-                              pdfColLabels = c("Decision",
-                                               "Description",
-                                               "Options"),
-                              pdfColWidths = c("5cm", "5cm", "5cm")) {
+details_autofilled_estimates <- function(estimates,
+                                         header = "Details of estimates after autofilling",
+                                         headerLevel = 2,
+                                         pdfCols = c(2, 4, 6, 7, 8, 9),
+                                         pdfColLabels = c("Decision",
+                                                          "Option",
+                                                          "Criterion",
+                                                          "Value",
+                                                          "Label",
+                                                          "Description"),
+                                         pdfColWidths = c("2cm", "1.5cm", "2cm",
+                                                          "1cm", "4cm", "4cm")) {
+
+  if (is.null(estimates$autofilledEstimatesDf)) {
+    stop("Estimates have not been autofilled yet! First run 'autofill_estimates'!");
+  }
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(decisions_and_options$decisionsDf);
+    return(estimates$autofilledEstimatesDf);
   }
 
   if (is.null(header)) {
@@ -32,7 +40,7 @@ summary_decisions <- function(decisions_and_options,
 
   if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf[, pdfCols],
+      knitr::kable(estimates$autofilledEstimatesDf[, pdfCols],
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
@@ -44,7 +52,7 @@ summary_decisions <- function(decisions_and_options,
     }
   } else {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf,
+      knitr::kable(estimates$autofilledEstimatesDf,
                    row.names = FALSE);
   }
 

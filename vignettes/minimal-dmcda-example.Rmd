@@ -42,6 +42,8 @@ currentDir <- system.file(package="dmcda");
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
 
+#currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
+
 ```
 
 # Defined decisions
@@ -76,17 +78,13 @@ criteria <-
 
 ```
 
-## Summary
-
-`r insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
 ```{r criteria-summary, fig.width=16, fig.height=12}
 
 dmcda::summary_criteria(criteria);
 
 ```
-
-## Details
 
 ```{r criteria-details}
 
@@ -105,17 +103,17 @@ estimates <-
 
 ```
 
-## Samenvatting
+`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
-Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
+```{r estimates-summary, fig.width=10}
 
-Hier komt een samenvatting.
+dmcda::summary_estimates(estimates);
 
-## Details
+```
 
 ```{r estimates-details, fig.width=10}
 
-knitr::kable(estimatesDf);
+dmcda::details_estimates(estimates);
 
 ```
 
@@ -125,21 +123,13 @@ knitr::kable(estimatesDf);
 
 scenarios_and_options <-
   dmcda::load_scenarios(currentDir,
-                        instruments_and_options = instruments_and_options);
-scenariosMetadataDf <-
-  scenarios_and_options$scenariosMetadataDf;
-scenarioOptionsDf <-
-  scenarios_and_options$scenarioOptionsDf;
+                        decisions_and_options = decisions_and_options);
 
 ```
 
-## Samenvatting
-
-Klik op de 'Details' tab hierboven om meer gedetailleerde informatie te zien.
-
 ```{r scenarios-summary, results="asis"}
 
-knitr::kable(scenariosMetadataDf);
+dmcda::summary_scenarios(scenarios_and_options);
 
 ```
 
@@ -147,102 +137,52 @@ knitr::kable(scenariosMetadataDf);
 
 ```{r scenarios-details, results="asis"}
 
-knitr::kable(scenarioOptionsDf);
+dmcda::details_scenarios(scenarios_and_options);
 
 ```
 
-# Gewichten van de wegingen van de uitkomsten {.tabset}
+# Weights of the criteria {.tabset}
 
 ```{r read-weights}
 
 weights <-
   dmcda::load_weights(currentDir,
-                      outcomes=outcomes);
-weightsDf <-
-  weights$weightsDf;
-multipliedWeights <-
-  weights$multipliedWeights;
-
+                      criteria=criteria);
 
 ```
 
-## Samenvatting
+```{r show-weights, results="asis"}
 
-Hier komt een samenvatting van de gewichten.
-
-## Details
-
-```{r weights-summary, results="asis"}
-
-knitr::kable(weightsDf);
-
-knitr::kable(multipliedWeights);
+dmcda::details_weights(weights);
 
 ```
 
-# Totaaloverzicht {.tabset}
+```{r show-multiplied-weights, results="asis"}
+
+dmcda::details_multiplied_weights(weights);
+
+```
+
+# General overview {.tabset}
 
 ```{r total-overview-autofill}
 
-autofillLogs <- "\n";
-autofilledEstimatesDf <-
-  estimatesDf;
-for (i in 1:nrow(optionsDf)) {
-  for (j in which(outcomesDf$isLeaf)) {
-    if (any((estimatesDf$instrument_id == optionsDf[i, 'instrument_id']) &
-            (estimatesDf$instrument_option_value == optionsDf[i, 'value']) &
-            (estimatesDf$outcome_id == outcomesDf[j, 'id']))) {
-      autofillLogs <-
-        c(autofillLogs,
-          paste0("- Estimate found for the effect of option '",
-                 optionsDf[i, 'label'],
-                 "' for instrument '",
-                 instrumentsDf[instrumentsDf$id==optionsDf[i, 'instrument_id'], 'label'],
-                 "' for outcome '",
-                 outcomesDf[j, 'id'],
-                 "': ",
-                 estimatesDf[(estimatesDf$instrument_id==optionsDf[i, 'instrument_id']) &
-                             (estimatesDf$instrument_option_value==optionsDf[i, 'value']) &
-                             (estimatesDf$outcome_id==outcomesDf[j, 'id']),
-                             "value"]));
-    } else {
-      autofillLogs <-
-        c(autofillLogs,
-          paste0("- **No** estimate found for the effect of option '",
-                 optionsDf[i, 'label'],
-                 "' for instrument '",
-                 instrumentsDf[instrumentsDf$id==optionsDf[i, 'instrument_id'], 'label'],
-                 "' for outcome '",
-                 outcomesDf[j, 'id'],
-                 "'. Setting this estimate to 0."));
-      autofilledEstimatesDf <-
-        rbind(autofilledEstimatesDf,
-              data.frame(instrument_id = optionsDf[i, 'instrument_id'],
-                         instrument_label = optionsDf[i, 'instrument_label'],
-                         instrument_option_value = optionsDf[i, 'value'],
-                         option_label = optionsDf[i, 'label'],
-                         outcome_id = outcomesDf[j, 'id'],
-                         outcome_label = outcomesDf[j, 'label'],
-                         value = 0,
-                         label = "Autofilled",
-                         description = "This estimate was not 'manually' specified, and has therefore been autofilled with 0.",
-                         id = paste0("id_", max(as.numeric(gsub("id_", "", estimatesDf$id)))+1),
-                         stringsAsFactors = FALSE));
-    }
-  }
-}
+estimates <-
+  dmcda::autofill_estimates(estimates=estimates,
+                            criteria=criteria,
+                            decisions_and_options=decisions_and_options);
 
 ```
 
-## Samenvatting
+## Summary
 
-Er zijn `r sum(outcomesDf$isLeaf)` uitkomsten gedefinieerd, en `r nrow(instrumentsDf)` sturingsinstrumenten met in totaal `r nrow(optionsDf)` beleidsopties. Dit betekent dat er `r sum(outcomesDf$isLeaf) * nrow(optionsDf)` schattingen nodig zijn. Hiervan zijn er `r length(estimates)` gespecificeerd.
+`r dmcda::summary_general(criteria, decisions_and_options, estimates);`
 
 ## Details
 
 ```{r total-overview-details, results="asis"}
 
-knitr::kable(estimatesDf);
+dmcda::details_autofilled_estimates(estimates);
 
 ```
 
@@ -253,92 +193,20 @@ Bij assertions is het goed om counterfactuals te definieren. Dat zijn dan verwij
 ## Logs
 
 ```{r total-overview-autofill-logs, results='asis'}
-cat(paste0(autofillLogs,
+cat(paste0(estimates$autofillLogs,
            collapse="\n"));
 ```
 
-# Scores per scenario en wegingsprofiel
+# Scores for each scenario and weight profile
 
-```{r scores-summary, results="asis"}
+```{r scores-summary, results="asis", eval=FALSE}
 
-### Multiply each estimate with the multiplied weights for each
-### profile
-for (wtProf in unique(weightsDf$weight_profile_id)) {
-  convenienceVector <-
-    multipliedWeights[multipliedWeights$profile_id==wtProf,
-                      "multipliedWeight"];
-  names(convenienceVector) <-
-    multipliedWeights[multipliedWeights$profile_id==wtProf,
-                      "outcome_id"];
-  
-  estimatesDf[, paste0(wtProf,
-                       '___score')] <-
-    estimatesDf$value * convenienceVector[estimatesDf$outcome_id];
-  autofilledEstimatesDf[, paste0(wtProf,
-                                 '___score')] <-
-    autofilledEstimatesDf$value * convenienceVector[autofilledEstimatesDf$outcome_id];
-  rm(convenienceVector);
-}
+estimates <-
+  weight_estimates(estimates=estimates,
+                   weights=weights);
 
-### Select all multiplied estimates for each scenario
-scenarioScores <- list();
-
-### Separately per each weight profile
-for (currentScenario in scenariosMetadataDf$scenario_id) {
-  scenarioScores[[currentScenario]] <- list();
-  ### And per scenario
-  for (currentWtProf in unique(weightsDf$weight_profile_id)) {
-    scenarioScores[[currentScenario]][[currentWtProf]] <- data.frame();
-    ### And per instrument
-    for (currentInstr in instrumentsDf$id) {
-      ### And only for the chosen option
-      currentOption <-
-        scenarioOptionsDf[scenarioOptionsDf$scenario_id==currentScenario &
-                          scenarioOptionsDf$instrument_id==currentInstr, 'instrument_option_value'];
-      if (length(currentOption) == 0) {
-        warning("For scenario '",
-                currentScenario,
-                "' and instrument '",
-                currentInstr,
-                "', no option is selected!");
-      } else {
-        ### And per outcome
-        for (currentOutcome in outcomesDf$id[outcomesDf$isLeaf]) {
-          scenarioScores[[currentScenario]][[currentWtProf]] <-
-            rbind(scenarioScores[[currentScenario]][[currentWtProf]],
-                  data.frame(scenario_id = currentScenario,
-                             weight_profile_id = currentWtProf,
-                             instrument_id = currentInstr,
-                             instrument_option_value = currentOption,
-                             outcome_id = currentOutcome,
-                             score = autofilledEstimatesDf[
-                               autofilledEstimatesDf$instrument_id==currentInstr &
-                               autofilledEstimatesDf$instrument_option_value==currentOption &
-                               autofilledEstimatesDf$outcome_id==currentOutcome,
-                               paste0(currentWtProf, "___score")]));
-        }
-      }
-    }
-  }
-}
-
-for (i in names(scenarioScores)) {
-  for (j in names(scenarioScores[[i]])) {
-    ufs::cat0("\n\n## Scenario: ",
-              i,
-              "\n\n");
-    ufs::cat0("\n\n### Wegingsprofiel: ",
-              j,
-              "{.tabset}\n\n");
-    ufs::cat0("\n\n#### Samenvatting\n\n");
-    ufs::cat0("**Score:** ", sum(scenarioScores[[i]][[j]]$score), "\n\n");
-    ufs::cat0("\n\n#### Details\n\n");
-    print(knitr::kable(scenarioScores[[i]][[j]][, c('instrument_id',
-                                                    'instrument_option_value',
-                                                    'outcome_id',
-                                                    'score')]));
-  }
-}
+scores <-
+  scenario_scores();
 
 ```
 

@@ -1,17 +1,17 @@
 #' @export
-summary_decisions <- function(decisions_and_options,
-                              header = "Summary of decisions",
+details_scenarios <- function(scenarios_and_options,
+                              header = "Details of scenarios",
                               headerLevel = 2,
-                              pdfCols = c(2, 3, 4),
-                              pdfColLabels = c("Decision",
-                                               "Description",
-                                               "Options"),
-                              pdfColWidths = c("5cm", "5cm", "5cm")) {
+                              pdfCols = c(1, 2, 3),
+                              pdfColLabels = c("Scenario",
+                                               "Decision",
+                                               "Option"),
+                              pdfColWidths = c("3cm", "6cm", "6cm")) {
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(decisions_and_options$decisionsDf);
+    return(scenarios_and_options$scenarioOptionsDf);
   }
 
   if (is.null(header)) {
@@ -32,7 +32,7 @@ summary_decisions <- function(decisions_and_options,
 
   if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf[, pdfCols],
+      knitr::kable(scenarios_and_options$scenarioOptionsDf[, pdfCols],
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
@@ -44,7 +44,7 @@ summary_decisions <- function(decisions_and_options,
     }
   } else {
     table <-
-      knitr::kable(decisions_and_options$decisionsDf,
+      knitr::kable(scenarios_and_options$scenarioOptionsDf,
                    row.names = FALSE);
   }
 
