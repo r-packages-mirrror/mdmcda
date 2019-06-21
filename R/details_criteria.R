@@ -30,7 +30,7 @@
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(criteria$criteriaDf[, pdfCols],
                    format="latex",
