@@ -1,3 +1,4 @@
+#' @export
 details_scores <- function(scenario_scores,
                            header = "Details of scores",
                            headerLevel = 2) {
