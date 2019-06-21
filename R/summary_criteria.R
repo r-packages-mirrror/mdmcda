@@ -19,8 +19,8 @@ summary_criteria <- function(criteria,
          center=FALSE,
          asp=25,
          nodePar = list(pch = c(18, 20),
-                        cex=1,
-                        lab.cex = 3))
+                        cex=1.5,
+                        lab.cex = 2))
   ));
 
 }

@@ -6,7 +6,7 @@
                               pdfColLabels = c("Parent criterion",
                                                "Label",
                                                "Description"),
-                              pdfColWidths = c("3cm", "3cm", "3cm")) {
+                              pdfColWidths = c("3cm", "3cm", "8cm")) {
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
