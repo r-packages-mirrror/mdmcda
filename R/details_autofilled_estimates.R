@@ -46,7 +46,7 @@ details_autofilled_estimates <- function(estimates,
                    booktabs = TRUE, longtable = TRUE);
     for (i in seq_along(pdfCols)) {
       table <-
-        kableExtra::column_spec(tale,
+        kableExtra::column_spec(table,
                                 column = i,
                                 width = pdfColWidths[i]);
     }

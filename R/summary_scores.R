@@ -42,7 +42,7 @@ summary_scores <- function(scores,
                    booktabs = TRUE, longtable = TRUE);
     for (i in seq_along(pdfCols)) {
       table <-
-        kableExtra::column_spec(tale,
+        kableExtra::column_spec(table,
                                 column = i,
                                 width = pdfColWidths[i]);
     }
