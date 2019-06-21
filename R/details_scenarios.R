@@ -18,7 +18,7 @@ details_scenarios <- function(scenarios_and_alternatives,
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  ufs::repStr("#", headerLevel),
+                  repStr("#", headerLevel),
                   " ",
                   header,
                   "\n\n");

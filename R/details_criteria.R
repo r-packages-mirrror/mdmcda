@@ -6,7 +6,7 @@ details_criteria <- function(criteria,
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  ufs::repStr("#", headerLevel),
+                  repStr("#", headerLevel),
                   " ",
                   header,
                   "\n\n");

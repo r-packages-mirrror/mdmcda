@@ -28,12 +28,12 @@ if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
 }
 
 tryCatch({
-  suppressMessages(remotes::install_gitlab("r-packages/yum",
-                                           upgrade="never", quietly=TRUE));
-  suppressMessages(remotes::install_gitlab("r-packages/justifier",
-                                           upgrade="never", quietly=TRUE));
-  suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-                                           upgrade="never", quietly=TRUE));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+                                           upgrade="never", quietly=TRUE)));
 }, error=invisible);
 
 ### First get the directory where 'dmcda' is installed
@@ -138,8 +138,6 @@ scenarios_and_alternatives <-
 dmcda::summary_scenarios(scenarios_and_alternatives);
 
 ```
-
-## Details
 
 ```{r scenarios-details, results="asis"}
 

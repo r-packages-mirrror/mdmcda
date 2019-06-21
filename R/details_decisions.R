@@ -6,14 +6,14 @@ details_decisions <- function(decisions_and_alternatives,
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  ufs::repStr("#", headerLevel),
+                  repStr("#", headerLevel),
                   " ",
                   header,
                   "\n\n");
   }
   for (x in decisions_and_alternatives$decisions) {
     res <- paste0(res, "\n\n",
-                  ufs::repStr("#", headerLevel+1),
+                  repStr("#", headerLevel+1),
                   " ", x$label, "\n\n");
     res <- paste0(res, "\n\n", x$description, "\n\n");
     for (i in x$allowedValues) {

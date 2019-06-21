@@ -76,7 +76,7 @@ scenario_scores <- function(criteria,
                       "', weighing profile '",
                       currentWtProf,
                       "'! Specifically, ",
-                      ufs::vecTxtQ(currentScore),
+                      vecTxtQ(currentScore),
                       ". Take the mean of these estimates.");
               currentScore <- mean(currentScore,
                                    na.rm=TRUE);

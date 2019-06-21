@@ -29,7 +29,7 @@ load_decisions <- function(path) {
                      return(data.frame(id = x$id,
                                        label = x$label,
                                        description = x$description,
-                                       choices = ufs::vecTxtQ(purrr::map_chr(x$allowedValues,
+                                       choices = vecTxtQ(purrr::map_chr(x$allowedValues,
                                                                              "label")),
                                        stringsAsFactors = FALSE));
                    }));
