@@ -30,7 +30,7 @@ summary_scores <- function(scores,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(scores$scoresDf[, pdfCols],
                    format="latex",

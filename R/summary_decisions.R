@@ -30,7 +30,7 @@ summary_decisions <- function(decisions_and_alternatives,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(decisions_and_alternatives$decisionsDf[, pdfCols],
                    format="latex",

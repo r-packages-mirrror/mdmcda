@@ -34,7 +34,7 @@ details_estimates <- function(estimates,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(estimates$estimatesDf[, pdfCols],
                    format="latex",

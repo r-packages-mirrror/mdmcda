@@ -23,7 +23,7 @@ summary_estimates <- function(estimates,
                   "\n\n");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(table,
                    format="latex",

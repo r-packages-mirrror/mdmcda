@@ -29,7 +29,7 @@ summary_scenarios <- function(scenarios_and_alternatives,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(scenarios_and_alternatives$scenariosMetadataDf[, pdfCols],
                    format="latex",

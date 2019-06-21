@@ -31,7 +31,7 @@ details_weights <- function(weights,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()()) {
+  if (knitr::is_latex_output()) {
     table <-
       knitr::kable(weights$weightsDf[, pdfCols],
                    format="latex",
