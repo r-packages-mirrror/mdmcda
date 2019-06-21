@@ -13,7 +13,7 @@ summary_criteria <- function(criteria,
                   "\n\n");
   }
 
-  knit_print(criteria$criteriaTree);
+  knitr::knit_print(criteria$criteriaTree);
 
   cat0("\n\n");
 
