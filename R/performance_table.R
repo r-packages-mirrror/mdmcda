@@ -10,17 +10,25 @@ performance_table <- function(criteria,
   alternative_values <- decisions_and_alternatives$alternativesDf$value;
   alternative_labels <- decisions_and_alternatives$alternativesDf$label;
 
-  resTop <-
-    matrix(c(NA, NA, NA, NA, criteria_ids),
-           c(NA, NA, NA, NA, criteria_labels),
-           byrow=TRUE);
+  if (length(criteria_ids) != length(criteria_labels)) {
+    stop("Wow, this is weird. This definitely shouldn't happen.");
+  }
+
+  nCols <- 4 + length(criteria_ids);
 
   resTop <-
+    matrix(c(NA_character_, NA_character_, NA_character_, NA_character_, criteria_ids,
+             NA_character_, NA_character_, NA_character_, NA_character_, criteria_labels),
+           byrow=TRUE,
+           ncol=nCols);
+
+  resBottom <-
     matrix(c(decision_ids,
              alternative_values,
              decision_labels,
              alternative_labels,
-             rep(NA, length(criteria_ids) * length(decision_ids))));
+             rep(NA_character_, length(criteria_ids) * length(decision_ids))),
+           ncol=nCols);
 
   res <- rbind(resTop,
                resBottom);
