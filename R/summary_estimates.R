@@ -23,7 +23,7 @@ summary_estimates <- function(estimates,
                   "\n\n");
   }
 
-  if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     table <-
       knitr::kable(table,
                    booktabs = TRUE,

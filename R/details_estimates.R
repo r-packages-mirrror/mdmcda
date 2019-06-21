@@ -34,7 +34,7 @@ details_estimates <- function(estimates,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     table <-
       knitr::kable(estimates$estimatesDf[, pdfCols],
                    row.names = FALSE,

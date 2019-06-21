@@ -44,7 +44,7 @@ details_sources <- function(estimates,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     table <-
       knitr::kable(sourcesDf[, pdfCols],
                    row.names = FALSE,
