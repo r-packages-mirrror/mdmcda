@@ -5,7 +5,7 @@ details_scenarios <- function(scenarios_and_alternatives,
                               pdfCols = c(1, 2, 3),
                               pdfColLabels = c("Scenario",
                                                "Decision",
-                                               "Alternative"),
+                                               "Selected alternative"),
                               pdfColWidths = c("3cm", "6cm", "6cm")) {
 
   ### IF we're not knitting, immediately return the decision

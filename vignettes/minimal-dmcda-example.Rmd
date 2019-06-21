@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 );
 
 ### Show code and table of contents label in HTML only
-if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+if (knitr::is_latex_output()) {
   knitr::opts_chunk$set(echo=FALSE);
 } else if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
   knitr::opts_chunk$set(echo=TRUE);
@@ -43,8 +43,6 @@ currentDir <- system.file(package="dmcda");
 
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
-
-#currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
 
 ```
 
@@ -103,6 +101,24 @@ dmcda::summary_decisions(decisions_and_alternatives);
 dmcda::details_decisions(decisions_and_alternatives);
 
 ```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+<!-- Saving the performance table -->
+
+```{r store-performance-table, results="asis"}
+
+performance_table <-
+  dmcda::performance_table(criteria,
+                           decisions_and_alternatives);
+
+write.csv(performance_table,
+          file.path(currentDir, "empty_performance_table.csv"));
+
+```
+
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->

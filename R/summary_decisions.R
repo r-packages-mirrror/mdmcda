@@ -5,7 +5,7 @@ summary_decisions <- function(decisions_and_alternatives,
                               pdfCols = c(2, 3, 4),
                               pdfColLabels = c("Decision",
                                                "Description",
-                                               "alternatives"),
+                                               "Alternatives"),
                               pdfColWidths = c("5cm", "5cm", "5cm")) {
 
   ### IF we're not knitting, immediately return the decision
