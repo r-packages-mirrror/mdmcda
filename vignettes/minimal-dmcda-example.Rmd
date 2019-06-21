@@ -20,21 +20,23 @@ knitr::opts_chunk$set(
 );
 
 ### Show code and table of contents label in HTML only
-if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  knitr::opts_chunk$set(echo=FALSE);
+} else if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
   knitr::opts_chunk$set(echo=TRUE);
   cat("\n\n# Contents\n\n");
 } else {
-  knitr::opts_chunk$set(echo=FALSE);
+  knitr::opts_chunk$set(echo=TRUE);
 }
 
-tryCatch({
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-                                           upgrade="never", quietly=TRUE)));
-}, error=invisible);
+# tryCatch({
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
+#                                            upgrade="never", quietly=TRUE)));
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
+#                                            upgrade="never", quietly=TRUE)));
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+#                                            upgrade="never", quietly=TRUE)));
+# }, error=invisible);
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");
@@ -42,9 +44,13 @@ currentDir <- system.file(package="dmcda");
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
 
-currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
+#currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
 
 ```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 
 # Defined criteria {.tabset}
 
@@ -71,6 +77,10 @@ dmcda::details_criteria(criteria);
 
 ```
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Defined decisions
 
 The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.
@@ -93,6 +103,10 @@ dmcda::summary_decisions(decisions_and_alternatives);
 dmcda::details_decisions(decisions_and_alternatives);
 
 ```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 
 # Estimates {.tabset}
 
@@ -121,6 +135,10 @@ dmcda::details_estimates(estimates);
 
 ```
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Scenarios {.tabset}
 
 Scenarios are sets of coherent alternative selections for every decision.
@@ -145,6 +163,10 @@ dmcda::details_scenarios(scenarios_and_alternatives);
 
 ```
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Weights of the criteria {.tabset}
 
 ```{r read-weights}
@@ -166,6 +188,10 @@ dmcda::details_weights(weights);
 dmcda::details_multiplied_weights(weights);
 
 ```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 
 # General overview {.tabset}
 
@@ -190,6 +216,10 @@ dmcda::details_autofilled_estimates(estimates);
 
 ```
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Scores for each scenario and weight profile
 
 ```{r scores-compute, results="asis", eval=TRUE}
@@ -207,13 +237,11 @@ scenario_scores <-
 
 ```
 
-
 ```{r scores-summary, results="asis", eval=TRUE}
 
 dmcda::summary_scores(scenario_scores);
 
 ```
-
 
 ```{r scores-details, results="asis", eval=TRUE}
 
@@ -221,21 +249,25 @@ dmcda::details_scores(scenario_scores);
 
 ```
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Appendices
-
-## Counterfactuals
-
-Bij assertions is het goed om counterfactuals te definieren. Dat zijn dan verwijzingen naar andere assertions die ook sources hebben. Scoren voor # counterfactuals en kwaliteit van evidentie per assertion?
 
 ## Assertions
 
-This is an overview of all assertions (all 'facts'. 'claims' 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on.
+This is an overview of all assertions (all 'facts'. 'claims', 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.
 
 ```{r assertions-details, results="asis", eval=TRUE}
 
 dmcda::details_assertions(estimates);
 
 ```
+
+## Counterfactuals
+
+When formulating assertions, it is also good practice to formulate counterfactuals. This are references to other assertions that also have sources. This enables for example scoring for the number of counterfactuals.
 
 ## Sources / literature
 

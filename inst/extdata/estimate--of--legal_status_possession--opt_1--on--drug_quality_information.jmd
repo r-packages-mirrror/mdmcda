@@ -4,7 +4,7 @@ justification:
     ### Specify the id of the regulatory decision and the value of the
     ### option within that decision that this estimate pertains to.
     decision_id: legal_status_possession
-    decision_option_value: 1
+    decision_alternative_value: 1
     
     ### Specify the outcome to which this estimate applies
     criterion_id: drug_quality_information

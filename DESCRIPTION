@@ -1,13 +1,19 @@
 Package: dmcda
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Dynamic Multi Criteria Decision Aid
+Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Gjalt-Jorn Ygram",
+           family = "Peters",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "gjalt-jorn@behaviorchange.eu",
+           comment = c(ORCID = "0000-0002-0336-9589"))
+Maintainer: Gjalt-Jorn Ygram Peters <gjalt-jorn@behaviorchange.eu>
+License: GPL (>= 3)
+Description: Complex decisions can be hard to oversee. To assist in such efforts,
+    Multi Criteria Decision Analysis (MCDA) has been developed. This package implements
+    functionality to read 'YAML' files using the yum and the justifier packages, enabling
+    approaching the MCDA process in a more dynamic way, while generating machine-readable
+    documentation that enables complete transparency of the process.
 Encoding: UTF-8
 LazyData: true
 Suggests: 

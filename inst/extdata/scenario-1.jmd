@@ -26,8 +26,8 @@ justification:
     scenario_id: repressive
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
-    type: scenario_option_specification
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
+    type: scenario_alternative_specification
 
     ###########################################################################
   -
@@ -44,8 +44,8 @@ justification:
     scenario_id: repressive
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
-    type: scenario_option_specification
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
+    type: scenario_alternative_specification
 
     ###########################################################################
 

@@ -1,0 +1,53 @@
+variables:
+#  CODECOV_TOKEN: "ccd0e0ce-a5bd-4219-b6cc-c789dca79be1"
+  _R_CHECK_CRAN_INCOMING_: "false"
+  _R_CHECK_FORCE_SUGGESTS_: "true"
+  APT_PKGS: "libcurl4-openssl-dev libssh2-1-dev libssl-dev libxml2-dev zlib1g-dev git libgsl0-dev"
+
+pages:
+  stage: build
+  image: alpine:latest
+  script:
+     - echo "Nothing to do, but script has to be provided."
+#    - mkdir public/img
+#    - cp img/hex-logo.png public/img/hex-logo.png
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+devtools-check:
+  stage: test
+  image: rocker/tidyverse
+  before_script:
+    - apt-get update
+#    - apt-get install -y --no-install-recommends ${APT_PKGS}
+    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+  script:
+    - R -e 'install.packages(c("dplyr", "yum", "justifier"))'
+    - R -e 'devtools::install_gitlab("r-packages/yum")'
+    - R -e 'devtools::install_gitlab("r-packages/justifier")'
+    - R -e 'devtools::check()'
+  tags:
+    - docker
+
+#coverage:
+#  stage: deploy
+#  tags:
+#    - docker
+#  image: rocker/tidyverse
+#  when: on_success
+#  only:
+#    - master
+#  before_script:
+#    - apt-get update
+#    - apt-get install -y --no-install-recommends ${APT_PKGS}
+#    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+#  script:
+#    - R -e 'install.packages(c("ggplot2", "gridExtra", "MASS", "minpack.lm"))'
+#    - R -e 'install.packages(c("rosetta", "SCRT", "ufs", "viridis"))'
+#    - R -e 'devtools::install_gitlab("r-packages/rosetta")'
+#    - R -e 'devtools::install_gitlab("r-packages/ufs")'
+#    - R -e 'devtools::install()'
+#    - R -e 'covr::codecov(type = c("tests", "examples"), quiet = FALSE)'

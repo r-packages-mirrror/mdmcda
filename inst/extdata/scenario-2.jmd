@@ -8,7 +8,7 @@ justification:
     description: "This is the scenario where the most liberal policy option is chosen for every decision."
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
     type: scenario_metadata
 
     ###########################################################################
@@ -26,8 +26,8 @@ justification:
     scenario_id: liberal
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
-    type: scenario_option_specification
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
+    type: scenario_alternative_specification
 
     ###########################################################################
   -
@@ -44,8 +44,8 @@ justification:
     scenario_id: liberal
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
-    type: scenario_option_specification
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
+    type: scenario_alternative_specification
 
     ###########################################################################
 
