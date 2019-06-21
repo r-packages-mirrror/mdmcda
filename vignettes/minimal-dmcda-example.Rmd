@@ -192,20 +192,32 @@ dmcda::details_autofilled_estimates(estimates);
 
 # Scores for each scenario and weight profile
 
-```{r scores-summary, results="asis", eval=TRUE}
+```{r scores-compute, results="asis", eval=TRUE}
 
 estimates <-
   dmcda::weigh_estimates(estimates=estimates,
                          weights=weights);
 
-scores <-
+scenario_scores <-
   dmcda::scenario_scores(criteria = criteria,
                          decisions_and_alternatives = decisions_and_alternatives,
                          estimates = estimates,
                          scenarios_and_alternatives = scenarios_and_alternatives,
                          weights = weights);
 
-dmcda::summary_scores(scores);
+```
+
+
+```{r scores-summary, results="asis", eval=TRUE}
+
+dmcda::summary_scores(scenario_scores);
+
+```
+
+
+```{r scores-details, results="asis", eval=TRUE}
+
+dmcda::details_scores(scenario_scores);
 
 ```
 
