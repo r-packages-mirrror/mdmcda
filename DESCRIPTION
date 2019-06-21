@@ -17,7 +17,6 @@ Description: Complex decisions can be hard to oversee. To assist in such efforts
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    knitr,
     rmarkdown
 Imports:
     dplyr (>= 0.8),
