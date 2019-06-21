@@ -33,6 +33,7 @@
   if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     table <-
       knitr::kable(criteria$criteriaDf[, pdfCols],
+                   format="latex",
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);

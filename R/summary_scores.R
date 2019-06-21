@@ -2,15 +2,11 @@
 summary_scores <- function(scores,
                            heading = "Summary of scores",
                            headingLevel = 2,
-                           pdfCols = c(2, 4, 6, 7, 8, 9),
-                           pdfColLabels = c("Decision",
-                                            "alternative",
-                                            "Criterion",
-                                            "Value",
-                                            "Label",
-                                            "Description"),
-                           pdfColWidths = c("2cm", "1.5cm", "2cm",
-                                            "1cm", "4cm", "4cm")) {
+                           pdfCols = c(1, 2, 3),
+                           pdfColLabels = c("Scenario",
+                                            "Weight Profile",
+                                            "Score"),
+                           pdfColWidths = c("3cm", "3cm", "2cm")) {
 
   ### If we're not knitting, immediately return the decision
   ### dataframe
@@ -37,6 +33,7 @@ summary_scores <- function(scores,
   if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     table <-
       knitr::kable(scores$scoresDf[, pdfCols],
+                   format="latex",
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
