@@ -22,6 +22,8 @@ Suggests:
 Imports:
     dplyr (>= 0.8),
     justifier (>= 0.0.1),
+    kableExtra (>= 1.1.0),
+    knitr (>= 1.22),
     yum (>= 0.0.1)
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
