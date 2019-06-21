@@ -14,6 +14,8 @@ Suggests:
     knitr,
     rmarkdown
 Imports:
-    dplyr (>= 0.8)
+    dplyr (>= 0.8),
+    justifier (>= 0.0.1),
+    yum (>= 0.0.1)
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
