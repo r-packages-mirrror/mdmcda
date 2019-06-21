@@ -11,7 +11,7 @@ details_scenario_scores <- function(scenario_scores) {
       ufs::cat0("**Score:** ", sum(scenario_scores[[i]][[j]]$score), "\n\n");
       ufs::cat0("\n\n#### Details\n\n");
       print(knitr::kable(scenario_scores[[i]][[j]][, c('instrument_id',
-                                                      'instrument_option_value',
+                                                      'instrument_alternative_value',
                                                       'outcome_id',
                                                       'score')]));
     }

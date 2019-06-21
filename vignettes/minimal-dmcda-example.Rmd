@@ -42,34 +42,13 @@ currentDir <- system.file(package="dmcda");
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
 
-#currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
-
-```
-
-# Defined decisions
-
-```{r load-decisions}
-
-decisions_and_options <-
-  dmcda::load_decisions(currentDir);
-
-```
-
-```{r decisions-summary, results="asis"}
-
-dmcda::summary_decisions(decisions_and_options);
-
-```
-
-```{r decisions-details, results="asis"}
-
-dmcda::details_decisions(decisions_and_options);
+currentDir <- "B:/Data/society & valorisation/think-tanks/mdma"
 
 ```
 
 # Defined criteria {.tabset}
 
-Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario.
+Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario. The criteria are what drive the decisions. They are normally not directly under control, but are assumed to result from the decisions.
 
 ```{r load-outcomes}
 
@@ -92,13 +71,38 @@ dmcda::details_criteria(criteria);
 
 ```
 
+# Defined decisions
+
+The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.
+
+```{r load-decisions}
+
+decisions_and_alternatives <-
+  dmcda::load_decisions(currentDir);
+
+```
+
+```{r decisions-summary, results="asis"}
+
+dmcda::summary_decisions(decisions_and_alternatives);
+
+```
+
+```{r decisions-details, results="asis"}
+
+dmcda::details_decisions(decisions_and_alternatives);
+
+```
+
 # Estimates {.tabset}
+
+Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example, 
 
 ```{r load-estimates, fig.width=10}
 
 estimates <-
   dmcda::load_estimates(currentDir,
-                        decisions_and_options = decisions_and_options,
+                        decisions_and_alternatives = decisions_and_alternatives,
                         criteria = criteria);
 
 ```
@@ -117,19 +121,21 @@ dmcda::details_estimates(estimates);
 
 ```
 
-# Definities van scenario's {.tabset}
+# Scenarios {.tabset}
+
+Scenarios are sets of coherent alternative selections for every decision.
 
 ```{r read-scenarios}
 
-scenarios_and_options <-
+scenarios_and_alternatives <-
   dmcda::load_scenarios(currentDir,
-                        decisions_and_options = decisions_and_options);
+                        decisions_and_alternatives = decisions_and_alternatives);
 
 ```
 
 ```{r scenarios-summary, results="asis"}
 
-dmcda::summary_scenarios(scenarios_and_options);
+dmcda::summary_scenarios(scenarios_and_alternatives);
 
 ```
 
@@ -137,7 +143,7 @@ dmcda::summary_scenarios(scenarios_and_options);
 
 ```{r scenarios-details, results="asis"}
 
-dmcda::details_scenarios(scenarios_and_options);
+dmcda::details_scenarios(scenarios_and_alternatives);
 
 ```
 
@@ -170,13 +176,13 @@ dmcda::details_multiplied_weights(weights);
 estimates <-
   dmcda::autofill_estimates(estimates=estimates,
                             criteria=criteria,
-                            decisions_and_options=decisions_and_options);
+                            decisions_and_alternatives=decisions_and_alternatives);
 
 ```
 
 ## Summary
 
-`r dmcda::summary_general(criteria, decisions_and_options, estimates);`
+`r dmcda::summary_general(criteria, decisions_and_alternatives, estimates);`
 
 ## Details
 
@@ -186,27 +192,44 @@ dmcda::details_autofilled_estimates(estimates);
 
 ```
 
+# Scores for each scenario and weight profile
+
+```{r scores-summary, results="asis", eval=TRUE}
+
+estimates <-
+  dmcda::weigh_estimates(estimates=estimates,
+                         weights=weights);
+
+scores <-
+  dmcda::scenario_scores(criteria = criteria,
+                         decisions_and_alternatives = decisions_and_alternatives,
+                         estimates = estimates,
+                         scenarios_and_alternatives = scenarios_and_alternatives,
+                         weights = weights);
+
+dmcda::summary_scores(scores);
+
+```
+
+# Appendices
+
 ## Counterfactuals
 
 Bij assertions is het goed om counterfactuals te definieren. Dat zijn dan verwijzingen naar andere assertions die ook sources hebben. Scoren voor # counterfactuals en kwaliteit van evidentie per assertion?
 
+## Assertions
+
+This is an overview of all assertions (all 'facts'. 'claims' 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on.
+
+## Sources / literature
+
+This is an overview of all sources that the assertions refer to.
+
 ## Logs
 
-```{r total-overview-autofill-logs, results='asis'}
+These are more detailed logs.
+
+```{r total-overview-autofill-logs, results='asis', eval=FALSE}
 cat(paste0(estimates$autofillLogs,
            collapse="\n"));
 ```
-
-# Scores for each scenario and weight profile
-
-```{r scores-summary, results="asis", eval=FALSE}
-
-estimates <-
-  weight_estimates(estimates=estimates,
-                   weights=weights);
-
-scores <-
-  scenario_scores();
-
-```
-

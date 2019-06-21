@@ -36,7 +36,7 @@ load_decisions <- function(path) {
   row.names(decisionsDf) <-
     NULL;
 
-  optionsDf <-
+  alternativesDf <-
     do.call(rbind,
             lapply(decisions,
                    function(x) {
@@ -48,16 +48,16 @@ load_decisions <- function(path) {
                                                               "label"),
                                        stringsAsFactors = FALSE));
                    }));
-  row.names(optionsDf) <-
+  row.names(alternativesDf) <-
     NULL;
 
   res <- list(decisions_raw = decisions_raw,
               decisions = decisions,
               decisionsDf = decisionsDf,
-              optionsDf = optionsDf);
+              alternativesDf = alternativesDf);
 
   class(res) <-
-    c("dmcda", "decisions_and_options");
+    c("dmcda", "decisions_and_alternatives");
 
   return(res);
 

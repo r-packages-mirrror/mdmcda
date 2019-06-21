@@ -1,17 +1,17 @@
 #' @export
-details_scenarios <- function(scenarios_and_options,
+details_scenarios <- function(scenarios_and_alternatives,
                               header = "Details of scenarios",
                               headerLevel = 2,
                               pdfCols = c(1, 2, 3),
                               pdfColLabels = c("Scenario",
                                                "Decision",
-                                               "Option"),
+                                               "alternative"),
                               pdfColWidths = c("3cm", "6cm", "6cm")) {
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(scenarios_and_options$scenarioOptionsDf);
+    return(scenarios_and_alternatives$scenarioalternativesDf);
   }
 
   if (is.null(header)) {
@@ -32,7 +32,7 @@ details_scenarios <- function(scenarios_and_options,
 
   if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
     table <-
-      knitr::kable(scenarios_and_options$scenarioOptionsDf[, pdfCols],
+      knitr::kable(scenarios_and_alternatives$scenarioalternativesDf[, pdfCols],
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
@@ -44,7 +44,7 @@ details_scenarios <- function(scenarios_and_options,
     }
   } else {
     table <-
-      knitr::kable(scenarios_and_options$scenarioOptionsDf,
+      knitr::kable(scenarios_and_alternatives$scenarioalternativesDf,
                    row.names = FALSE);
   }
 

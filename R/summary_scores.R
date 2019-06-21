@@ -1,17 +1,21 @@
 #' @export
-summary_decisions <- function(decisions_and_alternatives,
-                              header = "Summary of decisions",
-                              headerLevel = 2,
-                              pdfCols = c(2, 3, 4),
-                              pdfColLabels = c("Decision",
-                                               "Description",
-                                               "alternatives"),
-                              pdfColWidths = c("5cm", "5cm", "5cm")) {
+summary_scores <- function(scores,
+                           header = "Summary of scores",
+                           headerLevel = 2,
+                           pdfCols = c(2, 4, 6, 7, 8, 9),
+                           pdfColLabels = c("Decision",
+                                            "alternative",
+                                            "Criterion",
+                                            "Value",
+                                            "Label",
+                                            "Description"),
+                           pdfColWidths = c("2cm", "1.5cm", "2cm",
+                                            "1cm", "4cm", "4cm")) {
 
-  ### IF we're not knitting, immediately return the decision
+  ### If we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(decisions_and_alternatives$decisionsDf);
+    return(scores$scoresDf);
   }
 
   if (is.null(header)) {
@@ -32,7 +36,7 @@ summary_decisions <- function(decisions_and_alternatives,
 
   if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
     table <-
-      knitr::kable(decisions_and_alternatives$decisionsDf[, pdfCols],
+      knitr::kable(scores$scoresDf[, pdfCols],
                    row.names = FALSE,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
@@ -44,7 +48,7 @@ summary_decisions <- function(decisions_and_alternatives,
     }
   } else {
     table <-
-      knitr::kable(decisions_and_alternatives$decisionsDf,
+      knitr::kable(scores$scoresDf,
                    row.names = FALSE);
   }
 
@@ -56,4 +60,10 @@ summary_decisions <- function(decisions_and_alternatives,
   res <- knitr::asis_output(res);
 
   return(res);
+
 }
+
+
+#' #' @export
+#' #' @method print scenario_scores
+#' print.scenario_scores

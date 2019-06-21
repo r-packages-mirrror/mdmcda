@@ -4,7 +4,7 @@ details_estimates <- function(estimates,
                               headerLevel = 2,
                               pdfCols = c(2, 4, 6, 7, 8, 9),
                               pdfColLabels = c("Decision",
-                                               "Option",
+                                               "alternative",
                                                "Criterion",
                                                "Value",
                                                "Label",
@@ -12,7 +12,7 @@ details_estimates <- function(estimates,
                               pdfColWidths = c("2cm", "1.5cm", "2cm",
                                                "1cm", "4cm", "4cm")) {
 
-  ### IF we're not knitting, immediately return the decision
+  ### If we're not knitting, immediately return the decision
   ### dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
     return(estimates$estimatesDf);

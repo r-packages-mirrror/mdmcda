@@ -1,5 +1,5 @@
 #' @export
-details_decisions <- function(decisions_and_options,
+details_decisions <- function(decisions_and_alternatives,
                               header = "Details of decisions",
                               headerLevel = 2) {
   if (is.null(header)) {
@@ -11,7 +11,7 @@ details_decisions <- function(decisions_and_options,
                   header,
                   "\n\n");
   }
-  for (x in decisions_and_options$decisions) {
+  for (x in decisions_and_alternatives$decisions) {
     res <- paste0(res, "\n\n",
                   ufs::repStr("#", headerLevel+1),
                   " ", x$label, "\n\n");
