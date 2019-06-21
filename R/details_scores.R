@@ -18,15 +18,9 @@ details_scores <- function(scenario_scores,
       res <- paste0(res,
                     "\n\n## Scenario: ",
                     i,
-                    "\n\n",
+                    " {.tabset}\n\n",
                     "\n\n### Weighing profile: ",
-                    j," {.tabset}\n\n",
-                    "\n\n#### Summary\n\n",
-                    "**Score:** ",
-                    sum(scenario_scores$scenarioScores[[i]][[j]]$score,
-                        na.rm=TRUE),
-                    "\n\n",
-                    "\n\n#### Details\n\n");
+                    j," {.tabset}\n\n");
       res <-
         paste0(res,
                paste0(knitr::kable(scenario_scores$scenarioScores[[i]][[j]][,

@@ -231,9 +231,21 @@ Bij assertions is het goed om counterfactuals te definieren. Dat zijn dan verwij
 
 This is an overview of all assertions (all 'facts'. 'claims' 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on.
 
+```{r assertions-details, results="asis", eval=TRUE}
+
+dmcda::details_assertions(estimates);
+
+```
+
 ## Sources / literature
 
 This is an overview of all sources that the assertions refer to.
+
+```{r sources-details, results="asis", eval=TRUE}
+
+dmcda::details_sources(estimates);
+
+```
 
 ## Logs
 
