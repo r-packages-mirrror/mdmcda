@@ -29,14 +29,14 @@ if ("pdf_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
   knitr::opts_chunk$set(echo=TRUE);
 }
 
-# tryCatch({
-#   invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
-#                                            upgrade="never", quietly=TRUE)));
-#   invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
-#                                            upgrade="never", quietly=TRUE)));
-#   invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-#                                            upgrade="never", quietly=TRUE)));
-# }, error=invisible);
+tryCatch({
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+                                           upgrade="never", quietly=TRUE)));
+}, error=invisible);
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");

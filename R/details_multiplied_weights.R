@@ -30,7 +30,7 @@ details_multiplied_weights <- function(weights,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+  if (knitr::is_latex_output()()) {
     table <-
       knitr::kable(weights$multipliedWeights[, pdfCols],
                    format="latex",

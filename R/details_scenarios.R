@@ -30,7 +30,7 @@ details_scenarios <- function(scenarios_and_alternatives,
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+  if (knitr::is_latex_output()()) {
     table <-
       knitr::kable(scenarios_and_alternatives$scenarioAlternativesDf[, pdfCols],
                    format="latex",

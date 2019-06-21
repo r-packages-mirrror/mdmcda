@@ -2,11 +2,11 @@
  details_criteria <- function(criteria,
                               heading = "Details of criteria",
                               headingLevel = 2,
-                              pdfCols = c(2, 3, 4),
-                              pdfColLabels = c("Parent criterion",
-                                               "Label",
-                                               "Description"),
-                              pdfColWidths = c("3cm", "3cm", "8cm")) {
+                              pdfCols = c(3, 4, 2),
+                              pdfColLabels = c("Label",
+                                               "Description",
+                                               "Parent criterion"),
+                              pdfColWidths = c("3cm", "8cm", "3cm")) {
 
   ### IF we're not knitting, immediately return the decision
   ### dataframe
@@ -30,7 +30,7 @@
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (any(c("pdf_document", "latex") %in% knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+  if (knitr::is_latex_output()()) {
     table <-
       knitr::kable(criteria$criteriaDf[, pdfCols],
                    format="latex",

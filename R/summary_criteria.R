@@ -13,6 +13,10 @@ summary_criteria <- function(criteria,
                   "\n\n");
   }
 
+  knit_print(criteria$criteriaTree);
+
+  cat0("\n\n");
+
   return(suppressWarnings(
     plot(rev(as.dendrogram(criteria$criteriaTree)),
          horiz=TRUE,
