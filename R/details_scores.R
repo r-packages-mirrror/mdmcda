@@ -1,15 +1,15 @@
 #' @export
 details_scores <- function(scenario_scores,
-                           header = "Details of scores",
-                           headerLevel = 2) {
+                           heading = "Details of scores",
+                           headingLevel = 2) {
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

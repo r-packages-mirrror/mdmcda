@@ -1,7 +1,7 @@
 #' @export
 summary_decisions <- function(decisions_and_alternatives,
-                              header = "Summary of decisions",
-                              headerLevel = 2,
+                              heading = "Summary of decisions",
+                              headingLevel = 2,
                               pdfCols = c(2, 3, 4),
                               pdfColLabels = c("Decision",
                                                "Description",
@@ -14,13 +14,13 @@ summary_decisions <- function(decisions_and_alternatives,
     return(decisions_and_alternatives$decisionsDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

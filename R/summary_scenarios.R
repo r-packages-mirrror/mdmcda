@@ -1,7 +1,7 @@
 #' @export
 summary_scenarios <- function(scenarios_and_alternatives,
-                              header = "Summary of scenarios",
-                              headerLevel = 2,
+                              heading = "Summary of scenarios",
+                              headingLevel = 2,
                               pdfCols = c(2, 3),
                               pdfColLabels = c("Scenario",
                                                "Description"),
@@ -13,13 +13,13 @@ summary_scenarios <- function(scenarios_and_alternatives,
     return(scenarios_and_alternatives$scenariosMetadataDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

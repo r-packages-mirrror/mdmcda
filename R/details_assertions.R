@@ -1,7 +1,7 @@
 #' @export
 details_assertions <- function(estimates,
-                               header = "Details of assertions",
-                               headerLevel = 2,
+                               heading = "Details of assertions",
+                               headingLevel = 2,
                                pdfCols = c(1, 2, 3),
                                pdfColLabels = c("Identifier",
                                                 "Label",
@@ -36,13 +36,13 @@ details_assertions <- function(estimates,
     return(assertionsDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

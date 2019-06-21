@@ -1,7 +1,7 @@
 #' @export
 details_estimates <- function(estimates,
-                              header = "Details of estimates",
-                              headerLevel = 2,
+                              heading = "Details of estimates",
+                              headingLevel = 2,
                               pdfCols = c(2, 4, 6, 7, 8, 9),
                               pdfColLabels = c("Decision",
                                                "alternative",
@@ -18,13 +18,13 @@ details_estimates <- function(estimates,
     return(estimates$estimatesDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

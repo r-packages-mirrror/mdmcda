@@ -1,14 +1,14 @@
 #' @export
 details_criteria <- function(criteria,
-                             header = "Details of criteria",
-                             headerLevel = 2) {
-  if (is.null(header)) {
+                             heading = "Details of criteria",
+                             headingLevel = 2) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

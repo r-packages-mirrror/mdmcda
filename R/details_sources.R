@@ -1,7 +1,7 @@
 #' @export
 details_sources <- function(estimates,
-                            header = "Details of sources",
-                            headerLevel = 2,
+                            heading = "Details of sources",
+                            headingLevel = 2,
                             pdfCols = c(1, 2, 3),
                             pdfColLabels = c("Identifier",
                                              "Label",
@@ -28,13 +28,13 @@ details_sources <- function(estimates,
     return(sourcesDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

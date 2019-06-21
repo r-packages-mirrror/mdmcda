@@ -1,7 +1,7 @@
 #' @export
 details_weights <- function(weights,
-                            header = "Details of weights",
-                            headerLevel = 2,
+                            heading = "Details of weights",
+                            headingLevel = 2,
                             pdfCols = c(1, 2, 3, 4),
                             pdfColLabels = c("Weight profile",
                                              "Criterion id",
@@ -15,13 +15,13 @@ details_weights <- function(weights,
     return(weights$weightsDf);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

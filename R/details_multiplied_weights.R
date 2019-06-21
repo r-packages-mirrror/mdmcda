@@ -1,7 +1,7 @@
 #' @export
 details_multiplied_weights <- function(weights,
-                                       header = "Details of multiplied weights",
-                                       headerLevel = 2,
+                                       heading = "Details of multiplied weights",
+                                       headingLevel = 2,
                                        pdfCols = c(1, 2, 3),
                                        pdfColLabels = c("Criterion id",
                                                         "Weight after multiplication",
@@ -14,13 +14,13 @@ details_multiplied_weights <- function(weights,
     return(weights$multipliedWeights);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

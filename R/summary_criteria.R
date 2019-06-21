@@ -1,15 +1,15 @@
 #' @export
 summary_criteria <- function(criteria,
-                             header = "Summary of criteria",
-                             headerLevel = 2) {
+                             heading = "Summary of criteria",
+                             headingLevel = 2) {
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 

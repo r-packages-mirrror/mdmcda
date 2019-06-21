@@ -1,19 +1,19 @@
 #' @export
 details_decisions <- function(decisions_and_alternatives,
-                              header = "Details of decisions",
-                              headerLevel = 2) {
-  if (is.null(header)) {
+                              heading = "Details of decisions",
+                              headingLevel = 2) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
   for (x in decisions_and_alternatives$decisions) {
     res <- paste0(res, "\n\n",
-                  repStr("#", headerLevel+1),
+                  repStr("#", headingLevel+1),
                   " ", x$label, "\n\n");
     res <- paste0(res, "\n\n", x$description, "\n\n");
     for (i in x$allowedValues) {

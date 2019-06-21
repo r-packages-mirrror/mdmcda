@@ -1,8 +1,8 @@
 #' @export
 summary_estimates <- function(estimates,
-                              header = "Summary of estimates",
+                              heading = "Summary of estimates",
                               colNames = c("Decision", "Number of estimates"),
-                              headerLevel = 2) {
+                              headingLevel = 2) {
 
   table <-
     table(estimates$estimatesDf$decision_label, estimates$estimatesDf$criterion_label);
@@ -13,13 +13,13 @@ summary_estimates <- function(estimates,
     return(table);
   }
 
-  if (is.null(header)) {
+  if (is.null(heading)) {
     res <- "\n\n";
   } else {
     res <- paste0("\n\n",
-                  repStr("#", headerLevel),
+                  repStr("#", headingLevel),
                   " ",
-                  header,
+                  heading,
                   "\n\n");
   }
 
