@@ -147,10 +147,17 @@ In this example, the performance of each decision alternative on each criterion 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
+# Consensus between raters
+
 ```{r load_performance_tables}
 
-bla <- load_performance_table(file.path(currentDir,
-                                        "a_performance_table.xlsx"))
+# bla <- load_performance_table(file.path(currentDir,
+#                                         "a_performance_table.xlsx"))
+
+completed_performance_tables <-
+  dmcda::load_performance_tables(file.path(currentDir));
+
+knitr::kable(completed_performance_tables$multiEstimateDf);
 
 ```
 

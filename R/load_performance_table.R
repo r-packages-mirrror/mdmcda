@@ -1,5 +1,5 @@
 #' @export
-load_performance_table <- function(input,
+load_performance_table <- function(file,
                                    sheetIndex=1,
                                    sep=",",
                                    ...) {
@@ -23,16 +23,19 @@ load_performance_table <- function(input,
       res <-
         xlsx::read.xlsx(file=file,
                         sheetIndex=sheetIndex,
+                        as.data.frame = TRUE,
+                        stringsAsFactors=FALSE,
                         ...)
     }
   } else {
     res <-
       utils::read.table(file=file,
                         sep=sep,
+                        stringsAsFactors=FALSE,
                         ...);
   }
 
-  class(res) <- c('performance_table', class(rs));
+  class(res) <- c('performance_table', class(res));
 
   return(invisible(res));
 }
