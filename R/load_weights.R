@@ -19,6 +19,11 @@ load_weights <- function(input,
   criteriaTree <- criteria$criteriaTree;
   criteriaDf <- criteria$criteriaDf;
 
+  ### Set regex is only extension was provided
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
+
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     weights_raw <-

@@ -2,6 +2,7 @@
 load_estimates <- function(input,
                            extension = "jmd",
                            regex = NULL,
+                           encoding = "UTF-8",
                            decisions_and_alternatives,
                            criteria) {
 
@@ -29,10 +30,18 @@ load_estimates <- function(input,
   criteriaDf <-
     criteria$criteriaDf;
 
+  ### Set regex is only extension was provided
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
+
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     estimates_raw <-
-      justifier::load_justifications_dir(path)
+      justifier::load_justifications_dir(input,
+                                         regex = regex,
+                                         recursive = recursive,
+                                         encoding=encoding)
   );
 
   ### Get all estimates

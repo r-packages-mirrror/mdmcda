@@ -15,14 +15,15 @@ load_scenarios <- function(input,
          vecTxtQ(class(decisions_and_alternatives)), ".");
   }
 
-  if (is.null(regex)) {
-    regex <- paste0("^(.*)\\.", extension, "$");
-  }
-
   decisionsDf <-
     decisions_and_alternatives$decisionsDf;
   alternativesDf <-
     decisions_and_alternatives$alternativesDf;
+
+  ### Set regex is only extension was provided
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
 
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
