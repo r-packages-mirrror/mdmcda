@@ -40,11 +40,11 @@ load_decisions <- function(input,
     do.call(rbind,
             lapply(decisions,
                    function(x) {
-                     return(data.frame(decision_id = rep(x$id, length(x$allowedValues)),
-                                       decision_label = rep(x$label, length(x$allowedValues)),
-                                       value = purrr::map_chr(x$allowedValues,
+                     return(data.frame(decision_id = rep(x$id, length(x$alternatives)),
+                                       decision_label = rep(x$label, length(x$alternatives)),
+                                       value = purrr::map_chr(x$alternatives,
                                                               "value"),
-                                       label = purrr::map_chr(x$allowedValues,
+                                       label = purrr::map_chr(x$alternatives,
                                                               "label"),
                                        stringsAsFactors = FALSE));
                    }));
