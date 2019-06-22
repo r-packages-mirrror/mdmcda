@@ -1,6 +1,6 @@
 #' @export
-performance_table <- function(criteria,
-                              decisions_and_alternatives) {
+create_performance_table <- function(criteria,
+                                     decisions_and_alternatives) {
   criteria_ids <-
     criteria$criteriaDf[criteria$criteriaDf$isLeaf, 'id'];
   criteria_labels <-
@@ -32,6 +32,8 @@ performance_table <- function(criteria,
 
   res <- rbind(resTop,
                resBottom);
+
+  class(res) <- c('dmcda', 'performance_table', class(res));
 
   return(res);
 }

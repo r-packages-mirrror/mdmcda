@@ -108,16 +108,27 @@ dmcda::details_decisions(decisions_and_alternatives);
 
 <!-- Saving the performance table -->
 
+# Empty performance table
+
 ```{r store-performance-table, results="asis"}
 
 performance_table <-
-  dmcda::performance_table(criteria,
-                           decisions_and_alternatives);
+  dmcda::create_performance_table(criteria,
+                                  decisions_and_alternatives);
 
-write.csv(performance_table,
-          file.path(currentDir, "empty_performance_table.csv"));
+# dmcda::write_performance_table(performance_table,
+#                                file.path(currentDir,
+#                                          "empty_performance_table.csv"),
+#                                overwrite=TRUE);
+
+knitr::kable(performance_table);
 
 ```
+
+This is the table with all values to be estimated. The values can be filled
+either through filling the table and importing it, or through specifying specific
+values, which enables also providing justifications and linking to assertions and
+sources for support.
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->

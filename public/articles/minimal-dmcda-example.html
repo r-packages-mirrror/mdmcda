@@ -89,7 +89,31 @@
 <h1 class="hasAnchor">
 <a href="#defined-criteria" class="anchor"></a>Defined criteria</h1>
 <p>Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario. The criteria are what drive the decisions. They are normally not directly under control, but are assumed to result from the decisions.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"></a>
+<a class="sourceLine" id="cb1-2" title="2">criteria &lt;-</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_criteria</span>(currentDir);</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
+<a class="sourceLine" id="cb2-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_criteria</span>(criteria);</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;                           levelName</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; 1  criteria                        </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 2   ¦--user_health                 </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 3   ¦   ¦--shift_to_other_drugs    </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 4   ¦   °--drug_quality_information</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 5   ¦--public                      </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 6   ¦   ¦--the_vulnerable          </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 7   ¦   °--cultural_values         </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 8   ¦--crime                       </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 9   ¦   ¦--criminalisation_of_users</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 10  ¦   ¦--small_crime             </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; 11  ¦   °--corporate_crime         </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 12  ¦--economy                     </span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; 13  ¦   ¦--state_revenues          </span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; 14  ¦   °--costs_financial         </span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 15  °--political                   </span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 16      °--international_policy</span></a></code></pre></div>
 <p><img src="minimal-dmcda-example_files/figure-html/criteria-summary-1.png" width="1600"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
+<a class="sourceLine" id="cb3-2" title="2">dmcda<span class="op">::</span><span class="kw">details_criteria</span>(criteria);</a></code></pre></div>
 <div id="details-of-criteria" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-criteria" class="anchor"></a>Details of criteria</h2>
@@ -223,6 +247,11 @@
 <h1 class="hasAnchor">
 <a href="#defined-decisions" class="anchor"></a>Defined decisions</h1>
 <p>The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"></a>
+<a class="sourceLine" id="cb4-2" title="2">decisions_and_alternatives &lt;-</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_decisions</span>(currentDir);</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"></a>
+<a class="sourceLine" id="cb5-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_decisions</span>(decisions_and_alternatives);</a></code></pre></div>
 <div id="summary-of-decisions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-decisions" class="anchor"></a>Summary of decisions</h2>
@@ -248,6 +277,8 @@
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"></a>
+<a class="sourceLine" id="cb6-2" title="2">dmcda<span class="op">::</span><span class="kw">details_decisions</span>(decisions_and_alternatives);</a></code></pre></div>
 </div>
 <div id="details-of-decisions" class="section level2">
 <h2 class="hasAnchor">
@@ -271,14 +302,170 @@
 <li><p><strong>Incidently</strong>: Monitoring occurs but only incidently, precluding detecting patterns in the substance’s quality and dose over time.</p></li>
 <li><p><strong>Structurally</strong>: Structural monitoring of the substance dose and quality occurs, enabling mapping of the substance’s quality and dose over time.</p></li>
 </ul>
-<!----------------------------------------------------------------------------><!----------------------------------------------------------------------------><!---------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------><!----------------------------------------------------------------------------><!----------------------------------------------------------------------------><!-- Saving the performance table -->
 </div>
 </div>
+</div>
+<div id="empty-performance-table" class="section level1">
+<h1 class="hasAnchor">
+<a href="#empty-performance-table" class="anchor"></a>Empty performance table</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"></a>
+<a class="sourceLine" id="cb7-2" title="2">performance_table &lt;-</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">performance_table</span>(criteria,</a>
+<a class="sourceLine" id="cb7-4" title="4">                           decisions_and_alternatives);</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co"># write.table(performance_table,</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#             file.path(currentDir, "empty_performance_table.csv"),</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#             col.names = FALSE,</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#             row.names = FALSE);</span></a>
+<a class="sourceLine" id="cb7-10" title="10"></a>
+<a class="sourceLine" id="cb7-11" title="11">knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(performance_table);</a></code></pre></div>
+<table class="table"><tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">shift_to_other_drugs</td>
+<td align="left">drug_quality_information</td>
+<td align="left">the_vulnerable</td>
+<td align="left">cultural_values</td>
+<td align="left">criminalisation_of_users</td>
+<td align="left">small_crime</td>
+<td align="left">corporate_crime</td>
+<td align="left">state_revenues</td>
+<td align="left">costs_financial</td>
+<td align="left">international_policy</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">Shift to other drugs</td>
+<td align="left">Drug quality / information</td>
+<td align="left">The vulnerable</td>
+<td align="left">Cultural Values</td>
+<td align="left">Criminalisation of users</td>
+<td align="left">Small crime</td>
+<td align="left">Corporate crime</td>
+<td align="left">State revenues</td>
+<td align="left">Costs (financial)</td>
+<td align="left">International Policy</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_status_possession</td>
+<td align="left">1</td>
+<td align="left">Legal status of possession</td>
+<td align="left">Illegal</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">legal_status_possession</td>
+<td align="left">2</td>
+<td align="left">Legal status of possession</td>
+<td align="left">‘Gedoogd’</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_status_possession</td>
+<td align="left">3</td>
+<td align="left">Legal status of possession</td>
+<td align="left">Legal</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">quality_monitoring</td>
+<td align="left">1</td>
+<td align="left">Quality monitoring</td>
+<td align="left">None</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">quality_monitoring</td>
+<td align="left">2</td>
+<td align="left">Quality monitoring</td>
+<td align="left">Incidently</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">quality_monitoring</td>
+<td align="left">3</td>
+<td align="left">Quality monitoring</td>
+<td align="left">Structurally</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+<p>This is the table with all values to be estimated. The values can be filled either through filling the table and importing it, or through specifying specific values, which enables also providing justifications and linking to assertions and sources for support.</p>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 </div>
 <div id="estimates" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#estimates" class="anchor"></a>Estimates</h1>
 <p>Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example,</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"></a>
+<a class="sourceLine" id="cb8-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_estimates</span>(currentDir,</a>
+<a class="sourceLine" id="cb8-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
+<a class="sourceLine" id="cb8-5" title="5">                        <span class="dt">criteria =</span> criteria);</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"></a>
+<a class="sourceLine" id="cb9-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_estimates</span>(estimates);</a></code></pre></div>
 <div id="summary-of-estimates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-estimates" class="anchor"></a>Summary of estimates</h2>
@@ -298,6 +485,8 @@
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
+<a class="sourceLine" id="cb10-2" title="2">dmcda<span class="op">::</span><span class="kw">details_estimates</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-estimates" class="section level2">
 <h2 class="hasAnchor">
@@ -397,6 +586,12 @@
 <h1 class="hasAnchor">
 <a href="#scenarios" class="anchor"></a>Scenarios</h1>
 <p>Scenarios are sets of coherent alternative selections for every decision.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"></a>
+<a class="sourceLine" id="cb11-2" title="2">scenarios_and_alternatives &lt;-</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_scenarios</span>(currentDir,</a>
+<a class="sourceLine" id="cb11-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives);</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
+<a class="sourceLine" id="cb12-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
 <div id="summary-of-scenarios" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-scenarios" class="anchor"></a>Summary of scenarios</h2>
@@ -419,6 +614,8 @@
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"></a>
+<a class="sourceLine" id="cb13-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
 </div>
 <div id="details-of-scenarios" class="section level2">
 <h2 class="hasAnchor">
@@ -473,6 +670,12 @@
 <div id="weights-of-the-criteria" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#weights-of-the-criteria" class="anchor"></a>Weights of the criteria</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
+<a class="sourceLine" id="cb14-2" title="2">weights &lt;-</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_weights</span>(currentDir,</a>
+<a class="sourceLine" id="cb14-4" title="4">                      <span class="dt">criteria=</span>criteria);</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
+<a class="sourceLine" id="cb15-2" title="2">dmcda<span class="op">::</span><span class="kw">details_weights</span>(weights);</a></code></pre></div>
 <div id="details-of-weights" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-weights" class="anchor"></a>Details of weights</h2>
@@ -582,6 +785,8 @@
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
+<a class="sourceLine" id="cb16-2" title="2">dmcda<span class="op">::</span><span class="kw">details_multiplied_weights</span>(weights);</a></code></pre></div>
 </div>
 <div id="details-of-multiplied-weights" class="section level2">
 <h2 class="hasAnchor">
@@ -681,6 +886,11 @@
 <div id="general-overview" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#general-overview" class="anchor"></a>General overview</h1>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"></a>
+<a class="sourceLine" id="cb17-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">autofill_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
+<a class="sourceLine" id="cb17-4" title="4">                            <span class="dt">criteria=</span>criteria,</a>
+<a class="sourceLine" id="cb17-5" title="5">                            <span class="dt">decisions_and_alternatives=</span>decisions_and_alternatives);</a></code></pre></div>
 <div id="summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h2>
@@ -689,6 +899,8 @@
 <div id="details" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details" class="anchor"></a>Details</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"></a>
+<a class="sourceLine" id="cb18-2" title="2">dmcda<span class="op">::</span><span class="kw">details_autofilled_estimates</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-estimates-after-autofilling" class="section level2">
 <h2 class="hasAnchor">
@@ -1435,6 +1647,19 @@
 <div id="scores-for-each-scenario-and-weight-profile" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scores-for-each-scenario-and-weight-profile" class="anchor"></a>Scores for each scenario and weight profile</h1>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"></a>
+<a class="sourceLine" id="cb19-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">weigh_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
+<a class="sourceLine" id="cb19-4" title="4">                         <span class="dt">weights=</span>weights);</a>
+<a class="sourceLine" id="cb19-5" title="5"></a>
+<a class="sourceLine" id="cb19-6" title="6">scenario_scores &lt;-</a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">scenario_scores</span>(<span class="dt">criteria =</span> criteria,</a>
+<a class="sourceLine" id="cb19-8" title="8">                         <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
+<a class="sourceLine" id="cb19-9" title="9">                         <span class="dt">estimates =</span> estimates,</a>
+<a class="sourceLine" id="cb19-10" title="10">                         <span class="dt">scenarios_and_alternatives =</span> scenarios_and_alternatives,</a>
+<a class="sourceLine" id="cb19-11" title="11">                         <span class="dt">weights =</span> weights);</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"></a>
+<a class="sourceLine" id="cb20-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scores</span>(scenario_scores);</a></code></pre></div>
 <div id="summary-of-scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-scores" class="anchor"></a>Summary of scores</h2>
@@ -1457,6 +1682,8 @@
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"></a>
+<a class="sourceLine" id="cb21-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scores</span>(scenario_scores);</a></code></pre></div>
 </div>
 <div id="details-of-scores" class="section level2">
 <h2 class="hasAnchor">
@@ -1747,6 +1974,8 @@
 <h2 class="hasAnchor">
 <a href="#assertions" class="anchor"></a>Assertions</h2>
 <p>This is an overview of all assertions (all ‘facts’. ‘claims’, ‘assumptions’, or ‘propositions’ that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"></a>
+<a class="sourceLine" id="cb22-2" title="2">dmcda<span class="op">::</span><span class="kw">details_assertions</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-assertions" class="section level2">
 <h2 class="hasAnchor">
@@ -1773,6 +2002,8 @@
 <h2 class="hasAnchor">
 <a href="#sources-literature" class="anchor"></a>Sources / literature</h2>
 <p>This is an overview of all sources that the assertions refer to.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"></a>
+<a class="sourceLine" id="cb23-2" title="2">dmcda<span class="op">::</span><span class="kw">details_sources</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-sources" class="section level2">
 <h2 class="hasAnchor">
@@ -1794,6 +2025,8 @@
 <h2 class="hasAnchor">
 <a href="#logs" class="anchor"></a>Logs</h2>
 <p>These are more detailed logs.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(estimates<span class="op">$</span>autofillLogs,</a>
+<a class="sourceLine" id="cb24-2" title="2">           <span class="dt">collapse=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>));</a></code></pre></div>
 </div>
 </div>
   </div>
@@ -1814,6 +2047,7 @@
       <li><a href="#details-of-decisions">Details of decisions</a></li>
       </ul>
 </li>
+      <li><a href="#empty-performance-table">Empty performance table</a></li>
       <li>
 <a href="#estimates">Estimates</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#summary-of-estimates">Summary of estimates</a></li>
