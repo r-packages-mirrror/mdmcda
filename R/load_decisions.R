@@ -19,21 +19,6 @@ load_decisions <- function(input,
                                          encoding=encoding)
   );
 
-  # ### Get all policy domains
-  # decisions <-
-  #   lapply(decisions_raw$supplemented$assertions,
-  #          function(x) {
-  #            if (!is.null(x$type) && x$type == "decision") {
-  #              return(x);
-  #            } else {
-  #              return(NULL);
-  #            }
-  #          });
-  #
-  # ### Remove NULL elements
-  # decisions <-
-  #   decisions[!unlist(lapply(decisions, is.null))];
-
   decisions <-
     decisions_raw$raw;
 
