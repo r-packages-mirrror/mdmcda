@@ -1,5 +1,7 @@
 #' @export
-load_estimates <- function(path,
+load_estimates <- function(input,
+                           extension = "jmd",
+                           regex = NULL,
                            decisions_and_alternatives,
                            criteria) {
 

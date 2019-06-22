@@ -27,6 +27,11 @@ criteria:
           id: energy
           label: "Energy"
           description: "How much energy the food provides (higher scores indicate less energy)"
+        -
+          id: digestion
+          label: Digestion
+          description: "How easy the food is to digest"
+          
     -
       id: costs
       label: "Costs"

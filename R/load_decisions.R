@@ -1,26 +1,41 @@
 #' @export
-load_decisions <- function(path) {
+load_decisions <- function(input,
+                           extension = "jmd",
+                           regex = NULL,
+                           recursive = TRUE,
+                           encoding = "UTF-8") {
+
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
 
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     decisions_raw <-
-      justifier::load_justifications_dir(path)
+      justifier::load_justifications_dir(path=input,
+                                         regex = regex,
+                                         justificationContainer = 'decision',
+                                         recursive = recursive,
+                                         encoding=encoding)
   );
 
-  ### Get all policy domains
-  decisions <-
-    lapply(decisions_raw$supplemented$assertions,
-           function(x) {
-             if (!is.null(x$type) && x$type == "decision") {
-               return(x);
-             } else {
-               return(NULL);
-             }
-           });
+  # ### Get all policy domains
+  # decisions <-
+  #   lapply(decisions_raw$supplemented$assertions,
+  #          function(x) {
+  #            if (!is.null(x$type) && x$type == "decision") {
+  #              return(x);
+  #            } else {
+  #              return(NULL);
+  #            }
+  #          });
+  #
+  # ### Remove NULL elements
+  # decisions <-
+  #   decisions[!unlist(lapply(decisions, is.null))];
 
-  ### Remove NULL elements
   decisions <-
-    decisions[!unlist(lapply(decisions, is.null))];
+    decisions_raw$raw;
 
   decisionsDf <-
     do.call(rbind,
@@ -29,7 +44,7 @@ load_decisions <- function(path) {
                      return(data.frame(id = x$id,
                                        label = x$label,
                                        description = x$description,
-                                       choices = vecTxtQ(purrr::map_chr(x$allowedValues,
+                                       choices = vecTxtQ(purrr::map_chr(x$alternatives,
                                                                              "label")),
                                        stringsAsFactors = FALSE));
                    }));

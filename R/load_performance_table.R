@@ -1,7 +1,9 @@
 #' @export
-load_performance_table <- function(file,
+load_performance_table <- function(input,
+                                   extension = "jmd",
+                                   regex = NULL,
                                    sheetIndex=1,
-                                   sep=sep,
+                                   sep=",",
                                    ...) {
 
   if (!is.character(file) || (length(file) != 1)) {

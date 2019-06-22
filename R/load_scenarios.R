@@ -1,5 +1,7 @@
 #' @export
-load_scenarios <- function(path,
+load_scenarios <- function(input,
+                           extension = "jmd",
+                           regex = NULL,
                            decisions_and_alternatives) {
 
   if (!(all(c("dmcda", "decisions_and_alternatives") %in%

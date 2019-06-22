@@ -139,6 +139,25 @@ sources for support.
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
+# Scoring system
+
+In this example, the performance of each decision alternative on each criterion is scored using -1 ('bad' or 'least desirable'), 0 ('fair' or 'moderately desirable') and 1 ('good' or 'most desirable'). Other scoring systems are also possible of course, for example using five points (-2, -1, 0, 1, 2), or only positive numbers (0, 1, 2, or omitting 0 and instead using 1 and 2, or 1-10, etc). In deciding on the scoring system, take into account how much nuance you can reasonably distinguish and justify, and take into account whether you want a scoring system that maps onto familiar scales, or whether you want to avoid that. For example, in the Netherlands, school grades use a 10-point scale from 1-10, which means that if people score on that scale, they will consider everything below a 6 a 'failing grade' and a 6 and higher a 'passing grade', and they will very rarely use 9 and 10, which effectively imposes a somewhat odd distance between the points. That is problematic if you start summing and averaging, so that should be avoided. Of course, which scoring systems work well and which works less well depends on the experiences and histories of those doing the scoring.
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+```{r load_performance_tables}
+
+bla <- load_performance_table(file.path(currentDir,
+                                        "a_performance_table.xlsx"))
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
 # Estimates {.tabset}
 
 Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example, 

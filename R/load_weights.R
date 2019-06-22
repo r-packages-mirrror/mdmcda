@@ -1,5 +1,7 @@
 #' @export
-load_weights <- function(path,
+load_weights <- function(input,
+                         extension = "jmd",
+                         regex = NULL,
                          criteria,
                          defaultWeight = 1) {
 

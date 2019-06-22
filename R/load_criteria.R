@@ -1,8 +1,19 @@
 #' @export
-load_criteria <- function(path) {
+load_criteria <- function(input,
+                          extension = "jmd",
+                          regex = NULL,
+                          recursive = TRUE,
+                          encoding = "UTF-8") {
+
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
 
   criteria <-
-    yum::load_and_simplify_dir(path,
+    yum::load_and_simplify_dir(path=input,
+                               fileRegexes = regex,
+                               recursive = recursive,
+                               encoding=encoding,
                                select="criteria");
 
   criteriaTree <-

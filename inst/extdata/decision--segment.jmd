@@ -1,5 +1,5 @@
 ---
-assertion:
+decision:
   -
     ### A unique identifier for this decision
     id: segment
@@ -13,7 +13,7 @@ assertion:
     ### The list of policy options 'within' this decision; each
     ### consisting of a numeric integer value, and a human-readable
     ### label and description (like the decision itself).
-    allowedValues:
+    alternatives:
       -
         value: 1
         label: "Plain"
@@ -23,6 +23,4 @@ assertion:
         label: "Haute cuisine"
         description: "These are restaurants offering more sophisticated, creative meals."
 
-    ### Specify the type of this assertion (in this case, 'decision'
-    type: "decision"
 ---
