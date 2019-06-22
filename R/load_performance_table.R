@@ -1,7 +1,5 @@
 #' @export
 load_performance_table <- function(input,
-                                   extension = "jmd",
-                                   regex = NULL,
                                    sheetIndex=1,
                                    sep=",",
                                    ...) {
@@ -33,6 +31,8 @@ load_performance_table <- function(input,
                         sep=sep,
                         ...);
   }
+
+  class(res) <- c('performance_table', class(rs));
 
   return(invisible(res));
 }

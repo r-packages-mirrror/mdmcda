@@ -2,6 +2,8 @@
 load_scenarios <- function(input,
                            extension = "jmd",
                            regex = NULL,
+                           recursive = TRUE,
+                           encoding = "UTF-8",
                            decisions_and_alternatives) {
 
   if (!(all(c("dmcda", "decisions_and_alternatives") %in%
@@ -13,6 +15,10 @@ load_scenarios <- function(input,
          vecTxtQ(class(decisions_and_alternatives)), ".");
   }
 
+  if (is.null(regex)) {
+    regex <- paste0("^(.*)\\.", extension, "$");
+  }
+
   decisionsDf <-
     decisions_and_alternatives$decisionsDf;
   alternativesDf <-
@@ -21,7 +27,10 @@ load_scenarios <- function(input,
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     scenarios_raw <-
-      justifier::load_justifications_dir(path)
+      justifier::load_justifications_dir(input,
+                                         regex = regex,
+                                         recursive = recursive,
+                                         encoding=encoding)
   );
 
   ### Get all policy scenario metadata and choices

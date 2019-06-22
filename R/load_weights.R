@@ -2,6 +2,8 @@
 load_weights <- function(input,
                          extension = "jmd",
                          regex = NULL,
+                         recursive = TRUE,
+                         encoding = "UTF-8",
                          criteria,
                          defaultWeight = 1) {
 
@@ -20,7 +22,10 @@ load_weights <- function(input,
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     weights_raw <-
-      justifier::load_justifications_dir(path)
+      justifier::load_justifications_dir(input,
+                                         regex = regex,
+                                         recursive = recursive,
+                                         encoding=encoding)
   );
 
   ### Get all policy instrument weights

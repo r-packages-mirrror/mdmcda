@@ -67,5 +67,45 @@ load_performance_tables <- function(input,
     lapply(res$performance_tables,
            dim);
 
+  ### Store estimate dataframes
+  res$estimates <-
+    lapply(res$performance_tables,
+           estimates_from_performance_table);
+
+  ### Combine estimates is one dataframe
+  res$multiEstimateLegend <-
+    names(res$estimates);
+  names(res$multiEstimateLegend) <-
+    paste0("value_", seq_along(res$multiEstimateLegend));
+  res$multiEstimateInverseLegend <-
+    paste0("value_", seq_along(res$multiEstimateLegend));
+  names(res$multiEstimateInverseLegend) <-
+    names(res$estimates);
+
+  res$multiEstimateDf <- data.frame();
+  for (i in res$multiEstimateLegend) {
+    for (j in nrow(res$estimates[[i]])) {
+      newRowNr <-
+        nrow(res$multiEstimateDf) + 1;
+      res$multiEstimateDf[newRowNr, 'decision_id'] <-
+        res$estimates[[i]][j, 'decision_id'];
+      res$multiEstimateDf[newRowNr, 'decision_label'] <-
+        res$estimates[[i]][j, 'decision_label'];
+      res$multiEstimateDf[newRowNr, 'decision_alternative_value'] <-
+        res$estimates[[i]][j, 'decision_alternative_value'];
+      res$multiEstimateDf[newRowNr, 'decision_alternative_label'] <-
+        res$estimates[[i]][j, 'decision_alternative_label'];
+      res$multiEstimateDf[newRowNr, 'criterion_id'] <-
+        res$estimates[[i]][j, 'criterion_id'];
+      res$multiEstimateDf[newRowNr, 'criterion_label'] <-
+        res$estimates[[i]][j, 'criterion_label'];
+      res$multiEstimateDf[newRowNr, res$multiEstimateInverseLegend[i]] <-
+        res$estimates[[i]][j, 'value'];
+    }
+  }
+
+  ### Get consensus matrix
+
+
   return(invisible(res));
 }
