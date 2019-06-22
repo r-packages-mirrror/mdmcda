@@ -1,6 +1,6 @@
 #' @export
 write_performance_table <- function(performance_table,
-                                    filename,
+                                    file,
                                     overwrite = FALSE,
                                     ...) {
 
@@ -11,18 +11,18 @@ write_performance_table <- function(performance_table,
          ".");
   }
 
-  if (!is.character(filename) || (length(filename) != 1)) {
-    stop("Specify only one filename in the 'filename' argument!");
-  } else if (!dir.exists(dirname(filename))) {
+  if (!is.character(file) || (length(file) != 1)) {
+    stop("Specify only one filename in the 'file' argument!");
+  } else if (!dir.exists(dirname(file))) {
     stop("The directory specified where to write the file ('",
-         dirname(filename), "') does not exist!");
-  } else if (file.exists(filename) && !overwrite) {
+         dirname(file), "') does not exist!");
+  } else if (file.exists(file) && !overwrite) {
     stop("A file with the specified filename ('",
-         filename, "' already exists, and argument 'overwrite' is ",
+         file, "' already exists, and argument 'overwrite' is ",
          "set to FALSE!");
   }
 
-  if (grepl('\\.xls', filename)) {
+  if (grepl('\\.xls', file)) {
     if (!requireNamespace("xlsx", quietly = TRUE)) {
       stop("To export to excel format, the \"xlsx\" package is required. ",
            "Please install it using `install.packages('xlsx');`.",
@@ -35,6 +35,7 @@ write_performance_table <- function(performance_table,
   }
 
   writeFunction(performance_table,
+                file = file,
                 col.names = FALSE,
                 row.names = FALSE,
                 append = FALSE,
