@@ -1,0 +1,103 @@
+
+---
+justification:
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: food
+    
+    ### Specify the weight
+    weight: 0.5
+        
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: food_tastiness
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: food_quantity
+    
+    ### Specify the weight
+    weight: 1
+
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: health
+    
+    ### Specify the weight
+    weight: 0.5
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: nutrition
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: energy
+    
+    ### Specify the weight
+    weight: 1
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+  -
+    ### Specify the id of the policy criterion
+    criterion_id: costs
+    
+    ### Specify the weight
+    weight: 2
+    
+    ### Specify a unique identifier for the policy criterion weight profile
+    weight_profile_id: unit_weights
+
+    ### Don't change this (has to be 'criterion_weight' for all weights)
+    type: criterion_weight
+    
+    ###########################################################################
+---
+

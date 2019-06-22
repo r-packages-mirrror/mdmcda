@@ -1,0 +1,28 @@
+---
+assertion:
+  -
+    ### A unique identifier for this decision
+    id: segment
+
+    ### A human-readable brief name for this decision
+    label: "Market segment"
+
+    ### A more extensive explanation of this decision
+    description: "Some restaurants offer plain meals, whereas others offer haute cuisine."
+
+    ### The list of policy options 'within' this decision; each
+    ### consisting of a numeric integer value, and a human-readable
+    ### label and description (like the decision itself).
+    allowedValues:
+      -
+        value: 1
+        label: "Plain"
+        description: "These are restaurants that offer plain meals that are relatively similar over restaurants."
+      -
+        value: 2
+        label: "Haute cuisine"
+        description: "These are restaurants offering more sophisticated, creative meals."
+
+    ### Specify the type of this assertion (in this case, 'decision'
+    type: "decision"
+---

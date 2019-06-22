@@ -3,20 +3,20 @@ justification:
   -
     ### Specify the id of the regulatory decision and the value of the
     ### option within that decision that this estimate pertains to.
-    decision_id: legal_status_possession
-    decision_alternative_value: 3
+    decision_id: kitchen
+    decision_alternative_value: 1
     
     ### Specify the outcome to which this estimate applies
-    criterion_id: drug_quality_information
+    criterion_id: nutrition
     
     ### Specify the estimate on the agreed-upon scale
     value: 0
 
     ### Specify a human-readable short label
-    label: "Legal status of possession only has effect on drug quality information if possession is *illegal*."
+    label: ""
     
     ### Specify a description that can be as long as you want.
-    description: "Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see 'value') is arrived at, based on the referenced assertion(s)."
+    description: ""
     
     ### Specify the identifier of one or more assertions that this
     ### justifications is based on. Separate identifiers using commas.
@@ -25,5 +25,4 @@ justification:
     ### Don't change this (has to be 'estimate' for all estimates)
     type: estimate
 ---
-
 

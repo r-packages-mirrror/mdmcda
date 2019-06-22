@@ -18,7 +18,9 @@ details_decisions <- function(decisions_and_alternatives,
     res <- paste0(res, "\n\n", x$description, "\n\n");
     for (i in x$allowedValues) {
       res <-
-        paste0(res, "- **", i$label, "**: ", i$description, "\n\n");
+        paste0(res, "- **", i$label, "** (alternative '`",
+               i$value,
+               "`'): ", i$description, "\n\n");
     }
   }
   res <- knitr::asis_output(res);

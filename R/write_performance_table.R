@@ -2,6 +2,7 @@
 write_performance_table <- function(performance_table,
                                     file,
                                     overwrite = FALSE,
+                                    sep = ",",
                                     ...) {
 
   if (!('performance_table' %in% class(performance_table))) {
@@ -25,21 +26,29 @@ write_performance_table <- function(performance_table,
   if (grepl('\\.xls', file)) {
     if (!requireNamespace("xlsx", quietly = TRUE)) {
       stop("To export to excel format, the \"xlsx\" package is required. ",
-           "Please install it using `install.packages('xlsx');`.",
-           call. = FALSE);
+           "It needs to be installed and it needs to be able to load ",
+           "its dependency the \"rJava\" package. That package can only ",
+           "load if it can find where you installed Java. So, you either need ",
+           "to install the xlsx package using `install.packages('xlsx');`,",
+           "or you need to install Java (make sure to install the version ",
+           "matching your R version; so either 32-bit or 64-bit!).");
     } else {
-      writeFunction <- xlsx::write.xlsx;
+      xlsx::write.xlsx(performance_table,
+                       file = file,
+                       col.names = FALSE,
+                       row.names = FALSE,
+                       append = FALSE,
+                       ...);
     }
   } else {
-    writeFunction <- utils::write.table;
+    utils::write.table(performance_table,
+                       file = file,
+                       col.names = FALSE,
+                       row.names = FALSE,
+                       append = FALSE,
+                       sep=sep,
+                       ...);
   }
-
-  writeFunction(performance_table,
-                file = file,
-                col.names = FALSE,
-                row.names = FALSE,
-                append = FALSE,
-                ...);
 
   return(invisible(performance_table));
 }

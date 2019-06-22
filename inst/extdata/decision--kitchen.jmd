@@ -1,0 +1,39 @@
+---
+assertion:
+  -
+    ### A unique identifier for this decision
+    id: kitchen
+
+    ### A human-readable brief name for this decision
+    label: "Kitchen / cuisine"
+
+    ### A more extensive explanation of this decision
+    description: "In the Netherlands, a number of prototypical restaurant types exist, each with specific characteristics."
+
+    ### The list of policy options 'within' this decision; each
+    ### consisting of a numeric integer value, and a human-readable
+    ### label and description (like the decision itself).
+    allowedValues:
+      -
+        value: 1
+        label: "Chinese"
+        description: "Chinese food, usually Chinese-Indonesian and heavily shifted towards wide accessibility."
+      -
+        value: 2
+        label: "Italian"
+        description: "Italian food, usually pizza in cheaper places, whereas more expensive restaurants tend to offer mostly pasta-based dishes."
+      -
+        value: 3
+        label: "Greek"
+        description: "Greek food, often with a lot of meat."
+      -
+        value: 4
+        label: "Dutch"
+        description: "A popular cheaper typically Dutch dinner option consists of fries with a kroket from a snackbar, whereas more expensive options almost always boil down to fusion with French and Italian cuisine."
+
+    ### Specify the type of this assertion (in this case, 'decision'
+    type: "decision"
+---
+
+
+

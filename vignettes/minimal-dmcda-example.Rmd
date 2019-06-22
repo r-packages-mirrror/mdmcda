@@ -44,6 +44,9 @@ currentDir <- system.file(package="dmcda");
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
 
+### During vignette development, to avoid requiring constant package building
+currentDir <- here::here('inst', 'extdata');
+
 ```
 
 <!---------------------------------------------------------------------------->
@@ -116,10 +119,12 @@ performance_table <-
   dmcda::create_performance_table(criteria,
                                   decisions_and_alternatives);
 
-# dmcda::write_performance_table(performance_table,
-#                                file.path(currentDir,
-#                                          "empty_performance_table.csv"),
-#                                overwrite=TRUE);
+temporaryFile <-
+  tempfile(fileext=".xlsx");
+
+dmcda::write_performance_table(performance_table,
+                               temporaryFile,
+                               overwrite=TRUE);
 
 knitr::kable(performance_table);
 

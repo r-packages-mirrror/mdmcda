@@ -3,27 +3,27 @@
 justification:
   -
     ### This is meta-data about this policy option
-    scenario_id: repressive
-    label: "A repressive policy"
-    description: "This is the scenario where the most repressive policy option is chosen for every decision."
+    scenario_id: preference_gj
+    label: "Gjalt-Jorn's preference"
+    description: "This scenario represents Gjalt-Jorn's preference."
 
     ### Don't change this (has to be 'scenario_metadata' for the
-    ### metadata, and 'scenario_option_specification' for the choices)
+    ### metadata, and 'scenario_alternative_specification' for the alternatives)
     type: scenario_metadata
 
     ###########################################################################
   -
     ### Specify the id of the policy decision
-    decision_id: quality_monitoring
+    decision_id: kitchen
 
     ### Specify the chosen option
-    value: 1
+    value: 3
 
     ### Optionally, justify or explain why this choice fits with this option
     description: ""
 
     ### Indicate to which scenario this choice belongs
-    scenario_id: repressive
+    scenario_id: preference_gj
 
     ### Don't change this (has to be 'scenario_metadata' for the
     ### metadata, and 'scenario_alternative_specification' for the alternatives)
@@ -32,7 +32,7 @@ justification:
     ###########################################################################
   -
     ### Specify the id of the policy decision
-    decision_id: legal_status_possession
+    decision_id: segment
 
     ### Specify the chosen option
     value: 1
@@ -41,7 +41,7 @@ justification:
     description: ""
 
     ### Indicate to which scenario this choice belongs
-    scenario_id: repressive
+    scenario_id: preference_gj
 
     ### Don't change this (has to be 'scenario_metadata' for the
     ### metadata, and 'scenario_alternative_specification' for the alternatives)

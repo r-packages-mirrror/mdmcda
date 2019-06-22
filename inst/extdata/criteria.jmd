@@ -4,65 +4,33 @@ criteria:
   label: "Criteria"
   children:
     -
-      id: user_health
-      label: "User health"
+      id: food
+      label: "Food"
       children:
         -
-          id: shift_to_other_drugs
-          label: "Shift to other drugs"
-          description: "Consumption of other more harmful substances."
+          id: food_tastiness
+          label: "Food tastiness"
+          description: "How nice the food tastes (higher scores indicate better taste)"
         -
-          id: drug_quality_information
-          label: "Drug quality / information"
-          description: "Product quality (adulteration, unknown dose/purity) and proper information about risky use."
+          id: food_quantity
+          label: "Food quantity"
+          description: "How large the servings are (higher scores indicate larges portions)"
     -
-      id: public
-      label: "Public"
+      id: health
+      label: "Health"
       children:
         -
-          id: the_vulnerable
-          label: "The vulnerable"
-          description: "Protection of the vulnerable (children, young adults and psychiatric patients), including patients (development of medical applications) and parental control about MDMA use by minors."
+          id: nutrition
+          label: "Nutrition"
+          description: "How nutritious the meal is (higher scores indicate more nutrition)"
         -
-          id: cultural_values
-          label: "Cultural Values"
-          description: "Respect for self-determination to use recreational drugs, includes the availability of ‘clean’ pills without an environmental burden."
+          id: energy
+          label: "Energy"
+          description: "How much energy the food provides (higher scores indicate less energy)"
     -
-      id: crime
-      label: "Crime"
-      children:
-        -
-          id: criminalisation_of_users
-          label: "Criminalisation of users"
-          description: "Criminalisation of users (criminal record, stigmatisation)."
-        -
-          id: small_crime
-          label: "Small crime"
-          description: "Acquisitive crime, public violence and dealing in the public space."
-        -
-          id: corporate_crime
-          label: "Corporate crime"
-          description: "Undermining and involvement in violence (assassination, extortion), money-laundering, prostitution, smuggling (does not include costs of enforcement)."
-    -
-      id: economy
-      label: "Economy"
-      children:
-        -
-          id: state_revenues
-          label: "State revenues" 
-          description: "State revenues (VAT, licences)."
-        -
-          id: costs_financial
-          label: "Costs (financial)"
-          description: "Public financial costs: health costs, addiction treatment, absenteeism, casualties (traffic), environmental pollution, enforcement (prison, police, judiciary, rehabilitation)."
-    -
-      id: political
-      label: "Political"
-      children:
-        -
-          id: international_policy
-          label: "International Policy"
-          description: "Violation of international drug treaties. Damage of international image."
+      id: costs
+      label: "Costs"
+      description: "Price of the good (higher scores indicate cheaper food)"
 ---
 
 
