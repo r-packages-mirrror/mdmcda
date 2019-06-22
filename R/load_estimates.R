@@ -3,6 +3,7 @@ load_estimates <- function(input,
                            extension = "jmd",
                            regex = NULL,
                            encoding = "UTF-8",
+                           recursive = TRUE,
                            decisions_and_alternatives,
                            criteria) {
 
