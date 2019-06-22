@@ -120,7 +120,7 @@ load_performance_tables <- function(input,
   }
 
   res$multiEstimateDf$variance <-
-    apply(res$multiEstimateDf[, completed_performance_tables$multiEstimateInverseLegend],
+    apply(res$multiEstimateDf[, res$multiEstimateInverseLegend],
           1,
           stats::var,
           na.rm=TRUE);
