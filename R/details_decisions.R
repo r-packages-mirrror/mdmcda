@@ -16,7 +16,7 @@ details_decisions <- function(decisions_and_alternatives,
                   repStr("#", headingLevel+1),
                   " ", x$label, "\n\n");
     res <- paste0(res, "\n\n", x$description, "\n\n");
-    for (i in x$allowedValues) {
+    for (i in x$alternatives) {
       res <-
         paste0(res, "- **", i$label, "** (alternative '`",
                i$value,
