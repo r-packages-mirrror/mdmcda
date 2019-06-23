@@ -66,7 +66,7 @@ criteria <-
 
 `r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
-```{r criteria-summary, fig.width=16, fig.height=12}
+```{r criteria-summary, fig.width=8, fig.height=8}
 
 dmcda::summary_criteria(criteria);
 
@@ -126,7 +126,9 @@ dmcda::write_performance_table(performance_table,
                                temporaryFile,
                                overwrite=TRUE);
 
-knitr::kable(performance_table);
+### Suppress warnings because performance tables don't have
+### headers given their ~~messy~~ highly original structure
+suppressWarnings(knitr::kable(performance_table));
 
 ```
 
@@ -149,12 +151,15 @@ In this example, the performance of each decision alternative on each criterion 
 
 # Consensus between raters
 
-```{r load_performance_tables}
+```{r load_performance_tables, fig.width=6, fig.height=5}
 
 completed_performance_tables <-
   dmcda::load_performance_tables(currentDir);
 
 completed_performance_tables$consensusMap;
+
+# write_estimate_specs(completed_performance_tables$multiEstimateDf,
+#                      path=currentDir);
 
 ```
 

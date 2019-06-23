@@ -1,27 +1,32 @@
+This is the specification of a estimate for a dynamic multi criteria decision aid procedure.
+
+All text above and below the triple dashes will be ignored, and can be used to add comments.
+
 ---
 justification:
   -
-    ### Specify the id of the decision and the value of the alternative
+    ### Specify the identifier of the decision and the value of the alternative
     ### within that decision that this estimate pertains to.
     decision_id: kitchen
-    decision_alternative_value: 1
-    
-    ### Specify the criterion to which this estimate applies.
-    criterion_id: nutrition
-    
-    ### Specify the estimate on the agreed-upon scale.
+    decision_alternative_value: 4
+
+    ### Specify the identifier of the criterion to which this estimate applies.
+    criterion_id: food_quantity
+
+    ### Specify the value of the estimate on the agreed-upon scale.
     value: 0
 
     ### Specify a human-readable short label.
     label: ""
-    
+
     ### Specify a description that can be as long as you want.
     description: ""
-    
+
     ### Specify the identifier of one or more assertions that this
     ### justifications is based on. Separate identifiers using commas.
     assertion: [placeholder_assertion]
-    
+
     ### Don't change this (has to be 'estimate' for all estimates)
     type: estimate
 ---
+

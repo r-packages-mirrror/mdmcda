@@ -171,7 +171,7 @@ load_performance_tables <- function(input,
     res$consensusDf$selectedAlternative <-
       paste(res$multiEstimateDf$decision_label,
             res$multiEstimateDf$decision_alternative_label,
-            sep=": ");
+            sep=":\n");
 
     precision <- max(nchar(as.character(res$multiEstimateDf$value_mean)));
 
