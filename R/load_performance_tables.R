@@ -184,7 +184,7 @@ load_performance_tables <- function(input,
       res$multiEstimateDf$variance;
 
     res$consensusMap <-
-      ggplot2::ggplot(completed_performance_tables$consensusDf,
+      ggplot2::ggplot(res$consensusDf,
                       mapping=ggplot2::aes_string(x='criterion_label',
                                                   y='selectedAlternative',
                                                   fill='variance',
