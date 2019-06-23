@@ -119,14 +119,92 @@ load_performance_tables <- function(input,
     }
   }
 
-  res$multiEstimateDf$variance <-
-    apply(res$multiEstimateDf[, res$multiEstimateInverseLegend],
-          1,
-          stats::var,
-          na.rm=TRUE);
+  ### Converting estimates to numeric
+  res$multiEstimateDf[, res$multiEstimateInverseLegend] <-
+    lapply(res$multiEstimateInverseLegend,
+           function(i, x = res$multiEstimateDf[, i]) {
+             suppressWarnings(y <- as.numeric(x));
+             z <- as.character(y);
+             ### z & z should now be equal. If not, z will have
+             ### deviating values or missing values
+             j <- res$multiEstimateInverseLegend;
+             if (identical(x, z)) {
+               return(y);
+             } else {
+               warning("One of the estimates loaded from '",
+                       j, "' cannot be converted to a numeric value.");
+               return(x);
+             }
+           });
 
-  ### Get consensus matrix
+  numericValues <-
+    res$multiEstimateInverseLegend[
+      unlist(lapply(res$multiEstimateDf[, res$multiEstimateInverseLegend], is.numeric))
+    ];
 
+  if (length(numericValues) > 1) {
+
+    res$multiEstimateDf$variance <-
+      apply(res$multiEstimateDf[, numericValues],
+            1,
+            stats::var,
+            na.rm=TRUE);
+
+    res$multiEstimateDf$value_mean <-
+      apply(res$multiEstimateDf[, numericValues],
+            1,
+            mean,
+            na.rm=TRUE);
+
+    res$performance_table_var <-
+      estimateDf_to_performance_table(res$multiEstimateDf,
+                                      valueCol = "variance");
+
+    res$performance_table_mean <-
+      estimateDf_to_performance_table(res$multiEstimateDf,
+                                      valueCol = "value_mean");
+
+
+    ### Get consensus matrix
+    res$consensusDf <-
+      res$multiEstimateDf[, c('criterion_label', 'variance')];
+    res$consensusDf$selectedAlternative <-
+      paste(res$multiEstimateDf$decision_label,
+            res$multiEstimateDf$decision_alternative_label,
+            sep=": ");
+
+    precision <- max(nchar(as.character(res$multiEstimateDf$value_mean)));
+
+    res$consensusDf$formattedMean <-
+      round(res$multiEstimateDf$value_mean,
+            min(precision, 2));
+
+    res$consensusDf$invertedVariance <-
+      max(res$multiEstimateDf$variance) -
+      res$multiEstimateDf$variance;
+
+    res$consensusMap <-
+      ggplot2::ggplot(completed_performance_tables$consensusDf,
+                      mapping=ggplot2::aes_string(x='criterion_label',
+                                                  y='selectedAlternative',
+                                                  fill='variance',
+                                                  label = 'formattedMean')) +
+      ggplot2::geom_tile() +
+      ggplot2::geom_text(mapping=ggplot2::aes_string(color='invertedVariance')) +
+      ggplot2::scale_fill_viridis_c(name = "Variance\n(disagreement)") +
+      ggplot2::scale_color_viridis_c(name = "Variance\n(disagreement)") +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle=90, hjust=1)) +
+      ggplot2::labs(title = "Consensus Map",
+                    subtitle = paste0("Based on ", length(numericValues),
+                                      " estimates from a DMCDA"),
+                    x = "Criteria",
+                    y = "Decisions");
+
+  } else {
+    consensusDf <- NA;
+    consensusMap <- NA;
+  }
 
   return(invisible(res));
 }

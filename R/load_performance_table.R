@@ -25,6 +25,7 @@ load_performance_table <- function(file,
                         sheetIndex=sheetIndex,
                         as.data.frame = TRUE,
                         stringsAsFactors=FALSE,
+                        header=FALSE,
                         ...)
     }
   } else {
@@ -32,6 +33,7 @@ load_performance_table <- function(file,
       utils::read.table(file=file,
                         sep=sep,
                         stringsAsFactors=FALSE,
+                        header=FALSE,
                         ...);
   }
 
