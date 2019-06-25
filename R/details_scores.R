@@ -1,7 +1,13 @@
 #' @export
 details_scores <- function(scenario_scores,
                            heading = "Details of scores",
-                           headingLevel = 2) {
+                           headingLevel = 2,
+                           pdfCols = c(2, 3, 4, 5),
+                           pdfColLabels = c("Decision identifier",
+                                            "Alternative value",
+                                            "Criterion identifier",
+                                            "Value"),
+                           pdfColWidths = c("5cm", "3cm", "4cm", "2cm")) {
 
   if (is.null(heading)) {
     res <- "\n\n";
@@ -23,27 +29,28 @@ details_scores <- function(scenario_scores,
                     j," {.tabset}\n\n");
 
       if (knitr::is_latex_output()) {
-        res <-
-          paste0(res,
-                 paste0(knitr::kable(scenario_scores$scenarioScores[[i]][[j]][,
-                                                                              c('decision_id',
-                                                                                'decision_alternative_value',
-                                                                                'criterion_id',
-                                                                                'score')],
-                                     format="latex", booktabs = TRUE, longtable = TRUE,
-                                     row.names = FALSE),
-                        collapse="\n"));
+        table <-
+          knitr::kable(scenario_scores$scenarioScores[[i]][[j]][, pdfCols],
+                       format="latex",
+                       row.names = FALSE,
+                       col.names=pdfColLabels,
+                       booktabs = TRUE, longtable = TRUE);
+        for (i in seq_along(pdfCols)) {
+          table <-
+            kableExtra::column_spec(table,
+                                    column = i,
+                                    width = pdfColWidths[i]);
+        }
       } else {
-        res <-
-          paste0(res,
-                 paste0(knitr::kable(scenario_scores$scenarioScores[[i]][[j]][,
-                                                                              c('decision_id',
-                                                                                'decision_alternative_value',
-                                                                                'criterion_id',
-                                                                                'score')],
-                                     row.names = FALSE),
-                        collapse="\n"));
+        table <-
+          knitr::kable(scenario_scores$scenarioScores[[i]][[j]][, pdfCols],
+                       row.names = FALSE);
       }
+
+      res <-
+        paste0(res,
+               paste0(table,
+                      collapse="\n"));
     }
   }
 
