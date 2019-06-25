@@ -2,7 +2,7 @@
 details_scores <- function(scenario_scores,
                            heading = "Details of scores",
                            headingLevel = 2,
-                           pdfCols = c(2, 3, 4, 5),
+                           pdfCols = c(3, 4, 5, 6),
                            pdfColLabels = c("Decision identifier",
                                             "Alternative value",
                                             "Criterion identifier",
