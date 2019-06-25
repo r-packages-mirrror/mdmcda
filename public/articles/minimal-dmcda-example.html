@@ -73,7 +73,7 @@
       <h1>Minimal Dynamic Multi-Criteria Decision Aid example</h1>
                         <h4 class="author">Gjalt-Jorn Peters</h4>
             
-            <h4 class="date">2019-06-21</h4>
+            <h4 class="date">2019-06-25</h4>
       
       
       <div class="hidden name"><code>minimal-dmcda-example.Rmd</code></div>
@@ -94,24 +94,17 @@
 <a class="sourceLine" id="cb1-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_criteria</span>(currentDir);</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
 <a class="sourceLine" id="cb2-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_criteria</span>(criteria);</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;                           levelName</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; 1  criteria                        </span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 2   ¦--user_health                 </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 3   ¦   ¦--shift_to_other_drugs    </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 4   ¦   °--drug_quality_information</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 5   ¦--public                      </span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 6   ¦   ¦--the_vulnerable          </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 7   ¦   °--cultural_values         </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 8   ¦--crime                       </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 9   ¦   ¦--criminalisation_of_users</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 10  ¦   ¦--small_crime             </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; 11  ¦   °--corporate_crime         </span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 12  ¦--economy                     </span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; 13  ¦   ¦--state_revenues          </span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; 14  ¦   °--costs_financial         </span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 15  °--political                   </span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 16      °--international_policy</span></a></code></pre></div>
-<p><img src="minimal-dmcda-example_files/figure-html/criteria-summary-1.png" width="1600"></p>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;                levelName</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; 1 criteria              </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 2  ¦--food              </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 3  ¦   ¦--food_tastiness</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 4  ¦   °--food_quantity </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 5  ¦--health            </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 6  ¦   ¦--nutrition     </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 7  ¦   ¦--energy        </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 8  ¦   °--digestion     </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 9  °--costs</span></a></code></pre></div>
+<p><img src="minimal-dmcda-example_files/figure-html/criteria-summary-1.png" width="800"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
 <a class="sourceLine" id="cb3-2" title="2">dmcda<span class="op">::</span><span class="kw">details_criteria</span>(criteria);</a></code></pre></div>
 <div id="details-of-criteria" class="section level2">
@@ -134,108 +127,59 @@
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
-<td align="left">user_health</td>
+<td align="left">food</td>
 <td align="left">criteria</td>
-<td align="left">User health</td>
+<td align="left">Food</td>
 <td align="left">-</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
-<td align="left">shift_to_other_drugs</td>
-<td align="left">user_health</td>
-<td align="left">Shift to other drugs</td>
-<td align="left">Consumption of other more harmful substances.</td>
+<td align="left">food_tastiness</td>
+<td align="left">food</td>
+<td align="left">Food tastiness</td>
+<td align="left">How nice the food tastes (higher scores indicate better taste)</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">drug_quality_information</td>
-<td align="left">user_health</td>
-<td align="left">Drug quality / information</td>
-<td align="left">Product quality (adulteration, unknown dose/purity) and proper information about risky use.</td>
+<td align="left">food_quantity</td>
+<td align="left">food</td>
+<td align="left">Food quantity</td>
+<td align="left">How large the servings are (higher scores indicate larges portions)</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">public</td>
+<td align="left">health</td>
 <td align="left">criteria</td>
-<td align="left">Public</td>
+<td align="left">Health</td>
 <td align="left">-</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
-<td align="left">the_vulnerable</td>
-<td align="left">public</td>
-<td align="left">The vulnerable</td>
-<td align="left">Protection of the vulnerable (children, young adults and psychiatric patients), including patients (development of medical applications) and parental control about MDMA use by minors.</td>
+<td align="left">nutrition</td>
+<td align="left">health</td>
+<td align="left">Nutrition</td>
+<td align="left">How nutritious the meal is (higher scores indicate more nutrition)</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">cultural_values</td>
-<td align="left">public</td>
-<td align="left">Cultural Values</td>
-<td align="left">Respect for self-determination to use recreational drugs, includes the availability of ‘clean’ pills without an environmental burden.</td>
+<td align="left">energy</td>
+<td align="left">health</td>
+<td align="left">Energy</td>
+<td align="left">How much energy the food provides (higher scores indicate less energy)</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">crime</td>
+<td align="left">digestion</td>
+<td align="left">health</td>
+<td align="left">Digestion</td>
+<td align="left">How easy the food is to digest</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">costs</td>
 <td align="left">criteria</td>
-<td align="left">Crime</td>
-<td align="left">-</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">criminalisation_of_users</td>
-<td align="left">crime</td>
-<td align="left">Criminalisation of users</td>
-<td align="left">Criminalisation of users (criminal record, stigmatisation).</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">small_crime</td>
-<td align="left">crime</td>
-<td align="left">Small crime</td>
-<td align="left">Acquisitive crime, public violence and dealing in the public space.</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">corporate_crime</td>
-<td align="left">crime</td>
-<td align="left">Corporate crime</td>
-<td align="left">Undermining and involvement in violence (assassination, extortion), money-laundering, prostitution, smuggling (does not include costs of enforcement).</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">economy</td>
-<td align="left">criteria</td>
-<td align="left">Economy</td>
-<td align="left">-</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">state_revenues</td>
-<td align="left">economy</td>
-<td align="left">State revenues</td>
-<td align="left">State revenues (VAT, licences).</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">costs_financial</td>
-<td align="left">economy</td>
-<td align="left">Costs (financial)</td>
-<td align="left">Public financial costs: health costs, addiction treatment, absenteeism, casualties (traffic), environmental pollution, enforcement (prison, police, judiciary, rehabilitation).</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">political</td>
-<td align="left">criteria</td>
-<td align="left">Political</td>
-<td align="left">-</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="even">
-<td align="left">international_policy</td>
-<td align="left">political</td>
-<td align="left">International Policy</td>
-<td align="left">Violation of international drug treaties. Damage of international image.</td>
+<td align="left">Costs</td>
+<td align="left">Price of the good (higher scores indicate cheaper food)</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -264,16 +208,16 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">Whether possession of the substance is legal or illegal; or ‘gedoogd’, a construction where possession is formally illegal but that status is not enforced.</td>
-<td align="left">‘Illegal’, ‘’Gedoogd’’ &amp; ‘Legal’</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">In the Netherlands, a number of prototypical restaurant types exist, each with specific characteristics.</td>
+<td align="left">‘Chinese’, ‘Italian’, ‘Greek’ &amp; ‘Dutch’</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">Whether an infrastructure exists that allows monitoring the quality of the substance.</td>
-<td align="left">‘None’, ‘Incidently’ &amp; ‘Structurally’</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="left">Some restaurants offer plain meals, whereas others offer haute cuisine.</td>
+<td align="left">‘Plain’ &amp; ‘Haute cuisine’</td>
 </tr>
 </tbody>
 </table>
@@ -283,24 +227,24 @@
 <div id="details-of-decisions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-decisions" class="anchor"></a>Details of decisions</h2>
-<div id="legal-status-of-possession" class="section level3">
+<div id="kitchen-cuisine" class="section level3">
 <h3 class="hasAnchor">
-<a href="#legal-status-of-possession" class="anchor"></a>Legal status of possession</h3>
-<p>Whether possession of the substance is legal or illegal; or ‘gedoogd’, a construction where possession is formally illegal but that status is not enforced.</p>
+<a href="#kitchen-cuisine" class="anchor"></a>Kitchen / cuisine</h3>
+<p>In the Netherlands, a number of prototypical restaurant types exist, each with specific characteristics.</p>
 <ul>
-<li><p><strong>Illegal</strong>: Possession is illegal, and this is actively enforced.</p></li>
-<li><p><strong>‘Gedoogd’</strong>: Possession is illegal, but this is not actively enforced.</p></li>
-<li><p><strong>Legal</strong>: Possession is legal.</p></li>
+<li><p><strong>Chinese</strong> (alternative ‘<code>1</code>’): Chinese food, usually Chinese-Indonesian and heavily shifted towards wide accessibility.</p></li>
+<li><p><strong>Italian</strong> (alternative ‘<code>2</code>’): Italian food, usually pizza in cheaper places, whereas more expensive restaurants tend to offer mostly pasta-based dishes.</p></li>
+<li><p><strong>Greek</strong> (alternative ‘<code>3</code>’): Greek food, often with a lot of meat.</p></li>
+<li><p><strong>Dutch</strong> (alternative ‘<code>4</code>’): A popular cheaper typically Dutch dinner option consists of fries with a kroket from a snackbar, whereas more expensive options almost always boil down to fusion with French and Italian cuisine.</p></li>
 </ul>
 </div>
-<div id="quality-monitoring" class="section level3">
+<div id="market-segment" class="section level3">
 <h3 class="hasAnchor">
-<a href="#quality-monitoring" class="anchor"></a>Quality monitoring</h3>
-<p>Whether an infrastructure exists that allows monitoring the quality of the substance.</p>
+<a href="#market-segment" class="anchor"></a>Market segment</h3>
+<p>Some restaurants offer plain meals, whereas others offer haute cuisine.</p>
 <ul>
-<li><p><strong>None</strong>: There is no quality monitoring whatsoever.</p></li>
-<li><p><strong>Incidently</strong>: Monitoring occurs but only incidently, precluding detecting patterns in the substance’s quality and dose over time.</p></li>
-<li><p><strong>Structurally</strong>: Structural monitoring of the substance dose and quality occurs, enabling mapping of the substance’s quality and dose over time.</p></li>
+<li><p><strong>Plain</strong> (alternative ‘<code>1</code>’): These are restaurants that offer plain meals that are relatively similar over restaurants.</p></li>
+<li><p><strong>Haute cuisine</strong> (alternative ‘<code>2</code>’): These are restaurants offering more sophisticated, creative meals.</p></li>
 </ul>
 <!----------------------------------------------------------------------------><!----------------------------------------------------------------------------><!----------------------------------------------------------------------------><!-- Saving the performance table -->
 </div>
@@ -311,57 +255,49 @@
 <a href="#empty-performance-table" class="anchor"></a>Empty performance table</h1>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"></a>
 <a class="sourceLine" id="cb7-2" title="2">performance_table &lt;-</a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">performance_table</span>(criteria,</a>
-<a class="sourceLine" id="cb7-4" title="4">                           decisions_and_alternatives);</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">create_performance_table</span>(criteria,</a>
+<a class="sourceLine" id="cb7-4" title="4">                                  decisions_and_alternatives);</a>
 <a class="sourceLine" id="cb7-5" title="5"></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co"># write.table(performance_table,</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#             file.path(currentDir, "empty_performance_table.csv"),</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co">#             col.names = FALSE,</span></a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">#             row.names = FALSE);</span></a>
-<a class="sourceLine" id="cb7-10" title="10"></a>
-<a class="sourceLine" id="cb7-11" title="11">knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(performance_table);</a></code></pre></div>
+<a class="sourceLine" id="cb7-6" title="6">temporaryFile &lt;-</a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext=</span><span class="st">".xlsx"</span>);</a>
+<a class="sourceLine" id="cb7-8" title="8"></a>
+<a class="sourceLine" id="cb7-9" title="9">dmcda<span class="op">::</span><span class="kw">write_performance_table</span>(performance_table,</a>
+<a class="sourceLine" id="cb7-10" title="10">                               temporaryFile,</a>
+<a class="sourceLine" id="cb7-11" title="11">                               <span class="dt">overwrite=</span><span class="ot">TRUE</span>);</a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">### Suppress warnings because performance tables don't have</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">### headers given their ~~messy~~ highly original structure</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/warning">suppressWarnings</a></span>(knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(performance_table));</a></code></pre></div>
 <table class="table"><tbody>
 <tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">drug_quality_information</td>
-<td align="left">the_vulnerable</td>
-<td align="left">cultural_values</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">small_crime</td>
-<td align="left">corporate_crime</td>
-<td align="left">state_revenues</td>
-<td align="left">costs_financial</td>
-<td align="left">international_policy</td>
+<td align="left">food_tastiness</td>
+<td align="left">food_quantity</td>
+<td align="left">nutrition</td>
+<td align="left">energy</td>
+<td align="left">digestion</td>
+<td align="left">costs</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">Shift to other drugs</td>
-<td align="left">Drug quality / information</td>
-<td align="left">The vulnerable</td>
-<td align="left">Cultural Values</td>
-<td align="left">Criminalisation of users</td>
-<td align="left">Small crime</td>
-<td align="left">Corporate crime</td>
-<td align="left">State revenues</td>
-<td align="left">Costs (financial)</td>
-<td align="left">International Policy</td>
+<td align="left">Food tastiness</td>
+<td align="left">Food quantity</td>
+<td align="left">Nutrition</td>
+<td align="left">Energy</td>
+<td align="left">Digestion</td>
+<td align="left">Costs</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="left">1</td>
-<td align="left">Legal status of possession</td>
-<td align="left">Illegal</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Chinese</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -370,14 +306,10 @@
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="left">2</td>
-<td align="left">Legal status of possession</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Italian</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -386,14 +318,10 @@
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="left">3</td>
-<td align="left">Legal status of possession</td>
-<td align="left">Legal</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Greek</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -402,30 +330,22 @@
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
+<td align="left">kitchen</td>
+<td align="left">4</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Dutch</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
 <td align="left">1</td>
-<td align="left">Quality monitoring</td>
-<td align="left">None</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">2</td>
-<td align="left">Quality monitoring</td>
-<td align="left">Incidently</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">Market segment</td>
+<td align="left">Plain</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -434,14 +354,10 @@
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">3</td>
-<td align="left">Quality monitoring</td>
-<td align="left">Structurally</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">segment</td>
+<td align="left">2</td>
+<td align="left">Market segment</td>
+<td align="left">Haute cuisine</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -455,38 +371,77 @@
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 </div>
+<div id="scoring-system" class="section level1">
+<h1 class="hasAnchor">
+<a href="#scoring-system" class="anchor"></a>Scoring system</h1>
+<p>In this example, the performance of each decision alternative on each criterion is scored using -1 (‘bad’ or ‘least desirable’), 0 (‘fair’ or ‘moderately desirable’) and 1 (‘good’ or ‘most desirable’). Other scoring systems are also possible of course, for example using five points (-2, -1, 0, 1, 2), or only positive numbers (0, 1, 2, or omitting 0 and instead using 1 and 2, or 1-10, etc). In deciding on the scoring system, take into account how much nuance you can reasonably distinguish and justify, and take into account whether you want a scoring system that maps onto familiar scales, or whether you want to avoid that. For example, in the Netherlands, school grades use a 10-point scale from 1-10, which means that if people score on that scale, they will consider everything below a 6 a ‘failing grade’ and a 6 and higher a ‘passing grade’, and they will very rarely use 9 and 10, which effectively imposes a somewhat odd distance between the points. That is problematic if you start summing and averaging, so that should be avoided. Of course, which scoring systems work well and which works less well depends on the experiences and histories of those doing the scoring.</p>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</div>
+<div id="consensus-between-raters" class="section level1">
+<h1 class="hasAnchor">
+<a href="#consensus-between-raters" class="anchor"></a>Consensus between raters</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"></a>
+<a class="sourceLine" id="cb8-2" title="2">completed_performance_tables &lt;-</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_performance_tables</span>(currentDir);</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">completed_performance_tables<span class="op">$</span>consensusMap;</a></code></pre></div>
+<p><img src="minimal-dmcda-example_files/figure-html/load_performance_tables-1.png" width="600"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co"># write_estimate_specs(completed_performance_tables$multiEstimateDf,</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#                      path=currentDir);</span></a></code></pre></div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</div>
 <div id="estimates" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#estimates" class="anchor"></a>Estimates</h1>
 <p>Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example,</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"></a>
-<a class="sourceLine" id="cb8-2" title="2">estimates &lt;-</a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_estimates</span>(currentDir,</a>
-<a class="sourceLine" id="cb8-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
-<a class="sourceLine" id="cb8-5" title="5">                        <span class="dt">criteria =</span> criteria);</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"></a>
-<a class="sourceLine" id="cb9-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_estimates</span>(estimates);</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
+<a class="sourceLine" id="cb10-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_estimates</span>(currentDir,</a>
+<a class="sourceLine" id="cb10-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
+<a class="sourceLine" id="cb10-5" title="5">                        <span class="dt">criteria =</span> criteria);</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"></a>
+<a class="sourceLine" id="cb11-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_estimates</span>(estimates);</a></code></pre></div>
 <div id="summary-of-estimates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-estimates" class="anchor"></a>Summary of estimates</h2>
 <table class="table">
 <thead><tr class="header">
 <th></th>
-<th align="right">Drug quality / information</th>
+<th align="right">Costs</th>
+<th align="right">Digestion</th>
+<th align="right">Energy</th>
+<th align="right">Food quantity</th>
+<th align="right">Food tastiness</th>
+<th align="right">Nutrition</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Legal status of possession</td>
-<td align="right">3</td>
+<td>Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
-<td>Quality monitoring</td>
-<td align="right">3</td>
+<td>Market segment</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
-<a class="sourceLine" id="cb10-2" title="2">dmcda<span class="op">::</span><span class="kw">details_estimates</span>(estimates);</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
+<a class="sourceLine" id="cb12-2" title="2">dmcda<span class="op">::</span><span class="kw">details_estimates</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-estimates" class="section level2">
 <h2 class="hasAnchor">
@@ -506,76 +461,436 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
 <td align="right">1</td>
-<td align="left">Illegal</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">If possession is illegal, obtaining accurate information on drug quality becomes harder.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">Chinese</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_1</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="right">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">Legal status of possession only has effect on drug quality information if possession is <em>illegal</em>.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_2</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="right">3</td>
-<td align="left">Legal</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">Legal status of possession only has effect on drug quality information if possession is <em>illegal</em>.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_3</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
 <td align="right">1</td>
-<td align="left">None</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">-1</td>
-<td align="left">Without monitoring, there is poor information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">Chinese</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_4</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="right">2</td>
-<td align="left">Incidently</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">With mediocre monitoring, there is mediocre information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_5</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="right">3</td>
-<td align="left">Structurally</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
 <td align="right">1</td>
-<td align="left">With good monitoring, there is good information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">Chinese</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_6</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_7</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_8</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_9</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_10</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_11</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_12</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_13</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_14</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_15</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_16</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_17</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_18</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_19</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_20</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_21</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_22</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_23</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_24</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_25</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_26</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_27</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_28</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_29</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_30</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_31</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_32</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_33</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_34</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_35</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_36</td>
 </tr>
 </tbody>
 </table>
@@ -586,12 +901,12 @@
 <h1 class="hasAnchor">
 <a href="#scenarios" class="anchor"></a>Scenarios</h1>
 <p>Scenarios are sets of coherent alternative selections for every decision.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"></a>
-<a class="sourceLine" id="cb11-2" title="2">scenarios_and_alternatives &lt;-</a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_scenarios</span>(currentDir,</a>
-<a class="sourceLine" id="cb11-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives);</a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
-<a class="sourceLine" id="cb12-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"></a>
+<a class="sourceLine" id="cb13-2" title="2">scenarios_and_alternatives &lt;-</a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_scenarios</span>(currentDir,</a>
+<a class="sourceLine" id="cb13-4" title="4">                        <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives);</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
+<a class="sourceLine" id="cb14-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
 <div id="summary-of-scenarios" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-scenarios" class="anchor"></a>Summary of scenarios</h2>
@@ -603,19 +918,19 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">repressive</td>
-<td align="left">A repressive policy</td>
-<td align="left">This is the scenario where the most repressive policy option is chosen for every decision.</td>
+<td align="left">preference_evi</td>
+<td align="left">Evi’s preference</td>
+<td align="left">This scenario represents Evi’s preference.</td>
 </tr>
 <tr class="even">
-<td align="left">liberal</td>
-<td align="left">A liberal policy</td>
-<td align="left">This is the scenario where the most liberal policy option is chosen for every decision.</td>
+<td align="left">preference_gj</td>
+<td align="left">Gjalt-Jorn’s preference</td>
+<td align="left">This scenario represents Gjalt-Jorn’s preference.</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"></a>
-<a class="sourceLine" id="cb13-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
+<a class="sourceLine" id="cb15-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scenarios</span>(scenarios_and_alternatives);</a></code></pre></div>
 </div>
 <div id="details-of-scenarios" class="section level2">
 <h2 class="hasAnchor">
@@ -631,36 +946,36 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A repressive policy</td>
-<td align="left">Quality monitoring</td>
-<td align="left">None</td>
-<td align="left">repressive</td>
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
+<td align="left">Evi’s preference</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Dutch</td>
+<td align="left">preference_evi</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
-<td align="left">A repressive policy</td>
-<td align="left">Legal status of possession</td>
-<td align="left">Illegal</td>
-<td align="left">repressive</td>
-<td align="left">legal_status_possession</td>
+<td align="left">Evi’s preference</td>
+<td align="left">Market segment</td>
+<td align="left">Plain</td>
+<td align="left">preference_evi</td>
+<td align="left">segment</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">A liberal policy</td>
-<td align="left">Quality monitoring</td>
-<td align="left">Structurally</td>
-<td align="left">liberal</td>
-<td align="left">quality_monitoring</td>
+<td align="left">Gjalt-Jorn’s preference</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="left">Greek</td>
+<td align="left">preference_gj</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
 </tr>
 <tr class="even">
-<td align="left">A liberal policy</td>
-<td align="left">Legal status of possession</td>
-<td align="left">Legal</td>
-<td align="left">liberal</td>
-<td align="left">legal_status_possession</td>
-<td align="right">3</td>
+<td align="left">Gjalt-Jorn’s preference</td>
+<td align="left">Market segment</td>
+<td align="left">Plain</td>
+<td align="left">preference_gj</td>
+<td align="left">segment</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
@@ -670,12 +985,12 @@
 <div id="weights-of-the-criteria" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#weights-of-the-criteria" class="anchor"></a>Weights of the criteria</h1>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
-<a class="sourceLine" id="cb14-2" title="2">weights &lt;-</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_weights</span>(currentDir,</a>
-<a class="sourceLine" id="cb14-4" title="4">                      <span class="dt">criteria=</span>criteria);</a></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
-<a class="sourceLine" id="cb15-2" title="2">dmcda<span class="op">::</span><span class="kw">details_weights</span>(weights);</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
+<a class="sourceLine" id="cb16-2" title="2">weights &lt;-</a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">load_weights</span>(currentDir,</a>
+<a class="sourceLine" id="cb16-4" title="4">                      <span class="dt">criteria=</span>criteria);</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"></a>
+<a class="sourceLine" id="cb17-2" title="2">dmcda<span class="op">::</span><span class="kw">details_weights</span>(weights);</a></code></pre></div>
 <div id="details-of-weights" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-weights" class="anchor"></a>Details of weights</h2>
@@ -688,105 +1003,171 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">unit_weights</td>
-<td align="left">user_health</td>
-<td align="left">User health</td>
-<td align="right">1</td>
+<td align="left">maximize_health</td>
+<td align="left">food</td>
+<td align="left">Food</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
-<td align="left">unit_weights</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">1</td>
+<td align="left">maximize_health</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">maximize_health</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">maximize_health</td>
+<td align="left">health</td>
+<td align="left">Health</td>
+<td align="right">2.0</td>
+</tr>
+<tr class="odd">
+<td align="left">maximize_health</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="even">
+<td align="left">maximize_health</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">maximize_health</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">minimize_costs</td>
+<td align="left">food</td>
+<td align="left">Food</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">minimize_costs</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="even">
+<td align="left">minimize_costs</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">minimize_costs</td>
+<td align="left">health</td>
+<td align="left">Health</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">minimize_costs</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">minimize_costs</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="even">
+<td align="left">minimize_costs</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">2.0</td>
 </tr>
 <tr class="odd">
 <td align="left">unit_weights</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">1</td>
+<td align="left">food</td>
+<td align="left">Food</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">unit_weights</td>
-<td align="left">public</td>
-<td align="left">Public</td>
-<td align="right">1</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
 <td align="left">unit_weights</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">unit_weights</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">1</td>
+<td align="left">health</td>
+<td align="left">Health</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
 <td align="left">unit_weights</td>
-<td align="left">crime</td>
-<td align="left">Crime</td>
-<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">unit_weights</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">1</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
 <td align="left">unit_weights</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">1</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
-<td align="left">unit_weights</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">1</td>
+<td align="left">maximize_health</td>
+<td align="left">criteria</td>
+<td align="left">Criteria</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">unit_weights</td>
-<td align="left">economy</td>
-<td align="left">Economy</td>
-<td align="right">1</td>
+<td align="left">maximize_health</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
-<td align="left">unit_weights</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">1</td>
+<td align="left">minimize_costs</td>
+<td align="left">criteria</td>
+<td align="left">Criteria</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">unit_weights</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">unit_weights</td>
-<td align="left">political</td>
-<td align="left">Political</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">unit_weights</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">1</td>
+<td align="left">minimize_costs</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">unit_weights</td>
 <td align="left">criteria</td>
 <td align="left">Criteria</td>
-<td align="right">1</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">unit_weights</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">1.0</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
-<a class="sourceLine" id="cb16-2" title="2">dmcda<span class="op">::</span><span class="kw">details_multiplied_weights</span>(weights);</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"></a>
+<a class="sourceLine" id="cb18-2" title="2">dmcda<span class="op">::</span><span class="kw">details_multiplied_weights</span>(weights);</a></code></pre></div>
 </div>
 <div id="details-of-multiplied-weights" class="section level2">
 <h2 class="hasAnchor">
@@ -799,82 +1180,137 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">user_health</td>
+<td align="left">food</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="even">
+<td align="left">food_tastiness</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="odd">
+<td align="left">food_quantity</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="even">
+<td align="left">health</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="odd">
+<td align="left">nutrition</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="even">
+<td align="left">energy</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="odd">
+<td align="left">costs</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="even">
+<td align="left">criteria</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="odd">
+<td align="left">digestion</td>
+<td align="right">1</td>
+<td align="left">maximize_health</td>
+</tr>
+<tr class="even">
+<td align="left">food</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="odd">
+<td align="left">food_tastiness</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="even">
+<td align="left">food_quantity</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="odd">
+<td align="left">health</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="even">
+<td align="left">nutrition</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="odd">
+<td align="left">energy</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="even">
+<td align="left">costs</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="odd">
+<td align="left">criteria</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="even">
+<td align="left">digestion</td>
+<td align="right">1</td>
+<td align="left">minimize_costs</td>
+</tr>
+<tr class="odd">
+<td align="left">food</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="even">
-<td align="left">shift_to_other_drugs</td>
+<td align="left">food_tastiness</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="odd">
-<td align="left">drug_quality_information</td>
+<td align="left">food_quantity</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="even">
-<td align="left">public</td>
+<td align="left">health</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="odd">
-<td align="left">the_vulnerable</td>
+<td align="left">nutrition</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="even">
-<td align="left">cultural_values</td>
+<td align="left">energy</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="odd">
-<td align="left">crime</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="even">
-<td align="left">criminalisation_of_users</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="odd">
-<td align="left">small_crime</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="even">
-<td align="left">corporate_crime</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="odd">
-<td align="left">economy</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="even">
-<td align="left">state_revenues</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="odd">
-<td align="left">costs_financial</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="even">
-<td align="left">political</td>
-<td align="right">1</td>
-<td align="left">unit_weights</td>
-</tr>
-<tr class="odd">
-<td align="left">international_policy</td>
+<td align="left">costs</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
 <tr class="even">
 <td align="left">criteria</td>
+<td align="right">1</td>
+<td align="left">unit_weights</td>
+</tr>
+<tr class="odd">
+<td align="left">digestion</td>
 <td align="right">1</td>
 <td align="left">unit_weights</td>
 </tr>
@@ -886,21 +1322,21 @@
 <div id="general-overview" class="section level1 tabset">
 <h1 class="hasAnchor">
 <a href="#general-overview" class="anchor"></a>General overview</h1>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"></a>
-<a class="sourceLine" id="cb17-2" title="2">estimates &lt;-</a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">autofill_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
-<a class="sourceLine" id="cb17-4" title="4">                            <span class="dt">criteria=</span>criteria,</a>
-<a class="sourceLine" id="cb17-5" title="5">                            <span class="dt">decisions_and_alternatives=</span>decisions_and_alternatives);</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"></a>
+<a class="sourceLine" id="cb19-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">autofill_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
+<a class="sourceLine" id="cb19-4" title="4">                            <span class="dt">criteria=</span>criteria,</a>
+<a class="sourceLine" id="cb19-5" title="5">                            <span class="dt">decisions_and_alternatives=</span>decisions_and_alternatives);</a></code></pre></div>
 <div id="summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h2>
-<p>In this dynamic multi criteria decision aid, 10 criteria have been specified, as well as 2 decisions that together encompass a total of 6 alternatives. This means that 60 estimates are required. Of these, 6 have been specified.</p>
+<p>In this dynamic multi criteria decision aid, 6 criteria have been specified, as well as 2 decisions that together encompass a total of 6 alternatives. This means that 36 estimates are required. Of these, 36 have been specified.</p>
 </div>
 <div id="details" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details" class="anchor"></a>Details</h2>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"></a>
-<a class="sourceLine" id="cb18-2" title="2">dmcda<span class="op">::</span><span class="kw">details_autofilled_estimates</span>(estimates);</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"></a>
+<a class="sourceLine" id="cb20-2" title="2">dmcda<span class="op">::</span><span class="kw">details_autofilled_estimates</span>(estimates);</a></code></pre></div>
 </div>
 <div id="details-of-estimates-after-autofilling" class="section level2">
 <h2 class="hasAnchor">
@@ -909,7 +1345,7 @@
 <thead><tr class="header">
 <th align="left">decision_id</th>
 <th align="left">decision_label</th>
-<th align="left">decision_alternative_value</th>
+<th align="right">decision_alternative_value</th>
 <th align="left">alternative_label</th>
 <th align="left">criterion_id</th>
 <th align="left">criterion_label</th>
@@ -920,724 +1356,436 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">If possession is illegal, obtaining accurate information on drug quality becomes harder.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_1</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">Legal status of possession only has effect on drug quality information if possession is <em>illegal</em>.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_2</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">Legal status of possession only has effect on drug quality information if possession is <em>illegal</em>.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_3</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">-1</td>
-<td align="left">Without monitoring, there is poor information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_4</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
-<td align="right">0</td>
-<td align="left">With mediocre monitoring, there is mediocre information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">1</td>
+<td align="left">Chinese</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_5</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">drug_quality_information</td>
-<td align="left">Drug quality / information</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
 <td align="right">1</td>
-<td align="left">With good monitoring, there is good information.</td>
-<td align="left">Here, an extensive description can be provided. This can explain, in human-readable language, why this estimate (see ‘value’) is arrived at, based on the referenced assertion(s).</td>
+<td align="left">Chinese</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_6</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left">id_7</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_8</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_9</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_10</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_11</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">2</td>
+<td align="left">Italian</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_12</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_13</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_14</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">1</td>
-<td align="left">Illegal</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_15</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_16</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_17</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">3</td>
+<td align="left">Greek</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_18</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_19</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_20</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_21</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_22</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_23</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">2</td>
-<td align="left">‘Gedoogd’</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">kitchen</td>
+<td align="left">Kitchen / cuisine</td>
+<td align="right">4</td>
+<td align="left">Dutch</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_24</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_25</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_26</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_27</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_28</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_29</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">1</td>
+<td align="left">Plain</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">-0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_30</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">costs</td>
+<td align="left">Costs</td>
+<td align="right">-1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_31</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">digestion</td>
+<td align="left">Digestion</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_32</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="left">Legal status of possession</td>
-<td align="left">3</td>
-<td align="left">Legal</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">energy</td>
+<td align="left">Energy</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_33</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">food_quantity</td>
+<td align="left">Food quantity</td>
+<td align="right">0.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_34</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">food_tastiness</td>
+<td align="left">Food tastiness</td>
+<td align="right">1.0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_35</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">1</td>
-<td align="left">None</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">2</td>
-<td align="left">Incidently</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="left">Shift to other drugs</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">the_vulnerable</td>
-<td align="left">The vulnerable</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">cultural_values</td>
-<td align="left">Cultural Values</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">criminalisation_of_users</td>
-<td align="left">Criminalisation of users</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">small_crime</td>
-<td align="left">Small crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">corporate_crime</td>
-<td align="left">Corporate crime</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">state_revenues</td>
-<td align="left">State revenues</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">costs_financial</td>
-<td align="left">Costs (financial)</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="left">Quality monitoring</td>
-<td align="left">3</td>
-<td align="left">Structurally</td>
-<td align="left">international_policy</td>
-<td align="left">International Policy</td>
-<td align="right">NA</td>
-<td align="left">Autofilled</td>
-<td align="left">This estimate was not ‘manually’ specified, and has therefore been autofilled with 0.</td>
-<td align="left">id_7</td>
+<td align="left">segment</td>
+<td align="left">Market segment</td>
+<td align="right">2</td>
+<td align="left">Haute cuisine</td>
+<td align="left">nutrition</td>
+<td align="left">Nutrition</td>
+<td align="right">0.5</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">id_36</td>
 </tr>
 </tbody>
 </table>
@@ -1647,19 +1795,19 @@
 <div id="scores-for-each-scenario-and-weight-profile" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scores-for-each-scenario-and-weight-profile" class="anchor"></a>Scores for each scenario and weight profile</h1>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"></a>
-<a class="sourceLine" id="cb19-2" title="2">estimates &lt;-</a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">weigh_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
-<a class="sourceLine" id="cb19-4" title="4">                         <span class="dt">weights=</span>weights);</a>
-<a class="sourceLine" id="cb19-5" title="5"></a>
-<a class="sourceLine" id="cb19-6" title="6">scenario_scores &lt;-</a>
-<a class="sourceLine" id="cb19-7" title="7"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">scenario_scores</span>(<span class="dt">criteria =</span> criteria,</a>
-<a class="sourceLine" id="cb19-8" title="8">                         <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
-<a class="sourceLine" id="cb19-9" title="9">                         <span class="dt">estimates =</span> estimates,</a>
-<a class="sourceLine" id="cb19-10" title="10">                         <span class="dt">scenarios_and_alternatives =</span> scenarios_and_alternatives,</a>
-<a class="sourceLine" id="cb19-11" title="11">                         <span class="dt">weights =</span> weights);</a></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"></a>
-<a class="sourceLine" id="cb20-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scores</span>(scenario_scores);</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"></a>
+<a class="sourceLine" id="cb21-2" title="2">estimates &lt;-</a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">weigh_estimates</span>(<span class="dt">estimates=</span>estimates,</a>
+<a class="sourceLine" id="cb21-4" title="4">                         <span class="dt">weights=</span>weights);</a>
+<a class="sourceLine" id="cb21-5" title="5"></a>
+<a class="sourceLine" id="cb21-6" title="6">scenario_scores &lt;-</a>
+<a class="sourceLine" id="cb21-7" title="7"><span class="st">  </span>dmcda<span class="op">::</span><span class="kw">scenario_scores</span>(<span class="dt">criteria =</span> criteria,</a>
+<a class="sourceLine" id="cb21-8" title="8">                         <span class="dt">decisions_and_alternatives =</span> decisions_and_alternatives,</a>
+<a class="sourceLine" id="cb21-9" title="9">                         <span class="dt">estimates =</span> estimates,</a>
+<a class="sourceLine" id="cb21-10" title="10">                         <span class="dt">scenarios_and_alternatives =</span> scenarios_and_alternatives,</a>
+<a class="sourceLine" id="cb21-11" title="11">                         <span class="dt">weights =</span> weights);</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"></a>
+<a class="sourceLine" id="cb22-2" title="2">dmcda<span class="op">::</span><span class="kw">summary_scores</span>(scenario_scores);</a></code></pre></div>
 <div id="summary-of-scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-scores" class="anchor"></a>Summary of scores</h2>
@@ -1671,27 +1819,227 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">repressive</td>
-<td align="left">unit_weights</td>
-<td align="right">-1</td>
+<td align="left">preference_evi</td>
+<td align="left">maximize_health</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
-<td align="left">liberal</td>
+<td align="left">preference_evi</td>
+<td align="left">minimize_costs</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">preference_evi</td>
 <td align="left">unit_weights</td>
-<td align="right">1</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">preference_gj</td>
+<td align="left">maximize_health</td>
+<td align="right">-2.0</td>
+</tr>
+<tr class="odd">
+<td align="left">preference_gj</td>
+<td align="left">minimize_costs</td>
+<td align="right">-2.0</td>
+</tr>
+<tr class="even">
+<td align="left">preference_gj</td>
+<td align="left">unit_weights</td>
+<td align="right">-2.0</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"></a>
-<a class="sourceLine" id="cb21-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scores</span>(scenario_scores);</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"></a>
+<a class="sourceLine" id="cb23-2" title="2">dmcda<span class="op">::</span><span class="kw">details_scores</span>(scenario_scores);</a></code></pre></div>
 </div>
 <div id="details-of-scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-scores" class="anchor"></a>Details of scores</h2>
 </div>
-<div id="scenario-repressive" class="section level2 tabset">
+<div id="scenario-preference_evi" class="section level2 tabset">
 <h2 class="hasAnchor">
-<a href="#scenario-repressive" class="anchor"></a>Scenario: repressive</h2>
+<a href="#scenario-preference_evi" class="anchor"></a>Scenario: preference_evi</h2>
+<div id="weighing-profile-maximize_health" class="section level3 tabset">
+<h3 class="hasAnchor">
+<a href="#weighing-profile-maximize_health" class="anchor"></a>Weighing profile: maximize_health</h3>
+<table class="table">
+<thead><tr class="header">
+<th align="left">decision_id</th>
+<th align="right">decision_alternative_value</th>
+<th align="left">criterion_id</th>
+<th align="right">score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_quantity</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">energy</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">digestion</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="scenario-preference_evi-1" class="section level2 tabset">
+<h2 class="hasAnchor">
+<a href="#scenario-preference_evi-1" class="anchor"></a>Scenario: preference_evi</h2>
+<div id="weighing-profile-minimize_costs" class="section level3 tabset">
+<h3 class="hasAnchor">
+<a href="#weighing-profile-minimize_costs" class="anchor"></a>Weighing profile: minimize_costs</h3>
+<table class="table">
+<thead><tr class="header">
+<th align="left">decision_id</th>
+<th align="right">decision_alternative_value</th>
+<th align="left">criterion_id</th>
+<th align="right">score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_quantity</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">energy</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">digestion</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="scenario-preference_evi-2" class="section level2 tabset">
+<h2 class="hasAnchor">
+<a href="#scenario-preference_evi-2" class="anchor"></a>Scenario: preference_evi</h2>
 <div id="weighing-profile-unit_weights" class="section level3 tabset">
 <h3 class="hasAnchor">
 <a href="#weighing-profile-unit_weights" class="anchor"></a>Weighing profile: unit_weights</h3>
@@ -1704,132 +2052,264 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">drug_quality_information</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">food_quantity</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">the_vulnerable</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">cultural_values</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">energy</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">criminalisation_of_users</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">digestion</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="right">1</td>
-<td align="left">small_crime</td>
-<td align="right">0</td>
+<td align="left">kitchen</td>
+<td align="right">4</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">corporate_crime</td>
-<td align="right">0</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">state_revenues</td>
-<td align="right">0</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">costs_financial</td>
-<td align="right">0</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">international_policy</td>
-<td align="right">0</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="right">0</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-<td align="left">drug_quality_information</td>
-<td align="right">-1</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">the_vulnerable</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">cultural_values</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">criminalisation_of_users</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">small_crime</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">corporate_crime</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">state_revenues</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">costs_financial</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">1</td>
-<td align="left">international_policy</td>
-<td align="right">0</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="scenario-liberal" class="section level2 tabset">
+<div id="scenario-preference_gj" class="section level2 tabset">
 <h2 class="hasAnchor">
-<a href="#scenario-liberal" class="anchor"></a>Scenario: liberal</h2>
+<a href="#scenario-preference_gj" class="anchor"></a>Scenario: preference_gj</h2>
+<div id="weighing-profile-maximize_health-1" class="section level3 tabset">
+<h3 class="hasAnchor">
+<a href="#weighing-profile-maximize_health-1" class="anchor"></a>Weighing profile: maximize_health</h3>
+<table class="table">
+<thead><tr class="header">
+<th align="left">decision_id</th>
+<th align="right">decision_alternative_value</th>
+<th align="left">criterion_id</th>
+<th align="right">score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">digestion</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="scenario-preference_gj-1" class="section level2 tabset">
+<h2 class="hasAnchor">
+<a href="#scenario-preference_gj-1" class="anchor"></a>Scenario: preference_gj</h2>
+<div id="weighing-profile-minimize_costs-1" class="section level3 tabset">
+<h3 class="hasAnchor">
+<a href="#weighing-profile-minimize_costs-1" class="anchor"></a>Weighing profile: minimize_costs</h3>
+<table class="table">
+<thead><tr class="header">
+<th align="left">decision_id</th>
+<th align="right">decision_alternative_value</th>
+<th align="left">criterion_id</th>
+<th align="right">score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">digestion</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="even">
+<td align="left">kitchen</td>
+<td align="right">3</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="scenario-preference_gj-2" class="section level2 tabset">
+<h2 class="hasAnchor">
+<a href="#scenario-preference_gj-2" class="anchor"></a>Scenario: preference_gj</h2>
 <div id="weighing-profile-unit_weights-1" class="section level3 tabset">
 <h3 class="hasAnchor">
 <a href="#weighing-profile-unit_weights-1" class="anchor"></a>Weighing profile: unit_weights</h3>
@@ -1842,124 +2322,76 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="right">0</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">drug_quality_information</td>
-<td align="right">0</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">the_vulnerable</td>
-<td align="right">0</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">cultural_values</td>
-<td align="right">0</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">criminalisation_of_users</td>
-<td align="right">0</td>
+<td align="left">digestion</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="even">
-<td align="left">legal_status_possession</td>
+<td align="left">kitchen</td>
 <td align="right">3</td>
-<td align="left">small_crime</td>
-<td align="right">0</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="right">3</td>
-<td align="left">corporate_crime</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="right">3</td>
-<td align="left">state_revenues</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">legal_status_possession</td>
-<td align="right">3</td>
-<td align="left">costs_financial</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">legal_status_possession</td>
-<td align="right">3</td>
-<td align="left">international_policy</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">shift_to_other_drugs</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">drug_quality_information</td>
+<td align="left">segment</td>
 <td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">the_vulnerable</td>
-<td align="right">0</td>
+<td align="left">food_tastiness</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">cultural_values</td>
-<td align="right">0</td>
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">food_quantity</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">criminalisation_of_users</td>
-<td align="right">0</td>
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">nutrition</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">small_crime</td>
-<td align="right">0</td>
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">energy</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">corporate_crime</td>
-<td align="right">0</td>
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">digestion</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">state_revenues</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">costs_financial</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">quality_monitoring</td>
-<td align="right">3</td>
-<td align="left">international_policy</td>
-<td align="right">0</td>
+<td align="left">segment</td>
+<td align="right">1</td>
+<td align="left">costs</td>
+<td align="right">0.0</td>
 </tr>
 </tbody>
 </table>
@@ -1974,24 +2406,15 @@
 <h2 class="hasAnchor">
 <a href="#assertions" class="anchor"></a>Assertions</h2>
 <p>This is an overview of all assertions (all ‘facts’. ‘claims’, ‘assumptions’, or ‘propositions’ that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"></a>
-<a class="sourceLine" id="cb22-2" title="2">dmcda<span class="op">::</span><span class="kw">details_assertions</span>(estimates);</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"></a>
+<a class="sourceLine" id="cb24-2" title="2">dmcda<span class="op">::</span><span class="kw">details_assertions</span>(estimates);</a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="co">#&gt; Warning in kable_markdown(x, padding = padding, ...): The table should have</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="co">#&gt; a header (column names)</span></a></code></pre></div>
 </div>
 <div id="details-of-assertions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-assertions" class="anchor"></a>Details of assertions</h2>
-<table class="table">
-<thead><tr class="header">
-<th align="left">id</th>
-<th align="left">label</th>
-<th align="left">source</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">placeholder_assertion</td>
-<td align="left">Description of this assertion</td>
-<td align="left">one or multiple sources specified</td>
-</tr></tbody>
-</table>
+<p>|| || || ||</p>
 </div>
 <div id="counterfactuals" class="section level2">
 <h2 class="hasAnchor">
@@ -2002,31 +2425,22 @@
 <h2 class="hasAnchor">
 <a href="#sources-literature" class="anchor"></a>Sources / literature</h2>
 <p>This is an overview of all sources that the assertions refer to.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"></a>
-<a class="sourceLine" id="cb23-2" title="2">dmcda<span class="op">::</span><span class="kw">details_sources</span>(estimates);</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"></a>
+<a class="sourceLine" id="cb25-2" title="2">dmcda<span class="op">::</span><span class="kw">details_sources</span>(estimates);</a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="co">#&gt; Warning in kable_markdown(x, padding = padding, ...): The table should have</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="co">#&gt; a header (column names)</span></a></code></pre></div>
 </div>
 <div id="details-of-sources" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details-of-sources" class="anchor"></a>Details of sources</h2>
-<table class="table">
-<thead><tr class="header">
-<th align="left">id</th>
-<th align="left">label</th>
-<th align="left">xdoi</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">some_nonexistent_source</td>
-<td align="left">There’s not really a source for this, but I need an example.</td>
-<td align="left"><a href="doi:10.17605/osf.io/ndxha" class="uri">doi:10.17605/osf.io/ndxha</a></td>
-</tr></tbody>
-</table>
+<p>|| || || ||</p>
 </div>
 <div id="logs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#logs" class="anchor"></a>Logs</h2>
 <p>These are more detailed logs.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(estimates<span class="op">$</span>autofillLogs,</a>
-<a class="sourceLine" id="cb24-2" title="2">           <span class="dt">collapse=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>));</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(estimates<span class="op">$</span>autofillLogs,</a>
+<a class="sourceLine" id="cb26-2" title="2">           <span class="dt">collapse=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>));</a></code></pre></div>
 </div>
 </div>
   </div>
@@ -2048,6 +2462,8 @@
       </ul>
 </li>
       <li><a href="#empty-performance-table">Empty performance table</a></li>
+      <li><a href="#scoring-system">Scoring system</a></li>
+      <li><a href="#consensus-between-raters">Consensus between raters</a></li>
       <li>
 <a href="#estimates">Estimates</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#summary-of-estimates">Summary of estimates</a></li>
@@ -2077,8 +2493,12 @@
 <a href="#scores-for-each-scenario-and-weight-profile">Scores for each scenario and weight profile</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#summary-of-scores">Summary of scores</a></li>
       <li><a href="#details-of-scores">Details of scores</a></li>
-      <li><a href="#scenario-repressive">Scenario: repressive</a></li>
-      <li><a href="#scenario-liberal">Scenario: liberal</a></li>
+      <li><a href="#scenario-preference_evi">Scenario: preference_evi</a></li>
+      <li><a href="#scenario-preference_evi-1">Scenario: preference_evi</a></li>
+      <li><a href="#scenario-preference_evi-2">Scenario: preference_evi</a></li>
+      <li><a href="#scenario-preference_gj">Scenario: preference_gj</a></li>
+      <li><a href="#scenario-preference_gj-1">Scenario: preference_gj</a></li>
+      <li><a href="#scenario-preference_gj-2">Scenario: preference_gj</a></li>
       </ul>
 </li>
       <li>
