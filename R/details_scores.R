@@ -7,7 +7,7 @@ details_scores <- function(scenario_scores,
                                             "Alternative value",
                                             "Criterion identifier",
                                             "Value"),
-                           pdfColWidths = c("5cm", "3cm", "4cm", "2cm")) {
+                           pdfColWidths = c("5cm", "2cm", "5cm", "2cm")) {
 
   if (is.null(heading)) {
     res <- "\n\n";
