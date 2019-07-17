@@ -2,7 +2,7 @@
 kable_widths <- function(x,
                          heading = NULL,
                          headingLevel = 2,
-                         pdfCols = ncol(x),
+                         pdfCols = names(x),
                          pdfColLabels = names(x),
                          pdfColWidths = paste0((16 / length(pdfCols)), "cm"),
                          row.names=FALSE) {
