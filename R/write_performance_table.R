@@ -140,7 +140,7 @@ write_performance_table <- function(performance_table,
     writeFun(performance_table,
              file=file.path(path,
                             paste0(sprintf(fullTableFilenamePattern,
-                                           estimatorCode),
+                                           estimatorCodes[1]),
                                    ".", ext)));
     return(invisible(performance_table));
   }
