@@ -11,7 +11,8 @@
 #' insert_if_knitting_to_pdf("This only shows up in the PDF version.");
 insert_if_knitting_to_pdf <- function(...,
                                       sep="") {
-  if ("latex" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+#  if ("latex" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  if (knitr::is_latex_output()) {
     cat(..., sep=sep);
   } else {
     cat("");

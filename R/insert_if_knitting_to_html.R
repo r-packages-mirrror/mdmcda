@@ -11,7 +11,8 @@
 #' insert_if_knitting_to_html("This only shows up in the HTML version.");
 insert_if_knitting_to_html <- function(...,
                                        sep="") {
-  if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  #if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  if (knitr::is_html_output()) {
     cat(..., sep=sep);
   } else {
     cat("");

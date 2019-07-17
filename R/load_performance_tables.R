@@ -53,34 +53,39 @@ load_performance_tables <- function(input,
   }
 
   ### Load all performance tables
-  res <- list(performance_tables = list());
+  res <- list(performance_subtables = list());
   for (filename in performanceTableFiles) {
-    res$performance_tables[[basename(filename)]] <-
+    res$performance_subtables[[basename(filename)]] <-
       load_performance_table(filename,
                              sheetIndex=sheetIndex,
                              sep=sep,
                              ...);
   }
 
-  ### Get dimensions of all performance tables
-  res$dimensions <-
-    lapply(res$performance_tables,
-           dim);
+  ### Extract each performance tables estimatorCode
+  res$estimatorCodeVector <-
+    unlist(lapply(res$performance_subtables,
+                  function(x) {
+                    return(attr(x, 'estimatorCode'));
+                  }));
+
+  res$estimatorCodeVector[is.na(res$estimatorCodeVector)] <-
+    "all";
+
+  res$estimatorCodes <- unique(na.omit(res$estimatorCodeVector));
 
   ### Store estimate dataframes
   res$estimates <-
-    lapply(res$performance_tables,
+    lapply(res$performance_subtables,
            estimates_from_performance_table);
 
   ### Set identifier legend to combine estimates in one dataframe
   res$multiEstimateLegend <-
-    names(res$estimates);
-  names(res$multiEstimateLegend) <-
-    paste0("value_", seq_along(res$multiEstimateLegend));
+    res$estimatorCodeVector;
   res$multiEstimateInverseLegend <-
-    paste0("value_", seq_along(res$multiEstimateLegend));
+    names(res$multiEstimateLegend);
   names(res$multiEstimateInverseLegend) <-
-    names(res$estimates);
+    res$multiEstimateLegend;
 
   ### Combine estimates in one dataframe
   res$multiEstimateDf <- data.frame(decision_id = character(),
@@ -90,7 +95,7 @@ load_performance_tables <- function(input,
                                     criterion_id = character(),
                                     criterion_label = character(),
                                     stringsAsFactors = FALSE);
-  for (i in res$multiEstimateLegend) {
+  for (i in names(res$multiEstimateLegend)) {
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
         which(res$multiEstimateDf$decision_id %in% res$estimates[[i]]$estimatesDf[j, 'decision_id'] &
@@ -114,32 +119,42 @@ load_performance_tables <- function(input,
         res$estimates[[i]]$estimatesDf[j, 'criterion_id'];
       res$multiEstimateDf[rowNr, 'criterion_label'] <-
         res$estimates[[i]]$estimatesDf[j, 'criterion_label'];
-      res$multiEstimateDf[rowNr, res$multiEstimateInverseLegend[i]] <-
+      res$multiEstimateDf[rowNr, res$multiEstimateLegend[i]] <-
         res$estimates[[i]]$estimatesDf[j, 'value'];
     }
   }
 
   ### Converting estimates to numeric
-  res$multiEstimateDf[, res$multiEstimateInverseLegend] <-
-    lapply(res$multiEstimateInverseLegend,
+  res$multiEstimateDf[, res$estimatorCodes] <-
+    lapply(res$estimatorCodes,
            function(i, x = res$multiEstimateDf[, i]) {
              suppressWarnings(y <- as.numeric(x));
              z <- as.character(y);
              ### z & z should now be equal. If not, z will have
              ### deviating values or missing values
-             j <- res$multiEstimateInverseLegend;
              if (identical(x, z)) {
                return(y);
              } else {
                warning("One of the estimates loaded from '",
-                       j, "' cannot be converted to a numeric value.");
+                       i, "' in file '",
+                       res$multiEstimateInverseLegend[i],
+                       "' cannot be converted to a numeric value.");
                return(x);
              }
            });
 
+  ### Generate complete performance_tables
+  res$performance_tables <- list();
+  for (i in res$estimatorCodes) {
+    res$performance_tables[[i]] <-
+      estimateDf_to_performance_table(res$multiEstimateDf,
+                                      valueCol = i);
+    res$performance_tables[[i]][1,1] <- i;
+  }
+
   numericValues <-
-    res$multiEstimateInverseLegend[
-      unlist(lapply(res$multiEstimateDf[, res$multiEstimateInverseLegend], is.numeric))
+    res$estimatorCodes[
+      unlist(lapply(res$multiEstimateDf[, res$estimatorCodes], is.numeric))
     ];
 
   if (length(numericValues) > 1) {

@@ -122,9 +122,31 @@ performance_table <-
 temporaryFile <-
   tempfile(fileext=".xlsx");
 
+path <- tempdir();
+
+### Store table as comma separated values file
 dmcda::write_performance_table(performance_table,
-                               temporaryFile,
+                               criteria = criteria,
+                               path = path,
+                               split=TRUE,
+                               estimatorCodes = c("Evi", "GJ"),
+                               ext = "csv",
                                overwrite=TRUE);
+
+### Store table as excel file
+dmcda::write_performance_table(performance_table,
+                               criteria = criteria,
+                               path = path,
+                               split=TRUE,
+                               estimatorCodes = c("Evi", "GJ"),
+                               ext = "xlsx",
+                               overwrite=TRUE);
+
+
+# dmcda::write_performance_table(performance_table,
+#                                criteria,
+#                                path=path,
+#                                overwrite=TRUE);
 
 ### Suppress warnings because performance tables don't have
 ### headers given their ~~messy~~ highly original structure

@@ -39,5 +39,7 @@ load_performance_table <- function(file,
 
   class(res) <- c('performance_table', class(res));
 
+  attr(res, "estimatorCode") <- res[1,1];
+
   return(invisible(res));
 }
