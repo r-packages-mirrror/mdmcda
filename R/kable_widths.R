@@ -1,17 +1,14 @@
-#' @export
-details_scenarios <- function(scenarios_and_alternatives,
-                              heading = "Details of scenarios",
-                              headingLevel = 2,
-                              pdfCols = c(1, 2, 3),
-                              pdfColLabels = c("Scenario",
-                                               "Decision",
-                                               "Selected alternative"),
-                              pdfColWidths = c("3cm", "6cm", "6cm")) {
+kable_widths <- function(x,
+                         heading = NULL,
+                         headingLevel = 2,
+                         pdfCols = ncol(x),
+                         pdfColLabels = names(x),
+                         pdfColWidths = paste0((16 / length(pdfCols)), "cm"),
+                         row.names=FALSE) {
 
-  ### If we're not knitting, immediately return the decision
-  ### dataframe
+  ### If we're not knitting, immediately return the provided dataframe
   if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
-    return(scenarios_and_alternatives$scenarioAlternativesDf);
+    return(x);
   }
 
   if (is.null(heading)) {
@@ -32,9 +29,9 @@ details_scenarios <- function(scenarios_and_alternatives,
 
   if (knitr::is_latex_output()) {
     table <-
-      knitr::kable(scenarios_and_alternatives$scenarioAlternativesDf[, pdfCols],
+      knitr::kable(x[, pdfCols],
                    format="latex",
-                   row.names = FALSE,
+                   row.names = row.names,
                    col.names=pdfColLabels,
                    booktabs = TRUE, longtable = TRUE);
     for (i in seq_along(pdfCols)) {
@@ -45,8 +42,8 @@ details_scenarios <- function(scenarios_and_alternatives,
     }
   } else {
     table <-
-      knitr::kable(scenarios_and_alternatives$scenarioAlternativesDf,
-                   row.names = FALSE);
+      knitr::kable(x,
+                   row.names = row.names);
   }
 
   res <-
@@ -57,4 +54,5 @@ details_scenarios <- function(scenarios_and_alternatives,
   res <- knitr::asis_output(res);
 
   return(res);
+
 }
