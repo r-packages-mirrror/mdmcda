@@ -2,13 +2,14 @@
 kable_widths <- function(x,
                          heading = NULL,
                          headingLevel = 2,
-                         pdfCols = names(x),
-                         pdfColLabels = names(x),
-                         pdfColWidths = paste0((16 / length(pdfCols)), "cm"),
-                         row.names=FALSE) {
+                         pdfCols = NULL,
+                         pdfColLabels = NULL,
+                         pdfColWidths = NULL,
+                         row.names=FALSE,
+                         forceLatex = FALSE) {
 
   ### If we're not knitting, immediately return the provided dataframe
-  if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+  if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to")) && (!forceLatex)) {
     return(x);
   }
 
@@ -22,13 +23,27 @@ kable_widths <- function(x,
                   "\n\n");
   }
 
+  if (is.null(pdfCols)) {
+    if (!is.null(pdfColLabels)) {
+      pdfCols <- seq_along(pdfColLabels);
+    } else {
+      pdfCols <- 1:ncol(x);
+      pdfColLabels <- paste0("Col", pdfCols);
+    }
+  }
+
+  if (is.null(pdfColWidths)) {
+    pdfColWidths <-
+      rep(paste0((16 / length(pdfCols)), "cm"), length(pdfCols));
+  }
+
   if (!(length(pdfCols) == length(pdfColLabels) &&
         length(pdfColLabels) == length(pdfColWidths))) {
     stop("Exactly equal lengths have to be provided for the ",
          "arguments 'pdfCols', 'pdfColLabels', and 'pdfColWidths'.");
   }
 
-  if (knitr::is_latex_output()) {
+  if (knitr::is_latex_output() || forceLatex) {
     table <-
       knitr::kable(x[, pdfCols],
                    format="latex",
