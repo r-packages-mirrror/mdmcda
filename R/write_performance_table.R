@@ -121,11 +121,11 @@ write_performance_table <- function(performance_table,
         cols <- c(1:4, criteriaDf[criteriaDf$parentCriterion %in% i, 'col']);
         performance_subtables[[i]][[j]] <-
           performance_table[rows, cols];
-        ### Add estimator code
-        performance_subtables[[i]][[j]][1,1] <-
-          estimatorCode;
         ### Write this performance subtable to a file
         for (estimatorCode in estimatorCodes) {
+          ### Add estimator code
+          performance_subtables[[i]][[j]][1,1] <-
+            estimatorCode;
           writeFun(performance_subtables[[i]][[j]],
                    file=file.path(path,
                                   paste0(sprintf(subTableFilenamePattern,
