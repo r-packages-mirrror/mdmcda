@@ -1,3 +1,4 @@
+#' @export
 kable_widths <- function(x,
                          heading = NULL,
                          headingLevel = 2,

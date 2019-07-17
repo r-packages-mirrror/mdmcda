@@ -125,13 +125,14 @@ temporaryFile <-
 path <- tempdir();
 
 ### Store table as comma separated values file
-dmcda::write_performance_table(performance_table,
-                               criteria = criteria,
-                               path = path,
-                               split=TRUE,
-                               estimatorCodes = c("Evi", "GJ"),
-                               ext = "csv",
-                               overwrite=TRUE);
+performance_subtables <-
+  dmcda::write_performance_table(performance_table,
+                                 criteria = criteria,
+                                 path = path,
+                                 split=TRUE,
+                                 estimatorCodes = c("Evi", "GJ"),
+                                 ext = "csv",
+                                 overwrite=TRUE);
 
 ### Store table as excel file
 dmcda::write_performance_table(performance_table,
@@ -141,7 +142,6 @@ dmcda::write_performance_table(performance_table,
                                estimatorCodes = c("Evi", "GJ"),
                                ext = "xlsx",
                                overwrite=TRUE);
-
 
 # dmcda::write_performance_table(performance_table,
 #                                criteria,
@@ -158,6 +158,20 @@ This is the table with all values to be estimated. The values can be filled
 either through filling the table and importing it, or through specifying specific
 values, which enables also providing justifications and linking to assertions and
 sources for support.
+
+```{r performance-subtables}
+
+for (criteriaClusters in names(performance_subtables)) {
+  for (decision in names(performance_subtables[[criteriaClusters]])) {
+    print(dmcda::kable_widths(performance_subtables[[criteriaClusters]][[decision]],
+                              heading = paste0("Performance subtable for decision ",
+                                               decision, " on criteria in cluster ",
+                                               criteriaClusters),
+                              headingLevel = 3));
+  }
+}
+
+```
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
