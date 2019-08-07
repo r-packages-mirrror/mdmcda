@@ -10,7 +10,6 @@ write_estimatesDf <- function(estimateDf,
                                      'criterion_id',
                                      'decision_id',
                                      'decision_alternative_value'),
-                              ext = "csv",
                               overwrite = FALSE,
                               sep = ",",
                               encoding="UTF-8",
@@ -32,6 +31,10 @@ write_estimatesDf <- function(estimateDf,
     stop("The directory specified where to write the file ('",
          path, "') does not exist!");
   }
+
+  ext <- sub("^.*\\.(.*)$",
+             "\\1",
+             file);
 
   wantsXls <- grepl('xls', ext);
 
