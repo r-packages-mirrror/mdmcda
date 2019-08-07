@@ -116,7 +116,6 @@ load_criteria <- function(input,
                                      collapse="\n"),
                               x['zero_label']);
 
-
             if (lo_score != 0) {
               res <- res +
                 ggplot2::geom_point(x = 0,
