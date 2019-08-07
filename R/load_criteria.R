@@ -67,6 +67,12 @@ load_criteria <- function(input,
     apply(anchoringDf,
           1,
           function(x) {
+
+            plotTitle <-
+              criteriaDf$label[criteriaDf$id == x['id']];
+            plotSubtitle <-
+              criteriaDf$description[criteriaDf$id == x['id']];
+
             lo_score <- as.numeric(x['lo_score']);
             hi_score <- as.numeric(x['hi_score']);
 
@@ -99,7 +105,9 @@ load_criteria <- function(input,
               ggplot2::coord_cartesian(ylim=c(-125, 125),
                                        xlim=c(-1, 0.25)) +
               ggplot2::labs(x=NULL,
-                            y=NULL);
+                            y=NULL,
+                            title = plotTitle,
+                            subtitle = plotSubtitle);
 
             yBreaks <- 0;
             yLabels <- ifelse(!is.null(graphLabelWrapping),
