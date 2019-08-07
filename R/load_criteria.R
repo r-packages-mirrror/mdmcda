@@ -3,7 +3,8 @@ load_criteria <- function(input,
                           extension = "jmd",
                           regex = NULL,
                           recursive = TRUE,
-                          encoding = "UTF-8") {
+                          encoding = "UTF-8",
+                          graphLabelWrapping = 25) {
 
   if (is.null(regex)) {
     regex <- paste0("^(.*)\\.", extension, "$");
@@ -62,51 +63,111 @@ load_criteria <- function(input,
   anchoringDf$hi_score <-
     as.numeric(anchoringDf$hi_score);
 
-  print(anchoringDf$lo_score);
-
   anchoringGraphs <-
     apply(anchoringDf,
           1,
           function(x) {
-            x['lo_score'] <- as.numeric(x['lo_score']);
-            x['hi_score'] <- as.numeric(x['hi_score']);
+            lo_score <- as.numeric(x['lo_score']);
+            hi_score <- as.numeric(x['hi_score']);
+
             res <-
-              ggplot2::ggplot() +
-                ggplot2::geom_point(x = 0,
-                                    y = 0,
-                                    size = 2);
+              ggplot2::ggplot(data=data.frame(x=0, y=0)) +
+              ggplot2::geom_rect(xmin = -10,
+                                 ymin = -100,
+                                 xmax = 10,
+                                 ymax = 100,
+                                 fill="white") +
+              ggplot2::geom_hline(yintercept = c(100, 50, 0, -50, -100),
+                                  color="#BBBBBB",
+                                  size=1) +
+              ggplot2::geom_point(mapping=ggplot2::aes_string(x = 'x',
+                                                              y = 'y'),
+                                  size = 8) +
+              ggplot2::annotate(geom="text",
+                                x=-.25,
+                                y=0,
+                                hjust=1,
+                                label=0,
+                                size=10) +
+              ggplot2::theme_minimal(base_size = 14) +
+              ggplot2::theme(panel.grid = ggplot2::element_blank(),
+                             axis.text.x = ggplot2::element_blank(),
+                             plot.background = ggplot2::element_rect(color="black",
+                                                                     fill="transparent",
+                                                                     size=1),
+                             plot.margin = grid::unit(rep(.025,4), units="npc")) +
+              ggplot2::coord_cartesian(ylim=c(-125, 125),
+                                       xlim=c(-1, 0.25)) +
+              ggplot2::labs(x=NULL,
+                            y=NULL);
+
             yBreaks <- 0;
-            yLabels <- x['zero_label'];
-            print(x['lo_score']);
-            if (x['lo_score'] != 0) {
+            yLabels <- ifelse(!is.null(graphLabelWrapping),
+                              paste0(strwrap(x['zero_label'],
+                                             width=graphLabelWrapping),
+                                     collapse="\n"),
+                              x['zero_label']);
+
+
+            if (lo_score != 0) {
               res <- res +
                 ggplot2::geom_point(x = 0,
-                                    y = x['lo_score'],
-                                    size = 2);
-              yBreaks <- c(x['lo_score'],
+                                    y = lo_score,
+                                    size = 8) +
+                ggplot2::annotate(geom="text",
+                                  y=lo_score,
+                                  x=-.25,
+                                  hjust=1,
+                                  label=lo_score,
+                                  size=10) +
+                ggplot2::geom_segment(x=0,
+                                      y=0,
+                                      xend=0,
+                                      yend=lo_score,
+                                      size=2);
+              yBreaks <- c(lo_score,
                            yBreaks);
-              yLabels <- c(x['lo_label'],
+              yLabels <- c(ifelse(!is.null(graphLabelWrapping),
+                                  paste0(strwrap(x['lo_label'],
+                                                 width=graphLabelWrapping),
+                                         collapse="\n"),
+                                  x['lo_label']),
                            yLabels);
             }
-            print(x['hi_score']);
-            if (x['hi_score'] != 0) {
+
+            if (hi_score != 0) {
               res <- res +
                 ggplot2::geom_point(x = 0,
-                                    y = x['hi_score'],
-                                    size = 2);
+                                    y = hi_score,
+                                    size = 8) +
+                ggplot2::annotate(geom="text",
+                                  x=-.25,
+                                  y=hi_score,
+                                  hjust=1,
+                                  label=hi_score,
+                                  size=10) +
+                ggplot2::geom_segment(x=0,
+                                      y=0,
+                                      xend=0,
+                                      yend=hi_score,
+                                      size=2);
+
                 yBreaks <- c(yBreaks,
-                             x['hi_score']);
+                             hi_score);
                 yLabels <- c(yLabels,
-                             x['hi_label']);
+                             ifelse(!is.null(graphLabelWrapping),
+                                    paste0(strwrap(x['hi_label'],
+                                                   width=graphLabelWrapping),
+                                           collapse="\n"),
+                                    x['hi_label']));
             }
 
-            print(length(yBreaks));
-            print(length(yLabels));
-
             res <- res +
-              ggplot2::theme_minimal() +
               ggplot2::scale_y_continuous(breaks = yBreaks,
                                           labels = yLabels);
+
+            return(res);
+
           });
 
   names(anchoringGraphs) <-
