@@ -1,5 +1,5 @@
 #' @export
-write_estimatesDf <- function(estimateDf,
+write_estimatesDf <- function(estimatesDf,
                               file,
                               cols=c('decision_label',
                                      'decision_alternative_label',
@@ -16,20 +16,24 @@ write_estimatesDf <- function(estimateDf,
                               silent=TRUE,
                               ...) {
 
-  if (!is.data.frame(estimateDf)) {
-    stop("As 'estimateDf', you have to pass a dataframe with estimates!");
+  if (!is.data.frame(estimatesDf)) {
+    stop("As 'estimatesDf', you have to pass a dataframe with estimates!");
   }
 
-  if (!all(cols %in% names(estimateDf))) {
-    stop("The dataframe suppied as 'estimateDf' does not contain all ",
+  if (is.null(cols)) {
+    cols <- names(estimatesDf);
+  }
+
+  if (!all(cols %in% names(estimatesDf))) {
+    stop("The dataframe suppied as 'estimatesDf' does not contain all ",
          "specified columns (",
          vecTxtQ(cols),
          ").");
   }
 
-  if (!dir.exists(path)) {
+  if (!dir.exists(dirname(file))) {
     stop("The directory specified where to write the file ('",
-         path, "') does not exist!");
+         dirname(file), "') does not exist!");
   }
 
   ext <- sub("^.*\\.(.*)$",
@@ -79,10 +83,10 @@ write_estimatesDf <- function(estimateDf,
   }
 
   if (!file.exists(file) || overwrite) {
-    writeFun(estimatesDf,
+    writeFun(estimatesDf[, cols],
              file=file);
   }
 
-  return(invisible(estimateDf));
+  return(invisible(estimatesDf));
 
 }
