@@ -95,7 +95,7 @@ load_criteria <- function(input,
                                 hjust=1,
                                 label=0,
                                 size=10) +
-              ggplot2::theme_minimal(base_size = 14) +
+              ggplot2::theme_minimal(base_size = 10) +
               ggplot2::theme(panel.grid = ggplot2::element_blank(),
                              axis.text.x = ggplot2::element_blank(),
                              plot.background = ggplot2::element_rect(color="black",
