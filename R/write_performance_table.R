@@ -126,22 +126,30 @@ write_performance_table <- function(performance_table,
           ### Add estimator code
           performance_subtables[[i]][[j]][1,1] <-
             estimatorCode;
-          writeFun(performance_subtables[[i]][[j]],
-                   file=file.path(path,
-                                  paste0(sprintf(subTableFilenamePattern,
-                                                 j, i, estimatorCode),
-                                         ".", ext)));
+          filename <-
+            file.path(path,
+                      paste0(sprintf(subTableFilenamePattern,
+                                     j, i, estimatorCode),
+                             ".", ext));
+          if (!file.exists(filename) || overwrite) {
+            writeFun(performance_subtables[[i]][[j]],
+                     file=filename);
+          }
         }
       }
     }
     return(invisible(performance_subtables));
 
   } else {
-    writeFun(performance_table,
-             file=file.path(path,
-                            paste0(sprintf(fullTableFilenamePattern,
-                                           estimatorCodes[1]),
-                                   ".", ext)));
+    filename <-
+      file.path(path,
+                paste0(sprintf(fullTableFilenamePattern,
+                               estimatorCodes[1]),
+                       ".", ext));
+    if (!file.exists(filename) || overwrite) {
+      writeFun(performance_table,
+               file=filename);
+    }
     return(invisible(performance_table));
   }
 

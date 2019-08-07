@@ -1,3 +1,4 @@
+#' @export
 write_estimate_specs <- function(estimateDf,
                                  path,
                                  overwrite = c("never",
