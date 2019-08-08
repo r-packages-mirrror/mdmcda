@@ -76,6 +76,11 @@ load_criteria <- function(input,
             lo_score <- as.numeric(x['lo_score']);
             hi_score <- as.numeric(x['hi_score']);
 
+            if (is.na(lo_score) && is.na(hi_score)) {
+              lo_score <- 0;
+              hi_score <- 100;
+            }
+
             res <-
               ggplot2::ggplot(data=data.frame(x=0, y=0)) +
               ggplot2::geom_rect(xmin = -10,
