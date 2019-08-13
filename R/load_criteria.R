@@ -86,7 +86,8 @@ load_criteria <- function(input,
     as.numeric(anchoringDf$hi_score);
 
   anchoringGraphs <-
-    anchoringDf_to_anchoringGraphs(anchoringDf,
+    anchoringDf_to_anchoringGraphs(anchoringDf=anchoringDf,
+                                   criteriaDf=criteriaDf,
                                    ...);
 
   res <- list(criteria = criteria,

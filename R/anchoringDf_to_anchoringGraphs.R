@@ -1,4 +1,5 @@
 anchoringDf_to_anchoringGraphs <- function(anchoringDf,
+                                           criteriaDf,
                                            graphDescriptionWrapping = 60,
                                            graphLabelWrapping = 60,
                                            base_size = 12,

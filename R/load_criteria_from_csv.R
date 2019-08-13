@@ -32,7 +32,8 @@ load_criteria_from_csv <- function(input,
     as.numeric(anchoringDf$hi_score);
 
   anchoringGraphs <-
-    anchoringDf_to_anchoringGraphs(anchoringDf,
+    anchoringDf_to_anchoringGraphs(anchoringDf=anchoringDf,
+                                   criteriaDf=criteriaDf,
                                    ...);
 
   res <- list(criteria = NA,
