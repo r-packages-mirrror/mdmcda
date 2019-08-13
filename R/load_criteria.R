@@ -121,7 +121,7 @@ load_criteria <- function(input,
                                      collapse="\n"),
                               x['zero_label']);
 
-            if (lo_score != 0) {
+            if (!is.null(lo_score) && !is.na(lo_score) && !lo_score != 0) {
               res <- res +
                 ggplot2::geom_point(x = 0,
                                     y = lo_score,
@@ -147,7 +147,7 @@ load_criteria <- function(input,
                            yLabels);
             }
 
-            if (hi_score != 0) {
+            if (!is.null(hi_score) && !is.na(hi_score) && !hi_score != 0) {
               res <- res +
                 ggplot2::geom_point(x = 0,
                                     y = hi_score,
