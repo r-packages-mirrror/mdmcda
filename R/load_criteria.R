@@ -43,6 +43,28 @@ load_criteria <- function(input,
   row.names(criteriaDf) <-
     NULL;
 
+  fullCriteriaDf <-
+    data.frame(criteriaTree$Get('label'),
+               criteriaTree$Get('description'),
+               criteriaTree$Get('lo_score'),
+               criteriaTree$Get('lo_label'),
+               0,
+               criteriaTree$Get('zero_label'),
+               criteriaTree$Get('hi_score'),
+               criteriaTree$Get('hi_label'),
+               criteriaTree$Get('name'),
+               criteriaTree$Get('parentCriterion'),
+               criteriaTree$Get(function(node) return(node$isLeaf)),
+               stringsAsFactors=FALSE);
+  names(fullCriteriaDf) <-
+    c('label', 'description',
+      'lo_score', 'lo_label',
+      'zero_score', 'zero_label',
+      'hi_label', 'hi_score',
+      'id', 'parentCriterion', 'isLeaf');
+  row.names(fullCriteriaDf) <-
+    NULL;
+
   anchoringDf <-
     data.frame(criteriaTree$Get('name'),
                criteriaTree$Get('lo_label'),
@@ -189,6 +211,7 @@ load_criteria <- function(input,
               criteriaTree = criteriaTree,
               criteriaDf = criteriaDf,
               anchoringDf = anchoringDf,
+              fullCriteriaDf = fullCriteriaDf,
               anchoringGraphs = anchoringGraphs);
 
   class(res) <-
