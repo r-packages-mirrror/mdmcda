@@ -1,6 +1,7 @@
 #' @export
 load_criteria_from_csv <- function(input,
                                    encoding = "UTF-8",
+                                   graphDescriptionWrapping = 40,
                                    graphLabelWrapping = 25) {
 
   if (!file.exists(input)) {
@@ -39,7 +40,9 @@ load_criteria_from_csv <- function(input,
             plotTitle <-
               criteriaDf$label[criteriaDf$id == x['id']];
             plotSubtitle <-
-              criteriaDf$description[criteriaDf$id == x['id']];
+              paste0(strwrap(criteriaDf$description[criteriaDf$id == x['id']],
+                             width=graphDescriptionWrapping),
+                     collapse="\n");
 
             lo_score <- as.numeric(x['lo_score']);
             hi_score <- as.numeric(x['hi_score']);
