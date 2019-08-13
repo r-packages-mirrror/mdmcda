@@ -60,7 +60,7 @@ load_criteria <- function(input,
     c('label', 'description',
       'lo_score', 'lo_label',
       'zero_score', 'zero_label',
-      'hi_label', 'hi_score',
+      'hi_score', 'hi_label',
       'id', 'parentCriterion', 'isLeaf');
   row.names(fullCriteriaDf) <-
     NULL;
