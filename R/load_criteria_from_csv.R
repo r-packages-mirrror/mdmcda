@@ -36,8 +36,14 @@ load_criteria_from_csv <- function(input,
                                    criteriaDf=criteriaDf,
                                    ...);
 
+  criteriaTree <- data.tree::as.Node(criteriaDf, mode="network");
+
+  ### Take first child, since the root element (e.g. 'outcomes' or
+  ### 'criteria') will always have a parent in the spreadsheet)
+  criteriaTree <- criteria$criteriaTree$children[[1]];
+
   res <- list(criteria = NA,
-              criteriaTree = NA,
+              criteriaTree = criteriaTree,
               criteriaDf = criteriaDf,
               anchoringDf = anchoringDf,
               fullCriteriaDf = fullCriteriaDf,
