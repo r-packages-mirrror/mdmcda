@@ -40,7 +40,7 @@ load_criteria_from_csv <- function(input,
 
   ### Take first child, since the root element (e.g. 'outcomes' or
   ### 'criteria') will always have a parent in the spreadsheet)
-  criteriaTree <- criteria$criteriaTree$children[[1]];
+  criteriaTree <- criteriaTree$children[[1]];
 
   res <- list(criteria = NA,
               criteriaTree = criteriaTree,
