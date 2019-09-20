@@ -8,7 +8,8 @@ load_criteria_from_csv <- function(input,
   }
 
   fullCriteriaDf <-
-    read.csv(input);
+    read.csv(input,
+             stringsAsFactors =FALSE);
 
   criteriaDf <-
     fullCriteriaDf[, c('id',
