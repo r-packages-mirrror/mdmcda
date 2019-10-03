@@ -33,7 +33,7 @@ write_performance_table <- function(performance_table,
   if (wantsXls) {
     ### Replaced xlsx with XLConnect,
     ### https://stackoverflow.com/questions/2339238/how-to-set-formulas-in-cells-using-apache-poi
-    if (!requireNamespace("XLConnext", quietly = TRUE)) {
+    if (!requireNamespace("XLConnect", quietly = TRUE)) {
     #if (!requireNamespace("xlsx", quietly = TRUE)) {
       stop("To export to excel format, the \"xlsx\" package is required. ",
            "It needs to be installed and it needs to be able to load ",
