@@ -48,16 +48,29 @@ write_performance_table <- function(performance_table,
                            sheet,
                            ...) {
 
-        XLConnect::writeWorksheetToFile(data=performance_table,
-                                        file = file,
-                                        sheet = sheet,
-                                        header=FALSE,
-                                        rownames=NULL);
+        wb <-
+          XLConnect::loadWorkbook(file = file,
+                                  create=TRUE);
+
+        createSheet(wb, name = sheet);
+
+        setMissingValue(wb, value = "NA")
+
+        writeWorksheet(object=wb,
+                       data=data=performance_table,
+                       sheet=sheet,
+                       startRow=1, startCol=1,
+                       header=FALSE,
+                       rownames=NULL);
+
+        XLConnect::saveWorkbook(wb);
+
         XLConnect::writeWorksheetToFile(data=confidencesDf,
                                         file = file,
                                         sheet = "Confidences",
                                         header=TRUE,
-                                        rownames=NULL);
+                                        rownames=NULL,
+                                        clearSheets=TRUE);
 
         # xlsx::write.xlsx(performance_table,
         #                  file = file,
