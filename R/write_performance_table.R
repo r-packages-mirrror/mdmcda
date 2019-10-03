@@ -37,7 +37,8 @@ write_performance_table <- function(performance_table,
            "matching your R version; so either 32-bit or 64-bit!).");
     } else {
       writeFun <- function(performance_table,
-                           file) {
+                           file,
+                           ...) {
         xlsx::write.xlsx(performance_table,
                          file = file,
                          col.names = FALSE,
@@ -48,7 +49,8 @@ write_performance_table <- function(performance_table,
     }
   } else {
     writeFun <- function(performance_table,
-                         file) {
+                         file,
+                         ...) {
       utils::write.table(performance_table,
                          file = file,
                          col.names = FALSE,
