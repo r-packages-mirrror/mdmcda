@@ -57,7 +57,7 @@ write_performance_table <- function(performance_table,
         setMissingValue(wb, value = "NA")
 
         writeWorksheet(object=wb,
-                       data=data=performance_table,
+                       data=performance_table,
                        sheet=sheet,
                        startRow=1, startCol=1,
                        header=FALSE,
