@@ -4,7 +4,8 @@ anchoringDf_to_anchoringGraphs <- function(anchoringDf,
                                            graphLabelWrapping = 60,
                                            base_size = 12,
                                            score_size = 8,
-                                           dot_size = 6) {
+                                           dot_size = 6,
+                                           showGraphs = TRUE) {
 
   res <-
     apply(anchoringDf,
@@ -51,6 +52,8 @@ anchoringDf_to_anchoringGraphs <- function(anchoringDf,
                              plot.background = ggplot2::element_rect(color="black",
                                                                      fill="transparent",
                                                                      size=1),
+                             plot.title = ggplot2::element_text(hjust=1),
+                             plot.subtitle = ggplot2::element_text(hjust=1),
                              plot.margin = grid::unit(rep(.025,4), units="npc")) +
               ggplot2::coord_cartesian(ylim=c(-125, 125),
                                        xlim=c(-1, 0.25)) +
