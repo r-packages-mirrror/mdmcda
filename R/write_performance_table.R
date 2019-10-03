@@ -26,8 +26,15 @@ write_performance_table <- function(performance_table,
          ".");
   }
 
+  confidencesDf <-
+    data.frame(Scorer = paste0("Scorer", 1:50),
+               Confidence = rep(NA, 50));
+
   if (wantsXls) {
-    if (!requireNamespace("xlsx", quietly = TRUE)) {
+    ### Replaced xlsx with XLConnect,
+    ### https://stackoverflow.com/questions/2339238/how-to-set-formulas-in-cells-using-apache-poi
+    if (!requireNamespace("XLConnext", quietly = TRUE)) {
+    #if (!requireNamespace("xlsx", quietly = TRUE)) {
       stop("To export to excel format, the \"xlsx\" package is required. ",
            "It needs to be installed and it needs to be able to load ",
            "its dependency the \"rJava\" package. That package can only ",
@@ -38,13 +45,26 @@ write_performance_table <- function(performance_table,
     } else {
       writeFun <- function(performance_table,
                            file,
+                           workSheet,
                            ...) {
-        xlsx::write.xlsx(performance_table,
-                         file = file,
-                         col.names = FALSE,
-                         row.names = FALSE,
-                         append = FALSE,
-                         ...);
+
+        XLConnect::writeWorksheetToFile(data=performance_table,
+                                        file = file,
+                                        sheet = workSheet,
+                                        header=TRUE,
+                                        row.names=NULL);
+        XLConnect::writeWorksheetToFile(data=confidencesDf,
+                                        file = file,
+                                        sheet = "Confidences",
+                                        header=TRUE,
+                                        row.names=NULL);
+
+        # xlsx::write.xlsx(performance_table,
+        #                  file = file,
+        #                  col.names = FALSE,
+        #                  row.names = FALSE,
+        #                  append = FALSE,
+        #                  ...);
       }
     }
   } else {
@@ -60,10 +80,6 @@ write_performance_table <- function(performance_table,
                          ...);
     }
   }
-
-  confidencesDf <-
-    data.frame(Scorer = paste0("Scorer", 1:50),
-               Confidence = rep(NA, 50));
 
   if (split) {
 
