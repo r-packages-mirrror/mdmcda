@@ -50,7 +50,7 @@ write_performance_table <- function(performance_table,
 
         XLConnect::writeWorksheetToFile(data=performance_table,
                                         file = file,
-                                        sheet = workSheet,
+                                        sheet = sheet,
                                         header=TRUE,
                                         row.names=NULL);
         XLConnect::writeWorksheetToFile(data=confidencesDf,
@@ -157,11 +157,7 @@ write_performance_table <- function(performance_table,
             if (wantsXls) {
               writeFun(performance_subtables[[i]][[j]],
                        file=filename,
-                       sheetName=i);
-              writeFun(confidencesDf,
-                       file=filename,
-                       sheetName="Confidences",
-                       append=TRUE);
+                       sheet=i);
             } else {
               writeFun(performance_subtables[[i]][[j]],
                        file=filename);
