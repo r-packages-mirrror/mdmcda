@@ -59,6 +59,10 @@ write_performance_table <- function(performance_table,
     }
   }
 
+  confidencesDf <-
+    data.frame(Scorer = paste0("Scorer", 1:50),
+               Confidence = rep(NA, 50));
+
   if (split) {
 
     ### Get a list of the decisions
@@ -132,8 +136,18 @@ write_performance_table <- function(performance_table,
                                      j, i, estimatorCode),
                              ".", ext));
           if (!file.exists(filename) || overwrite) {
-            writeFun(performance_subtables[[i]][[j]],
-                     file=filename);
+            if (wantsXls) {
+              writeFun(performance_subtables[[i]][[j]],
+                       file=filename,
+                       sheetName=i);
+              writeFun(confidencesDf,
+                       file=filename,
+                       sheetName="Confidences",
+                       append=TRUE);
+            } else {
+              writeFun(performance_subtables[[i]][[j]],
+                       file=filename);
+            }
           }
         }
       }
