@@ -52,16 +52,16 @@ write_performance_table <- function(performance_table,
           XLConnect::loadWorkbook(file = file,
                                   create=TRUE);
 
-        createSheet(wb, name = sheet);
+        XLConnect::createSheet(wb, name = sheet);
 
-        setMissingValue(wb, value = "NA")
+        XLConnect::setMissingValue(wb, value = "NA")
 
-        writeWorksheet(object=wb,
-                       data=performance_table,
-                       sheet=sheet,
-                       startRow=1, startCol=1,
-                       header=FALSE,
-                       rownames=NULL);
+        XLConnect::writeWorksheet(object=wb,
+                                  data=performance_table,
+                                  sheet=sheet,
+                                  startRow=1, startCol=1,
+                                  header=FALSE,
+                                  rownames=NULL);
 
         XLConnect::saveWorkbook(wb);
 
