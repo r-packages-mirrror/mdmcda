@@ -52,12 +52,12 @@ write_performance_table <- function(performance_table,
                                         file = file,
                                         sheet = sheet,
                                         header=TRUE,
-                                        row.names=NULL);
+                                        rownames=NULL);
         XLConnect::writeWorksheetToFile(data=confidencesDf,
                                         file = file,
                                         sheet = "Confidences",
                                         header=TRUE,
-                                        row.names=NULL);
+                                        rownames=NULL);
 
         # xlsx::write.xlsx(performance_table,
         #                  file = file,
