@@ -51,7 +51,7 @@ write_performance_table <- function(performance_table,
         XLConnect::writeWorksheetToFile(data=performance_table,
                                         file = file,
                                         sheet = sheet,
-                                        header=TRUE,
+                                        header=FALSE,
                                         rownames=NULL);
         XLConnect::writeWorksheetToFile(data=confidencesDf,
                                         file = file,
