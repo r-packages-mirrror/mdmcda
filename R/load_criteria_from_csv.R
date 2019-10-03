@@ -9,7 +9,9 @@ load_criteria_from_csv <- function(input,
 
   fullCriteriaDf <-
     read.csv(input,
-             stringsAsFactors =FALSE);
+             stringsAsFactors =FALSE,
+             fileEncoding=encoding,
+             encoding=encoding);
 
   criteriaDf <-
     fullCriteriaDf[, c('id',
