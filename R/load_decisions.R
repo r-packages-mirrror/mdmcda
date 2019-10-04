@@ -46,6 +46,8 @@ load_decisions <- function(input,
                                                               "value"),
                                        label = purrr::map_chr(x$alternatives,
                                                               "label"),
+                                       description = purrr::map_chr(x$alternatives,
+                                                                    "description"),
                                        stringsAsFactors = FALSE));
                    }));
   row.names(alternativesDf) <-
