@@ -25,6 +25,7 @@ load_performance_table <- function(file,
       res <-
         XLConnect::readWorksheetFromFile(file = file,
                                          sheet = estimatesSheet,
+                                         header=FALSE,
                                          ...);
       # res <-
       #   xlsx::read.xlsx(file=file,
