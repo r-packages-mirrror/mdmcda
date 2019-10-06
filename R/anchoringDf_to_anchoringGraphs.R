@@ -1,5 +1,6 @@
 anchoringDf_to_anchoringGraphs <- function(anchoringDf,
                                            criteriaDf,
+                                           graphTitleWrapping = 40,
                                            graphDescriptionWrapping = 60,
                                            graphLabelWrapping = 60,
                                            base_size = 12,
@@ -13,7 +14,9 @@ anchoringDf_to_anchoringGraphs <- function(anchoringDf,
           function(x) {
 
             plotTitle <-
-              criteriaDf$label[criteriaDf$id == x['id']];
+              paste0(strwrap(criteriaDf$label[criteriaDf$id == x['id']],
+                             width=graphTitleWrapping),
+                     collapse="\n");
             plotSubtitle <-
               paste0(strwrap(criteriaDf$description[criteriaDf$id == x['id']],
                              width=graphDescriptionWrapping),
