@@ -3,7 +3,8 @@ load_performance_tables <- function(input,
                                     extension="xlsx",
                                     regex=NULL,
                                     ignore="empty-performance-table",
-                                    sheetIndex=1,
+                                    estimatesSheet="Estimates",
+                                    confidencesSheet = "Confidences",
                                     sep=",",
                                     recursive=TRUE,
                                     silent=TRUE,
@@ -58,7 +59,8 @@ load_performance_tables <- function(input,
   for (filename in performanceTableFiles) {
     res$performance_subtables[[basename(filename)]] <-
       load_performance_table(filename,
-                             sheetIndex=sheetIndex,
+                             estimatesSheet=estimatesSheet,
+                             confidencesSheet=confidencesSheet,
                              sep=sep,
                              ...);
   }
