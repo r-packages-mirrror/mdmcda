@@ -141,7 +141,9 @@ load_performance_tables <- function(input,
                warning("One of the estimates loaded from '",
                        i, "' in file '",
                        res$multiEstimateInverseLegend[i],
-                       "' cannot be converted to a numeric value.");
+                       "' cannot be converted to a numeric value. Specifically, ",
+                       "the original version ('", x,"') is not identical to the version ",
+                       "converted to numeric ('", y, "') and back to character ('", z, "').");
                return(x);
              }
            });
