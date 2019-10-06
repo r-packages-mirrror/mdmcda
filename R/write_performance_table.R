@@ -45,20 +45,19 @@ write_performance_table <- function(performance_table,
     } else {
       writeFun <- function(performance_table,
                            file,
-                           sheet,
                            ...) {
 
         wb <-
           XLConnect::loadWorkbook(file = file,
                                   create=TRUE);
 
-        XLConnect::createSheet(wb, name = sheet);
+        XLConnect::createSheet(wb, name = "Estimates");
 
         XLConnect::setMissingValue(wb, value = "NA")
 
         XLConnect::writeWorksheet(object=wb,
                                   data=performance_table,
-                                  sheet=sheet,
+                                  sheet="Estimates",
                                   startRow=1, startCol=1,
                                   header=FALSE,
                                   rownames=NULL);
@@ -169,8 +168,7 @@ write_performance_table <- function(performance_table,
           if (!file.exists(filename) || overwrite) {
             if (wantsXls) {
               writeFun(performance_subtables[[i]][[j]],
-                       file=filename,
-                       sheet=i);
+                       file=filename);
             } else {
               writeFun(performance_subtables[[i]][[j]],
                        file=filename);

@@ -1,6 +1,7 @@
 #' @export
 load_performance_table <- function(file,
-                                   sheetIndex=1,
+                                   estimatesSheet="Estimates",
+                                   confidencesSheet = "Confidences",
                                    sep=",",
                                    ...) {
 
@@ -11,22 +12,27 @@ load_performance_table <- function(file,
   }
 
   if (grepl('\\.xls', file)) {
-    if (!requireNamespace("xlsx", quietly = TRUE)) {
-      stop("To import from excel format, the \"xlsx\" package is required. ",
+    if (!requireNamespace("XLConnect", quietly = TRUE)) {
+      #if (!requireNamespace("xlsx", quietly = TRUE)) {
+      stop("To import from excel format, the \"XLConnect\" package is required. ",
            "It needs to be installed and it needs to be able to load ",
            "its dependency the \"rJava\" package. That package can only ",
            "load if it can find where you installed Java. So, you either need ",
-           "to install the xlsx package using `install.packages('xlsx');`,",
+           "to install the XLConnect package using `install.packages('XLConnect');`,",
            "or you need to install Java (make sure to install the version ",
            "matching your R version; so either 32-bit or 64-bit!).");
     } else {
       res <-
-        xlsx::read.xlsx(file=file,
-                        sheetIndex=sheetIndex,
-                        as.data.frame = TRUE,
-                        stringsAsFactors=FALSE,
-                        header=FALSE,
-                        ...)
+        XLConnect::readWorksheetFromFile(file = file,
+                                         sheet = estimatesSheet,
+                                         ...);
+      # res <-
+      #   xlsx::read.xlsx(file=file,
+      #                   sheetIndex=sheetIndex,
+      #                   as.data.frame = TRUE,
+      #                   stringsAsFactors=FALSE,
+      #                   header=FALSE,
+      #                   ...)
     }
   } else {
     res <-
