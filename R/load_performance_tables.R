@@ -129,8 +129,8 @@ load_performance_tables <- function(input,
 
   for (i in names(res$multiEstimateLegend)) {
     if (!silent) {
-      cat("\nStarting to process estimates for '",
-          i, "'.");
+      ufs::cat0("\nStarting to process estimates for '",
+                i, "'.");
     }
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
@@ -159,6 +159,9 @@ load_performance_tables <- function(input,
         res$estimates[[i]]$estimatesDf[j, 'value'];
     }
   }
+
+  ufs::cat0("\nFinished building the 'multi estimate dataframe'. Starting to convert the ",
+            "estimates to numeric.");
 
   ### Converting estimates to numeric
   res$multiEstimateDf[, res$estimatorCodes] <-
