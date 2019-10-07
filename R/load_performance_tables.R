@@ -50,19 +50,30 @@ load_performance_tables <- function(input,
                                  performanceTableFiles)];
 
   if (!silent) {
-    cat("\nStarting to process the following list of files:\n\n",
-        paste0("- ", performanceTableFiles, "\n"));
+    cat(paste0("\nStarting to process files in directory '",
+               input,
+               "'. Specifically, Starting to process the following list of files:\n\n"));
+    cat(paste0("- ", gsub(input, "", performanceTableFiles), "\n"));
+    cat("\n\nStarting file processing.\n\n");
   }
 
   ### Load all performance tables
   res <- list(performance_subtables = list());
   for (filename in performanceTableFiles) {
+    if (!silent) {
+      cat(paste0("\n  Starting to process file '",
+                 basename(filename), "'.\n"));
+    }
     res$performance_subtables[[basename(filename)]] <-
       load_performance_table(filename,
                              estimatesSheet=estimatesSheet,
                              confidencesSheet=confidencesSheet,
                              sep=sep,
                              ...);
+  }
+
+  if (!silent) {
+    cat("\nRead all files. Starting further processing.");
   }
 
   ### Extract each performance tables estimatorCode
