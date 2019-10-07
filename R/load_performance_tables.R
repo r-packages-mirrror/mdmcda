@@ -129,7 +129,7 @@ load_performance_tables <- function(input,
 
   for (i in names(res$multiEstimateLegend)) {
     if (!silent) {
-      ufs::cat0("\nStarting to process estimates for '",
+      ufs::cat0("\n  Starting to process estimates for '",
                 i, "'.");
     }
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
@@ -167,6 +167,9 @@ load_performance_tables <- function(input,
   res$multiEstimateDf[, res$estimatorCodes] <-
     lapply(res$estimatorCodes,
            function(i, x = res$multiEstimateDf[, i]) {
+             x <- ifelse(x=="NA",
+                         NA,
+                         x);
              suppressWarnings(y <- as.numeric(x));
              z <- as.character(y);
              ### z & z should now be equal. If not, z will have
@@ -174,10 +177,15 @@ load_performance_tables <- function(input,
              if (identical(x, z)) {
                return(y);
              } else {
+               mismatches <- which(x != z);
                warning("One of the estimates loaded from '",
                        i, "' in file '",
                        res$multiEstimateInverseLegend[i],
-                       "' cannot be converted to a numeric value. Specifically, ",
+                       "' cannot be converted to a numeric value. Specifically, this concerns ",
+                       "alternative(s) ", res$multiEstimateDf[mismatches, 'decision_alternative_value'],
+                       " in decision(s) ", res$multiEstimateDf[mismatches, 'decision_id'],
+                       " for criterion or criteria ", res$multiEstimateDf[mismatches, 'criterion_id'],
+                       ", where ",
                        "the original version ('", x,"') is not identical to the version ",
                        "converted to numeric ('", y, "') and back to character ('", z, "').");
                return(x);
