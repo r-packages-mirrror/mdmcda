@@ -97,7 +97,7 @@ load_performance_tables <- function(input,
   res$estimatorCodes <- unique(na.omit(res$estimatorCodeVector));
 
   if (!silent) {
-    cat("\nFull final list of estimator codes: ", ufs::vecTxtQ(res$estimatorCodes), ".");
+    ufs::cat0("\nFull final list of estimator codes: ", ufs::vecTxtQ(res$estimatorCodes), ".");
     cat("\nProcessing performance subtables to extract the estimates.");
   }
 
@@ -115,7 +115,7 @@ load_performance_tables <- function(input,
     res$multiEstimateLegend;
 
   if (!silent) {
-    cat("\nCombining estimates into one dataframe.");
+    cat("\nStarting to build dataframe with all estimates of all estimators.");
   }
 
   ### Combine estimates in one dataframe
@@ -127,11 +127,11 @@ load_performance_tables <- function(input,
                                     criterion_label = character(),
                                     stringsAsFactors = FALSE);
 
-  if (!silent) {
-    cat("\nStarting to build dataframe with all estimates of all estimators.");
-  }
-
   for (i in names(res$multiEstimateLegend)) {
+    if (!silent) {
+      cat("\nStarting to process estimates for '",
+          i, "'.");
+    }
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
         which(res$multiEstimateDf$decision_id %in% res$estimates[[i]]$estimatesDf[j, 'decision_id'] &
