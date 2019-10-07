@@ -73,7 +73,7 @@ load_performance_tables <- function(input,
   }
 
   if (!silent) {
-    cat("\nRead all files. Starting further processing.");
+    cat("\nRead all files. Starting extraction of estimator codes.");
   }
 
   ### Extract each performance tables estimatorCode
@@ -83,10 +83,23 @@ load_performance_tables <- function(input,
                     return(attr(x, 'estimatorCode'));
                   }));
 
+  if (!silent) {
+    cat("\nSetting the estimator code to 'all' where it was missing.");
+  }
+
   res$estimatorCodeVector[is.na(res$estimatorCodeVector)] <-
     "all";
 
+  if (!silent) {
+    cat("\nRemoving duplicate estimator codes.");
+  }
+
   res$estimatorCodes <- unique(na.omit(res$estimatorCodeVector));
+
+  if (!silent) {
+    cat("\nFull final list of estimator codes: ", ufs::vecTxtQ(res$estimatorCodes), ".");
+    cat("\nProcessing performance subtables to extract the estimates.");
+  }
 
   ### Store estimate dataframes
   res$estimates <-
@@ -101,6 +114,10 @@ load_performance_tables <- function(input,
   names(res$multiEstimateInverseLegend) <-
     res$multiEstimateLegend;
 
+  if (!silent) {
+    cat("\nCombining estimates into one dataframe.");
+  }
+
   ### Combine estimates in one dataframe
   res$multiEstimateDf <- data.frame(decision_id = character(),
                                     decision_label = character(),
@@ -109,6 +126,11 @@ load_performance_tables <- function(input,
                                     criterion_id = character(),
                                     criterion_label = character(),
                                     stringsAsFactors = FALSE);
+
+  if (!silent) {
+    cat("\nStarting to build dataframe with all estimates of all estimators.");
+  }
+
   for (i in names(res$multiEstimateLegend)) {
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
