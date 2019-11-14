@@ -166,7 +166,16 @@ load_performance_tables <- function(input,
   ### Converting estimates to numeric
   res$multiEstimateDf[, res$estimatorCodes] <-
     lapply(res$estimatorCodes,
-           function(i, x = res$multiEstimateDf[, i]) {
+           function(i) {
+             x <-
+               res$multiEstimateDf[, i];
+             if (!silent) {
+               ufs::cat0("\nStarting to process '",
+                         res$multiEstimateInverseLegend[i],
+                         "'.");
+             }
+             originalMissings <-
+               is.na(x) | (toupper(x) == "NA");
              x <- ifelse(x=="NA",
                          NA,
                          x);
@@ -174,101 +183,121 @@ load_performance_tables <- function(input,
              z <- as.character(y);
              ### z & z should now be equal. If not, z will have
              ### deviating values or missing values
-             if (identical(x, z)) {
+             matchResults <-
+               x == z;
+             matchMissings <-
+               which(is.na(matchResults));
+             newMissings <-
+               is.na(y);
+             ### Set match results to TRUE if they are a missing value in the new
+             ### vector and were also a missing value in the original
+             matchResults[originalMissings == newMissings] <-
+               TRUE;
+             if (all(matchResults)) {
                return(y);
              } else {
-               mismatches <- which(x != z);
-               warning("One of the estimates loaded from '",
-                       i, "' in file '",
-                       res$multiEstimateInverseLegend[i],
-                       "' cannot be converted to a numeric value. Specifically, this concerns ",
-                       "alternative(s) ", res$multiEstimateDf[mismatches, 'decision_alternative_value'],
-                       " in decision(s) ", res$multiEstimateDf[mismatches, 'decision_id'],
-                       " for criterion or criteria ", res$multiEstimateDf[mismatches, 'criterion_id'],
-                       ", where ",
-                       "the original version ('", x,"') is not identical to the version ",
-                       "converted to numeric ('", y, "') and back to character ('", z, "').");
+               mismatches <- !matchResults;
+               mismatchMsg <-
+                 paste0(length(mismatches), " of the estimates loaded from '",
+                        i, "' in file '",
+                        res$multiEstimateInverseLegend[i],
+                        "' cannot be converted to a numeric value. Specifically, this concerns ",
+                        "alternative(s) ", res$multiEstimateDf[mismatches, 'decision_alternative_value'],
+                        " in decision(s) ", res$multiEstimateDf[mismatches, 'decision_id'],
+                        " for criterion or criteria ", res$multiEstimateDf[mismatches, 'criterion_id'],
+                        ", where ",
+                        "the original version ('", x,"') is not identical to the version ",
+                        "converted to numeric ('", y, "') and back to character ('", z, "').");
+               if (!silent) {
+                 cat("\n\n<<<WARNING>>>\n");
+                 cat(mismatchMsg);
+                 cat("\n\n");
+               }
+               warning(mismatchMsg);
                return(x);
              }
            });
 
-  ### Generate complete performance_tables
-  res$performance_tables <- list();
-  for (i in res$estimatorCodes) {
-    res$performance_tables[[i]] <-
-      estimateDf_to_performance_table(res$multiEstimateDf,
-                                      valueCol = i);
-    res$performance_tables[[i]][1,1] <- i;
-  }
+  ufs::cat0("\nDone converting the estimates to numeric. ",
+            "Starting to generate complete performance tables. ");
 
-  numericValues <-
-    res$estimatorCodes[
-      unlist(lapply(res$multiEstimateDf[, res$estimatorCodes], is.numeric))
-    ];
-
-  if (length(numericValues) > 1) {
-
-    res$multiEstimateDf$variance <-
-      apply(res$multiEstimateDf[, numericValues],
-            1,
-            stats::var,
-            na.rm=TRUE);
-
-    res$multiEstimateDf$value_mean <-
-      apply(res$multiEstimateDf[, numericValues],
-            1,
-            mean,
-            na.rm=TRUE);
-
-    res$performance_table_var <-
-      estimateDf_to_performance_table(res$multiEstimateDf,
-                                      valueCol = "variance");
-
-    res$performance_table_mean <-
-      estimateDf_to_performance_table(res$multiEstimateDf,
-                                      valueCol = "value_mean");
-
-
-    ### Get consensus matrix
-    res$consensusDf <-
-      res$multiEstimateDf[, c('criterion_label', 'variance')];
-    res$consensusDf$selectedAlternative <-
-      paste(res$multiEstimateDf$decision_label,
-            res$multiEstimateDf$decision_alternative_label,
-            sep=":\n");
-
-    precision <- max(nchar(as.character(res$multiEstimateDf$value_mean)));
-
-    res$consensusDf$formattedMean <-
-      round(res$multiEstimateDf$value_mean,
-            min(precision, 2));
-
-    res$consensusDf$invertedVariance <-
-      max(res$multiEstimateDf$variance) -
-      res$multiEstimateDf$variance;
-
-    res$consensusMap <-
-      ggplot2::ggplot(res$consensusDf,
-                      mapping=ggplot2::aes_string(x='criterion_label',
-                                                  y='selectedAlternative',
-                                                  fill='variance',
-                                                  label = 'formattedMean')) +
-      ggplot2::geom_tile() +
-      ggplot2::geom_text(mapping=ggplot2::aes_string(color='invertedVariance')) +
-      ggplot2::scale_fill_viridis_c(name = "Variance\n(disagreement)") +
-      ggplot2::scale_color_viridis_c(name = "Variance\n(disagreement)") +
-      ggplot2::theme_minimal() +
-      ggplot2::theme(axis.text.x = ggplot2::element_text(angle=90, hjust=1)) +
-      ggplot2::labs(title = "Consensus Map",
-                    subtitle = paste0("Based on ", length(numericValues),
-                                      " estimates from a DMCDA"),
-                    x = "Criteria",
-                    y = "Decisions");
-
-  } else {
-    consensusDf <- NA;
-    consensusMap <- NA;
-  }
+  # ### Generate complete performance_tables
+  # res$performance_tables <- list();
+  # for (i in res$estimatorCodes) {
+  #      res$performance_tables[[i]] <-
+  #     estimateDf_to_performance_table(res$multiEstimateDf,
+  #                                     valueCol = i);
+  #   res$performance_tables[[i]][1,1] <- i;
+  # }
+  #
+  # numericValues <-
+  #   res$estimatorCodes[
+  #     unlist(lapply(res$multiEstimateDf[, res$estimatorCodes], is.numeric))
+  #   ];
+  #
+  # if (length(numericValues) > 1) {
+  #
+  #   res$multiEstimateDf$variance <-
+  #     apply(res$multiEstimateDf[, numericValues],
+  #           1,
+  #           stats::var,
+  #           na.rm=TRUE);
+  #
+  #   res$multiEstimateDf$value_mean <-
+  #     apply(res$multiEstimateDf[, numericValues],
+  #           1,
+  #           mean,
+  #           na.rm=TRUE);
+  #
+  #   res$performance_table_var <-
+  #     estimateDf_to_performance_table(res$multiEstimateDf,
+  #                                     valueCol = "variance");
+  #
+  #   res$performance_table_mean <-
+  #     estimateDf_to_performance_table(res$multiEstimateDf,
+  #                                     valueCol = "value_mean");
+  #
+  #
+  #   ### Get consensus matrix
+  #   res$consensusDf <-
+  #     res$multiEstimateDf[, c('criterion_label', 'variance')];
+  #   res$consensusDf$selectedAlternative <-
+  #     paste(res$multiEstimateDf$decision_label,
+  #           res$multiEstimateDf$decision_alternative_label,
+  #           sep=":\n");
+  #
+  #   precision <- max(nchar(as.character(res$multiEstimateDf$value_mean)));
+  #
+  #   res$consensusDf$formattedMean <-
+  #     round(res$multiEstimateDf$value_mean,
+  #           min(precision, 2));
+  #
+  #   res$consensusDf$invertedVariance <-
+  #     max(res$multiEstimateDf$variance) -
+  #     res$multiEstimateDf$variance;
+  #
+  #   res$consensusMap <-
+  #     ggplot2::ggplot(res$consensusDf,
+  #                     mapping=ggplot2::aes_string(x='criterion_label',
+  #                                                 y='selectedAlternative',
+  #                                                 fill='variance',
+  #                                                 label = 'formattedMean')) +
+  #     ggplot2::geom_tile() +
+  #     ggplot2::geom_text(mapping=ggplot2::aes_string(color='invertedVariance')) +
+  #     ggplot2::scale_fill_viridis_c(name = "Variance\n(disagreement)") +
+  #     ggplot2::scale_color_viridis_c(name = "Variance\n(disagreement)") +
+  #     ggplot2::theme_minimal() +
+  #     ggplot2::theme(axis.text.x = ggplot2::element_text(angle=90, hjust=1)) +
+  #     ggplot2::labs(title = "Consensus Map",
+  #                   subtitle = paste0("Based on ", length(numericValues),
+  #                                     " estimates from a DMCDA"),
+  #                   x = "Criteria",
+  #                   y = "Decisions");
+  #
+  # } else {
+  #   consensusDf <- NA;
+  #   consensusMap <- NA;
+  # }
 
   return(invisible(res));
 }
