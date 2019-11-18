@@ -32,7 +32,7 @@ load_performance_table <- function(file,
       res$confidences <-
         XLConnect::readWorksheetFromFile(file = file,
                                          sheet = confidencesSheet,
-                                         header=FALSE,
+                                         header=TRUE,
                                          ...);
 
       # res <-
@@ -52,11 +52,25 @@ load_performance_table <- function(file,
                         ...);
   }
 
+  ### Convert confidences to numeric
+  tryCatch({
+    res$confidences$Confidence <-
+      ufs::convertToNumeric(res$confidences$Confidence);
+  }, error = function(e) {
+    ufs::cat0("Could not convert the Confidences in '",
+              basename(file), "' to numeric values! All ",
+              "non-NA Confidence values in that file are: ",
+              ufs::vecTxtQ(res$confidences$Confidence[!is.na(res$confidences$Confidence)]),
+              ".");
+  });
+
   class(res) <- c("performance_table_and_confidences", class(res));
 
   class(res$estimates) <- c('performance_table', class(res$estimates));
 
   attr(res, "estimatorCode") <- res$estimates[1,1];
+  attr(res, "confidencesMean") <- mean(res$confidences$Confidence, na.rm=TRUE);
+  attr(res, "confidencesVar") <- var(res$confidences$Confidence, na.rm=TRUE);
 
   return(invisible(res));
 }

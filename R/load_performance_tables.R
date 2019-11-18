@@ -78,7 +78,7 @@ load_performance_tables <- function(input,
     res$confidences[[basename(filename)]] <-
       currentTable$confidences;
     res$estimateCoders[[basename(filename)]] <-
-      attr(currentTable$estimates, "estimatorCode");
+      attr(currentTable, "estimatorCode");
   }
 
   if (!silent) {
@@ -92,6 +92,8 @@ load_performance_tables <- function(input,
   #                   return(attr(x, 'estimatorCode'));
   #                 }));
   ## This is superseded now that we do this in the loop above
+  res$estimatorCodeVector <-
+    unlist(res$estimateCoders);
 
   if (!silent) {
     cat("\nSetting the estimator code to 'all' where it was missing.");
@@ -170,8 +172,10 @@ load_performance_tables <- function(input,
     }
   }
 
-  ufs::cat0("\nFinished building the 'multi estimate dataframe'. Starting to convert the ",
-            "estimates to numeric.");
+  if (!silent) {
+    ufs::cat0("\nFinished building the 'multi estimate dataframe'. Starting to convert the ",
+              "estimates to numeric.");
+  }
 
   ### Converting estimates to numeric
   res$multiEstimateDf[, res$estimatorCodes] <-
@@ -228,8 +232,50 @@ load_performance_tables <- function(input,
              }
            });
 
-  ufs::cat0("\nDone converting the estimates to numeric. ",
-            "Starting to generate complete performance tables. ");
+  if (!silent) {
+    ufs::cat0("\nDone converting the estimates to numeric.");
+              #"Starting to generate complete performance tables. ");
+  }
+
+  ### Add merged confidences
+  res$mergedConfidences <-
+    dplyr::bind_rows(estimates$confidences, .id="performance_table");
+
+  ### Clean up a bit
+  res$mergedConfidences <-
+    res$mergedConfidences[!is.na(res$mergedConfidences$Confidence), c("performance_table",
+                                                                      "Scorer", "Confidence")];
+
+  ### Store aggregate indicators
+  res$processedConfidences <-
+    list(meanPerTable =
+           unclass(by(res$mergedConfidences$Confidence,
+                      estimates$mergedConfidences$performance_table,
+                      mean, na.rm=TRUE)),
+         meanPerScorer =
+           unclass(by(res$mergedConfidences$Confidence,
+                      estimates$mergedConfidences$Scorer,
+                      mean, na.rm=TRUE)),
+         sdPerTable =
+           unclass(by(res$mergedConfidences$Confidence,
+                      estimates$mergedConfidences$performance_table,
+                      sd, na.rm=TRUE)),
+         sdPerScorer =
+           unclass(by(res$mergedConfidences$Confidence,
+                      estimates$mergedConfidences$Scorer,
+                      sd, na.rm=TRUE)));
+  res$processedConfidences$meanPerTable <-
+    data.frame(performance_table = names(res$processedConfidences$meanPerTable),
+               confidence_mean = res$processedConfidences$meanPerTable);
+  res$processedConfidences$meanPerScorer <-
+    data.frame(performance_table = names(res$processedConfidences$meanPerScorer),
+               confidence_mean = res$processedConfidences$meanPerScorer);
+  res$processedConfidences$sdPerTable <-
+    data.frame(performance_table = names(res$processedConfidences$sdPerTable),
+               confidence_sd = res$processedConfidences$sdPerTable);
+  res$processedConfidences$sdPerScorer <-
+    data.frame(performance_table = names(res$processedConfidences$sdPerScorer),
+               confidence_sd = res$processedConfidences$sdPerScorer);
 
   # ### Generate complete performance_tables
   # res$performance_tables <- list();
