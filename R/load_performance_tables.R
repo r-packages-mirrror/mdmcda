@@ -239,7 +239,7 @@ load_performance_tables <- function(input,
 
   ### Add merged confidences
   res$mergedConfidences <-
-    dplyr::bind_rows(estimates$confidences, .id="performance_table");
+    dplyr::bind_rows(res$confidences, .id="performance_table");
 
   ### Clean up a bit
   res$mergedConfidences <-
@@ -250,19 +250,19 @@ load_performance_tables <- function(input,
   res$processedConfidences <-
     list(meanPerTable =
            unclass(by(res$mergedConfidences$Confidence,
-                      estimates$mergedConfidences$performance_table,
+                      res$mergedConfidences$performance_table,
                       mean, na.rm=TRUE)),
          meanPerScorer =
            unclass(by(res$mergedConfidences$Confidence,
-                      estimates$mergedConfidences$Scorer,
+                      res$mergedConfidences$Scorer,
                       mean, na.rm=TRUE)),
          sdPerTable =
            unclass(by(res$mergedConfidences$Confidence,
-                      estimates$mergedConfidences$performance_table,
+                      res$mergedConfidences$performance_table,
                       sd, na.rm=TRUE)),
          sdPerScorer =
            unclass(by(res$mergedConfidences$Confidence,
-                      estimates$mergedConfidences$Scorer,
+                      res$mergedConfidences$Scorer,
                       sd, na.rm=TRUE)));
   res$processedConfidences$meanPerTable <-
     data.frame(performance_table = names(res$processedConfidences$meanPerTable),
