@@ -278,13 +278,13 @@ load_performance_tables <- function(input,
     data.frame(performance_table = names(res$processedConfidences$meanPerTable),
                confidence_mean = res$processedConfidences$meanPerTable);
   res$processedConfidences$meanPerScorer <-
-    data.frame(performance_table = names(res$processedConfidences$meanPerScorer),
+    data.frame(scorer = names(res$processedConfidences$meanPerScorer),
                confidence_mean = res$processedConfidences$meanPerScorer);
   res$processedConfidences$sdPerTable <-
     data.frame(performance_table = names(res$processedConfidences$sdPerTable),
                confidence_sd = res$processedConfidences$sdPerTable);
   res$processedConfidences$sdPerScorer <-
-    data.frame(performance_table = names(res$processedConfidences$sdPerScorer),
+    data.frame(scorer = names(res$processedConfidences$sdPerScorer),
                confidence_sd = res$processedConfidences$sdPerScorer);
 
   # ### Generate complete performance_tables
