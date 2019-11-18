@@ -57,31 +57,41 @@ load_performance_tables <- function(input,
     cat("\n\nStarting file processing.\n\n");
   }
 
-  ### Load all performance tables
-  res <- list(performance_subtables = list());
+  ### Load all performance tables and confidences
+  res <- list(performance_subtables = list(),
+              confidences = list(),
+              estimateCoders = list());
   for (filename in performanceTableFiles) {
     if (!silent) {
       cat(paste0("\n  Starting to process file '",
                  basename(filename), "'.\n"));
     }
-    res$performance_subtables[[basename(filename)]] <-
+    currentTable <-
       load_performance_table(filename,
                              estimatesSheet=estimatesSheet,
                              confidencesSheet=confidencesSheet,
                              sep=sep,
                              ...);
+
+    res$performance_subtables[[basename(filename)]] <-
+      currentTable$estimates;
+    res$confidences[[basename(filename)]] <-
+      currentTable$confidences;
+    res$estimateCoders[[basename(filename)]] <-
+      attr(currentTable$estimates, "estimatorCode");
   }
 
   if (!silent) {
-    cat("\nRead all files. Starting extraction of estimator codes.");
+    cat("\nRead all files.");
   }
 
-  ### Extract each performance tables estimatorCode
-  res$estimatorCodeVector <-
-    unlist(lapply(res$performance_subtables,
-                  function(x) {
-                    return(attr(x, 'estimatorCode'));
-                  }));
+  ### Create estimatorCode vector
+  # res$estimatorCodeVector <-
+  #   unlist(lapply(res$performance_subtables,
+  #                 function(x) {
+  #                   return(attr(x, 'estimatorCode'));
+  #                 }));
+  ## This is superseded now that we do this in the loop above
 
   if (!silent) {
     cat("\nSetting the estimator code to 'all' where it was missing.");

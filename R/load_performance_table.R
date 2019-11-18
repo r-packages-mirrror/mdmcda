@@ -11,6 +11,8 @@ load_performance_table <- function(file,
     stop("The file specified as 'file' does not exist!");
   }
 
+  res <- list();
+
   if (grepl('\\.xls', file)) {
     if (!requireNamespace("XLConnect", quietly = TRUE)) {
       #if (!requireNamespace("xlsx", quietly = TRUE)) {
@@ -22,11 +24,17 @@ load_performance_table <- function(file,
            "or you need to install Java (make sure to install the version ",
            "matching your R version; so either 32-bit or 64-bit!).");
     } else {
-      res <-
+      res$estimates <-
         XLConnect::readWorksheetFromFile(file = file,
                                          sheet = estimatesSheet,
                                          header=FALSE,
                                          ...);
+      res$confidences <-
+        XLConnect::readWorksheetFromFile(file = file,
+                                         sheet = confidencesSheet,
+                                         header=FALSE,
+                                         ...);
+
       # res <-
       #   xlsx::read.xlsx(file=file,
       #                   sheetIndex=sheetIndex,
@@ -36,7 +44,7 @@ load_performance_table <- function(file,
       #                   ...)
     }
   } else {
-    res <-
+    res$estimates <-
       utils::read.table(file=file,
                         sep=sep,
                         stringsAsFactors=FALSE,
@@ -44,9 +52,11 @@ load_performance_table <- function(file,
                         ...);
   }
 
-  class(res) <- c('performance_table', class(res));
+  class(res) <- c("performance_table_and_confidences", class(res));
 
-  attr(res, "estimatorCode") <- res[1,1];
+  class(res$estimates) <- c('performance_table', class(res));
+
+  attr(res, "estimatorCode") <- res$estimates[1,1];
 
   return(invisible(res));
 }
