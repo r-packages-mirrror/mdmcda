@@ -246,6 +246,16 @@ load_performance_tables <- function(input,
     res$mergedConfidences[!is.na(res$mergedConfidences$Confidence), c("performance_table",
                                                                       "Scorer", "Confidence")];
 
+  ### Derive decisions and criteria from performance subtable names
+  res$mergedConfidences$decision <-
+    gsub("performance_subtable_for_(.*)_on_.*$",
+         "\\1",
+         res$mergedConfidences$performance_table);
+  res$mergedConfidences$criterion <-
+    gsub("performance_subtable_for_.*_on_(.*)\\.xlsx$",
+         "\\1",
+         res$mergedConfidences$performance_table);
+
   ### Store aggregate indicators
   res$processedConfidences <-
     list(meanPerTable =
