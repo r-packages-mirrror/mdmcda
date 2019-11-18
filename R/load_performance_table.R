@@ -54,7 +54,7 @@ load_performance_table <- function(file,
 
   class(res) <- c("performance_table_and_confidences", class(res));
 
-  class(res$estimates) <- c('performance_table', class(res));
+  class(res$estimates) <- c('performance_table', class(res$estimates));
 
   attr(res, "estimatorCode") <- res$estimates[1,1];
 
