@@ -29,8 +29,12 @@ load_decisions <- function(input,
                      return(data.frame(id = x$id,
                                        label = x$label,
                                        description = x$description,
-                                       choices = vecTxtQ(purrr::map_chr(x$alternatives,
-                                                                             "label")),
+                                       choices = vecTxt(paste0(purrr::map_chr(x$alternatives,
+                                                                              "label"),
+                                                               " (",
+                                                               purrr::map_chr(x$alternatives,
+                                                                              "value"),
+                                                               ")")),
                                        stringsAsFactors = FALSE));
                    }));
   row.names(decisionsDf) <-
