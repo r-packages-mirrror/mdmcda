@@ -1,17 +1,15 @@
 #' @export
-load_criteria_from_csv <- function(input,
-                                   encoding = "UTF-8",
-                                   showGraphs = TRUE,
-                                   ...) {
+load_criteria_from_xl <- function(input,
+                                  showGraphs = TRUE,
+                                  ...) {
 
   if (!file.exists(input)) {
     stop("Specified file ('", input, "') does not exist!");
   }
 
   fullCriteriaDf <-
-    read.csv(input,
-             stringsAsFactors =FALSE,
-             encoding=encoding);
+    as.data.frame(readxl::read_excel(input),
+                  stringsAsFactors = FALSE);
 
   criteriaDf <-
     fullCriteriaDf[, c('id',
@@ -46,7 +44,7 @@ load_criteria_from_csv <- function(input,
   ### 'criteria') will always have a parent in the spreadsheet)
   criteriaTree <- criteriaTree$children[[1]];
 
-  res <- list(criteria = NA, ### Potentially add this if I ever write a YAML export function
+  res <- list(criteria = NA,
               criteriaTree = criteriaTree,
               criteriaDf = criteriaDf,
               anchoringDf = anchoringDf,

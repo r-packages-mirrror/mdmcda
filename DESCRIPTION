@@ -25,4 +25,4 @@ Imports:
     knitr (>= 1.22),
     yum (>= 0.0.1)
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
