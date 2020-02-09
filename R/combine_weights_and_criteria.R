@@ -1,8 +1,8 @@
 #' @export
 combine_weights_and_criteria <- function(weightsMeansAndSDs,
                                          criteria,
-                                         weightCols = c(mean = 'weight_mean_percentage',
-                                                        clusterSizeWeighted = 'mean_clusterSizeWeighted'),
+                                         weightCols = c(raw = 'weight_mean_percentage',
+                                                        rescaled = 'weight_mean_rescaled'),
                                          rootWeight = 1,
                                          rootParentCriterion_id = "-") {
 

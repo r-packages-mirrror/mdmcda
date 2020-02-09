@@ -31,16 +31,24 @@ weightsMeansAndSDs <- function(weights,
       res[res$parentCriterion_id==i, 'clusterSize'] <-
         sum(res$parentCriterion_id == i);
 
+      ### Rescale means so that
+      res[res$parentCriterion_id==i, 'weight_mean_rescaled'] <-
+        res[res$parentCriterion_id==i, 'weight_mean'] /
+        (max(res[res$parentCriterion_id==i, 'weight_mean']) / 100);
+
       ### Rescale mean weights to proportions
-      res[res$parentCriterion_id==i, 'mean_clusterSizeWeighted'] <-
+      #res[res$parentCriterion_id==i, 'mean_clusterSizeWeighted'] <-
+      res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
         res[res$parentCriterion_id==i, 'weight_mean'] / 100;
 
       res[res$parentCriterion_id==i, 'clusterTotalWeight'] <-
-        sum(res[res$parentCriterion_id == i, 'mean_clusterSizeWeighted']);
+        sum(res[res$parentCriterion_id == i, 'weight_mean_percentage']);
+      # res[res$parentCriterion_id==i, 'clusterTotalWeight'] <-
+      #   sum(res[res$parentCriterion_id == i, 'mean_clusterSizeWeighted']);
 
-      res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
-        res[res$parentCriterion_id == i, 'mean_clusterSizeWeighted'] /
-        res[res$parentCriterion_id==i, 'clusterTotalWeight'];
+      # res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
+      #   res[res$parentCriterion_id == i, 'weight_mean_percentage'] /
+      #   res[res$parentCriterion_id==i, 'clusterSize'];
 
     }
   }
