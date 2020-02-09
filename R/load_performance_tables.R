@@ -372,7 +372,7 @@ load_performance_tables <- function(input,
                 uniqueAlts <- unique(x[, c('decision_alternative_value',
                                            'decision_alternative_label')]);
                 return(stats::setNames(uniqueAlts$decision_alternative_label,
-                                       nm=uniqueAlts$decision_alternative_value));
+                                       nm=as.character(uniqueAlts$decision_alternative_value)));
               }),
            as.list);
 

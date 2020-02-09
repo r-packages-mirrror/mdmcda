@@ -4,7 +4,8 @@ compute_best_alternatives <- function(scores_per_alternative) {
   bestAlternatives <- data.frame(weightProfile = character(),
                                  decision_id = character(),
                                  alternative_id = character(),
-                                 score = numeric());
+                                 score = numeric(),
+                                 stringsAsFactors = FALSE);
   for (currentWeightProfile in unique(scores_per_alternative[, 'weightProfile'])) {
     for (currentDecision in unique(scores_per_alternative[, 'decision_id'])) {
       ### Get temporary dataframe for convenience
@@ -31,7 +32,8 @@ compute_best_alternatives <- function(scores_per_alternative) {
       }
       bestAlternatives <-
         rbind(bestAlternatives,
-              newRow);
+              newRow,
+              stringsAsFactors = FALSE);
 
       if (length(alternativesWithMaxScore) > 1) {
         alternativesWithMaxScore <-

@@ -37,7 +37,6 @@ sensitivity_analyses <- function(multiEstimateDf,
                               scenarioDefinitions = scenarioDefinitions,
                               scorer = scorer,
                               setMissingEstimates = setMissingEstimates,
-                              silent=silent,
                               warnForMissingEstimates = !silent,
                               warnForDuplicateEstimates = !silent);
 
