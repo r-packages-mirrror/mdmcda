@@ -365,5 +365,16 @@ load_performance_tables <- function(input,
   #   consensusMap <- NA;
   # }
 
+  res$alternativeValues <-
+    lapply(by(estimates$multiEstimateDf,
+              estimates$multiEstimateDf$decision_id,
+              function(x) {
+                uniqueAlts <- unique(x[, c('decision_alternative_value',
+                                           'decision_alternative_label')]);
+                return(stats::setNames(uniqueAlts$decision_alternative_label,
+                                       nm=uniqueAlts$decision_alternative_value));
+              }),
+           as.list);
+
   return(invisible(res));
 }

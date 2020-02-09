@@ -21,14 +21,23 @@ compute_best_alternatives <- function(scores_per_alternative) {
       alternativesWithMaxScore <-
         which(tmpDf$score==maxScore);
 
+      if (length(alternativesWithMaxScore) == 1) {
+        newRow <- tmpDf[alternativesWithMaxScore, , drop=FALSE];
+      } else {
+        newRow <- tmpDf[alternativesWithMaxScore[1], , drop=FALSE];
+        newRow$alternative_id <-
+          paste(alternativesWithMaxScore,
+                collapse = " or ");
+      }
+      bestAlternatives <-
+        rbind(bestAlternatives,
+              newRow);
+
       if (length(alternativesWithMaxScore) > 1) {
         alternativesWithMaxScore <-
           alternativesWithMaxScore[1];
       }
 
-      bestAlternatives <-
-        rbind(bestAlternatives,
-              tmpDf[alternativesWithMaxScore, ]);
 
     }
   }
