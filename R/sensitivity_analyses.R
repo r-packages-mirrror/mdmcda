@@ -42,9 +42,9 @@ sensitivity_analyses <- function(multiEstimateDf,
 
   ### Actually weigh the estimates
   res$weighedEstimates <-
-    weigh_estimates(weighed_estimate_df = res$weighedEstimates,
-                    weight_profiles = weightProfiles,
-                    weightProfileNames = names(weightProfiles));
+    weigh_estimates_by_profile(weighed_estimate_df = res$weighedEstimates,
+                               weight_profiles = weightProfiles,
+                               weightProfileNames = names(weightProfiles));
 
   res$scores_per_alternative <-
     compute_scores_per_alternative(multiEstimateDf = res$multiEstimateDf,

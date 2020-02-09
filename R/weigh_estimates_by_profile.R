@@ -1,5 +1,5 @@
 #' @export
-weigh_estimates_per_profile <-
+weigh_estimates_by_profile <-
   function(weighed_estimate_df,
            weight_profiles,
            weightProfileNames = names(weight_profiles)) {
