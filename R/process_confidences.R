@@ -125,7 +125,7 @@ process_confidences <- function(estimates,
                                  alpha=.5);
       if (!is.null(path) && is.character(confidencesInDetail)) {
         ufs::cat0("\n\n");
-        print(ufs::knitAndSave(confidencesInDetail[[i]],
+        print(ufs::knitAndSave(estimates$confidencesInDetail[[i]],
                                figCaption=sprintf(confidencesInDetail, i),
                                path = path,
                                figWidth = figWidth,
