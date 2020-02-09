@@ -2,7 +2,7 @@
 combine_weights_and_criteria <- function(weightsMeansAndSDs,
                                          criteria,
                                          weightCols = c(raw = 'weight_mean_percentage',
-                                                        rescaled = 'weight_mean_rescaled'),
+                                                        rescaled = 'weight_mean_rescaled_percentage'),
                                          rootWeight = 1,
                                          rootParentCriterion_id = "-") {
 

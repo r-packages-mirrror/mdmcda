@@ -31,7 +31,7 @@ weightsMeansAndSDs <- function(weights,
       res[res$parentCriterion_id==i, 'clusterSize'] <-
         sum(res$parentCriterion_id == i);
 
-      ### Rescale means so that
+      ### Rescale means so that the highest weight is always 100
       res[res$parentCriterion_id==i, 'weight_mean_rescaled'] <-
         res[res$parentCriterion_id==i, 'weight_mean'] /
         (max(res[res$parentCriterion_id==i, 'weight_mean']) / 100);
@@ -40,6 +40,8 @@ weightsMeansAndSDs <- function(weights,
       #res[res$parentCriterion_id==i, 'mean_clusterSizeWeighted'] <-
       res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
         res[res$parentCriterion_id==i, 'weight_mean'] / 100;
+      res[res$parentCriterion_id==i, 'weight_mean_rescaled_percentage'] <-
+        res[res$parentCriterion_id==i, 'weight_mean_rescaled'] / 100;
 
       res[res$parentCriterion_id==i, 'clusterTotalWeight'] <-
         sum(res[res$parentCriterion_id == i, 'weight_mean_percentage']);
