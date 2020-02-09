@@ -1,16 +1,16 @@
 #' @export
 compute_scores_per_alternative <- function(multiEstimateDf,
                                            weightProfiles,
-                                           silent=FALSE) {
+                                           silent=FALSE,
+                                           setMissingEstimates = 0,
+                                           warnForMissingEstimates = !silent) {
 
   ### Create dataframe with scores per alternative (i.e. summed
   ### over criteria)
   alternativeScores <- data.frame(weightProfile = character(),
                                   decision_id = character(),
                                   alternative_id = character(),
-                                  score = numeric(),
-                                  setMissingEstimates = 0,
-                                  warnForMissingEstimates = !silent);
+                                  score = numeric());
 
   for (currentWeightProfile in names(weightProfiles)) {
     for (currentDecision in unique(multiEstimateDf$decision_id)) {
@@ -42,7 +42,7 @@ compute_scores_per_alternative <- function(multiEstimateDf,
             (length(setMissingEstimates) == 1)) {
           tmpDf[missingWeighedEstimates,
                 paste0(currentWeightProfile,
-                       '_weighed_estimate')] <- 0;
+                       '_weighed_estimate')] <- setMissingEstimates;
         } else {
           stop("You did not set `setMissingEstimates` to a number, which means ",
                "I cannot replace missing estimates. That means I cannot continue.");
