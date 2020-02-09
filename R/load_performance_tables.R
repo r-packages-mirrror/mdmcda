@@ -366,8 +366,8 @@ load_performance_tables <- function(input,
   # }
 
   res$alternativeValues <-
-    lapply(by(estimates$multiEstimateDf,
-              estimates$multiEstimateDf$decision_id,
+    lapply(by(res$multiEstimateDf,
+              res$multiEstimateDf$decision_id,
               function(x) {
                 uniqueAlts <- unique(x[, c('decision_alternative_value',
                                            'decision_alternative_label')]);
