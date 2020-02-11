@@ -1,5 +1,6 @@
 #' @export
 weightsMeansAndSDs <- function(weights,
+                               rootWeight = 1,
                                rootParentCriterion_id = "-") {
 
   ### Compute means and standard deviations for the weights
@@ -61,7 +62,7 @@ weightsMeansAndSDs <- function(weights,
       c('clusterSize',
         'mean_clusterSizeWeighted',
         'clusterTotalWeight')] <-
-    c(1, 1, 1);
+    rep(rootWeight, 3);
 
   return(res);
 

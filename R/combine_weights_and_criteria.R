@@ -9,7 +9,7 @@ combine_weights_and_criteria <- function(weightsMeansAndSDs,
   ### Add to the criteria tree
   for (i in weightsMeansAndSDs$criterion_id) {
     tmpNode <-
-      data.tree::FindNode(criteria$criteriaTree, i)
+      data.tree::FindNode(criteria$criteriaTree, i);
     for (j in names(weightCols)) {
       tmpNode[[j]] <-
         weightsMeansAndSDs[weightsMeansAndSDs$criterion_id==i,
