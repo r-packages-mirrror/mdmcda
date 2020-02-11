@@ -1,6 +1,9 @@
 #' @export
 scoreBarchart_criteria <- function(estimatesByCriterion,
                                    estimateCol,
+                                   fill = "black",
+                                   strokeColor = "black",
+                                   strokeSize = .1,
                                    title = "DMCDA criteria bar chart",
                                    xLab = "Criteria",
                                    yLab = estimateCol,
@@ -23,7 +26,8 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     ggplot2::ggplot(data = estimatesByCriterion,
                     mapping = ggplot2::aes_string(x = "criterion_id",
                                                   y = estimateCol)) +
-    ggplot2::geom_col(color = strokeColor,
+    ggplot2::geom_col(fill = fill,
+                      color = strokeColor,
                       size = strokeSize) +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 45,
