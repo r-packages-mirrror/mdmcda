@@ -58,7 +58,8 @@ build_weighed_estimate_df <-
                   data.frame(scenario_id=currentScenario,
                              decision_id=currentDecision,
                              criterion_id=currentCriterion,
-                             estimate=estimate));
+                             estimate=estimate,
+                             stringsAsFactors = FALSE));
           # cat("\nWithin scenario ", currentScenario, ", for the effect of decision ",
           #     currentDecision, " for criterion ", currentCriterion,
           #     ", found estimate ", estimate, ".", sep="");

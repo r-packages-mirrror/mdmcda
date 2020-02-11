@@ -39,8 +39,6 @@ compute_best_alternatives <- function(scores_per_alternative) {
         alternativesWithMaxScore <-
           alternativesWithMaxScore[1];
       }
-
-
     }
   }
   return(bestAlternatives);

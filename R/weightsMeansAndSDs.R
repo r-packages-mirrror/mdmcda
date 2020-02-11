@@ -23,7 +23,8 @@ weightsMeansAndSDs <- function(weights,
     data.frame(criterion_id = criterionIds,
                parentCriterion_id = parentCriterionIds[criterionIds],
                weight_mean = weightMeans,
-               weight_sd = weightSDs);
+               weight_sd = weightSDs,
+               stringsAsFactors = FALSE);
 
   for (i in unique(res$parentCriterion_id)) {
     if (i != rootParentCriterion_id) {
