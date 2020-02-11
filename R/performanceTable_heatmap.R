@@ -10,12 +10,22 @@ performanceTable_heatmap <- function(weighedEstimates,
                      c("decision_id",
                        "criterion_id",
                        estimateCol)];
+
+  criteria_by_parent <-
+    unique(weighedEstimates[, c('criterion_id', 'parentCriterion_id')]);
+  criteria_by_parent <-
+    criteria_by_parent[order(criteria_by_parent$parentCriterion_id),
+                       'criterion_id'];
+
   tmpDf$decision_id <-
-    factor(tmpDf$decision_id,
-           levels=rev(levels(tmpDf$decision_id)));
+    factor(as.character(tmpDf$decision_id),
+           levels=rev(sort(unique(as.character(tmpDf$decision_id)))),
+           order=TRUE);
   tmpDf$criterion_id <-
-    factor(tmpDf$criterion_id,
-           levels=childCriteriaByCluster);
+    factor(as.character(tmpDf$criterion_id),
+           levels=criteria_by_parent,
+           ordered=TRUE);
+
   res <-
     ggplot2::ggplot(data = tmpDf,
                     mapping = ggplot2::aes_string(x='criterion_id',
