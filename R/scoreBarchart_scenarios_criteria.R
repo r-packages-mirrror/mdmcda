@@ -3,7 +3,9 @@ scoreBarchart_scenarios_criteria <- function (weighedEstimates,
                                               estimateCol,
                                               strokeSize = .1,
                                               strokeColor = "black",
-                                              title = "DMCDA comparison bar chart") {
+                                              title = "DMCDA bar chart to compare scenarios",
+                                              xLab = "Scenarios",
+                                              yLab = "Weighed estimated effect") {
 
   res <-
     ggplot2::ggplot(data = weighedEstimates[, c("scenario_id",
@@ -24,8 +26,8 @@ scoreBarchart_scenarios_criteria <- function (weighedEstimates,
     ggplot2::labs(title=title,
                   subtitle = paste0("Colours represent criteria, ",
                                     "separate rectangles per decision"),
-                  x="Scenario",
-                  y="Weighed estimated effect") +
+                  x=xLab,
+                  y=yLab) +
     NULL;
   return(res);
 }
