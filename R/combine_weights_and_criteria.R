@@ -41,9 +41,9 @@ combine_weights_and_criteria <- function(weightsMeansAndSDs,
     for (j in names(weightCols)) {
       weightsMeansAndSDs[weightsMeansAndSDs$criterion_id==i,
                          paste0(j, "_product")] <-
-      criteria$criteriaTree$Get(paste0(j, "_product"),
-                                filterFun=function(node)
-                                  node$name==i);
+        criteria$criteriaTree$Get(paste0(j, "_product"),
+                                  filterFun=function(node)
+                                    node$name==i);
       weightsMeansAndSDs[weightsMeansAndSDs$criterion_id==i,
                          paste0(j, "_total")] <-
         criteria$criteriaTree$Get(paste0(j, "_total"),
