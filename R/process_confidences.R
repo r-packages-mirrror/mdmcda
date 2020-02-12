@@ -65,11 +65,11 @@ process_confidences <- function(estimates,
       ggplot2::theme_minimal();
     if (!is.null(path) && is.character(confidencesByDecisionPlot)) {
       ufs::cat0("\n\n");
-      print(ufs::knitAndSave(estimates$confidencesByDecisionPlot,
-                             figCaption=confidencesByDecisionPlot,
-                             path = path,
-                             figWidth = figWidth,
-                             figHeight = figHeight));
+      ufs::knitAndSave(estimates$confidencesByDecisionPlot,
+                       figCaption=confidencesByDecisionPlot,
+                       path = path,
+                       figWidth = figWidth,
+                       figHeight = figHeight);
       ufs::cat0("\n\n");
     }
   }
@@ -88,11 +88,11 @@ process_confidences <- function(estimates,
       ggplot2::theme_minimal();
     if (!is.null(path) && is.character(confidencesByCriterionPlot)) {
       ufs::cat0("\n\n");
-      print(ufs::knitAndSave(estimates$confidencesByCriterionPlot,
-                             figCaption=confidencesByCriterionPlot,
-                             path = path,
-                             figWidth = figWidth,
-                             figHeight = figHeight));
+      ufs::knitAndSave(estimates$confidencesByCriterionPlot,
+                       figCaption=confidencesByCriterionPlot,
+                       path = path,
+                       figWidth = figWidth,
+                       figHeight = figHeight);
       ufs::cat0("\n\n");
     }
   }
@@ -125,11 +125,11 @@ process_confidences <- function(estimates,
                                  alpha=.5);
       if (!is.null(path) && is.character(confidencesInDetail)) {
         ufs::cat0("\n\n");
-        print(ufs::knitAndSave(estimates$confidencesInDetail[[i]],
-                               figCaption=sprintf(confidencesInDetail, i),
-                               path = path,
-                               figWidth = figWidth,
-                               figHeight = figHeight));
+        ufs::knitAndSave(estimates$confidencesInDetail[[i]],
+                         figCaption=sprintf(confidencesInDetail, i),
+                         path = path,
+                         figWidth = figWidth,
+                         figHeight = figHeight);
         ufs::cat0("\n\n");
       }
     }
