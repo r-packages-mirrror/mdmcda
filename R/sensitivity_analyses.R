@@ -17,7 +17,7 @@ sensitivity_analyses <- function(multiEstimateDf,
   res <- list(multiEstimateDf=multiEstimateDf);
 
   ### Process each performance table
-  for (i in which(estimates$collapsedConfidences$confidenceMean <= lowConfidenceMeanThreshold)) {
+  for (i in collapsedConfidencesIndices) {
     res$multiEstimateDf <-
       replace_estimates(multiEstimateDf = res$multiEstimateDf,
                         criteria = criteria,
