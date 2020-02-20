@@ -89,8 +89,6 @@ confidence_based_sensitivity_analysis <-
       ufs::cat0("\nDone with replacements. Combining all scenario scores into one dataframe.\n");
     }
 
-    browser();
-
     res$dat <-
       do.call(
         rbind,
@@ -115,7 +113,7 @@ confidence_based_sensitivity_analysis <-
     }
 
     res$plot <-
-      ggplot2::ggplot(data = sensitivityAnalyses$setToCriterionMin_ScoresPerScenario,
+      ggplot2::ggplot(data = res$dat,
                       mapping = ggplot2::aes_string(x = "lowConfidenceMeanThreshold",
                                                     y = "score",
                                                     group = "scenario_id",
