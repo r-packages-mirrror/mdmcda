@@ -23,7 +23,7 @@ replace_estimates_based_on_confidence <-
                           transformationFunction = transformationFunction,
                           decision = collapsedConfidences[i, 'decision', drop=FALSE],
                           criterion = collapsedConfidences[i, 'criterion', drop=FALSE],
-                          silent=silent);
+                          silent = silent);
     }
 
     return(multiEstimateDf);
