@@ -2,9 +2,9 @@
 confidence_based_sensitivity_analysis <-
   function(multiEstimateDf,
            collapsedConfidences,
-           transformationFunction,
            scenarioDefinitions,
            weightProfiles,
+           transformationFunction = setToZero,
            scenarioOrder = names(scenarioDefinitions),
            scenarioLabels = scenarioOrder,
            scorer = "all",
