@@ -2,10 +2,11 @@
 replace_estimates_based_on_confidence <-
   function(multiEstimateDf,
            collapsedConfidences,
+           criteria,
            confidenceQuantile = .10,
            transformationFunction = setToZero,
            scorer = "all",
-           criteria = unique(collapsedConfidences[i, 'criterion']),
+           onlyForCriteria = unique(collapsedConfidences[i, 'criterion']),
            silent = FALSE) {
 
     lowConfidenceMeanThreshold <-

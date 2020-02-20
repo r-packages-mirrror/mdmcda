@@ -4,6 +4,7 @@ confidence_based_sensitivity_analysis <-
            collapsedConfidences,
            scenarioDefinitions,
            weightProfiles,
+           criteria,
            transformationFunction = setToZero,
            scenarioOrder = names(scenarioDefinitions),
            scenarioLabels = scenarioOrder,
