@@ -21,8 +21,8 @@ replace_estimates_based_on_confidence <-
                           criteria = criteria,
                           scorer= scorer,
                           transformationFunction = transformationFunction,
-                          decision = collapsedConfidences[i, 'decision', drop=FALSE],
-                          criterion = collapsedConfidences[i, 'criterion', drop=FALSE],
+                          decision = unique(collapsedConfidences[i, 'decision']),
+                          criterion = unique(collapsedConfidences[i, 'criterion']),
                           silent = silent);
     }
 

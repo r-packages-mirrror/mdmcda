@@ -19,6 +19,7 @@ replace_estimates <- function(multiEstimateDf,
     ufs::ifelseObj(is.null(decision),
                    rep(TRUE, nrow(multiEstimateDf)),
                    multiEstimateDf$decision_id==decision);
+
   decision_alternative_valueSelection <-
     ufs::ifelseObj(is.null(decision_alternative_value),
                    rep(TRUE, nrow(multiEstimateDf)),
@@ -53,18 +54,6 @@ replace_estimates <- function(multiEstimateDf,
               ufs::vecTxtQ(criterionSelectionList),
               ", replacing ", sum(rowsToReplace), " estimates.\n");
   }
-
-  print(silent);
-
-  ufs::cat0("\n- For decision ",
-            ufs::vecTxtQ(decision),
-            ", alternatives ",
-            ifelse(is.null(decision_alternative_value),
-                   "*",
-                   ufs::vecTxtQ(decision_alternative_value)),
-            ", and criteria ",
-            ufs::vecTxtQ(criterionSelectionList),
-            ", replacing ", sum(rowsToReplace), " estimates.\n");
 
   for (currentCriterion in criterionSelectionList) {
     multiEstimateDf[rowsToReplace &
