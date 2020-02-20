@@ -13,7 +13,7 @@ confidence_based_sensitivity_analysis <-
            setMissingEstimates = 0,
            silent = TRUE) {
 
-    res <- list();
+    res <- list(input = as.list(environment()));
     res$sensitivityAnalyses <-
       lapply(
         confidenceThresholds,
@@ -100,11 +100,14 @@ confidence_based_sensitivity_analysis <-
                 rbind,
                 as.list(res$sensitivityAnalyses[[x]]$scoresPerScenario)
               );
-            res <- data.frame(scenario_id = factor(row.names(res),
-                                                   levels=scenarioOrder,
-                                                   labels=scenarioLabels[scenarioOrder]),
+            res <- data.frame(scenario_id = row.names(res),
                               score = res[, 1],
                               lowConfidenceMeanThreshold = x);
+            # res$scenario_id <-
+            #   factor(res$scenario_id,
+            #          levels=scenarioOrder,
+            #          labels=scenarioLabels[scenarioOrder],
+            #          ordered=TRUE);
             return(res);
           }));
 
