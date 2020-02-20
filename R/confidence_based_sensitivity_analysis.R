@@ -18,20 +18,16 @@ confidence_based_sensitivity_analysis <-
       lapply(
         confidenceThresholds,
         function(lowConfidence) {
-          lowConfidenceMeanThreshold <-
-            quantile(collapsedConfidences$confidenceMean,
-                     lowConfidence);
-          lowConfidenceIndices <-
-            which(collapsedConfidences$confidenceMean <= lowConfidenceMeanThreshold);
           res <- list();
           res$multiEstimateDf <-
             replace_estimates_based_on_confidence(
               multiEstimateDf = multiEstimateDf,
               collapsedConfidences = collapsedConfidences,
-              collapsedConfidencesIndices = lowConfidenceIndices,
+              confidenceQuantile = lowConfidence,
               transformationFunction = transformationFunction,
               scorer = scorer,
-              criteria = criteria);
+              criteria = criteria,
+              silent = silent);
 
           ### Create dataframe for the weighed estimates
           res$weighedEstimates <-
