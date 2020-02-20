@@ -79,10 +79,11 @@ setToZero <- function(x, ...) return(rep(0, length(x)));
 
 #' @export
 setToMin <- function(x,
-                     anchoringDF,
+                     anchoringDf,
                      criterion,
                      decision = NULL,
-                     decision_alternative_value = NULL) {
+                     decision_alternative_value = NULL,
+                     ...) {
   criterionMin <-
     anchoringDf[anchoringDf$id %in% criterion,
                 'lo_score'];
@@ -94,7 +95,8 @@ setToMax <- function(x,
                      anchoringDf,
                      criterion,
                      decision = NULL,
-                     decision_alternative_value = NULL) {
+                     decision_alternative_value = NULL,
+                     ...) {
   criterionMax <-
     anchoringDf[anchoringDf$id %in% criterion,
                 'hi_score'];
