@@ -12,7 +12,7 @@ confidence_based_sensitivity_analysis <-
            criteria = unique(collapsedConfidences[i, 'criterion']),
            confidenceThresholds = seq(0, 1, by=.1),
            setMissingEstimates = 0,
-           silent = FALSE) {
+           silent = TRUE) {
 
     res <- list();
     res$sensitivityAnalyses <-

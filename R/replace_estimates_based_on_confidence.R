@@ -7,7 +7,7 @@ replace_estimates_based_on_confidence <-
            transformationFunction = setToZero,
            scorer = "all",
            onlyForCriteria = unique(collapsedConfidences[i, 'criterion']),
-           silent = FALSE) {
+           silent = TRUE) {
 
     lowConfidenceMeanThreshold <-
       quantile(collapsedConfidences$confidenceMean,
@@ -22,8 +22,8 @@ replace_estimates_based_on_confidence <-
                           criteria = criteria,
                           scorer= scorer,
                           transformationFunction = transformationFunction,
-                          decision = collapsedConfidences[i, 'decision'],
-                          criterion = collapsedConfidences[i, 'criterion'],
+                          decision = collapsedConfidences[i, 'decision', drop=FALSE],
+                          criterion = collapsedConfidences[i, 'criterion', drop=FALSE],
                           silent=silent);
     }
 

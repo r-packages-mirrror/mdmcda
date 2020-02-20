@@ -6,7 +6,7 @@ replace_estimates <- function(multiEstimateDf,
                               decision = NULL,
                               decision_alternative_value = NULL,
                               criterion = NULL,
-                              silent = FALSE,
+                              silent = TRUE,
                               ...) {
 
   if (!(scorer %in% names(multiEstimateDf))) {
