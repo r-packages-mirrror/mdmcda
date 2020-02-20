@@ -18,6 +18,17 @@ confidence_based_sensitivity_analysis <-
       lapply(
         confidenceThresholds,
         function(lowConfidence) {
+
+          if (!silent) {
+            ufs::cat0("\n\n**Starting to process confidence <= quantile ",
+                      lowConfidence, ".\n");
+          }
+
+
+          if (!silent) {
+            ufs::cat0("Replacing estimates:\n\n");
+          }
+
           res <- list();
           res$multiEstimateDf <-
             replace_estimates_based_on_confidence(
@@ -28,6 +39,10 @@ confidence_based_sensitivity_analysis <-
               scorer = scorer,
               criteria = criteria,
               silent = silent);
+
+          if (!silent) {
+            ufs::cat0("\nPreparing dataframe to weight estimates.\n");
+          }
 
           ### Create dataframe for the weighed estimates
           res$weighedEstimates <-
@@ -41,11 +56,18 @@ confidence_based_sensitivity_analysis <-
                                       warnForMissingEstimates = !silent,
                                       warnForDuplicateEstimates = !silent);
 
+          if (!silent) {
+            ufs::cat0("Actually weighing estimates.\n");
+          }
+
           ### Actually weigh the estimates
           res$weighedEstimates <-
             weigh_estimates_by_profile(weighed_estimate_df = res$weighedEstimates,
                                        weight_profiles = weightProfiles,
                                        weightProfileNames = names(weightProfiles));
+          if (!silent) {
+            ufs::cat0("Computing scenario scores.\n");
+          }
 
           ### Process the estimates to get to scenario-level scores
           res$scores_per_alternative <-
@@ -61,6 +83,10 @@ confidence_based_sensitivity_analysis <-
         });
     names(res$sensitivityAnalyses) <-
       as.character(confidenceThresholds);
+
+    if (!silent) {
+      ufs::cat0("\nDone with replacements. Combining all scenario scores into one dataframe.\n");
+    }
 
     res$dat <-
       do.call(
@@ -80,6 +106,10 @@ confidence_based_sensitivity_analysis <-
                               lowConfidenceMeanThreshold = x);
             return(res);
           }));
+
+    if (!silent) {
+      ufs::cat0("\nBuilding plot.\n");
+    }
 
     res$plot <-
       ggplot2::ggplot(data = sensitivityAnalyses$setToCriterionMin_ScoresPerScenario,
