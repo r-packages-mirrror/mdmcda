@@ -21,7 +21,7 @@ confidence_based_sensitivity_analysis <-
 
           if (!silent) {
             ufs::cat0("\n\n**Starting to process confidence <= quantile ",
-                      lowConfidence, ".\n");
+                      lowConfidence, ".\n\n");
           }
 
 
