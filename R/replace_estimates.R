@@ -70,3 +70,31 @@ replace_estimates <- function(multiEstimateDf,
   return(multiEstimateDf);
 
 }
+
+
+#' @export
+setToZero <- function(x, ...) return(rep(0, length(x)));
+
+#' @export
+setToMin <- function(x,
+                     decision = NULL,
+                     decision_alternative_value = NULL,
+                     criterion,
+                     anchoringDf = criteria$anchoringDf) {
+  criterionMin <-
+    anchoringDf[anchoringDf$id %in% criterion,
+                'lo_score'];
+  return(rep(criterionMin, length(x)));
+}
+
+#' @export
+setToMax <- function(x,
+                     decision = NULL,
+                     decision_alternative_value = NULL,
+                     criterion,
+                     anchoringDf = criteria$anchoringDf) {
+  criterionMax <-
+    anchoringDf[anchoringDf$id %in% criterion,
+                'hi_score'];
+  return(rep(criterionMax, length(x)));
+}
