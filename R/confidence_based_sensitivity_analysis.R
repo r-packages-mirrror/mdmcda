@@ -80,6 +80,7 @@ confidence_based_sensitivity_analysis <-
             by(res$weighedEstimates$meanWeights_weighed_estimate,
                res$weighedEstimates$scenario_id,
                sum);
+          return(res);
         });
     names(res$sensitivityAnalyses) <-
       as.character(confidenceThresholds);
