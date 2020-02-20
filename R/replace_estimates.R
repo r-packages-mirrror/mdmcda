@@ -61,9 +61,10 @@ replace_estimates <- function(multiEstimateDf,
       transformationFunction(multiEstimateDf[rowsToReplace &
                                                (multiEstimateDf$criterion_id == currentCriterion),
                                              scorer],
+                             anchoringDf = criteria$anchoringDf,
+                             criterion = currentCriterion,
                              decision = decision,
                              decision_alternative_value = decision_alternative_value,
-                             criterion = currentCriterion,
                              ...);
   }
 
@@ -77,10 +78,10 @@ setToZero <- function(x, ...) return(rep(0, length(x)));
 
 #' @export
 setToMin <- function(x,
-                     decision = NULL,
-                     decision_alternative_value = NULL,
+                     anchoringDF,
                      criterion,
-                     anchoringDf = criteria$anchoringDf) {
+                     decision = NULL,
+                     decision_alternative_value = NULL) {
   criterionMin <-
     anchoringDf[anchoringDf$id %in% criterion,
                 'lo_score'];
@@ -89,10 +90,10 @@ setToMin <- function(x,
 
 #' @export
 setToMax <- function(x,
-                     decision = NULL,
-                     decision_alternative_value = NULL,
+                     anchoringDf,
                      criterion,
-                     anchoringDf = criteria$anchoringDf) {
+                     decision = NULL,
+                     decision_alternative_value = NULL) {
   criterionMax <-
     anchoringDf[anchoringDf$id %in% criterion,
                 'hi_score'];

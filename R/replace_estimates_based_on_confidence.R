@@ -6,7 +6,6 @@ replace_estimates_based_on_confidence <-
            confidenceQuantile = .10,
            transformationFunction = setToZero,
            scorer = "all",
-           onlyForCriteria = unique(collapsedConfidences[i, 'criterion']),
            silent = TRUE) {
 
     lowConfidenceMeanThreshold <-

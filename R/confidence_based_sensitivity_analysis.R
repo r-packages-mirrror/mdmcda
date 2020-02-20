@@ -9,7 +9,6 @@ confidence_based_sensitivity_analysis <-
            scenarioOrder = names(scenarioDefinitions),
            scenarioLabels = scenarioOrder,
            scorer = "all",
-           criteria = unique(collapsedConfidences[i, 'criterion']),
            confidenceThresholds = seq(0, 1, by=.1),
            setMissingEstimates = 0,
            silent = TRUE) {
