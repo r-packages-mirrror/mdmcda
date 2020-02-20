@@ -88,6 +88,8 @@ confidence_based_sensitivity_analysis <-
       ufs::cat0("\nDone with replacements. Combining all scenario scores into one dataframe.\n");
     }
 
+    browser();
+
     res$dat <-
       do.call(
         rbind,
