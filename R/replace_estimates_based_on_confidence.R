@@ -15,7 +15,7 @@ replace_estimates_based_on_confidence <-
       which(collapsedConfidences$confidenceMean <= lowConfidenceMeanThreshold);
 
     ### Process each performance table
-    for (i in collapsedConfidencesIndices) {
+    for (i in lowConfidenceIndices) {
       multiEstimateDf <-
         replace_estimates(multiEstimateDf = multiEstimateDf,
                           criteria = criteria,
