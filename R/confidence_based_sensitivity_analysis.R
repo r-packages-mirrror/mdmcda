@@ -110,6 +110,8 @@ confidence_based_sensitivity_analysis <-
               score = res[, 1],
               lowConfidenceMeanThreshold = x
             );
+            res$rank <-
+              rank(res$score);
             return(res);
           }));
 
@@ -117,7 +119,7 @@ confidence_based_sensitivity_analysis <-
       ufs::cat0("\nBuilding plot.\n");
     }
 
-    res$plot <-
+    res$scorePlot <-
       ggplot2::ggplot(data = res$dat,
                       mapping = ggplot2::aes_string(x = "lowConfidenceMeanThreshold",
                                                     y = "score",
@@ -126,6 +128,16 @@ confidence_based_sensitivity_analysis <-
         ggplot2::geom_line(size=1) +
         ggplot2::scale_color_viridis_d() +
         ggplot2::theme_minimal();
+
+    res$rankPlot <-
+      ggplot2::ggplot(data = res$dat,
+                      mapping = ggplot2::aes_string(x = "lowConfidenceMeanThreshold",
+                                                    y = "rank",
+                                                    group = "scenario_id",
+                                                    color = "scenario_id")) +
+      ggplot2::geom_line(size=1) +
+      ggplot2::scale_color_viridis_d() +
+      ggplot2::theme_minimal();
 
     return(res);
 
