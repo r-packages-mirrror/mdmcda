@@ -132,7 +132,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                     res$scoresPerScenario$weightFraction <-
                       factor(weightFraction,
                              levels = weightFractionsPerStepChar,
-                             labele = weightFractionsPerStepChar,
+                             labels = weightFractionsPerStepChar,
                              ordered = TRUE);
 
                     res$scoresPerScenario <-
