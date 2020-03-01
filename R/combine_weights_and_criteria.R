@@ -1,8 +1,8 @@
 #' @export
 combine_weights_and_criteria <- function(weightsMeansAndSDs,
                                          criteria,
-                                         weightCols = c(raw = 'weight_mean_percentage',
-                                                        rescaled = 'weight_mean_rescaled_percentage'),
+                                         weightCols = c(raw = 'weight_mean_proportion',
+                                                        rescaled = 'weight_mean_rescaled_proportion'),
                                          rootWeight = 1,
                                          rootParentCriterion_id = "-") {
 
@@ -57,7 +57,13 @@ combine_weights_and_criteria <- function(weightsMeansAndSDs,
     weightsMeansAndSDs[[paste0(j, "_total_proportion")]] <-
       weightsMeansAndSDs[[paste0(j, "_total")]] /
       sum(weightsMeansAndSDs[[paste0(j, "_total")]], na.rm=TRUE);
+    weightsMeansAndSDs[[paste0(j, "_total_percentage")]] <-
+      100 * weightsMeansAndSDs[[paste0(j, "_total_proportion")]];
   }
+
+  ### Get names of clusters
+  criteriaClusters <-
+    names(criteria$criteriaTree$children);
 
   return(list(weightsMeansAndSDs=weightsMeansAndSDs,
               criteria = criteria));

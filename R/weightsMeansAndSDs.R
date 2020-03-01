@@ -40,19 +40,13 @@ weightsMeansAndSDs <- function(weights,
 
       ### Rescale mean weights to proportions
       #res[res$parentCriterion_id==i, 'mean_clusterSizeWeighted'] <-
-      res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
+      res[res$parentCriterion_id==i, 'weight_mean_proportion'] <-
         res[res$parentCriterion_id==i, 'weight_mean'] / 100;
-      res[res$parentCriterion_id==i, 'weight_mean_rescaled_percentage'] <-
+      res[res$parentCriterion_id==i, 'weight_mean_rescaled_proportion'] <-
         res[res$parentCriterion_id==i, 'weight_mean_rescaled'] / 100;
 
       res[res$parentCriterion_id==i, 'clusterTotalWeight'] <-
-        sum(res[res$parentCriterion_id == i, 'weight_mean_percentage']);
-      # res[res$parentCriterion_id==i, 'clusterTotalWeight'] <-
-      #   sum(res[res$parentCriterion_id == i, 'mean_clusterSizeWeighted']);
-
-      # res[res$parentCriterion_id==i, 'weight_mean_percentage'] <-
-      #   res[res$parentCriterion_id == i, 'weight_mean_percentage'] /
-      #   res[res$parentCriterion_id==i, 'clusterSize'];
+        sum(res[res$parentCriterion_id == i, 'weight_mean_proportion']);
 
     }
   }
