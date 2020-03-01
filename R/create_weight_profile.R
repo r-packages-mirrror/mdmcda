@@ -6,7 +6,7 @@ create_weight_profile <- function(weightsMeansAndSDs,
                                   clusterWeightCol = "rescaled_product") {
 
   criteriaWeights <-
-    stats::setNames(weightsMeansAndSDs$rescaled_total_percentage,
+    stats::setNames(weightsMeansAndSDs[, weightCol],
                     weightsMeansAndSDs$criterion_id);
   criteriaWeights <-
     criteriaWeights[!is.na(criteriaWeights)];

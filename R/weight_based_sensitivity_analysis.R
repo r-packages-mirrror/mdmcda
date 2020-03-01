@@ -3,12 +3,14 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightsMeansAndSDs,
                                               criteria,
                                               scenarioDefinitions,
-                                              scenarioOrder = names(scenarioDefinitions),
-                                              scenarioLabels = seq_along(scenarioOrder),
+                                              weighedEstimates,
+                                              scenarioOrder = seq_along(scenarioDefinitions),
+                                              scenarioLabels = names(scenarioDefinitions)[scenarioOrder],
                                               scorer = "all",
                                               weightCols = c(raw = 'weight_mean_proportion',
                                                              rescaled = 'weight_mean_rescaled_proportion'),
-                                              steps = 10) {
+                                              steps = 10,
+                                              silent = FALSE) {
 
   criteriaClusters <-
     names(criteria$criteriaTree$children);
@@ -18,7 +20,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
 
   res <-
     lapply(
-      names(weightCols),
+      weightCols,
       function(weightCol) {
 
         ### Get the weights of each cluster in this column
@@ -34,11 +36,12 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
         weightFractionsPerStep <-
           sapply(0:steps,
                  function(i) return(1 - (i*(1/steps))));
+        weightFractionsPerStepChar <- as.character(weightFractionsPerStep);
 
         ### Multiply each fraction with each cluster weight
         weightsPerStep <-
           sapply(weightFractionsPerStep, `*`, criteriaClusterWeights)
-        colnames(weightsPerStep) <- weightFractionsPerStep;
+        colnames(weightsPerStep) <- weightFractionsPerStepChar;
 
         weightsPerCluster <-
           lapply(criteriaClusters,
@@ -50,16 +53,20 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
         names(weightsPerCluster) <- criteriaClusters;
 
         ### Now process all criteria clusters
-        return(
+        res <-
           lapply(
             criteriaClusters,
             function(criteriaClusterName) {
 
+              res <- list();
+
               ### Loop through the steps (the weight fractions)
-              return(
+              res$resultsPerWeightFraction <-
                 lapply(
-                  weightFractionsPerStep,
+                  weightFractionsPerStepChar,
                   function(weightFraction) {
+
+                    res <- list();
 
                     ### Now we create a new temporary weightsMeansAndSDs, where
                     ### we replaced the criteria cluster's weights in `weightCol`
@@ -69,24 +76,128 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                     ### in scenarioDefinitions. We then compute each scenario's
                     ### rank, and finally, create two plots.
 
-                    tmpDf <- weightsMeansAndSDs;
-                    weightsMeansAndSDs[criteriaClusters, weightCol] <-
+                    res$weightsMeansAndSDs <- weightsMeansAndSDs;
+
+                    if (!silent) {
+                      cat0(
+                        "\nReplacing scores in column '", weightCol, "': ",
+                        vecTxt(
+                          paste0(
+                            round(as.numeric(
+                              res$weightsMeansAndSDs[criteriaClusters, weightCol]),
+                              3),
+                            " with ",
+                            round(as.numeric(
+                              weightsPerCluster[[criteriaClusterName]][criteriaClusters, weightFraction]),
+                              3))),
+                        "\n");
+                    }
+
+                    res$weightsMeansAndSDs[criteriaClusters, weightCol] <-
                       weightsPerCluster[[criteriaClusterName]][criteriaClusters, weightFraction];
 
-                    tmpDf <-
-                      combine_weights_and_criteria(weightsMeansAndSDs = tmpDf,
+                    res$combinedWeightsAndCriteria <-
+                      combine_weights_and_criteria(weightsMeansAndSDs = res$weightsMeansAndSDs,
                                                    criteria = criteria,
-                                                   weightCols = stats::setNames("weightCol",
-                                                                                "weightCol"))$weightsMeansAndSDs;
+                                                   weightCols = stats::setNames(weightCol,
+                                                                                weightCol));
 
+                    res$weightProfiles <-
+                      dmcda::create_weight_profile(weightsMeansAndSDs = res$combinedWeightsAndCriteria$weightsMeansAndSDs,
+                                                   criteria = res$combinedWeightsAndCriteria$criteria,
+                                                   profileName = "sensitivityAnalysis",
+                                                   weightCol = "weight_mean_rescaled_proportion_total_percentage",
+                                                   clusterWeightCol = "weight_mean_rescaled_proportion_product");
 
+                    res$weighedEstimates <-
+                      dmcda::add_weights(weighedEstimates = weighedEstimates,
+                                         weightProfiles = res$weightProfiles,
+                                         weightProfileNames = names(res$weightProfiles));
 
+                    res$scoresPerScenario <-
+                      dmcda::scores_by_scenario(weighedEstimates = res$weighedEstimates,
+                                                estimateCols = paste0(names(res$weightProfiles),
+                                                                      '_weighed_estimate'));
 
-                  }));
+                    res$scoresPerScenario$score <-
+                      res$scoresPerScenario$sensitivityAnalysis_weighed_estimate;
+                    res$scoresPerScenario$rank <-
+                      rank(res$scoresPerScenario$sensitivityAnalysis_weighed_estimate);
+                    res$scoresPerScenario$scenario_id <-
+                      factor(res$scoresPerScenario$scenario_id,
+                             levels = scenarioLabels,
+                             labels = scenarioLabels[scenarioOrder],
+                             ordered=TRUE);
+                    res$scoresPerScenario$weightFraction <-
+                      as.numeric(weightFraction);
 
-            }));
+                    res$scoresPerScenario <-
+                      res$scoresPerScenario[, c("scenario_id",
+                                                "weightFraction",
+                                                "score",
+                                                "rank")];
+
+                    return(res);
+
+                  });
+              names(res$resultsPerWeightFraction) <-
+                weightFractionsPerStep;
+
+              ### In `res`, we now have a list with the scores per scenario for all
+              ### weight fractions. We can now use those to create the plots.
+
+              res$scoresPerScenarioDf <-
+                do.call(rbind,
+                        lapply(res$resultsPerWeightFraction,
+                               function(x) {
+                                 return(x$scoresPerScenario);
+                               }));
+
+              res$scorePlot <-
+                ggplot2::ggplot(data = res$scoresPerScenarioDf,
+                                mapping = ggplot2::aes_string(x = "weightFraction",
+                                                              y = "score",
+                                                              group = "scenario_id",
+                                                              color = "scenario_id")) +
+                ggplot2::geom_line(size=1) +
+                ggplot2::scale_color_viridis_d() +
+                ggplot2::scale_x_reverse() +
+                ggplot2::theme_minimal();
+
+              rankBreaks <-
+                sort(unique(res$scoresPerScenarioDf$rank));
+              rankLabels <-
+                c("Worst", rep("", length(rankBreaks) - 2), "Best");
+
+              res$rankPlot <-
+                ggplot2::ggplot(data = res$scoresPerScenarioDf,
+                                mapping = ggplot2::aes_string(x = "weightFraction",
+                                                              y = "rank",
+                                                              group = "scenario_id",
+                                                              color = "scenario_id")) +
+                ggplot2::geom_line(size=1) +
+                ggplot2::scale_color_viridis_d() +
+                ggplot2::scale_y_continuous(breaks=rankBreaks,
+                                            labels=rankLabels) +
+                ggplot2::scale_x_reverse() +
+                ggplot2::theme_minimal();
+
+              return(res);
+
+            });
+
+        names(res) <-
+          criteriaClusters;
+
+        return(res);
+
       });
+
+  names(res) <-
+    weightCols;
 
   return(res);
 
 }
+
+
