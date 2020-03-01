@@ -1,11 +1,12 @@
 #' @export
 weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightsMeansAndSDs,
+                                              weighedEstimates,
                                               criteria,
                                               scenarioDefinitions,
-                                              weighedEstimates,
-                                              scenarioOrder = seq_along(scenarioDefinitions),
-                                              scenarioLabels = names(scenarioDefinitions)[scenarioOrder],
+                                              scenarioOrder = names(scenarioDefinitions),
+                                              scenarioLabels = stats::setNames(names(scenarioDefinitions),
+                                                                               names(scenarioDefinitions)),
                                               scorer = "all",
                                               weightCols = c(raw = 'weight_mean_proportion',
                                                              rescaled = 'weight_mean_rescaled_proportion'),
@@ -125,7 +126,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                       rank(res$scoresPerScenario$sensitivityAnalysis_weighed_estimate);
                     res$scoresPerScenario$scenario_id <-
                       factor(res$scoresPerScenario$scenario_id,
-                             levels = scenarioLabels,
+                             levels = scenarioOrder,
                              labels = scenarioLabels[scenarioOrder],
                              ordered=TRUE);
                     res$scoresPerScenario$weightFraction <-
@@ -161,7 +162,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                               color = "scenario_id")) +
                 ggplot2::geom_line(size=1) +
                 ggplot2::scale_color_viridis_d() +
-                ggplot2::scale_x_reverse() +
+                #ggplot2::scale_x_reverse() +
                 ggplot2::theme_minimal();
 
               rankBreaks <-
@@ -179,7 +180,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                 ggplot2::scale_color_viridis_d() +
                 ggplot2::scale_y_continuous(breaks=rankBreaks,
                                             labels=rankLabels) +
-                ggplot2::scale_x_reverse() +
+                #ggplot2::scale_x_reverse() +
                 ggplot2::theme_minimal();
 
               return(res);
