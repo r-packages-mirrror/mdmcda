@@ -11,7 +11,8 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightCols = c(raw = 'weight_mean_proportion',
                                                              rescaled = 'weight_mean_rescaled_proportion'),
                                               steps = 10,
-                                              silent = FALSE) {
+                                              silent = FALSE,
+                                              lineSize = 1) {
 
   criteriaClusters <-
     names(criteria$criteriaTree$children);
@@ -163,9 +164,8 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                               y = "score",
                                                               group = "scenario_id",
                                                               color = "scenario_id")) +
-                ggplot2::geom_line(size=1) +
-                ggplot2::scale_color_viridis_d() +
-                #ggplot2::scale_x_reverse() +
+                ggplot2::geom_line(size=lineSize) +
+                ggplot2::scale_color_viridis_d(end=.9) +
                 ggplot2::theme_minimal();
 
               rankBreaks <-
@@ -179,11 +179,10 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                               y = "rank",
                                                               group = "scenario_id",
                                                               color = "scenario_id")) +
-                ggplot2::geom_line(size=1) +
-                ggplot2::scale_color_viridis_d() +
+                ggplot2::geom_line(size=lineSize) +
+                ggplot2::scale_color_viridis_d(end=.9) +
                 ggplot2::scale_y_continuous(breaks=rankBreaks,
                                             labels=rankLabels) +
-                #ggplot2::scale_x_reverse() +
                 ggplot2::theme_minimal();
 
               return(res);

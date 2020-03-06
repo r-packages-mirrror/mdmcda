@@ -12,7 +12,8 @@ confidence_based_sensitivity_analysis <-
            scorer = "all",
            confidenceThresholds = seq(0, 1, by=.1),
            setMissingEstimates = 0,
-           silent = TRUE) {
+           silent = TRUE,
+           lineSize = 1) {
 
     res <- list(input = as.list(environment()));
     res$sensitivityAnalyses <-
@@ -126,8 +127,8 @@ confidence_based_sensitivity_analysis <-
                                                     y = "score",
                                                     group = "scenario_id",
                                                     color = "scenario_id")) +
-        ggplot2::geom_line(size=1) +
-        ggplot2::scale_color_viridis_d() +
+        ggplot2::geom_line(size=lineSize) +
+        ggplot2::scale_color_viridis_d(end = .9) +
         ggplot2::theme_minimal();
 
     res$rankPlot <-
@@ -136,8 +137,8 @@ confidence_based_sensitivity_analysis <-
                                                     y = "rank",
                                                     group = "scenario_id",
                                                     color = "scenario_id")) +
-      ggplot2::geom_line(size=1) +
-      ggplot2::scale_color_viridis_d() +
+      ggplot2::geom_line(size=lineSize) +
+      ggplot2::scale_color_viridis_d(end = .9) +
       ggplot2::theme_minimal();
 
     return(res);
