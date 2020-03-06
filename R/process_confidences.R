@@ -63,6 +63,7 @@ process_confidences <- function(estimates,
                            width=2,
                            height=.25) +
       ggplot2::scale_color_viridis_d(end=.9) +
+      ggplot2::coord_cartesian(xlim=c(0, 100)) +
       theme;
     if (!is.null(path) && is.character(confidencesByDecisionPlot)) {
       ufs::cat0("\n\n");
@@ -86,6 +87,7 @@ process_confidences <- function(estimates,
                            width=2,
                            height=.25) +
       ggplot2::scale_color_viridis_d(end=.9) +
+      ggplot2::coord_cartesian(xlim=c(0, 100)) +
       theme;
     if (!is.null(path) && is.character(confidencesByCriterionPlot)) {
       ufs::cat0("\n\n");

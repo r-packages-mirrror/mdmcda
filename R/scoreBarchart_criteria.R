@@ -31,6 +31,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                       color = strokeColor,
                       size = strokeSize) +
     theme +
+    guides(color = guide_legend(ncol = 1)) +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 45,
                                                               hjust = 1,
                                                               vjust = 1)) +

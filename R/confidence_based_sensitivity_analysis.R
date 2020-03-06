@@ -130,6 +130,8 @@ confidence_based_sensitivity_analysis <-
                                                     color = "scenario_id")) +
         ggplot2::geom_line(size=lineSize) +
         ggplot2::scale_color_viridis_d(end = .9) +
+        ggplot2::labs(x = "'Low confidence' threshold determining estimate replacement",
+                      y = "Scores") +
         theme;
 
     res$rankPlot <-
@@ -140,6 +142,8 @@ confidence_based_sensitivity_analysis <-
                                                     color = "scenario_id")) +
       ggplot2::geom_line(size=lineSize) +
       ggplot2::scale_color_viridis_d(end = .9) +
+      ggplot2::labs(x = "'Low confidence' threshold determining estimate replacement",
+                    y = "Ranks") +
       theme;
 
     return(res);

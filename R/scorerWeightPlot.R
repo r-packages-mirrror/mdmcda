@@ -18,7 +18,7 @@ scorerWeightPlot <- function(weights,
                          height=.1,
                          size=5,
                          na.rm=TRUE) +
-    ggplot2::scale_color_viridis_d() +
+    ggplot2::scale_color_viridis_d(end=.9) +
     ggplot2::labs(title=title) +
     theme +
     ggplot2::coord_cartesian(xlim=c(0, 100)) +

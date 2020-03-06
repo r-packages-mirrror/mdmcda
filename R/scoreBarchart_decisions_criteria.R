@@ -4,7 +4,7 @@ scoreBarchart_decisions_criteria <- function (weighedEstimates,
                                               estimateCol,
                                               strokeSize = .1,
                                               strokeColor = "black",
-                                              title = "DMCDA bar chart to compare decisions",
+                                              title = paste0("DMCDA bar chart to compare decisions for ", scenario_id),
                                               xLab = "Decisions",
                                               yLab = "Weighed estimated effect",
                                               theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
@@ -22,6 +22,7 @@ scoreBarchart_decisions_criteria <- function (weighedEstimates,
     ggplot2::scale_fill_viridis_d(name = "Criterion") +
     ggplot2::scale_x_discrete(position="bottom") +
     theme +
+    guides(color = guide_legend(ncol = 1)) +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90,
                                                               hjust = 1,
                                                               vjust = 0.5)) +

@@ -167,6 +167,8 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                               color = "scenario_id")) +
                 ggplot2::geom_line(size=lineSize) +
                 ggplot2::scale_color_viridis_d(end=.9) +
+                ggplot2::labs(x = "Multiplier of weights of all other criteria clusters",
+                              y = "Scores") +
                 theme;
 
               rankBreaks <-
@@ -184,6 +186,8 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                 ggplot2::scale_color_viridis_d(end=.9) +
                 ggplot2::scale_y_continuous(breaks=rankBreaks,
                                             labels=rankLabels) +
+                ggplot2::labs(x = "Multiplier of weights of all other criteria clusters",
+                              y = "Ranks") +
                 theme;
 
               return(res);
