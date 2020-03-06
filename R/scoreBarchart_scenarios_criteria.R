@@ -25,7 +25,8 @@ scoreBarchart_scenarios_criteria <- function (weighedEstimates,
     theme +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90,
                                                               hjust = 1,
-                                                              vjust = 0.5)) +
+                                                              vjust = 0.5),
+                   plot.title.position = "plot") +
     ggplot2::labs(title=title,
                   subtitle = paste0("Colours represent criteria, ",
                                     "separate rectangles per decision"),

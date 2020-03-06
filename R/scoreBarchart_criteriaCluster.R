@@ -38,12 +38,13 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                                   group = "scenario_id",
                                                   fill="scenario_id")) +
     ggplot2::geom_col(position=ggplot2::position_dodge()) +
-    ggplot2::guides(fill = ggplot2::guide_legend(ncol = 1),
-                    color = ggplot2::guide_legend(ncol = 1)) +
     theme +
     ggplot2::scale_fill_viridis_d(name=NULL) +
-    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
-    ggplot2::theme(legend.position="top", legend.box = "horizontal") +
+    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1),
+                    color = ggplot2::guide_legend(nrow = 1)) +
+    ggplot2::theme(legend.position="top",
+                   legend.box = "horizontal",
+                   plot.title.position = "plot") +
     ggplot2::labs(title = title,
                   x = xLab,
                   y = yLab) +
