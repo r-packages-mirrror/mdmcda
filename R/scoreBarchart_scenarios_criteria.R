@@ -20,7 +20,7 @@ scoreBarchart_scenarios_criteria <- function (weighedEstimates,
                       size=strokeSize) +
     ggplot2::scale_fill_viridis_d(name = "Criterion") +
     ggplot2::scale_x_discrete(position="bottom") +
-    guides(color = guide_legend(ncol = 1)) +
+    ggplot2::guides(color = ggplot2::guide_legend(ncol = 1)) +
     theme +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90,
                                                               hjust = 1,
