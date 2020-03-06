@@ -11,8 +11,9 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightCols = c(raw = 'weight_mean_proportion',
                                                              rescaled = 'weight_mean_rescaled_proportion'),
                                               steps = 10,
-                                              silent = FALSE,
-                                              lineSize = 1) {
+                                              silent = dmcda::opts$get("silent"),
+                                              lineSize = 1,
+                                              theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
 
   criteriaClusters <-
     names(criteria$criteriaTree$children);
@@ -166,7 +167,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                               color = "scenario_id")) +
                 ggplot2::geom_line(size=lineSize) +
                 ggplot2::scale_color_viridis_d(end=.9) +
-                ggplot2::theme_minimal();
+                theme;
 
               rankBreaks <-
                 sort(unique(res$scoresPerScenarioDf$rank));
@@ -183,7 +184,7 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                 ggplot2::scale_color_viridis_d(end=.9) +
                 ggplot2::scale_y_continuous(breaks=rankBreaks,
                                             labels=rankLabels) +
-                ggplot2::theme_minimal();
+                theme;
 
               return(res);
 

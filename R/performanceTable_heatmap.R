@@ -1,7 +1,10 @@
 #' @export
 performanceTable_heatmap <- function(weighedEstimates,
                                      estimateCol,
-                                     scenario_id) {
+                                     scenario_id,
+                                     criterionLabels = NULL,
+                                     decisionLabels = NULL,
+                                     theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
   fullEstimateRange <-
     range(weighedEstimates[, estimateCol],
           na.rm=TRUE);
@@ -17,14 +20,32 @@ performanceTable_heatmap <- function(weighedEstimates,
     criteria_by_parent[order(criteria_by_parent$parentCriterion_id),
                        'criterion_id'];
 
+  criterionLevels <-
+    criteria_by_parent;
+  if (is.null(criterionLabels)) {
+    criterionLabels <-
+      stats::setNames(criterionLevels,
+                      nm = criterionLevels);
+  }
+
+  decisionLevels <-
+    rev(sort(unique(as.character(tmpDf$decision_id))));
+  if (is.null(decisionLabels)) {
+    decisionLabels <-
+      stats::setNames(decisionLevels,
+                      nm = decisionLevels);
+  }
+
   tmpDf$decision_id <-
     factor(as.character(tmpDf$decision_id),
-           levels=rev(sort(unique(as.character(tmpDf$decision_id)))),
-           order=TRUE);
+           levels = decisionLevels,
+           labels = decisionLabels[decisionLevels],
+           order = TRUE);
   tmpDf$criterion_id <-
     factor(as.character(tmpDf$criterion_id),
-           levels=criteria_by_parent,
-           ordered=TRUE);
+           levels = criterionLevels,
+           labels = criterionLabels[criterionLevels],
+           ordered = TRUE);
 
   res <-
     ggplot2::ggplot(data = tmpDf,
@@ -34,7 +55,7 @@ performanceTable_heatmap <- function(weighedEstimates,
     ggplot2::geom_tile(color="black") +
     ggplot2::scale_fill_viridis_c(name = "Weighed\nestimated\neffect",
                                   limits=fullEstimateRange) +
-    ggplot2::theme_minimal() +
+    theme +
     ggplot2::scale_x_discrete(position="top") +
     ggplot2::theme(axis.text.x.top = ggplot2::element_text(angle = 90,
                                                            hjust = 0,

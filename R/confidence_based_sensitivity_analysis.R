@@ -12,8 +12,9 @@ confidence_based_sensitivity_analysis <-
            scorer = "all",
            confidenceThresholds = seq(0, 1, by=.1),
            setMissingEstimates = 0,
-           silent = TRUE,
-           lineSize = 1) {
+           silent = dmcda::opts$get("silent"),
+           lineSize = 1,
+           theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
 
     res <- list(input = as.list(environment()));
     res$sensitivityAnalyses <-
@@ -129,7 +130,7 @@ confidence_based_sensitivity_analysis <-
                                                     color = "scenario_id")) +
         ggplot2::geom_line(size=lineSize) +
         ggplot2::scale_color_viridis_d(end = .9) +
-        ggplot2::theme_minimal();
+        theme;
 
     res$rankPlot <-
       ggplot2::ggplot(data = res$dat,
@@ -139,7 +140,7 @@ confidence_based_sensitivity_analysis <-
                                                     color = "scenario_id")) +
       ggplot2::geom_line(size=lineSize) +
       ggplot2::scale_color_viridis_d(end = .9) +
-      ggplot2::theme_minimal();
+      theme;
 
     return(res);
 

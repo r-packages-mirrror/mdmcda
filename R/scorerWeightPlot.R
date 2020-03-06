@@ -6,7 +6,8 @@ scorerWeightPlot <- function(weights,
                              meanColors = NULL,
                              meanAlphas = NULL,
                              title = paste0("Scorer weight plot for criteria cluster",
-                                            criteriaCluster_id)) {
+                                            criteriaCluster_id),
+                             theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
   res <-
     ggplot2::ggplot(data=weights$allWeights[weights$allWeights$parentCriterion_id==criteriaCluster_id, ],
                     mapping=ggplot2::aes_string(y="criterion_id",
@@ -19,7 +20,7 @@ scorerWeightPlot <- function(weights,
                          na.rm=TRUE) +
     ggplot2::scale_color_viridis_d() +
     ggplot2::labs(title=title) +
-    ggplot2::theme_minimal() +
+    theme +
     ggplot2::coord_cartesian(xlim=c(0, 100)) +
     ggrepel::geom_text_repel(mapping=ggplot2::aes_string(color="scorer",
                                                          label="scorerNr"),

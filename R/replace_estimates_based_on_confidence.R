@@ -6,7 +6,7 @@ replace_estimates_based_on_confidence <-
            confidenceQuantile = .10,
            transformationFunction = setToZero,
            scorer = "all",
-           silent = TRUE) {
+           silent = dmcda::opts$get("silent")) {
 
     lowConfidenceMeanThreshold <-
       quantile(collapsedConfidences$confidenceMean,

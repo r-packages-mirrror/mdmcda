@@ -7,7 +7,8 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                           scenario_labels = scenario_ids,
                                           xLab = "Criteria Cluster",
                                           yLab = estimateCol,
-                                          title = "DMCDA criteria bar chart") {
+                                          title = "DMCDA criteria bar chart",
+                                          theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
 
   tmpDf <-
     do.call(rbind,
@@ -37,7 +38,7 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                                   group = "scenario_id",
                                                   fill="scenario_id")) +
     ggplot2::geom_col(position=ggplot2::position_dodge()) +
-    ggplot2::theme_minimal() +
+    theme +
     ggplot2::scale_fill_viridis_d(name=NULL) +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
     ggplot2::theme(legend.position="top", legend.box = "horizontal") +

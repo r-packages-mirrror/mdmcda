@@ -4,8 +4,9 @@ process_confidences <- function(estimates,
                                 confidencesByDecisionPlot = "Estimate confidence scores by decision",
                                 confidencesByCriterionPlot = "Estimate confidence scores by criterion",
                                 confidencesInDetail = "Estimate confidence scores for effects of %s",
-                                figWidth = 6,
-                                figHeight = 6) {
+                                figWidth = dmcda::opts$get("ggSaveFigWidth"),
+                                figHeight = dmcda::opts$get("ggSaveFigHeight"),
+                                theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
     gsub("[a-zA-Z]+([0-9]+)",
@@ -61,8 +62,8 @@ process_confidences <- function(estimates,
       ggplot2::geom_jitter(alpha=.25,
                            width=2,
                            height=.25) +
-      ggplot2::scale_color_viridis_d(end=.8) +
-      ggplot2::theme_minimal();
+      ggplot2::scale_color_viridis_d(end=.9) +
+      theme;
     if (!is.null(path) && is.character(confidencesByDecisionPlot)) {
       ufs::cat0("\n\n");
       ufs::knitAndSave(estimates$confidencesByDecisionPlot,
@@ -84,8 +85,8 @@ process_confidences <- function(estimates,
       ggplot2::geom_jitter(alpha=.25,
                            width=2,
                            height=.25) +
-      ggplot2::scale_color_viridis_d(end=.8) +
-      ggplot2::theme_minimal();
+      ggplot2::scale_color_viridis_d(end=.9) +
+      theme;
     if (!is.null(path) && is.character(confidencesByCriterionPlot)) {
       ufs::cat0("\n\n");
       ufs::knitAndSave(estimates$confidencesByCriterionPlot,
@@ -113,9 +114,9 @@ process_confidences <- function(estimates,
                              width=.5,
                              height=.1,
                              size=5) +
-        ggplot2::scale_color_viridis_d() +
+        ggplot2::scale_color_viridis_d(end=.9) +
         ggplot2::labs(title=sprintf(confidencesInDetail, i)) +
-        ggplot2::theme_minimal() +
+        theme +
         ggplot2::coord_cartesian(xlim=c(0, 100)) +
         ggrepel::geom_text_repel(mapping=ggplot2::aes(color=Scorer,
                                                       label=ScorerNr),

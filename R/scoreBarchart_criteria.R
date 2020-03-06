@@ -8,7 +8,8 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    xLab = "Criteria",
                                    yLab = estimateCol,
                                    criteriaOrder = NULL,
-                                   criteriaLabels = NULL) {
+                                   criteriaLabels = NULL,
+                                   theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
 
   if (!is.null(criteriaOrder)) {
     row.names(estimatesByCriterion) <-
@@ -29,7 +30,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     ggplot2::geom_col(fill = fill,
                       color = strokeColor,
                       size = strokeSize) +
-    ggplot2::theme_minimal() +
+    theme +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 45,
                                                               hjust = 1,
                                                               vjust = 1)) +
