@@ -487,12 +487,6 @@ scoresPerScenario <-
   dmcda::scores_by_scenario(weighedEstimates = weighedEstimates,
                             estimateCols = 'meanWeights_weighed_estimate');
 
-scoresPerScenario <-
-  scoresPerScenario[match(scenarioOrder, scoresPerScenario$scenario_id), ];
-
-scoresPerScenario$scenario_id <-
-  scenarioLabels[scoresPerScenario$scenario_id];
-
 scoresPerScenario$meanWeights_weighed_estimate <-
   round(scoresPerScenario$meanWeights_weighed_estimate);
 
@@ -678,8 +672,6 @@ wbsa <-
                                            weighedEstimates = weighedEstimates,
                                            criteria = criteria,
                                            scenarioDefinitions = scenarioDefinitions,
-                                           scenarioOrder = scenarioOrder,
-                                           scenarioLabels = scenarioLabels,
                                            weightCols = c(rescaled = 'weight_mean_rescaled_proportion'));
 
 for (i in names(wbsa$weight_mean_rescaled_proportion)) {
@@ -696,7 +688,7 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
 ### Create weight profiles for each scorer who provided weights
 scorerWeights <- list();
 scorerWeightProfiles <- list();
-for (currentScorer in weights$scorerTxt[3:18]) {
+for (currentScorer in weights$scorerTxt[1:3]) {
   scorerWeights[[currentScorer]] <-
     dmcda::scorerWeights_to_profile(weights = weights,
                                     scorer = currentScorer,
@@ -736,6 +728,8 @@ scoresPerScenario_withScorerWeights_df <-
                );
              res$scorer <- as.numeric(gsub("[a-zA-Z]*", "", scorer));
              names(res) <- c("scenario_id", "score", "scorer");
+             scenarioLabels <- res$scenario_id[!duplicated(res$scenario_id)];
+             scenarioOrder <- seq_along(scenarioLabels);
              res$scenario_id <-
                factor(res$scenario_id,
                       levels = scenarioOrder,
@@ -804,8 +798,6 @@ confidenceBasedSensitivityAnalysis$setToMin <-
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
-    scenarioOrder = scenarioOrder,
-    scenarioLabels = scenarioLabels,
     weightProfiles = weightProfiles,
     transformationFunction = dmcda::setToMin
   );
@@ -816,8 +808,6 @@ confidenceBasedSensitivityAnalysis$setToMax <-
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
-    scenarioOrder = scenarioOrder,
-    scenarioLabels = scenarioLabels,
     weightProfiles = weightProfiles,
     transformationFunction = dmcda::setToMax
   );
@@ -828,8 +818,6 @@ confidenceBasedSensitivityAnalysis$setToZero <-
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
-    scenarioOrder = scenarioOrder,
-    scenarioLabels = scenarioLabels,
     weightProfiles = weightProfiles,
     transformationFunction = dmcda::setToZero
   );
