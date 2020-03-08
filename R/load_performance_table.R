@@ -17,15 +17,17 @@ load_performance_table <- function(file,
     if (!requireNamespace("readxl", quietly = TRUE)) {
       stop("To import from excel format, the \"readxl\" package is required.");
     } else {
-      res$estimates <-
-        as.data.frame(readxl::read_excel(file,
-                                         sheet = estimatesSheet,
-                                         col_names = FALSE),
-                      stringsAsFactors = FALSE);
+      suppressMessages(
+        res$estimates <-
+          as.data.frame(readxl::read_excel(file,
+                                           sheet = estimatesSheet,
+                                           col_names = FALSE),
+                        stringsAsFactors = FALSE)
+      )
       res$confidences <-
         as.data.frame(readxl::read_excel(file,
                                          sheet = confidencesSheet,
-                                         col_names = FALSE),
+                                         col_names = TRUE),
                       stringsAsFactors = FALSE);
     }
   } else {
