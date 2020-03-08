@@ -1,0 +1,384 @@
+---
+title: "Old Minimal Dynamic Multi-Criteria Decision Aid example"
+author: "Gjalt-Jorn Peters"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Old Minimal Dynamic Multi-Criteria Decision Aid example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, message=FALSE, echo=FALSE, results='asis'}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dev="png", 
+	dev.args=list(type="cairo"),
+	dpi=100
+);
+
+### Show code and table of contents label in HTML only
+if (knitr::is_latex_output()) {
+  knitr::opts_chunk$set(echo=FALSE);
+} else if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+  knitr::opts_chunk$set(echo=TRUE);
+  cat("\n\n# Contents\n\n");
+} else {
+  knitr::opts_chunk$set(echo=TRUE);
+}
+
+tryCatch({
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
+                                           upgrade="never", quietly=TRUE)));
+  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+                                           upgrade="never", quietly=TRUE)));
+}, error=invisible);
+
+### First get the directory where 'dmcda' is installed
+currentDir <- system.file(package="dmcda");
+
+### Specify the path of the example DMCDA files
+currentDir <- file.path(currentDir, "extdata");
+
+### During vignette development, to avoid requiring constant package building
+currentDir <- here::here('inst', 'extdata');
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Defined criteria {.tabset}
+
+Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario. The criteria are what drive the decisions. They are normally not directly under control, but are assumed to result from the decisions.
+
+```{r load-outcomes}
+
+criteria <-
+  dmcda::load_criteria(currentDir);
+
+```
+
+`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+
+```{r criteria-summary, fig.width=8, fig.height=8}
+
+dmcda::summary_criteria(criteria);
+
+```
+
+```{r criteria-details}
+
+dmcda::details_criteria(criteria);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Defined decisions
+
+The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.
+
+```{r load-decisions}
+
+decisions_and_alternatives <-
+  dmcda::load_decisions(currentDir);
+
+```
+
+```{r decisions-summary, results="asis"}
+
+dmcda::summary_decisions(decisions_and_alternatives);
+
+```
+
+```{r decisions-details, results="asis"}
+
+dmcda::details_decisions(decisions_and_alternatives);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+<!-- Saving the performance table -->
+
+# Empty performance table
+
+```{r store-performance-table, results="asis"}
+
+performance_table <-
+  dmcda::create_performance_table(criteria,
+                                  decisions_and_alternatives);
+
+temporaryFile <-
+  tempfile(fileext=".xlsx");
+
+path <- tempdir();
+
+### Store table as comma separated values file
+performance_subtables <-
+  dmcda::write_performance_table(performance_table,
+                                 criteria = criteria,
+                                 path = path,
+                                 split=TRUE,
+                                 estimatorCodes = c("Evi", "GJ"),
+                                 ext = "csv",
+                                 overwrite=TRUE);
+
+### Store table as excel file
+dmcda::write_performance_table(performance_table,
+                               criteria = criteria,
+                               path = path,
+                               split=TRUE,
+                               estimatorCodes = c("Evi", "GJ"),
+                               ext = "xlsx",
+                               overwrite=TRUE);
+
+# dmcda::write_performance_table(performance_table,
+#                                criteria,
+#                                path=path,
+#                                overwrite=TRUE);
+
+### Suppress warnings because performance tables don't have
+### headers given their ~~messy~~ highly original structure
+suppressWarnings(knitr::kable(performance_table));
+
+```
+
+This is the table with all values to be estimated. The values can be filled
+either through filling the table and importing it, or through specifying specific
+values, which enables also providing justifications and linking to assertions and
+sources for support.
+
+```{r performance-subtables}
+
+for (criteriaClusters in names(performance_subtables)) {
+  for (decision in names(performance_subtables[[criteriaClusters]])) {
+    print(dmcda::kable_widths(performance_subtables[[criteriaClusters]][[decision]],
+                              heading = paste0("Performance subtable for decision ",
+                                               decision, " on criteria in cluster ",
+                                               criteriaClusters),
+                              headingLevel = 3));
+  }
+}
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Scoring system
+
+In this example, the performance of each decision alternative on each criterion is scored using -1 ('bad' or 'least desirable'), 0 ('fair' or 'moderately desirable') and 1 ('good' or 'most desirable'). Other scoring systems are also possible of course, for example using five points (-2, -1, 0, 1, 2), or only positive numbers (0, 1, 2, or omitting 0 and instead using 1 and 2, or 1-10, etc). In deciding on the scoring system, take into account how much nuance you can reasonably distinguish and justify, and take into account whether you want a scoring system that maps onto familiar scales, or whether you want to avoid that. For example, in the Netherlands, school grades use a 10-point scale from 1-10, which means that if people score on that scale, they will consider everything below a 6 a 'failing grade' and a 6 and higher a 'passing grade', and they will very rarely use 9 and 10, which effectively imposes a somewhat odd distance between the points. That is problematic if you start summing and averaging, so that should be avoided. Of course, which scoring systems work well and which works less well depends on the experiences and histories of those doing the scoring.
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Consensus between raters
+
+```{r load_performance_tables, fig.width=6, fig.height=5}
+
+completed_performance_tables <-
+  dmcda::load_performance_tables(currentDir);
+
+completed_performance_tables$consensusMap;
+
+# write_estimate_specs(completed_performance_tables$multiEstimateDf,
+#                      path=currentDir);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Estimates {.tabset}
+
+Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example, 
+
+```{r load-estimates, fig.width=10}
+
+estimates <-
+  dmcda::load_estimates(currentDir,
+                        decisions_and_alternatives = decisions_and_alternatives,
+                        criteria = criteria);
+
+```
+
+`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+
+```{r estimates-summary, fig.width=10}
+
+dmcda::summary_estimates(estimates);
+
+```
+
+```{r estimates-details, fig.width=10}
+
+dmcda::details_estimates(estimates);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Scenarios {.tabset}
+
+Scenarios are sets of coherent alternative selections for every decision.
+
+```{r read-scenarios}
+
+scenarios_and_alternatives <-
+  dmcda::load_scenarios(currentDir,
+                        decisions_and_alternatives = decisions_and_alternatives);
+
+```
+
+```{r scenarios-summary, results="asis"}
+
+dmcda::summary_scenarios(scenarios_and_alternatives);
+
+```
+
+```{r scenarios-details, results="asis"}
+
+dmcda::details_scenarios(scenarios_and_alternatives);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Weights of the criteria {.tabset}
+
+```{r read-weights}
+
+weights <-
+  dmcda::load_weights(currentDir,
+                      criteria=criteria);
+
+```
+
+```{r show-weights, results="asis"}
+
+dmcda::details_weights(weights);
+
+```
+
+```{r show-multiplied-weights, results="asis"}
+
+dmcda::details_multiplied_weights(weights);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# General overview {.tabset}
+
+```{r total-overview-autofill}
+
+estimates <-
+  dmcda::autofill_estimates(estimates=estimates,
+                            criteria=criteria,
+                            decisions_and_alternatives=decisions_and_alternatives);
+
+```
+
+## Summary
+
+`r dmcda::summary_general(criteria, decisions_and_alternatives, estimates);`
+
+## Details
+
+```{r total-overview-details, results="asis"}
+
+dmcda::details_autofilled_estimates(estimates);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Scores for each scenario and weight profile
+
+```{r scores-compute, results="asis", eval=TRUE}
+
+estimates <-
+  dmcda::weigh_estimates(estimates=estimates,
+                         weights=weights);
+
+scenario_scores <-
+  dmcda::scenario_scores(criteria = criteria,
+                         decisions_and_alternatives = decisions_and_alternatives,
+                         estimates = estimates,
+                         scenarios_and_alternatives = scenarios_and_alternatives,
+                         weights = weights);
+
+```
+
+```{r scores-summary, results="asis", eval=TRUE}
+
+dmcda::summary_scores(scenario_scores);
+
+```
+
+```{r scores-details, results="asis", eval=TRUE}
+
+dmcda::details_scores(scenario_scores);
+
+```
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Appendices
+
+## Assertions
+
+This is an overview of all assertions (all 'facts'. 'claims', 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.
+
+```{r assertions-details, results="asis", eval=TRUE}
+
+dmcda::details_assertions(estimates);
+
+```
+
+## Counterfactuals
+
+When formulating assertions, it is also good practice to formulate counterfactuals. This are references to other assertions that also have sources. This enables for example scoring for the number of counterfactuals.
+
+## Sources / literature
+
+This is an overview of all sources that the assertions refer to.
+
+```{r sources-details, results="asis", eval=TRUE}
+
+dmcda::details_sources(estimates);
+
+```
+
+## Logs
+
+These are more detailed logs.
+
+```{r total-overview-autofill-logs, results='asis', eval=FALSE}
+cat(paste0(estimates$autofillLogs,
+           collapse="\n"));
+```

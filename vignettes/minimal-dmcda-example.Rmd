@@ -20,23 +20,37 @@ knitr::opts_chunk$set(
 );
 
 ### Show code and table of contents label in HTML only
-if (knitr::is_latex_output()) {
-  knitr::opts_chunk$set(echo=FALSE);
-} else if ("html_document" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
+if (knitr::is_html_output()) {
   knitr::opts_chunk$set(echo=TRUE);
   cat("\n\n# Contents\n\n");
 } else {
-  knitr::opts_chunk$set(echo=TRUE);
+  knitr::opts_chunk$set(echo=FALSE);
 }
 
-tryCatch({
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-                                           upgrade="never", quietly=TRUE)));
-}, error=invisible);
+knitr::opts_chunk$set(dev="png", 
+		  		            dev.args=list(type="cairo"),
+			    	          dpi=300);
+
+quietGitLabUpdate <- function(x, quiet = TRUE) {
+  if (quiet) {
+    func <- function(x) invisible(suppressMessages(x));
+  } else {
+    func <- function(x) return(x);
+  }
+  func(tryCatch(
+        remotes::install_gitlab(x, dependencies=FALSE,
+                                quiet=quiet, upgrade=FALSE),
+        error=invisible));
+}
+
+quietGitLabUpdate("r-packages/yum");
+quietGitLabUpdate("r-packages/ufs");
+quietGitLabUpdate("r-packages/dmcda");
+
+### Check for required packages
+ufs::checkPkgs("tidyr");
+ufs::checkPkgs("readxl");
+ufs::checkPkgs("svglite");
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");
@@ -45,7 +59,14 @@ currentDir <- system.file(package="dmcda");
 currentDir <- file.path(currentDir, "extdata");
 
 ### During vignette development, to avoid requiring constant package building
-currentDir <- here::here('inst', 'extdata');
+currentDir <- here::here('inst');
+
+### Set paths with files
+dataDir <- file.path(currentDir,
+                     "extdata");
+
+### Tell ufs::knitAndSave to always 'cat' the knitr chunk
+options(ufs.knitAndSave.catPlot = TRUE);
 
 ```
 
@@ -53,28 +74,130 @@ currentDir <- here::here('inst', 'extdata');
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
-# Defined criteria {.tabset}
+# Loading data
 
-Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario. The criteria are what drive the decisions. They are normally not directly under control, but are assumed to result from the decisions.
+## Criteria (outcomes of chosen policy)
 
-```{r load-outcomes}
+The following tree of outcomes was established:
+
+```{r load-criteria, message=FALSE, comment=""}
 
 criteria <-
-  dmcda::load_criteria(currentDir);
+  dmcda::load_criteria_from_xl(file.path(dataDir,
+                                         "example-fullCriteriaDf.xlsx"),
+                               showGraphs = FALSE);
+
+print(criteria$criteriaTree);
 
 ```
 
-`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+These outcomes have a hierarchical structure to facilitate weighing them efficiently. They are clustered based on domain, such that each outcome can be considered an indicator of the cluster outcome. For example, prevalence in the general population, prevalence in vulnerable populations, and frequency and intensity of use by MDMA users are all indicative of MDMA use (the overarching cluster). Therefore, if a decision maker values MDMA use as an outcome, that cluster can received a high weight. The relative contribution of the three indicators can then be finetuned by setting the weights of the individual outcomes. Similarly, a decision maker who does not want MDMA use to play a large role when determining their policy can set the cluster weight to a low value or to zero. The latter would immediately take all three contained outcomes out of the total scores computed for the scenarios (policy models).
 
-```{r criteria-summary, fig.width=8, fig.height=8}
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 
-dmcda::summary_criteria(criteria);
+## Estimates
+
+### Reading estimates
+
+```{r load-estimates, fig.width=10, results="asis"}
+
+estimates <-
+  dmcda::load_performance_tables(input = file.path(dataDir),
+                                 regex = "^performance_subtable_for_",
+                                 recursive = FALSE);
 
 ```
 
-```{r criteria-details}
+In total, `r nrow(estimates$multiEstimateDf)` estimates were read. These estimates express estimated effects of `r length(unique(estimates$multiEstimateDf$decision_id))` decisions (policy instruments), that together comprise a total of `r nrow(unique(estimates$multiEstimateDf[, c('decision_id', 'decision_alternative_value')]))` alternatives (policy options), on a total of `r length(unique(estimates$multiEstimateDf$criterion_id))` criteria (outcomes).
 
-dmcda::details_criteria(criteria);
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+## Weights
+
+To set weights, all experts submitted individually determined weights for each outcome and each outcome cluster on a scale from 0-100, by first setting the weight of the most important cluster and the most important outcome in each cluster to 100, and then setting the weight of the other clusters and outcomes according to their relative importance compared to the most important cluster or outcome  (e.g. an outcome half as important as the most important outcome in the same cluster would get a weight of 50). These individually set weights will later be used to compute consensus weights that will be used in the rest of the procedures.
+
+```{r load-weights, fig.width=10, results="asis"}
+
+weights <-
+  dmcda::load_weights_from_xl(input = file.path(dataDir,
+                                                "example-criteria-weights.xlsx"));
+
+```
+
+Weights were loaded from `r length(weights$individualWeights)` scorers with identifiers `r ufs::vecTxtQ(weights$scorerTxt)`.
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+## Scenarios
+
+```{r load-scenarios, fig.width=10, results="asis"}
+
+scenariosFile <-
+  file.path(dataDir,
+            "example-scenario-definitions.xlsx");
+
+scenarios <-
+  as.data.frame(readxl::read_excel(scenariosFile,
+                                   sheet = 1));
+
+```
+
+`r ncol(scenarios)-4` scenarios (policy models) were read (`r ufs::vecTxtQ(tail(colnames(scenarios), -4))`)
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+# Preparing data
+
+In this section, the imported data are preprocessed. This can be inspected by expanding the code fragments.
+
+## Criteria
+
+```{r prepare-criteria, message=FALSE}
+
+###---------------------------------------------------------------------------
+### Create convenience vector to find parents for criteria
+###---------------------------------------------------------------------------
+
+criterionIds <-
+  sort(unique(criteria$criteriaDf$id));
+parentCriterionIds <-
+  as.data.frame(unique(criteria$criteriaDf[, c('id',
+                                               'parentCriterion')]));
+parentCriterionIds <-
+  stats::setNames(parentCriterionIds$parentCriterion,
+                  parentCriterionIds$id);
+parentCriteriaIds <-
+  unique(criteria$criteriaDf[criteria$criteriaDf$parentCriterion=="outcomes",
+                             'id']);
+parentCriteriaIds <-
+  unique(parentCriterionIds)[nchar(unique(parentCriterionIds))>1];
+
+childCriteriaIds <-
+  stats::setNames(lapply(unique(parentCriterionIds),
+                         function(i)
+                           names(parentCriterionIds[parentCriterionIds==i])),
+                  unique(parentCriterionIds));
+  
+childCriteriaByCluster <-
+  criteria$criteriaDf[criteria$criteriaDf$isLeaf, ]
+childCriteriaByCluster <-
+  childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
+
+### Store in 'criteria' object for convenience
+criteria$convenience <-
+  list(criterionIds = criterionIds,
+       parentCriterionIds = parentCriterionIds,
+       parentCriteriaIds = parentCriteriaIds,
+       childCriteriaIds = childCriteriaIds,
+       childCriteriaByCluster = childCriteriaByCluster);
 
 ```
 
@@ -82,26 +205,22 @@ dmcda::details_criteria(criteria);
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
-# Defined decisions
+## Process confidence scores {.tabset}
 
-The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.
+### Overview
 
-```{r load-decisions}
+During the scoring days, each scorer expressed their confidence in each completed performance sub-table. Processing the confidence scores generates many visualisations. These can be inspected in the second tab.
 
-decisions_and_alternatives <-
-  dmcda::load_decisions(currentDir);
+### Plots
 
-```
+```{r process-confidences, results="asis"}
 
-```{r decisions-summary, results="asis"}
+###----------------------------------------------------------------------------
+### Clean up confidences
+###----------------------------------------------------------------------------
 
-dmcda::summary_decisions(decisions_and_alternatives);
-
-```
-
-```{r decisions-details, results="asis"}
-
-dmcda::details_decisions(decisions_and_alternatives);
+estimates <-
+  dmcda::process_confidences(estimates);
 
 ```
 
@@ -109,276 +228,655 @@ dmcda::details_decisions(decisions_and_alternatives);
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
-<!-- Saving the performance table -->
+## Process weights {.tabset}
 
-# Empty performance table
+### Overview
 
-```{r store-performance-table, results="asis"}
+The individual weights are now averaged, and then rescaled such that the most important outcome and cluster again had a weight of 100 (i.e. to the same metric used by the individual scorers). All outcome weights are then divided by 100 and multiplied with the weight of the corresponding clusters.
 
-performance_table <-
-  dmcda::create_performance_table(criteria,
-                                  decisions_and_alternatives);
+After this procedure, the most important outcome in each cluster has the weight of its cluster, and the other outcomes’ weights decrease proportionally. Finally, every weight is divided by the sum of all weights and multiplied by 100, so that every final weight expresses the relative contribution of the corresponding outcome in each model’s final scores.
 
-temporaryFile <-
-  tempfile(fileext=".xlsx");
+Again, the visualisations can be inspected in the second tab.
 
-path <- tempdir();
+### Visualisations
 
-### Store table as comma separated values file
-performance_subtables <-
-  dmcda::write_performance_table(performance_table,
-                                 criteria = criteria,
-                                 path = path,
-                                 split=TRUE,
-                                 estimatorCodes = c("Evi", "GJ"),
-                                 ext = "csv",
-                                 overwrite=TRUE);
+```{r process-weights, results="asis"}
 
-### Store table as excel file
-dmcda::write_performance_table(performance_table,
+###----------------------------------------------------------------------------
+### Aggregate weight estimates
+###----------------------------------------------------------------------------
+
+weightsMeansAndSDs <- dmcda::weightsMeansAndSDs(weights);
+
+###----------------------------------------------------------------------------
+### Combine with criteria tree to accumulate over the hierachy
+###----------------------------------------------------------------------------
+
+combinedWeightsAndCriteria <-
+  dmcda::combine_weights_and_criteria(weightsMeansAndSDs,
+                                      criteria);
+
+###----------------------------------------------------------------------------
+### Extract and set complemented objects
+###----------------------------------------------------------------------------
+
+weightsMeansAndSDs <- combinedWeightsAndCriteria$weightsMeansAndSDs;
+criteria <- combinedWeightsAndCriteria$criteria;
+
+###----------------------------------------------------------------------------
+### Weight plots
+###----------------------------------------------------------------------------
+
+weightsByParentCriterionPlots <-
+  lapply(weights$parentCriteria, function(criteriaCluster_id) {
+    return(dmcda::scorerWeightPlot(weights = weights,
+                                   weightsMeansAndSDs = weightsMeansAndSDs,
+                                   criteriaCluster_id = criteriaCluster_id,
+                                   meanColumns = c("weight_mean",
+                                                   "weight_mean_rescaled"),
+                                   meanColors = c("black", "black"),
+                                   meanAlphas = c(0.2, 1),
+                                   title = paste0("Weights for ", criteriaCluster_id)));
+  });
+names(weightsByParentCriterionPlots) <- weights$parentCriteria;
+
+###----------------------------------------------------------------------------
+### Compile weight profile
+###----------------------------------------------------------------------------
+
+weightProfiles <-
+  dmcda::create_weight_profile(weightsMeansAndSDs = weightsMeansAndSDs,
                                criteria = criteria,
-                               path = path,
-                               split=TRUE,
-                               estimatorCodes = c("Evi", "GJ"),
-                               ext = "xlsx",
-                               overwrite=TRUE);
-
-# dmcda::write_performance_table(performance_table,
-#                                criteria,
-#                                path=path,
-#                                overwrite=TRUE);
-
-### Suppress warnings because performance tables don't have
-### headers given their ~~messy~~ highly original structure
-suppressWarnings(knitr::kable(performance_table));
+                               profileName = "meanWeights");
+weightProfileNames <- names(weightProfiles);
 
 ```
 
-This is the table with all values to be estimated. The values can be filled
-either through filling the table and importing it, or through specifying specific
-values, which enables also providing justifications and linking to assertions and
-sources for support.
+## Final weights
 
-```{r performance-subtables}
+### Weights:
 
-for (criteriaClusters in names(performance_subtables)) {
-  for (decision in names(performance_subtables[[criteriaClusters]])) {
-    print(dmcda::kable_widths(performance_subtables[[criteriaClusters]][[decision]],
-                              heading = paste0("Performance subtable for decision ",
-                                               decision, " on criteria in cluster ",
-                                               criteriaClusters),
-                              headingLevel = 3));
+```{r weight-overview}
+
+knitr::kable(weightsMeansAndSDs[order(weightsMeansAndSDs$rescaled_total, decreasing = TRUE), c('criterion_id', 'rescaled_total')], row.names=FALSE);
+
+```
+
+# Results
+
+## Scores for each defined scenario
+
+Every estimate for an effect of an instrument’s option on an outcome is multiplied with that outcome’s weight. Then, for every policy model, the scores for that model’s selected instrument options are summed to compute each model’s total score. In addition, the highest- and lowest-scoring options for each instrument are identified and combined into the optimal and worst models (i.e. the highest and lowest possible achievable scores).
+
+The weights for each cluster and the separate outcomes are shown in Table 1a and 1b, both on the scales used by the individuals scorers, where each outcome’s weight represents its relative importance within its cluster, and on the final scale, where weights represent the relative contribution to the final score.
+
+```{r compute-scores-per-scenario, results="asis"}
+
+###----------------------------------------------------------------------------
+### Compute scores per scenario
+###----------------------------------------------------------------------------
+
+### Some preparation
+scenarioNames <-
+  setdiff(names(scenarios),
+          c("id", "label", "description", "choices"));
+scenarioDefinitions <-
+  lapply(scenarioNames, function(scenarioName) {
+    return(stats::setNames(scenarios[, scenarioName],
+                           scenarios$id));
+  });
+names(scenarioDefinitions) <- scenarioNames;
+decisionNames <- scenarios$id;
+criterionNames <- criteria$convenience$childCriteriaByCluster;
+
+### Create dataframe for the weighed estimates
+weighedEstimates <-
+  dmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
+                                   criterionNames = criterionNames,
+                                   decisionNames = decisionNames,
+                                   scenarioNames = scenarioNames,
+                                   scenarioDefinitions = scenarioDefinitions,
+                                   scorer = "all",
+                                   setMissingEstimates=0);
+
+### Actually weigh the estimates
+weighedEstimates <-
+  dmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
+                                    weight_profiles = weightProfiles);
+
+### Add weights and weighed estimates to multiEstimateDf
+for (currentWeightProfile in weightProfileNames) {
+  
+  estimates$multiEstimateDf[[paste0(currentWeightProfile, "_weight")]] <-
+    weightProfiles[[currentWeightProfile]][estimates$multiEstimateDf$criterion_id];
+  
+  estimates$multiEstimateDf[[paste0(currentWeightProfile, "_weighed_estimate")]] <-
+    estimates$multiEstimateDf$all *
+    estimates$multiEstimateDf[[paste0(currentWeightProfile, "_weight")]];
+  
+}
+
+###----------------------------------------------------------------------------
+### Performance tables
+###----------------------------------------------------------------------------
+
+performanceTables <-
+  lapply(unique(weighedEstimates$scenario_id),
+         function(currentScenario) {
+  return(tidyr::pivot_wider(weighedEstimates[weighedEstimates$scenario_id==currentScenario,
+                                             c("decision_id",
+                                               "criterion_id",
+                                               "meanWeights_weighed_estimate")],
+                            id_cols="decision_id",
+                            names_from="criterion_id",
+                            values_from="meanWeights_weighed_estimate"));
+         });
+names(performanceTables) <- unique(weighedEstimates$scenario_id);
+
+```
+
+```{r best-scenario, results="asis"}
+
+###----------------------------------------------------------------------------
+### Best scenario
+###----------------------------------------------------------------------------
+
+### Do the computations
+scores_per_alternative <-
+  dmcda::compute_scores_per_alternative(multiEstimateDf = estimates$multiEstimateDf,
+                                        weightProfiles = weightProfiles);
+bestAlternatives <-
+  dmcda::compute_best_alternatives(scores_per_alternative=scores_per_alternative);
+worstAlternatives <-
+  dmcda::compute_worst_alternatives(scores_per_alternative=scores_per_alternative);
+
+bestAlternatives$alternative_label <-
+  unlist(lapply(1:nrow(bestAlternatives),
+         function(i) {
+           alternative <- as.character(bestAlternatives$alternative_id[i]);
+           decision <- as.character(bestAlternatives$decision_id[i]);
+           if (grepl(" or ",
+                     alternative)) {
+             alternatives <- unlist(strsplit(alternative,
+                                             " or "));
+             return(ufs::vecTxtQ(estimates$alternativeValues[[decision]][alternatives]));
+           } else {
+             return(paste0("'", estimates$alternativeValues[[decision]][[alternative]],
+                           "'"));
+           }
+         }));
+
+###----------------------------------------------------------------------------
+### Add scenario with best scores to list of scenarios
+###----------------------------------------------------------------------------
+
+bestScenario <-
+  as.numeric(gsub("^.*\\s(\\d+)$",
+                  "\\1",
+                  bestAlternatives$alternative_id));
+names(bestScenario) <- bestAlternatives$decision_id;
+
+worstScenario <-
+  as.numeric(gsub("^.*\\s(\\d+)$",
+                  "\\1",
+                  worstAlternatives$alternative_id));
+names(worstScenario) <- worstAlternatives$decision_id;
+
+scenarioDefinitions <-
+  c(scenarioDefinitions,
+    list(optimal_scenario = bestScenario,
+         worst_scenario = worstScenario));
+
+###----------------------------------------------------------------------------
+### Generate weighted estimate dataframe again with these two new scenarios
+###----------------------------------------------------------------------------
+
+### Create dataframe for the weighed estimates
+weighedEstimates <-
+  dmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
+                                   criterionNames = criterionNames,
+                                   decisionNames = decisionNames,
+                                   scenarioNames = names(scenarioDefinitions),
+                                   scenarioDefinitions = scenarioDefinitions,
+                                   scorer = "all",
+                                   setMissingEstimates=0);
+
+### Actually weigh the estimates
+weighedEstimates <-
+  dmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
+                                    weight_profiles = weightProfiles);
+
+### Add parent criterion identifiers
+weighedEstimates$parentCriterion_id <-
+    parentCriterionIds[as.character(weighedEstimates$criterion_id)];
+
+###----------------------------------------------------------------------------
+### Select estimates for best scenario
+###----------------------------------------------------------------------------
+
+bestScenarioEstimates <-
+  dmcda::select_scenario_estimates(multiEstimateDf = estimates$multiEstimateDf,
+                                   scenario = bestScenario);
+
+bestScenarioEstimatesByCriterion <-
+  dmcda::aggregate_estimates_by_criterion(bestScenarioEstimates,
+                                          estimateCol = "meanWeights_weighed_estimate",
+                                          na.rm=TRUE);
+
+```
+
+### Optimal model
+
+The highest possible score is `r sum(bestAlternatives$score)`, which is achieved by the following scenario:
+
+```{r best-scenario-show-table}
+knitr::kable(bestAlternatives[bestAlternatives$weightProfile=="meanWeights",
+                              c("decision_id", "alternative_id", "alternative_label", "score")],
+             row.names = FALSE);
+```
+
+## Total scores per scenario
+
+```{r scores-per-scenario}
+
+###----------------------------------------------------------------------------
+### Total scores per scenario
+###----------------------------------------------------------------------------
+
+scoresPerScenario <-
+  dmcda::scores_by_scenario(weighedEstimates = weighedEstimates,
+                            estimateCols = 'meanWeights_weighed_estimate');
+
+scoresPerScenario <-
+  scoresPerScenario[match(scenarioOrder, scoresPerScenario$scenario_id), ];
+
+scoresPerScenario$scenario_id <-
+  scenarioLabels[scoresPerScenario$scenario_id];
+
+scoresPerScenario$meanWeights_weighed_estimate <-
+  round(scoresPerScenario$meanWeights_weighed_estimate);
+
+names(scoresPerScenario) <- c("Policy model", "Overall score");
+  
+knitr::kable(scoresPerScenario,
+             row.names=FALSE);
+
+```
+
+# Visualisations
+
+```{r main-result-visualisations, results="asis"}
+
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+### Visualisations
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+
+###----------------------------------------------------------------------------
+### Produce heatmaps
+###----------------------------------------------------------------------------
+
+heatmaps <-
+  lapply(weightProfileNames,
+         function(weightprofile_id) {
+           scenarios <-
+             unique(weighedEstimates$scenario_id)
+           
+           res <-
+             lapply(scenarios,
+                    function(currentScenario) {
+
+                      return(
+                        dmcda::performanceTable_heatmap(
+                          weighedEstimates,
+                          estimateCol = paste0(weightprofile_id,
+                                               "_weighed_estimate"),
+                          scenario_id = currentScenario
+                        )
+                      );
+                      
+                    });
+           
+           return(stats::setNames(res,
+                                  nm = scenarios));
+           
+         });
+
+names(heatmaps) <- weightProfileNames
+
+cat("\n\n## Heatmaps showing all weighes estimates for each policy model\n\n");
+
+for (weightprofile_id in names(heatmaps)) {
+  
+  ufs::cat0("\n\n### Weighing profile: ", weightprofile_id, "\n\n");
+  
+  for (scenario_id in names(heatmaps[[weightprofile_id]])) {
+
+    ufs::cat0("\n\n#### Policy model: ", scenario_id, "\n\n");
+    
+    ufs::knitFig(heatmaps[[weightprofile_id]][[scenario_id]],
+                 figCaption = paste0("Heatmap for scenario ",
+                                     scenario_id,
+                                     " in weight profile ",
+                                     weightprofile_id));
   }
 }
 
-```
+###----------------------------------------------------------------------------
+### Produce barcharts
+###----------------------------------------------------------------------------
 
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
+barcharts <-
+  stats::setNames(lapply(weightProfileNames,
+         function(currentWeightProfile) {
+  return(stats::setNames(
+    lapply(unique(weighedEstimates$scenario_id),
+           function(scenario_id) {
+             return(dmcda::scoreBarchart_decisions_criteria(weighedEstimates,
+                                                            scenario_id=scenario_id,
+                                                            estimateCol=paste0(currentWeightProfile,
+                                                                               "_weighed_estimate"),
+                                                            xLab = "Policy model",
+                                                            yLab = "Score",
+                                                            title = "Model comparison") +
+                      ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm")));
+    }),
+    unique(weighedEstimates$scenario_id)));
+}), weightProfileNames);
 
-# Scoring system
+cat("\n\n## Bar charts for instruments (x) and scores (y) by criterion (color)\n\n");
 
-In this example, the performance of each decision alternative on each criterion is scored using -1 ('bad' or 'least desirable'), 0 ('fair' or 'moderately desirable') and 1 ('good' or 'most desirable'). Other scoring systems are also possible of course, for example using five points (-2, -1, 0, 1, 2), or only positive numbers (0, 1, 2, or omitting 0 and instead using 1 and 2, or 1-10, etc). In deciding on the scoring system, take into account how much nuance you can reasonably distinguish and justify, and take into account whether you want a scoring system that maps onto familiar scales, or whether you want to avoid that. For example, in the Netherlands, school grades use a 10-point scale from 1-10, which means that if people score on that scale, they will consider everything below a 6 a 'failing grade' and a 6 and higher a 'passing grade', and they will very rarely use 9 and 10, which effectively imposes a somewhat odd distance between the points. That is problematic if you start summing and averaging, so that should be avoided. Of course, which scoring systems work well and which works less well depends on the experiences and histories of those doing the scoring.
+for (weightprofile_id in names(barcharts)) {
+  ufs::cat0("\n\n### Weighing profile: ", weightprofile_id, "\n\n");
+  for (scenario_id in names(barcharts[[weightprofile_id]])) {
+    ufs::cat0("\n\n#### Policy model: ", scenario_id, "\n\n");
+    ufs::knitFig(barcharts[[weightprofile_id]][[scenario_id]],
+                 figCaption = paste0("Bar chart for scenario ",
+                                      scenario_id,
+                                      " in weight profile ",
+                                      weightprofile_id));
+  }
+}
 
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
+###----------------------------------------------------------------------------
+### Barcharts to compare scenarios; summing scores per decision
+###----------------------------------------------------------------------------
 
-# Consensus between raters
+cat("\n\n## Bar charts by scenario (policy model)\n\n");
 
-```{r load_performance_tables, fig.width=6, fig.height=5}
+barcharts_aggregated <-
+  stats::setNames(lapply(weightProfileNames,
+                         function(currentWeightProfile) {
+                           res <- list();
+                           
+                           ufs::cat0("\n\n### Weight profile: ", currentWeightProfile, "\n\n");
 
-completed_performance_tables <-
-  dmcda::load_performance_tables(currentDir);
+                           res$byDecision <-
+                             dmcda::scoreBarchart_scenarios_criteria(
+                               weighedEstimates,
+                               estimateCol = paste0(currentWeightProfile,
+                                                    "_weighed_estimate"),
+                               title = paste0("Comparison bar chart for ",
+                                              currentWeightProfile)
+                             ) + ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm"));
 
-completed_performance_tables$consensusMap;
+                           res$byCriterion <-
+                             dmcda::scoreBarchart_scenarios_decisions(
+                               weighedEstimates,
+                               estimateCol = paste0(currentWeightProfile,
+                                                    "_weighed_estimate"),
+                               title = paste0("Comparison bar chart for ",
+                                              currentWeightProfile)
+                             ) + ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm"));
 
-# write_estimate_specs(completed_performance_tables$multiEstimateDf,
-#                      path=currentDir);
+                           cat("\n\n### Bar chart for models (x) and scores (y) by outcome (color)\n\n");
 
-```
+                           ufs::knitFig(
+                             res$byDecision,
+                             figCaption = paste0(
+                               "Bar chart, aggregated by decision, ",
+                               "for weight profile ",
+                               currentWeightProfile
+                             )
+                           );
+                           
+                           cat("\n\n### Bar chart for models (x) and scores (y) by instrument (color)\n\n");
 
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
+                           ufs::knitFig(
+                             res$byCriterion,
+                             figCaption = paste0(
+                               "Bar chart, aggregated by criterion, ",
+                               "for weight profile ",
+                               currentWeightProfile
+                             )
+                           );
 
-# Estimates {.tabset}
-
-Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example, 
-
-```{r load-estimates, fig.width=10}
-
-estimates <-
-  dmcda::load_estimates(currentDir,
-                        decisions_and_alternatives = decisions_and_alternatives,
-                        criteria = criteria);
-
-```
-
-`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
-
-```{r estimates-summary, fig.width=10}
-
-dmcda::summary_estimates(estimates);
-
-```
-
-```{r estimates-details, fig.width=10}
-
-dmcda::details_estimates(estimates);
-
-```
-
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-
-# Scenarios {.tabset}
-
-Scenarios are sets of coherent alternative selections for every decision.
-
-```{r read-scenarios}
-
-scenarios_and_alternatives <-
-  dmcda::load_scenarios(currentDir,
-                        decisions_and_alternatives = decisions_and_alternatives);
-
-```
-
-```{r scenarios-summary, results="asis"}
-
-dmcda::summary_scenarios(scenarios_and_alternatives);
-
-```
-
-```{r scenarios-details, results="asis"}
-
-dmcda::details_scenarios(scenarios_and_alternatives);
-
-```
-
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-
-# Weights of the criteria {.tabset}
-
-```{r read-weights}
-
-weights <-
-  dmcda::load_weights(currentDir,
-                      criteria=criteria);
+                           return(res);
+                           
+                         }), weightProfileNames);
 
 ```
 
-```{r show-weights, results="asis"}
+# Sensitivity analyses
 
-dmcda::details_weights(weights);
+## Weight-based
+
+In these sensitivity analyses, the weights of each individual scorer were applied, after which the total score for each scenario was then computed again. The results were then plotted.
+
+```{r sensitivity-analyses-based-on-weights, results="asis"}
+
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+### Weight sensitivity analyses
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+
+wbsa <-
+  dmcda::weight_based_sensitivity_analysis(multiEstimateDf = multiEstimateDf,
+                                           weightsMeansAndSDs = weightsMeansAndSDs,
+                                           weighedEstimates = weighedEstimates,
+                                           criteria = criteria,
+                                           scenarioDefinitions = scenarioDefinitions,
+                                           scenarioOrder = scenarioOrder,
+                                           scenarioLabels = scenarioLabels,
+                                           weightCols = c(rescaled = 'weight_mean_rescaled_proportion'));
+
+for (i in names(wbsa$weight_mean_rescaled_proportion)) {
+  title1 <- paste0("Sensitivity analysis (weight-based) score plot for ", i);
+  title2 <- paste0("Sensitivity analysis (weight-based) rank plot for ", i);
+  ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$scorePlot +
+                 ggplot2::labs(title = title1),
+               figCaption = title1);
+  ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$rankPlot +
+                 ggplot2::labs(title = title2),
+               figCaption = title2);
+}
+
+### Create weight profiles for each scorer who provided weights
+scorerWeights <- list();
+scorerWeightProfiles <- list();
+for (currentScorer in weights$scorerTxt[3:18]) {
+  scorerWeights[[currentScorer]] <-
+    dmcda::scorerWeights_to_profile(weights = weights,
+                                    scorer = currentScorer,
+                                    criteria = criteria);
+  scorerWeights[[currentScorer]]$weight <-
+    scorerWeights[[currentScorer]][[paste0(currentScorer,
+                                           "_weight_total_proportion")]] * 100;
+  scorerWeightProfiles[[currentScorer]] <-
+    stats::setNames(scorerWeights[[currentScorer]]$weight,
+                    scorerWeights[[currentScorer]]$criterion_id);
+  scorerWeightProfiles[[currentScorer]] <-
+    scorerWeightProfiles[[currentScorer]][!is.na(scorerWeightProfiles[[currentScorer]])]
+}
+
+### Add new weights
+weighedEstimates_withScorerWeights <-
+  dmcda::add_weights(weighedEstimates = weighedEstimates,
+                     weightProfiles = scorerWeightProfiles,
+                     weightProfileNames = names(scorerWeightProfiles));
+
+### Compute scenario scores
+scoresPerScenario_withScorerWeights <-
+  dmcda::scores_by_scenario(weighedEstimates = weighedEstimates_withScorerWeights,
+                            estimateCols = paste0(names(scorerWeightProfiles),
+                                                  '_weighed_estimate'));
+
+scoresPerScenario_withScorerWeights_df <-
+  do.call(
+    rbind,
+    lapply(names(scorerWeightProfiles),
+           function(scorer) {
+             estimateCol <- paste0(scorer,
+                                   '_weighed_estimate');
+             res <-
+               as.data.frame(
+                 scoresPerScenario_withScorerWeights[[estimateCol]]
+               );
+             res$scorer <- as.numeric(gsub("[a-zA-Z]*", "", scorer));
+             names(res) <- c("scenario_id", "score", "scorer");
+             res$scenario_id <-
+               factor(res$scenario_id,
+                      levels = scenarioOrder,
+                      labels = scenarioLabels[scenarioOrder],
+                      ordered=TRUE);
+             res$rank <- rank(res$score);
+             return(res);
+           })
+    );
+
+weightSensitivityAnalyses_scorePlot <-
+  ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
+                  mapping = ggplot2::aes_string(x = "scorer",
+                                                y = "score",
+                                                group = "scenario_id",
+                                                color = "scenario_id")) +
+  ggplot2::geom_line(size=1) +
+  ggplot2::scale_color_viridis_d(end=.9) +
+  ggplot2::theme_minimal();
+
+ufs::knitFig(weightSensitivityAnalyses_scorePlot,
+             figCaption = "Weight sensitivity analysis - scores");
+
+
+rankBreaks <-
+  sort(unique(scoresPerScenario_withScorerWeights_df$rank));
+rankLabels <-
+  c("Worst", rep("", length(rankBreaks) - 2), "Best");
+
+weightSensitivityAnalyses_rankPlot <-
+  ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
+                  mapping = ggplot2::aes_string(x = "scorer",
+                                                y = "rank",
+                                                group = "scenario_id",
+                                                color = "scenario_id")) +
+  ggplot2::geom_line(size=1) +
+  ggplot2::scale_color_viridis_d(end = .9) +
+  ggplot2::scale_y_continuous(breaks=rankBreaks,
+                              labels=rankLabels) +
+  ggplot2::theme_minimal();
+
+ufs::knitFig(weightSensitivityAnalyses_rankPlot,
+             figCaption = "Weight sensitivity analysis - ranks");
 
 ```
 
-```{r show-multiplied-weights, results="asis"}
 
-dmcda::details_multiplied_weights(weights);
+
+## Confidence-based
+
+In these sensitivity analyses, 10% of the estimates about which the think tank expressed the least confidence were sequentially set to the minimum possible value of the corresponding outcome, to the maximum possible value for the corresponding outcome, and to zero. The total score for each scenario was then computed again.
+
+```{r sensitivity-analyses-based-on-confidence, results="asis"}
+
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+### Confidence Sensitivity analyses
+###----------------------------------------------------------------------------
+###----------------------------------------------------------------------------
+
+confidenceBasedSensitivityAnalysis <- list();
+
+confidenceBasedSensitivityAnalysis$setToMin <-
+  dmcda::confidence_based_sensitivity_analysis(
+    multiEstimateDf = estimates$multiEstimateDf,
+    collapsedConfidences = estimates$collapsedConfidences,
+    criteria = criteria,
+    scenarioDefinitions = scenarioDefinitions,
+    scenarioOrder = scenarioOrder,
+    scenarioLabels = scenarioLabels,
+    weightProfiles = weightProfiles,
+    transformationFunction = dmcda::setToMin
+  );
+
+confidenceBasedSensitivityAnalysis$setToMax <-
+  dmcda::confidence_based_sensitivity_analysis(
+    multiEstimateDf = estimates$multiEstimateDf,
+    collapsedConfidences = estimates$collapsedConfidences,
+    criteria = criteria,
+    scenarioDefinitions = scenarioDefinitions,
+    scenarioOrder = scenarioOrder,
+    scenarioLabels = scenarioLabels,
+    weightProfiles = weightProfiles,
+    transformationFunction = dmcda::setToMax
+  );
+
+confidenceBasedSensitivityAnalysis$setToZero <-
+  dmcda::confidence_based_sensitivity_analysis(
+    multiEstimateDf = estimates$multiEstimateDf,
+    collapsedConfidences = estimates$collapsedConfidences,
+    criteria = criteria,
+    scenarioDefinitions = scenarioDefinitions,
+    scenarioOrder = scenarioOrder,
+    scenarioLabels = scenarioLabels,
+    weightProfiles = weightProfiles,
+    transformationFunction = dmcda::setToZero
+  );
+
+###----------------------------------------------------------------------------
+### View results
+###----------------------------------------------------------------------------
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$scorePlot,
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima");
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$rankPlot,
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima");
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$scorePlot,
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima");
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$rankPlot,
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima");
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$scorePlot,
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to zero");
+
+ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$rankPlot,
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to zero");
 
 ```
+
 
 <!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-
-# General overview {.tabset}
-
-```{r total-overview-autofill}
-
-estimates <-
-  dmcda::autofill_estimates(estimates=estimates,
-                            criteria=criteria,
-                            decisions_and_alternatives=decisions_and_alternatives);
-
-```
-
-## Summary
-
-`r dmcda::summary_general(criteria, decisions_and_alternatives, estimates);`
-
-## Details
-
-```{r total-overview-details, results="asis"}
-
-dmcda::details_autofilled_estimates(estimates);
-
-```
-
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
+<!-- Relocating table of contents and tweaking some styles
 <!---------------------------------------------------------------------------->
 
-# Scores for each scenario and weight profile
+<script>
+// Move TOC to the Table of Contents heading (with id "contents")
+$(function() {
+  $( "#TOC" ).insertAfter( $( "#contents" ) );
+});
+</script>
 
-```{r scores-compute, results="asis", eval=TRUE}
-
-estimates <-
-  dmcda::weigh_estimates(estimates=estimates,
-                         weights=weights);
-
-scenario_scores <-
-  dmcda::scenario_scores(criteria = criteria,
-                         decisions_and_alternatives = decisions_and_alternatives,
-                         estimates = estimates,
-                         scenarios_and_alternatives = scenarios_and_alternatives,
-                         weights = weights);
-
-```
-
-```{r scores-summary, results="asis", eval=TRUE}
-
-dmcda::summary_scores(scenario_scores);
-
-```
-
-```{r scores-details, results="asis", eval=TRUE}
-
-dmcda::details_scores(scenario_scores);
-
-```
+<style>
+.svg-figure {
+  width: 100%;
+}
+</style>
 
 <!---------------------------------------------------------------------------->
+<!-- End of file ------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
 
-# Appendices
-
-## Assertions
-
-This is an overview of all assertions (all 'facts'. 'claims', 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.
-
-```{r assertions-details, results="asis", eval=TRUE}
-
-dmcda::details_assertions(estimates);
-
-```
-
-## Counterfactuals
-
-When formulating assertions, it is also good practice to formulate counterfactuals. This are references to other assertions that also have sources. This enables for example scoring for the number of counterfactuals.
-
-## Sources / literature
-
-This is an overview of all sources that the assertions refer to.
-
-```{r sources-details, results="asis", eval=TRUE}
-
-dmcda::details_sources(estimates);
-
-```
-
-## Logs
-
-These are more detailed logs.
-
-```{r total-overview-autofill-logs, results='asis', eval=FALSE}
-cat(paste0(estimates$autofillLogs,
-           collapse="\n"));
-```

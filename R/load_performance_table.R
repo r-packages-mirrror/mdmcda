@@ -14,34 +14,19 @@ load_performance_table <- function(file,
   res <- list();
 
   if (grepl('\\.xls', file)) {
-    if (!requireNamespace("XLConnect", quietly = TRUE)) {
-      #if (!requireNamespace("xlsx", quietly = TRUE)) {
-      stop("To import from excel format, the \"XLConnect\" package is required. ",
-           "It needs to be installed and it needs to be able to load ",
-           "its dependency the \"rJava\" package. That package can only ",
-           "load if it can find where you installed Java. So, you either need ",
-           "to install the XLConnect package using `install.packages('XLConnect');`,",
-           "or you need to install Java (make sure to install the version ",
-           "matching your R version; so either 32-bit or 64-bit!).");
+    if (!requireNamespace("readxl", quietly = TRUE)) {
+      stop("To import from excel format, the \"readxl\" package is required.");
     } else {
       res$estimates <-
-        XLConnect::readWorksheetFromFile(file = file,
+        as.data.frame(readxl::read_excel(file,
                                          sheet = estimatesSheet,
-                                         header=FALSE,
-                                         ...);
+                                         col_names = FALSE),
+                      stringsAsFactors = FALSE);
       res$confidences <-
-        XLConnect::readWorksheetFromFile(file = file,
+        as.data.frame(readxl::read_excel(input,
                                          sheet = confidencesSheet,
-                                         header=TRUE,
-                                         ...);
-
-      # res <-
-      #   xlsx::read.xlsx(file=file,
-      #                   sheetIndex=sheetIndex,
-      #                   as.data.frame = TRUE,
-      #                   stringsAsFactors=FALSE,
-      #                   header=FALSE,
-      #                   ...)
+                                         col_names = FALSE),
+                      stringsAsFactors = FALSE);
     }
   } else {
     res$estimates <-
