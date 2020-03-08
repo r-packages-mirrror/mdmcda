@@ -12,8 +12,9 @@ vignette: >
 ```{r setup, message=FALSE, echo=FALSE, results='asis'}
 
 knitr::opts_chunk$set(
+  echo = FALSE,
   collapse = TRUE,
-  comment = "#>",
+  comment = "",
   dev="png", 
 	dev.args=list(type="cairo"),
 	dpi=100
@@ -21,15 +22,27 @@ knitr::opts_chunk$set(
 
 ### Show code and table of contents label in HTML only
 if (knitr::is_html_output()) {
-  knitr::opts_chunk$set(echo=TRUE);
   cat("\n\n# Contents\n\n");
-} else {
-  knitr::opts_chunk$set(echo=FALSE);
 }
 
 knitr::opts_chunk$set(dev="png", 
 		  		            dev.args=list(type="cairo"),
 			    	          dpi=300);
+
+figWidth <- 2;
+figHeight <- 1.5;
+
+ufs::opts$set(ggSaveFigWidth = 2,
+              ggSaveFigHeight = 1.5,
+              ggSaveUnits = "in",
+              ggBaseSize = 4,
+              knitAndSave.catPlot = TRUE,
+              knitFig.catPlot = TRUE);
+
+dmcda::opts$set(ggSaveFigWidth = 2,
+                ggSaveFigHeight = 1.5,
+                ggSaveUnits = "in",
+                ggBaseSize = 4);
 
 quietGitLabUpdate <- function(x, quiet = TRUE) {
   if (quiet) {
@@ -65,9 +78,6 @@ currentDir <- here::here('inst');
 dataDir <- file.path(currentDir,
                      "extdata");
 
-### Tell ufs::knitAndSave to always 'cat' the knitr chunk
-options(ufs.knitAndSave.catPlot = TRUE);
-
 ```
 
 <!---------------------------------------------------------------------------->
@@ -78,7 +88,7 @@ options(ufs.knitAndSave.catPlot = TRUE);
 
 ## Criteria (outcomes of chosen policy)
 
-The following tree of outcomes was established:
+The following tree of criteria was established:
 
 ```{r load-criteria, message=FALSE, comment=""}
 
@@ -91,7 +101,7 @@ print(criteria$criteriaTree);
 
 ```
 
-These outcomes have a hierarchical structure to facilitate weighing them efficiently. They are clustered based on domain, such that each outcome can be considered an indicator of the cluster outcome. For example, prevalence in the general population, prevalence in vulnerable populations, and frequency and intensity of use by MDMA users are all indicative of MDMA use (the overarching cluster). Therefore, if a decision maker values MDMA use as an outcome, that cluster can received a high weight. The relative contribution of the three indicators can then be finetuned by setting the weights of the individual outcomes. Similarly, a decision maker who does not want MDMA use to play a large role when determining their policy can set the cluster weight to a low value or to zero. The latter would immediately take all three contained outcomes out of the total scores computed for the scenarios (policy models).
+These criteria have a hierarchical structure to facilitate weighing them efficiently. They are clustered based on domain, such that each outcome can be considered an indicator of the criterion cluster. For example, prevalence in the general population, and frequency and intensity of use by MDMA users are both indicative of MDMA use (the overarching cluster). Therefore, if a decision maker values MDMA use as an outcome, that cluster can receive a high weight. The relative contribution of the two indicators can then be finetuned by setting the weights of the individual criteria. Similarly, a decision maker who does not want MDMA use to play a large role when determining their policy can set the cluster weight to a low value or to zero. The latter would immediately take both  contained criteria out of the total scores computed for the scenarios (policy models).
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
@@ -156,7 +166,7 @@ scenarios <-
 
 # Preparing data
 
-In this section, the imported data are preprocessed. This can be inspected by expanding the code fragments.
+In this section, the imported data are preprocessed.
 
 ## Criteria
 
@@ -553,7 +563,10 @@ for (weightprofile_id in names(heatmaps)) {
                  figCaption = paste0("Heatmap for scenario ",
                                      scenario_id,
                                      " in weight profile ",
-                                     weightprofile_id));
+                                     weightprofile_id),
+                 figWidth = figWidth,
+                 figHeight = figHeight
+               );
   }
 }
 
@@ -573,8 +586,7 @@ barcharts <-
                                                                                "_weighed_estimate"),
                                                             xLab = "Policy model",
                                                             yLab = "Score",
-                                                            title = "Model comparison") +
-                      ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm")));
+                                                            title = "Model comparison"));
     }),
     unique(weighedEstimates$scenario_id)));
 }), weightProfileNames);
@@ -613,7 +625,7 @@ barcharts_aggregated <-
                                                     "_weighed_estimate"),
                                title = paste0("Comparison bar chart for ",
                                               currentWeightProfile)
-                             ) + ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm"));
+                             );
 
                            res$byCriterion <-
                              dmcda::scoreBarchart_scenarios_decisions(
@@ -622,7 +634,7 @@ barcharts_aggregated <-
                                                     "_weighed_estimate"),
                                title = paste0("Comparison bar chart for ",
                                               currentWeightProfile)
-                             ) + ggplot2::theme(plot.margin = ggplot2::margin(3, .5, .5, .5, "cm"));
+                             );
 
                            cat("\n\n### Bar chart for models (x) and scores (y) by outcome (color)\n\n");
 
@@ -632,7 +644,9 @@ barcharts_aggregated <-
                                "Bar chart, aggregated by decision, ",
                                "for weight profile ",
                                currentWeightProfile
-                             )
+                             ),
+                             figWidth = figWidth,
+                             figHeight = figHeight
                            );
                            
                            cat("\n\n### Bar chart for models (x) and scores (y) by instrument (color)\n\n");
@@ -643,7 +657,9 @@ barcharts_aggregated <-
                                "Bar chart, aggregated by criterion, ",
                                "for weight profile ",
                                currentWeightProfile
-                             )
+                             ),
+                             figWidth = figWidth,
+                             figHeight = figHeight
                            );
 
                            return(res);
@@ -679,100 +695,105 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
   title2 <- paste0("Sensitivity analysis (weight-based) rank plot for ", i);
   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$scorePlot +
                  ggplot2::labs(title = title1),
-               figCaption = title1);
+               figCaption = title1,
+             figWidth = figWidth,
+             figHeight = figHeight);
+
   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$rankPlot +
                  ggplot2::labs(title = title2),
-               figCaption = title2);
+               figCaption = title2,
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 }
 
-### Create weight profiles for each scorer who provided weights
-scorerWeights <- list();
-scorerWeightProfiles <- list();
-for (currentScorer in weights$scorerTxt[1:3]) {
-  scorerWeights[[currentScorer]] <-
-    dmcda::scorerWeights_to_profile(weights = weights,
-                                    scorer = currentScorer,
-                                    criteria = criteria);
-  scorerWeights[[currentScorer]]$weight <-
-    scorerWeights[[currentScorer]][[paste0(currentScorer,
-                                           "_weight_total_proportion")]] * 100;
-  scorerWeightProfiles[[currentScorer]] <-
-    stats::setNames(scorerWeights[[currentScorer]]$weight,
-                    scorerWeights[[currentScorer]]$criterion_id);
-  scorerWeightProfiles[[currentScorer]] <-
-    scorerWeightProfiles[[currentScorer]][!is.na(scorerWeightProfiles[[currentScorer]])]
-}
-
-### Add new weights
-weighedEstimates_withScorerWeights <-
-  dmcda::add_weights(weighedEstimates = weighedEstimates,
-                     weightProfiles = scorerWeightProfiles,
-                     weightProfileNames = names(scorerWeightProfiles));
-
-### Compute scenario scores
-scoresPerScenario_withScorerWeights <-
-  dmcda::scores_by_scenario(weighedEstimates = weighedEstimates_withScorerWeights,
-                            estimateCols = paste0(names(scorerWeightProfiles),
-                                                  '_weighed_estimate'));
-
-scoresPerScenario_withScorerWeights_df <-
-  do.call(
-    rbind,
-    lapply(names(scorerWeightProfiles),
-           function(scorer) {
-             estimateCol <- paste0(scorer,
-                                   '_weighed_estimate');
-             res <-
-               as.data.frame(
-                 scoresPerScenario_withScorerWeights[[estimateCol]]
-               );
-             res$scorer <- as.numeric(gsub("[a-zA-Z]*", "", scorer));
-             names(res) <- c("scenario_id", "score", "scorer");
-             scenarioLabels <- res$scenario_id[!duplicated(res$scenario_id)];
-             scenarioOrder <- seq_along(scenarioLabels);
-             res$scenario_id <-
-               factor(res$scenario_id,
-                      levels = scenarioOrder,
-                      labels = scenarioLabels[scenarioOrder],
-                      ordered=TRUE);
-             res$rank <- rank(res$score);
-             return(res);
-           })
-    );
-
-weightSensitivityAnalyses_scorePlot <-
-  ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
-                  mapping = ggplot2::aes_string(x = "scorer",
-                                                y = "score",
-                                                group = "scenario_id",
-                                                color = "scenario_id")) +
-  ggplot2::geom_line(size=1) +
-  ggplot2::scale_color_viridis_d(end=.9) +
-  ggplot2::theme_minimal();
-
-ufs::knitFig(weightSensitivityAnalyses_scorePlot,
-             figCaption = "Weight sensitivity analysis - scores");
-
-
-rankBreaks <-
-  sort(unique(scoresPerScenario_withScorerWeights_df$rank));
-rankLabels <-
-  c("Worst", rep("", length(rankBreaks) - 2), "Best");
-
-weightSensitivityAnalyses_rankPlot <-
-  ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
-                  mapping = ggplot2::aes_string(x = "scorer",
-                                                y = "rank",
-                                                group = "scenario_id",
-                                                color = "scenario_id")) +
-  ggplot2::geom_line(size=1) +
-  ggplot2::scale_color_viridis_d(end = .9) +
-  ggplot2::scale_y_continuous(breaks=rankBreaks,
-                              labels=rankLabels) +
-  ggplot2::theme_minimal();
-
-ufs::knitFig(weightSensitivityAnalyses_rankPlot,
-             figCaption = "Weight sensitivity analysis - ranks");
+# ### Create weight profiles for each scorer who provided weights
+# scorerWeights <- list();
+# scorerWeightProfiles <- list();
+# for (currentScorer in weights$scorerTxt[1:3]) {
+#   scorerWeights[[currentScorer]] <-
+#     dmcda::scorerWeights_to_profile(weights = weights,
+#                                     scorer = currentScorer,
+#                                     criteria = criteria);
+#   scorerWeights[[currentScorer]]$weight <-
+#     scorerWeights[[currentScorer]][[paste0(currentScorer,
+#                                            "_weight_total_proportion")]] * 100;
+#   scorerWeightProfiles[[currentScorer]] <-
+#     stats::setNames(scorerWeights[[currentScorer]]$weight,
+#                     scorerWeights[[currentScorer]]$criterion_id);
+#   scorerWeightProfiles[[currentScorer]] <-
+#     scorerWeightProfiles[[currentScorer]][!is.na(scorerWeightProfiles[[currentScorer]])]
+# }
+# 
+# ### Add new weights
+# weighedEstimates_withScorerWeights <-
+#   dmcda::add_weights(weighedEstimates = weighedEstimates,
+#                      weightProfiles = scorerWeightProfiles,
+#                      weightProfileNames = names(scorerWeightProfiles));
+# 
+# ### Compute scenario scores
+# scoresPerScenario_withScorerWeights <-
+#   dmcda::scores_by_scenario(weighedEstimates = weighedEstimates_withScorerWeights,
+#                             estimateCols = paste0(names(scorerWeightProfiles),
+#                                                   '_weighed_estimate'));
+# 
+# scoresPerScenario_withScorerWeights_df <-
+#   do.call(
+#     rbind,
+#     lapply(names(scorerWeightProfiles),
+#            function(scorer) {
+#              estimateCol <- paste0(scorer,
+#                                    '_weighed_estimate');
+#              res <-
+#                as.data.frame(
+#                  scoresPerScenario_withScorerWeights[[estimateCol]]
+#                );
+#              res$scorer <- as.numeric(gsub("[a-zA-Z]*", "", scorer));
+#              names(res) <- c("scenario_id", "score", "scorer");
+#              scenarioLabels <- res$scenario_id[!duplicated(res$scenario_id)];
+#              scenarioOrder <- seq_along(scenarioLabels);
+#              res$scenario_id <-
+#                factor(res$scenario_id,
+#                       levels = scenarioOrder,
+#                       labels = scenarioLabels[scenarioOrder],
+#                       ordered=TRUE);
+#              res$rank <- rank(res$score);
+#              return(res);
+#            })
+#     );
+# 
+# weightSensitivityAnalyses_scorePlot <-
+#   ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
+#                   mapping = ggplot2::aes_string(x = "scorer",
+#                                                 y = "score",
+#                                                 group = "scenario_id",
+#                                                 color = "scenario_id")) +
+#   ggplot2::geom_line(size=1) +
+#   ggplot2::scale_color_viridis_d(end=.9) +
+#   ggplot2::theme_minimal();
+# 
+# ufs::knitFig(weightSensitivityAnalyses_scorePlot,
+#              figCaption = "Weight sensitivity analysis - scores");
+# 
+# rankBreaks <-
+#   sort(unique(scoresPerScenario_withScorerWeights_df$rank));
+# rankLabels <-
+#   c("Worst", rep("", length(rankBreaks) - 2), "Best");
+# 
+# weightSensitivityAnalyses_rankPlot <-
+#   ggplot2::ggplot(data = scoresPerScenario_withScorerWeights_df,
+#                   mapping = ggplot2::aes_string(x = "scorer",
+#                                                 y = "rank",
+#                                                 group = "scenario_id",
+#                                                 color = "scenario_id")) +
+#   ggplot2::geom_line(size=1) +
+#   ggplot2::scale_color_viridis_d(end = .9) +
+#   ggplot2::scale_y_continuous(breaks=rankBreaks,
+#                               labels=rankLabels) +
+#   ggplot2::theme_minimal();
+# 
+# ufs::knitFig(weightSensitivityAnalyses_rankPlot,
+#              figCaption = "Weight sensitivity analysis - ranks");
 
 ```
 
@@ -827,22 +848,39 @@ confidenceBasedSensitivityAnalysis$setToZero <-
 ###----------------------------------------------------------------------------
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima");
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima",
+             figWidth = figWidth,
+             figHeight = figHeight);
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima");
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima",
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima");
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima",
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima");
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima",
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to zero");
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to zero",
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to zero");
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to zero",
+             figWidth = figWidth,
+             figHeight = figHeight);
+
 
 ```
 

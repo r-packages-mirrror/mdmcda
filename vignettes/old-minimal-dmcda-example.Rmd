@@ -11,6 +11,8 @@ vignette: >
 
 ```{r setup, message=FALSE, echo=FALSE, results='asis'}
 
+runVignette <- FALSE;
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -29,14 +31,14 @@ if (knitr::is_latex_output()) {
   knitr::opts_chunk$set(echo=TRUE);
 }
 
-tryCatch({
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
-                                           upgrade="never", quietly=TRUE)));
-  invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
-                                           upgrade="never", quietly=TRUE)));
-}, error=invisible);
+# tryCatch({
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/yum",
+#                                            upgrade="never", quietly=TRUE)));
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/justifier",
+#                                            upgrade="never", quietly=TRUE)));
+#   invisible(suppressMessages(remotes::install_gitlab("r-packages/dmcda",
+#                                            upgrade="never", quietly=TRUE)));
+# }, error=invisible);
 
 ### First get the directory where 'dmcda' is installed
 currentDir <- system.file(package="dmcda");
@@ -57,22 +59,22 @@ currentDir <- here::here('inst', 'extdata');
 
 Criteria are the criteria that are important for making the decisions. These will often be outcomes resulting from the choices made in each scenario. The criteria are what drive the decisions. They are normally not directly under control, but are assumed to result from the decisions.
 
-```{r load-outcomes}
+```{r load-outcomes, eval=runVignette}
 
 criteria <-
   dmcda::load_criteria(currentDir);
 
 ```
 
-`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+`r # dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
-```{r criteria-summary, fig.width=8, fig.height=8}
+```{r criteria-summary, fig.width=8, fig.height=8, eval=runVignette}
 
 dmcda::summary_criteria(criteria);
 
 ```
 
-```{r criteria-details}
+```{r criteria-details, eval=runVignette}
 
 dmcda::details_criteria(criteria);
 
@@ -86,20 +88,20 @@ dmcda::details_criteria(criteria);
 
 The decisions are the choices that have to be made. Each decision consists of two or more mutually exclusive and exhaustive alternatives.
 
-```{r load-decisions}
+```{r load-decisions, eval=runVignette}
 
 decisions_and_alternatives <-
   dmcda::load_decisions(currentDir);
 
 ```
 
-```{r decisions-summary, results="asis"}
+```{r decisions-summary, results="asis", eval=runVignette}
 
 dmcda::summary_decisions(decisions_and_alternatives);
 
 ```
 
-```{r decisions-details, results="asis"}
+```{r decisions-details, results="asis", eval=runVignette}
 
 dmcda::details_decisions(decisions_and_alternatives);
 
@@ -113,7 +115,7 @@ dmcda::details_decisions(decisions_and_alternatives);
 
 # Empty performance table
 
-```{r store-performance-table, results="asis"}
+```{r store-performance-table, results="asis", eval=runVignette}
 
 performance_table <-
   dmcda::create_performance_table(criteria,
@@ -159,7 +161,7 @@ either through filling the table and importing it, or through specifying specifi
 values, which enables also providing justifications and linking to assertions and
 sources for support.
 
-```{r performance-subtables}
+```{r performance-subtables, eval=runVignette}
 
 for (criteriaClusters in names(performance_subtables)) {
   for (decision in names(performance_subtables[[criteriaClusters]])) {
@@ -187,7 +189,7 @@ In this example, the performance of each decision alternative on each criterion 
 
 # Consensus between raters
 
-```{r load_performance_tables, fig.width=6, fig.height=5}
+```{r load_performance_tables, fig.width=6, fig.height=5, eval=runVignette}
 
 completed_performance_tables <-
   dmcda::load_performance_tables(currentDir);
@@ -207,7 +209,7 @@ completed_performance_tables$consensusMap;
 
 Estimates are the estimates of the effects that every alternative will have on each of the specified criteria. Ideally, every estimate has a justification, which is based on assertions (statements of facts or assumptions) that can be traced back to sources (e.g. scientific articles, policy documents, expert consensus, etc). For example, 
 
-```{r load-estimates, fig.width=10}
+```{r load-estimates, fig.width=10, eval=runVignette}
 
 estimates <-
   dmcda::load_estimates(currentDir,
@@ -216,15 +218,15 @@ estimates <-
 
 ```
 
-`r dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
+`r # dmcda::insert_if_knitting_to_html("Click the 'details' tab to see more detailed information."); `
 
-```{r estimates-summary, fig.width=10}
+```{r estimates-summary, fig.width=10, eval=runVignette}
 
 dmcda::summary_estimates(estimates);
 
 ```
 
-```{r estimates-details, fig.width=10}
+```{r estimates-details, fig.width=10, eval=runVignette}
 
 dmcda::details_estimates(estimates);
 
@@ -238,7 +240,7 @@ dmcda::details_estimates(estimates);
 
 Scenarios are sets of coherent alternative selections for every decision.
 
-```{r read-scenarios}
+```{r read-scenarios, eval=runVignette}
 
 scenarios_and_alternatives <-
   dmcda::load_scenarios(currentDir,
@@ -246,13 +248,13 @@ scenarios_and_alternatives <-
 
 ```
 
-```{r scenarios-summary, results="asis"}
+```{r scenarios-summary, results="asis", eval=runVignette}
 
 dmcda::summary_scenarios(scenarios_and_alternatives);
 
 ```
 
-```{r scenarios-details, results="asis"}
+```{r scenarios-details, results="asis", eval=runVignette}
 
 dmcda::details_scenarios(scenarios_and_alternatives);
 
@@ -264,7 +266,7 @@ dmcda::details_scenarios(scenarios_and_alternatives);
 
 # Weights of the criteria {.tabset}
 
-```{r read-weights}
+```{r read-weights, eval=runVignette}
 
 weights <-
   dmcda::load_weights(currentDir,
@@ -272,13 +274,13 @@ weights <-
 
 ```
 
-```{r show-weights, results="asis"}
+```{r show-weights, results="asis", eval=runVignette}
 
 dmcda::details_weights(weights);
 
 ```
 
-```{r show-multiplied-weights, results="asis"}
+```{r show-multiplied-weights, results="asis", eval=runVignette}
 
 dmcda::details_multiplied_weights(weights);
 
@@ -290,7 +292,7 @@ dmcda::details_multiplied_weights(weights);
 
 # General overview {.tabset}
 
-```{r total-overview-autofill}
+```{r total-overview-autofill, eval=runVignette}
 
 estimates <-
   dmcda::autofill_estimates(estimates=estimates,
@@ -301,11 +303,11 @@ estimates <-
 
 ## Summary
 
-`r dmcda::summary_general(criteria, decisions_and_alternatives, estimates);`
+`r #dmcda::summary_general(criteria, decisions_and_alternatives, estimates);`
 
 ## Details
 
-```{r total-overview-details, results="asis"}
+```{r total-overview-details, results="asis", eval=runVignette}
 
 dmcda::details_autofilled_estimates(estimates);
 
@@ -317,7 +319,7 @@ dmcda::details_autofilled_estimates(estimates);
 
 # Scores for each scenario and weight profile
 
-```{r scores-compute, results="asis", eval=TRUE}
+```{r scores-compute, results="asis", eval=runVignette}
 
 estimates <-
   dmcda::weigh_estimates(estimates=estimates,
@@ -332,13 +334,13 @@ scenario_scores <-
 
 ```
 
-```{r scores-summary, results="asis", eval=TRUE}
+```{r scores-summary, results="asis", eval=runVignette}
 
 dmcda::summary_scores(scenario_scores);
 
 ```
 
-```{r scores-details, results="asis", eval=TRUE}
+```{r scores-details, results="asis", eval=runVignette}
 
 dmcda::details_scores(scenario_scores);
 
@@ -354,7 +356,7 @@ dmcda::details_scores(scenario_scores);
 
 This is an overview of all assertions (all 'facts'. 'claims', 'assumptions', or 'propositions' that are based on some form of evidence) that this DMCDA is based on. Assertions can have a certain evidence quality, which can be specified and scored.
 
-```{r assertions-details, results="asis", eval=TRUE}
+```{r assertions-details, results="asis", eval=runVignette}
 
 dmcda::details_assertions(estimates);
 
@@ -368,7 +370,7 @@ When formulating assertions, it is also good practice to formulate counterfactua
 
 This is an overview of all sources that the assertions refer to.
 
-```{r sources-details, results="asis", eval=TRUE}
+```{r sources-details, results="asis", eval=runVignette}
 
 dmcda::details_sources(estimates);
 
@@ -378,7 +380,7 @@ dmcda::details_sources(estimates);
 
 These are more detailed logs.
 
-```{r total-overview-autofill-logs, results='asis', eval=FALSE}
+```{r total-overview-autofill-logs, results='asis', eval=runVignette}
 cat(paste0(estimates$autofillLogs,
            collapse="\n"));
 ```
