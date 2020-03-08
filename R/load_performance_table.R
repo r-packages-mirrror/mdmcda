@@ -23,7 +23,7 @@ load_performance_table <- function(file,
                                          col_names = FALSE),
                       stringsAsFactors = FALSE);
       res$confidences <-
-        as.data.frame(readxl::read_excel(input,
+        as.data.frame(readxl::read_excel(file,
                                          sheet = confidencesSheet,
                                          col_names = FALSE),
                       stringsAsFactors = FALSE);
