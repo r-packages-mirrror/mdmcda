@@ -10,7 +10,8 @@ compute_scores_per_alternative <- function(multiEstimateDf,
   alternativeScores <- data.frame(weightProfile = character(),
                                   decision_id = character(),
                                   alternative_id = character(),
-                                  score = numeric());
+                                  score = numeric(),
+                                  stringsAsFactors = FALSE);
 
   for (currentWeightProfile in names(weightProfiles)) {
     for (currentDecision in unique(multiEstimateDf$decision_id)) {
@@ -59,11 +60,13 @@ compute_scores_per_alternative <- function(multiEstimateDf,
         data.frame(weightProfile = rep(currentWeightProfile, length(summedForAllCriteria)),
                    decision_id = rep(currentDecision, length(summedForAllCriteria)),
                    alternative_id = names(summedForAllCriteria),
-                   score = unclass(summedForAllCriteria));
+                   score = unclass(summedForAllCriteria),
+                   stringsAsFactors = FALSE);
 
       alternativeScores <-
         rbind(alternativeScores,
-              tmpDf);
+              tmpDf,
+              stringsAsFactors = FALSE);
 
     }
   }

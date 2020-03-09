@@ -19,13 +19,15 @@ compute_best_alternatives <- function(scores_per_alternative) {
         max(tmpDf[, 'score'], na.rm=TRUE);
 
       ### Get indices of all alternatives with the max score
-      alternativesWithMaxScore <-
+      indicesOfAlternativesWithMaxScore <-
         which(tmpDf$score==maxScore);
+      alternativesWithMaxScore <-
+        tmpDf$alternative_id[indicesOfAlternativesWithMaxScore];
 
-      if (length(alternativesWithMaxScore) == 1) {
-        newRow <- tmpDf[alternativesWithMaxScore, , drop=FALSE];
+      if (length(indicesOfAlternativesWithMaxScore) == 1) {
+        newRow <- tmpDf[indicesOfAlternativesWithMaxScore, , drop=FALSE];
       } else {
-        newRow <- tmpDf[alternativesWithMaxScore[1], , drop=FALSE];
+        newRow <- tmpDf[indicesOfAlternativesWithMaxScore[1], , drop=FALSE];
         newRow$alternative_id <-
           paste(alternativesWithMaxScore,
                 collapse = " or ");
@@ -34,11 +36,6 @@ compute_best_alternatives <- function(scores_per_alternative) {
         rbind(bestAlternatives,
               newRow,
               stringsAsFactors = FALSE);
-
-      if (length(alternativesWithMaxScore) > 1) {
-        alternativesWithMaxScore <-
-          alternativesWithMaxScore[1];
-      }
     }
   }
   return(bestAlternatives);
