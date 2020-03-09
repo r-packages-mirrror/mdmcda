@@ -12,6 +12,7 @@ build_weighed_estimate_df <-
 
     weighedEstimates <- data.frame(scenario_id=character(),
                                    decision_id=character(),
+                                   alternative_value=numeric(),
                                    criterion_id=character(),
                                    estimate=numeric());
     for (currentScenario in scenarioNames) {
@@ -57,6 +58,7 @@ build_weighed_estimate_df <-
             rbind(weighedEstimates,
                   data.frame(scenario_id=currentScenario,
                              decision_id=currentDecision,
+                             alternative_value=scenarioDefinitions[[currentScenario]][currentDecision],
                              criterion_id=currentCriterion,
                              estimate=estimate,
                              stringsAsFactors = FALSE));
