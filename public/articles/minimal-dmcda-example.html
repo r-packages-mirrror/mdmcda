@@ -78,7 +78,7 @@
       <h1>Minimal Dynamic Multi-Criteria Decision Aid example</h1>
                         <h4 class="author">Gjalt-Jorn Peters</h4>
             
-            <h4 class="date">2020-03-08</h4>
+            <h4 class="date">2020-03-09</h4>
       
       
       <div class="hidden name"><code>minimal-dmcda-example.Rmd</code></div>
@@ -227,19 +227,19 @@
 </tr>
 <tr class="odd">
 <td align="left">crime</td>
-<td align="right">NA</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">criteria</td>
-<td align="right">NA</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">use</td>
-<td align="right">NA</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">user_health</td>
-<td align="right">NA</td>
+<td align="right"></td>
 </tr>
 </tbody>
 </table>
@@ -249,15 +249,463 @@
 <div id="results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#results" class="anchor"></a>Results</h1>
+<div id="overview-of-all-weighed-estimates-for-each-decision-and-criterion" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview-of-all-weighed-estimates-for-each-decision-and-criterion" class="anchor"></a>Overview of all weighed estimates for each decision and criterion</h2>
+<p>Because in this example, we have only 54 estimates, it’s feasible to show the overview of all estimates, their weight, and the final scores.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="right">Estimate</th>
+<th align="right">Weight</th>
+<th align="right">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="right">-20</td>
+<td align="right">12.10444</td>
+<td align="right">-242.08888</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="right">0</td>
+<td align="right">16.34100</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="right">0</td>
+<td align="right">16.34100</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="right">-40</td>
+<td align="right">16.34100</td>
+<td align="right">-653.63998</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="right">0</td>
+<td align="right">18.09614</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="right">0</td>
+<td align="right">18.09614</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="right">-10</td>
+<td align="right">18.09614</td>
+<td align="right">-180.96144</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="right">-10</td>
+<td align="right">18.79215</td>
+<td align="right">-187.92149</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">-20</td>
+<td align="right">13.42296</td>
+<td align="right">-268.45928</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="right">15</td>
+<td align="right">12.10444</td>
+<td align="right">181.56666</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="right">0</td>
+<td align="right">16.34100</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="right">0</td>
+<td align="right">16.34100</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="right">10</td>
+<td align="right">16.34100</td>
+<td align="right">163.40999</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="right">-30</td>
+<td align="right">21.24330</td>
+<td align="right">-637.29898</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="right">20</td>
+<td align="right">21.24330</td>
+<td align="right">424.86599</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="right">0</td>
+<td align="right">18.09614</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="right">-40</td>
+<td align="right">18.09614</td>
+<td align="right">-723.84575</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="right">15</td>
+<td align="right">18.09614</td>
+<td align="right">271.44216</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="right">0</td>
+<td align="right">18.79215</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="right">-10</td>
+<td align="right">18.79215</td>
+<td align="right">-187.92149</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">0</td>
+<td align="right">13.42296</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">-10</td>
+<td align="right">13.42296</td>
+<td align="right">-134.22964</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="right">5</td>
+<td align="right">13.42296</td>
+<td align="right">67.11482</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="right">0</td>
+<td align="right">12.10444</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="right">-10</td>
+<td align="right">12.10444</td>
+<td align="right">-121.04444</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="right">0</td>
+<td align="right">16.34100</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="right">-10</td>
+<td align="right">16.34100</td>
+<td align="right">-163.40999</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="right">-5</td>
+<td align="right">16.34100</td>
+<td align="right">-81.70500</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="right">0</td>
+<td align="right">21.24330</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="right">-5</td>
+<td align="right">21.24330</td>
+<td align="right">-106.21650</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="right">0</td>
+<td align="right">18.09614</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="right">0</td>
+<td align="right">18.09614</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="right">-15</td>
+<td align="right">18.09614</td>
+<td align="right">-271.44216</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="scores-for-each-defined-scenario" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scores-for-each-defined-scenario" class="anchor"></a>Scores for each defined scenario</h2>
 <p>Every estimate for an effect of an instrument’s option on an outcome is multiplied with that outcome’s weight. Then, for every policy model, the scores for that model’s selected instrument options are summed to compute each model’s total score. In addition, the highest- and lowest-scoring options for each instrument are identified and combined into the optimal and worst models (i.e. the highest and lowest possible achievable scores).</p>
-<p>The weights for each cluster and the separate outcomes are shown in Table 1a and 1b, both on the scales used by the individuals scorers, where each outcome’s weight represents its relative importance within its cluster, and on the final scale, where weights represent the relative contribution to the final score.</p>
 <div id="optimal-model" class="section level3">
 <h3 class="hasAnchor">
 <a href="#optimal-model" class="anchor"></a>Optimal model</h3>
-<p>The highest possible score is 0, which is achieved by the following scenario:</p>
+<p>The highest possible score is 584.9040291, which is achieved by the following scenario:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">decision_id</th>
@@ -268,29 +716,32 @@
 <tbody>
 <tr class="odd">
 <td align="left">advertising</td>
-<td align="left">0</td>
-<td align="left">‘Not applicable’</td>
-<td align="right">0</td>
+<td align="left">0 or 1</td>
+<td align="left">‘Not applicable’ &amp; ‘Advertising is illegal’</td>
+<td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">legal_age</td>
-<td align="left">0</td>
-<td align="left">‘Not applicable’</td>
-<td align="right">0</td>
+<td align="left">2</td>
+<td align="left">‘Legal age is 18’</td>
+<td align="right">584.904</td>
 </tr>
 <tr class="odd">
 <td align="left">posession_status</td>
 <td align="left">0</td>
 <td align="left">‘Not applicable’</td>
-<td align="right">0</td>
+<td align="right">0.000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="total-scores-per-scenario" class="section level2">
+<div id="scores-per-scenario" class="section level2 tabset">
 <h2 class="hasAnchor">
-<a href="#total-scores-per-scenario" class="anchor"></a>Total scores per scenario</h2>
+<a href="#scores-per-scenario" class="anchor"></a>Scores per scenario</h2>
+<div id="total-scores" class="section level3">
+<h3 class="hasAnchor">
+<a href="#total-scores" class="anchor"></a>Total scores</h3>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Policy model</th>
@@ -299,26 +750,871 @@
 <tbody>
 <tr class="odd">
 <td align="left">free_market</td>
-<td align="right">-1926</td>
+<td align="right">-3139</td>
 </tr>
 <tr class="even">
 <td align="left">optimal_scenario</td>
-<td align="right">0</td>
+<td align="right">585</td>
 </tr>
 <tr class="odd">
 <td align="left">regulated</td>
-<td align="right">-1926</td>
+<td align="right">-116</td>
 </tr>
 <tr class="even">
 <td align="left">repression</td>
-<td align="right">-1804</td>
+<td align="right">-298</td>
 </tr>
 <tr class="odd">
 <td align="left">worst_scenario</td>
-<td align="right">-5412</td>
+<td align="right">-3139</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="scores-in-detail" class="section level3">
+<h3 class="hasAnchor">
+<a href="#scores-in-detail" class="anchor"></a>Scores in detail</h3>
+<div id="repression" class="section level4">
+<h4 class="hasAnchor">
+<a href="#repression" class="anchor"></a>repression</h4>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="left">Estimate</th>
+<th align="left">Weight</th>
+<th align="left">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">-10</td>
+<td align="left">13.4229638595885</td>
+<td align="left">-134.229638595885</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="left">-10</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-163.409994812381</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Sum</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">-297.639633408266</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="regulated" class="section level4">
+<h4 class="hasAnchor">
+<a href="#regulated" class="anchor"></a>regulated</h4>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="left">Estimate</th>
+<th align="left">Weight</th>
+<th align="left">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">-10</td>
+<td align="left">18.7921494034238</td>
+<td align="left">-187.921494034238</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">-20</td>
+<td align="left">13.4229638595885</td>
+<td align="left">-268.459277191769</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">15</td>
+<td align="left">12.1044440601764</td>
+<td align="left">181.566660902646</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">10</td>
+<td align="left">16.3409994812381</td>
+<td align="left">163.409994812381</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">20</td>
+<td align="left">21.2432993256095</td>
+<td align="left">424.865986512191</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">15</td>
+<td align="left">18.0961438699637</td>
+<td align="left">271.442158049455</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">-10</td>
+<td align="left">18.7921494034238</td>
+<td align="left">-187.921494034238</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">5</td>
+<td align="left">13.4229638595885</td>
+<td align="left">67.1148192979423</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">-10</td>
+<td align="left">12.1044440601764</td>
+<td align="left">-121.044440601764</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">-5</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-81.7049974061905</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">-5</td>
+<td align="left">21.2432993256095</td>
+<td align="left">-106.216496628048</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-15</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-271.442158049455</td>
+</tr>
+<tr class="odd">
+<td align="left">Sum</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">-116.310738371088</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="free_market" class="section level4">
+<h4 class="hasAnchor">
+<a href="#free_market" class="anchor"></a>free_market</h4>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="left">Estimate</th>
+<th align="left">Weight</th>
+<th align="left">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">-20</td>
+<td align="left">12.1044440601764</td>
+<td align="left">-242.088881203528</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">-40</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-653.639979249524</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-10</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-180.961438699637</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="left">-30</td>
+<td align="left">21.2432993256095</td>
+<td align="left">-637.298979768286</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-40</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-723.845754798547</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">-10</td>
+<td align="left">18.7921494034238</td>
+<td align="left">-187.921494034238</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">5</td>
+<td align="left">13.4229638595885</td>
+<td align="left">67.1148192979423</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">-10</td>
+<td align="left">12.1044440601764</td>
+<td align="left">-121.044440601764</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">-5</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-81.7049974061905</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">-5</td>
+<td align="left">21.2432993256095</td>
+<td align="left">-106.216496628048</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-15</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-271.442158049455</td>
+</tr>
+<tr class="odd">
+<td align="left">Sum</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">-3139.04980114128</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="optimal_scenario" class="section level4">
+<h4 class="hasAnchor">
+<a href="#optimal_scenario" class="anchor"></a>optimal_scenario</h4>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="left">Estimate</th>
+<th align="left">Weight</th>
+<th align="left">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">-10</td>
+<td align="left">18.7921494034238</td>
+<td align="left">-187.921494034238</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">-20</td>
+<td align="left">13.4229638595885</td>
+<td align="left">-268.459277191769</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">15</td>
+<td align="left">12.1044440601764</td>
+<td align="left">181.566660902646</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">10</td>
+<td align="left">16.3409994812381</td>
+<td align="left">163.409994812381</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">20</td>
+<td align="left">21.2432993256095</td>
+<td align="left">424.865986512191</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">15</td>
+<td align="left">18.0961438699637</td>
+<td align="left">271.442158049455</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">0</td>
+<td align="left">social_effects_negative</td>
+<td align="left">0</td>
+<td align="left">18.0961438699637</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Sum</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">584.904029050666</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="worst_scenario" class="section level4">
+<h4 class="hasAnchor">
+<a href="#worst_scenario" class="anchor"></a>worst_scenario</h4>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Decision</th>
+<th align="left">Alternative</th>
+<th align="left">Criterion</th>
+<th align="left">Estimate</th>
+<th align="left">Weight</th>
+<th align="left">Score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">-20</td>
+<td align="left">12.1044440601764</td>
+<td align="left">-242.088881203528</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">-40</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-653.639979249524</td>
+</tr>
+<tr class="odd">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">0</td>
+<td align="left">21.2432993256095</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">advertising</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-10</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-180.961438699637</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_organized</td>
+<td align="left">0</td>
+<td align="left">18.7921494034238</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">0</td>
+<td align="left">13.4229638595885</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">prevalence</td>
+<td align="left">0</td>
+<td align="left">12.1044440601764</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">use_patterns</td>
+<td align="left">0</td>
+<td align="left">16.3409994812381</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">health_effects_negative</td>
+<td align="left">-30</td>
+<td align="left">21.2432993256095</td>
+<td align="left">-637.298979768286</td>
+</tr>
+<tr class="even">
+<td align="left">legal_age</td>
+<td align="left">1</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-40</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-723.845754798547</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_organized</td>
+<td align="left">-10</td>
+<td align="left">18.7921494034238</td>
+<td align="left">-187.921494034238</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">crime_acquisitive</td>
+<td align="left">5</td>
+<td align="left">13.4229638595885</td>
+<td align="left">67.1148192979423</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">prevalence</td>
+<td align="left">-10</td>
+<td align="left">12.1044440601764</td>
+<td align="left">-121.044440601764</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">use_patterns</td>
+<td align="left">-5</td>
+<td align="left">16.3409994812381</td>
+<td align="left">-81.7049974061905</td>
+</tr>
+<tr class="odd">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">health_effects_negative</td>
+<td align="left">-5</td>
+<td align="left">21.2432993256095</td>
+<td align="left">-106.216496628048</td>
+</tr>
+<tr class="even">
+<td align="left">posession_status</td>
+<td align="left">2</td>
+<td align="left">social_effects_negative</td>
+<td align="left">-15</td>
+<td align="left">18.0961438699637</td>
+<td align="left">-271.442158049455</td>
+</tr>
+<tr class="odd">
+<td align="left">Sum</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">-3139.04980114128</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="visualisations-1" class="section level1">
@@ -334,7 +1630,7 @@
 <h4 class="hasAnchor">
 <a href="#policy-model-repression" class="anchor"></a>Policy model: repression</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/4081db86d6982cac1d4a53cc06514374-1.png" alt="Heatmap for scenario repression in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/288849bf013e60f023b6e04bb5cd993f-1.png" alt="Heatmap for scenario repression in weight profile meanWeights" width="400"><p class="caption">
 Heatmap for scenario repression in weight profile meanWeights
 </p>
 </div>
@@ -343,7 +1639,7 @@ Heatmap for scenario repression in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-regulated" class="anchor"></a>Policy model: regulated</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/39e9aa5a12e45255a3295de6c2806a36-1.png" alt="Heatmap for scenario regulated in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/bedba313af33303076c9e86a45efca21-1.png" alt="Heatmap for scenario regulated in weight profile meanWeights" width="400"><p class="caption">
 Heatmap for scenario regulated in weight profile meanWeights
 </p>
 </div>
@@ -352,7 +1648,7 @@ Heatmap for scenario regulated in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-free_market" class="anchor"></a>Policy model: free_market</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/2e34526fbf2767f499addebe72187ba1-1.png" alt="Heatmap for scenario free_market in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/cbb0176b1d1121fa036915fe8f5db619-1.png" alt="Heatmap for scenario free_market in weight profile meanWeights" width="400"><p class="caption">
 Heatmap for scenario free_market in weight profile meanWeights
 </p>
 </div>
@@ -361,7 +1657,7 @@ Heatmap for scenario free_market in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-optimal_scenario" class="anchor"></a>Policy model: optimal_scenario</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/30a679f1f3a153d450307e6a04ffb0d6-1.png" alt="Heatmap for scenario optimal_scenario in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/4819185b326d58c7c756acad57177077-1.png" alt="Heatmap for scenario optimal_scenario in weight profile meanWeights" width="400"><p class="caption">
 Heatmap for scenario optimal_scenario in weight profile meanWeights
 </p>
 </div>
@@ -370,7 +1666,7 @@ Heatmap for scenario optimal_scenario in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-worst_scenario" class="anchor"></a>Policy model: worst_scenario</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/a0c6ee6e3efcacd6d16b9ba922d7f67d-1.png" alt="Heatmap for scenario worst_scenario in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/a609e1080232917f24ac0eb2993a8573-1.png" alt="Heatmap for scenario worst_scenario in weight profile meanWeights" width="400"><p class="caption">
 Heatmap for scenario worst_scenario in weight profile meanWeights
 </p>
 </div>
@@ -387,7 +1683,7 @@ Heatmap for scenario worst_scenario in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-repression-1" class="anchor"></a>Policy model: repression</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/85de0bc7800a0a7278893e8049972806-1.png" alt="Bar chart for scenario repression in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/615bc9332b093318a396cb0d94e0082c-1.png" alt="Bar chart for scenario repression in weight profile meanWeights" width="400"><p class="caption">
 Bar chart for scenario repression in weight profile meanWeights
 </p>
 </div>
@@ -396,7 +1692,7 @@ Bar chart for scenario repression in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-regulated-1" class="anchor"></a>Policy model: regulated</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/7ad2ce0a7c538ff15071cfa01c875b50-1.png" alt="Bar chart for scenario regulated in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/f75be660ca83cd1445583b28df2a4b80-1.png" alt="Bar chart for scenario regulated in weight profile meanWeights" width="400"><p class="caption">
 Bar chart for scenario regulated in weight profile meanWeights
 </p>
 </div>
@@ -405,7 +1701,7 @@ Bar chart for scenario regulated in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-free_market-1" class="anchor"></a>Policy model: free_market</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/3384943565b74bf4c463549990e151cf-1.png" alt="Bar chart for scenario free_market in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/ca1b1f30596d22e2194157aa33642295-1.png" alt="Bar chart for scenario free_market in weight profile meanWeights" width="400"><p class="caption">
 Bar chart for scenario free_market in weight profile meanWeights
 </p>
 </div>
@@ -414,7 +1710,7 @@ Bar chart for scenario free_market in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-optimal_scenario-1" class="anchor"></a>Policy model: optimal_scenario</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/d382b75b2e459646602aaa30605688a5-1.png" alt="Bar chart for scenario optimal_scenario in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/8d49d6fe9994f55674af3cfb4c96f4e0-1.png" alt="Bar chart for scenario optimal_scenario in weight profile meanWeights" width="400"><p class="caption">
 Bar chart for scenario optimal_scenario in weight profile meanWeights
 </p>
 </div>
@@ -423,7 +1719,7 @@ Bar chart for scenario optimal_scenario in weight profile meanWeights
 <h4 class="hasAnchor">
 <a href="#policy-model-worst_scenario-1" class="anchor"></a>Policy model: worst_scenario</h4>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/68544c6c337c036e874616657f1f054a-1.png" alt="Bar chart for scenario worst_scenario in weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/98d6b1861ece1b264dd42ea351d28a42-1.png" alt="Bar chart for scenario worst_scenario in weight profile meanWeights" width="400"><p class="caption">
 Bar chart for scenario worst_scenario in weight profile meanWeights
 </p>
 </div>
@@ -441,7 +1737,7 @@ Bar chart for scenario worst_scenario in weight profile meanWeights
 <h3 class="hasAnchor">
 <a href="#bar-chart-for-models-x-and-scores-y-by-outcome-color" class="anchor"></a>Bar chart for models (x) and scores (y) by outcome (color)</h3>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/6370bd2c7d159e32d1fb6e85d1442df3-1.png" alt="Bar chart, aggregated by decision, for weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/6c79e4ecddab8a97fb69f1207951b28a-1.png" alt="Bar chart, aggregated by decision, for weight profile meanWeights" width="400"><p class="caption">
 Bar chart, aggregated by decision, for weight profile meanWeights
 </p>
 </div>
@@ -450,7 +1746,7 @@ Bar chart, aggregated by decision, for weight profile meanWeights
 <h3 class="hasAnchor">
 <a href="#bar-chart-for-models-x-and-scores-y-by-instrument-color" class="anchor"></a>Bar chart for models (x) and scores (y) by instrument (color)</h3>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/798209c3f746f067cf6208565095132a-1.png" alt="Bar chart, aggregated by criterion, for weight profile meanWeights" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/62c0f558678c0765002cb5e67196f87c-1.png" alt="Bar chart, aggregated by criterion, for weight profile meanWeights" width="400"><p class="caption">
 Bar chart, aggregated by criterion, for weight profile meanWeights
 </p>
 </div>
@@ -465,32 +1761,32 @@ Bar chart, aggregated by criterion, for weight profile meanWeights
 <a href="#weight-based" class="anchor"></a>Weight-based</h2>
 <p>In these sensitivity analyses, the weights of each individual scorer were applied, after which the total score for each scenario was then computed again. The results were then plotted.</p>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/e57bd0e0fe8c2a89e6c484f45fb22bee-1.png" alt="Sensitivity analysis (weight-based) score plot for use" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/fa4a663292bde020a188f1efdd5f15d3-1.png" alt="Sensitivity analysis (weight-based) score plot for use" width="400"><p class="caption">
 Sensitivity analysis (weight-based) score plot for use
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/06c37e91c56fc443f59b91cc3c03fb81-1.png" alt="Sensitivity analysis (weight-based) rank plot for use" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/61b7d34db700bcfb6a672919f8eb7676-1.png" alt="Sensitivity analysis (weight-based) rank plot for use" width="400"><p class="caption">
 Sensitivity analysis (weight-based) rank plot for use
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/c8d8b84597c4ff2376f67a157dca23b4-1.png" alt="Sensitivity analysis (weight-based) score plot for user_health" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/57db46c00be5be2c71c7e8e0cbde74bd-1.png" alt="Sensitivity analysis (weight-based) score plot for user_health" width="400"><p class="caption">
 Sensitivity analysis (weight-based) score plot for user_health
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/4ac2ab40ae39e0582d42779790ef327f-1.png" alt="Sensitivity analysis (weight-based) rank plot for user_health" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/08efb92f0ee3850557e08e589f383ad9-1.png" alt="Sensitivity analysis (weight-based) rank plot for user_health" width="400"><p class="caption">
 Sensitivity analysis (weight-based) rank plot for user_health
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/f820105387d3c8d225cba5c182f3ac8a-1.png" alt="Sensitivity analysis (weight-based) score plot for crime" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/bc5d1cb839139b241c861cf24b46156b-1.png" alt="Sensitivity analysis (weight-based) score plot for crime" width="400"><p class="caption">
 Sensitivity analysis (weight-based) score plot for crime
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/1f3189423d4c4719bf61beb64b893456-1.png" alt="Sensitivity analysis (weight-based) rank plot for crime" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/5881d04d5d11654046b80c61e93a3b31-1.png" alt="Sensitivity analysis (weight-based) rank plot for crime" width="400"><p class="caption">
 Sensitivity analysis (weight-based) rank plot for crime
 </p>
 </div>
@@ -500,32 +1796,32 @@ Sensitivity analysis (weight-based) rank plot for crime
 <a href="#confidence-based" class="anchor"></a>Confidence-based</h2>
 <p>In these sensitivity analyses, 10% of the estimates about which the think tank expressed the least confidence were sequentially set to the minimum possible value of the corresponding outcome, to the maximum possible value for the corresponding outcome, and to zero. The total score for each scenario was then computed again.</p>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/8de46d14d2a02a0356066f7acef69e66-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/096df5b0ce2bc1c12d3fb485589d85d5-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima" width="400"><p class="caption">
 Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/fd14b179887e0fa8c88279718c3ad015-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/601bdfda1d33ff0647fcac8be0543831-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima" width="400"><p class="caption">
 Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/fafde2c574f20ad6e32bfe361cb4b19b-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/fe4deab268880d5f64acafa2024a0c38-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima" width="400"><p class="caption">
 Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/f30d4863a598273c6032a60738a91c30-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/7a126fae6a00e4384f565f7eee06f730-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima" width="400"><p class="caption">
 Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/12e590fc64bb8aae0f363f6cbe47f755-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to zero" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/0af2a9151e69554f2d34fdbe77547285-1.png" alt="Sensitity analysis (confidence-based) score plot when setting estimates to zero" width="400"><p class="caption">
 Sensitity analysis (confidence-based) score plot when setting estimates to zero
 </p>
 </div>
 <div class="figure">
-<img src="minimal-dmcda-example_files/figure-html/30025e8b19a4f0fac5b2ea900cddb55e-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to zero" width="600"><p class="caption">
+<img src="minimal-dmcda-example_files/figure-html/50827d96b2d21d9c8ee8ef8d818a3326-1.png" alt="Sensitity analysis (confidence-based) rank plot when setting estimates to zero" width="400"><p class="caption">
 Sensitity analysis (confidence-based) rank plot when setting estimates to zero
 </p>
 </div>
@@ -572,8 +1868,9 @@ $(function() {
 </li>
       <li>
 <a href="#results">Results</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#scores-for-each-defined-scenario">Scores for each defined scenario</a></li>
-      <li><a href="#total-scores-per-scenario">Total scores per scenario</a></li>
+<li><a href="#overview-of-all-weighed-estimates-for-each-decision-and-criterion">Overview of all weighed estimates for each decision and criterion</a></li>
+      <li><a href="#scores-for-each-defined-scenario">Scores for each defined scenario</a></li>
+      <li><a href="#scores-per-scenario">Scores per scenario</a></li>
       </ul>
 </li>
       <li>

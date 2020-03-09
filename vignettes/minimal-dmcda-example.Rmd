@@ -27,20 +27,17 @@ if (knitr::is_html_output()) {
   cat("\n\n# Contents\n\n");
 }
 
-figWidth <- 2;
-figHeight <- 1.5;
-
-ufs::opts$set(ggSaveFigWidth = 2,
-              ggSaveFigHeight = 1.5,
+ufs::opts$set(ggSaveFigWidth = 4,
+              ggSaveFigHeight = 4,
               ggSaveUnits = "in",
-              ggBaseSize = 4,
+              ggBaseSize = 12,
               knitAndSave.catPlot = TRUE,
               knitFig.catPlot = TRUE);
 
-dmcda::opts$set(ggSaveFigWidth = 2,
-                ggSaveFigHeight = 1.5,
+dmcda::opts$set(ggSaveFigWidth = 4,
+                ggSaveFigHeight = 4,
                 ggSaveUnits = "in",
-                ggBaseSize = 4);
+                ggBaseSize = 12);
 
 quietGitLabUpdate <- function(x, quiet = TRUE) {
   if (quiet) {
@@ -596,10 +593,7 @@ for (weightprofile_id in names(heatmaps)) {
                  figCaption = paste0("Heatmap for scenario ",
                                      scenario_id,
                                      " in weight profile ",
-                                     weightprofile_id),
-                 figWidth = figWidth,
-                 figHeight = figHeight
-               );
+                                     weightprofile_id));
   }
 }
 
@@ -677,10 +671,7 @@ barcharts_aggregated <-
                                "Bar chart, aggregated by decision, ",
                                "for weight profile ",
                                currentWeightProfile
-                             ),
-                             figWidth = figWidth,
-                             figHeight = figHeight
-                           );
+                             ));
                            
                            cat("\n\n### Bar chart for models (x) and scores (y) by instrument (color)\n\n");
 
@@ -690,10 +681,7 @@ barcharts_aggregated <-
                                "Bar chart, aggregated by criterion, ",
                                "for weight profile ",
                                currentWeightProfile
-                             ),
-                             figWidth = figWidth,
-                             figHeight = figHeight
-                           );
+                             ));
 
                            return(res);
                            
@@ -728,15 +716,11 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
   title2 <- paste0("Sensitivity analysis (weight-based) rank plot for ", i);
   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$scorePlot +
                  ggplot2::labs(title = title1),
-               figCaption = title1,
-             figWidth = figWidth,
-             figHeight = figHeight);
+               figCaption = title1);
 
   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$rankPlot +
                  ggplot2::labs(title = title2),
-               figCaption = title2,
-             figWidth = figWidth,
-             figHeight = figHeight);
+               figCaption = title2);
 
 }
 
@@ -881,38 +865,26 @@ confidenceBasedSensitivityAnalysis$setToZero <-
 ###----------------------------------------------------------------------------
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria minima");
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMin$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria minima");
 
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to criteria maxima");
 
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToMax$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to criteria maxima");
 
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$scorePlot,
-             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to zero",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) score plot when setting estimates to zero");
 
 
 ufs::knitFig(confidenceBasedSensitivityAnalysis$setToZero$rankPlot,
-             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to zero",
-             figWidth = figWidth,
-             figHeight = figHeight);
+             figCaption = "Sensitity analysis (confidence-based) rank plot when setting estimates to zero");
 
 
 ```
