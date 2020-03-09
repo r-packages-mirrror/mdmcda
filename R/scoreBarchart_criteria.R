@@ -9,7 +9,10 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    yLab = estimateCol,
                                    criteriaOrder = NULL,
                                    criteriaLabels = NULL,
-                                   theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+                                   theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize")),
+                                   guides = ggplot2::guide_legend(ncol = 3),
+                                   legend.position = "bottom",
+                                   legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
   if (!is.null(criteriaOrder)) {
     row.names(estimatesByCriterion) <-
@@ -31,11 +34,14 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                       color = strokeColor,
                       size = strokeSize) +
     theme +
-    ggplot2::guides(fill = ggplot2::guide_legend(ncol = 1),
-                    color = ggplot2::guide_legend(ncol = 1)) +
-    ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 45,
+    ggplot2::guides(fill = guides,
+                    color = guides) +
+    ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90,
                                                               hjust = 1,
-                                                              vjust = 1)) +
+                                                              vjust = 0.5),
+                   plot.title.position = "plot",
+                   legend.position = legend.position,
+                   legend.box.margin = legend.box.margin) +
     ggplot2::labs(title = title,
                   x = xLab,
                   y = yLab) +
