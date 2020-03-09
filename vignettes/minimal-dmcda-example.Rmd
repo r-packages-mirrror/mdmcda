@@ -299,16 +299,43 @@ weightProfileNames <- names(weightProfiles);
 
 ## Final weights
 
-### Weights:
+```{r weight-overview-add-clusters}
 
-```{r weight-overview}
-
-knitr::kable(weightsMeansAndSDs[order(weightsMeansAndSDs$rescaled_total, decreasing = TRUE), c('criterion_id', 'rescaled_total')], row.names=FALSE);
+weightsMeansAndSDs$isCluster <-
+  weightsMeansAndSDs$criterion_id %in% weightsMeansAndSDs$parentCriterion_id;
 
 ```
 
-# Results
+### Cluster weights
 
+The weights for the criteria clusters are:
+
+```{r weight-overview-criteria-clusters}
+
+tmpDf <- weightsMeansAndSDs[weightsMeansAndSDs$isCluster, ];
+
+knitr::kable(tmpDf[order(tmpDf$rescaled_total, decreasing = TRUE),
+                   c('criterion_id', 'rescaled_product')], row.names=FALSE);
+rm(tmpDf);
+
+```
+
+### Criteria weights
+
+The weights for the criteria are:
+
+```{r weight-overview-criteria}
+
+tmpDf <- weightsMeansAndSDs[!weightsMeansAndSDs$isCluster, ];
+
+knitr::kable(tmpDf[order(tmpDf$rescaled_total, decreasing = TRUE),
+                   c('criterion_id', 'rescaled_total')], row.names=FALSE);
+rm(tmpDf);
+
+```
+
+
+# Results
 
 ```{r compute-scores-per-scenario, results="asis"}
 
