@@ -134,12 +134,12 @@ opts$ez$figSize <-
 
     if (setOption) {
       dmcda::opts$set(ggSaveFigWidth = width,
-                    ggSaveFigHeight = height,
-                    ggSaveUnits = "in");
+                      ggSaveFigHeight = height,
+                      ggSaveUnits = "in");
     }
 
     if (setFontSize) {
-      dmcda::opts$set(ggBaseSize = round(1.5 * max(c(height, width))));
+      dmcda::opts$set(ggBaseSize = round(fontSizeMultiplier * max(c(height, width))));
     }
 
     return(invisible(c(width = width,
