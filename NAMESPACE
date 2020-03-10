@@ -3,6 +3,7 @@
 export(add_weights)
 export(aggregate_estimates_by_criterion)
 export(aggregate_estimates_by_criterionCluster)
+export(aggregate_estimates_by_decision)
 export(autofill_estimates)
 export(build_weighed_estimate_df)
 export(cat0)
