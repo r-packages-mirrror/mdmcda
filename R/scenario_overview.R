@@ -36,5 +36,10 @@ scenario_overview <- function(multiEstimateDf,
                     }
                   }));
 
+  res$byDecision$decision_and_alternative <-
+    paste0(res$byDecision$decision_id,
+           ": ",
+           res$byDecision$alternative_label);
+
   return(res);
 }
