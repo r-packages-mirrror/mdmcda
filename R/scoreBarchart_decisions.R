@@ -17,17 +17,21 @@ scoreBarchart_decisions <- function(estimatesByDecision,
 
   if (is.null(decisionLabelCol)) {
     decisionLabelCol <- "decisionLabelCol";
+
+    if (is.null(decisionLabels)) {
+      estimatesByDecision[, decisionLabelCol] <-
+        estimatesByDecision$decision_id;
+    } else {
+      estimatesByDecision[, decisionLabelCol] <-
+        decisionLabels;
+    }
   }
 
-  if (is.null(decisionLabels)) {
-    estimatesByDecision[, decisionLabelCol] <-
-      estimatesByDecision$decision_id;
+  if (is.null(decisionOrder)) {
+    decisionOrder <- estimatesByDecision$decision_id;
+    # row.names(estimatesByDecision) <-
+    #   estimatesByDecision$decision_id;
   } else {
-    estimatesByDecision[, decisionLabelCol] <-
-      decisionLabels;
-  }
-
-  if (!is.null(decisionOrder)) {
     if (is.character(decisionOrder) &&
         (length(decisionOrder) == 1) &&
         ((tolower(decisionOrder) == "decreasing") ||
@@ -37,11 +41,9 @@ scoreBarchart_decisions <- function(estimatesByDecision,
                                   decreasing = (tolower(decisionOrder) == "decreasing")),
                             "decision_id"];
     }
-    row.names(estimatesByDecision) <-
-      estimatesByDecision$decision_id;
-    estimatesByDecision <- estimatesByDecision[decisionOrder, ];
-  } else {
-    decisionOrder <- seq_along(1:nrow(estimatesByDecision));
+    # row.names(estimatesByDecision) <-
+    #   estimatesByDecision$decision_id;
+    # estimatesByDecision <- estimatesByDecision[decisionOrder, ];
   }
 
   estimatesByDecision$decision_id <-
