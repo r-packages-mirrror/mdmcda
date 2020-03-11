@@ -9,22 +9,45 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    yLab = estimateCol,
                                    criteriaOrder = NULL,
                                    criteriaLabels = NULL,
+                                   criteriaLabelCol = NULL,
                                    theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize")),
                                    guides = ggplot2::guide_legend(ncol = 2),
                                    legend.position = "bottom",
                                    legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
-  if (!is.null(criteriaOrder)) {
+
+
+  if (is.null(criterionLabelCol)) {
+    criterionLabelCol <- "criterionLabelCol";
+  }
+
+  if (!is.null(criterionLabels)) {
+    estimatesByCriterion[, criterionLabelCol] <-
+      estimatesByCriterion$criterion_id;
+  }
+
+  if (!is.null(criterionOrder)) {
+    if (is.character(criterionOrder) &&
+        (length(criterionOrder) == 1) &&
+        ((tolower(criterionOrder) == "decreasing") ||
+         (tolower(criterionOrder) == "increasing"))) {
+      criterionOrder <-
+        estimatesByCriterion[order(estimatesByCriterion[, estimateCol],
+                                  decreasing = (tolower(criterionOrder) == "decreasing")),
+                            "decision_id"];
+    }
     row.names(estimatesByCriterion) <-
       estimatesByCriterion$criterion_id;
-    estimatesByCriterion <- estimatesByCriterion[criteriaOrder, ];
-    estimatesByCriterion$criterion_id <-
-      factor(estimatesByCriterion$criterion_id,
-             levels = criteriaOrder,
-             ordered = TRUE);
+    estimatesByCriterion <- estimatesByDecision[criterionOrder, ];
   } else {
-    tmpDf <- estimatesByCriterion;
+    criterionOrder <- seq_along(1:nrow(estimatesByCriterion));
   }
+
+  estimatesByCriterion$criterion_id <-
+    factor(estimatesByCriterion$criterion_id,
+           levels = criterionOrder,
+           labels = estimatesByDecision[, criterionLabelCol],
+           ordered = TRUE);
 
   res <-
     ggplot2::ggplot(data = estimatesByCriterion,
@@ -46,11 +69,6 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                   x = xLab,
                   y = yLab) +
     NULL;
-
-  if (!is.null(criteriaLabels)) {
-    res <- res +
-      ggplot2::scale_x_discrete(labels = criteriaLabels);
-  }
 
   return(res);
 

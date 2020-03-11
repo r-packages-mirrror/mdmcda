@@ -21,17 +21,14 @@ scoreBarchart_decisions <- function(estimatesByDecision,
 
   if (!is.null(decisionLabels)) {
     estimatesByDecision[, decisionLabelCol] <-
-      decisionLabels;
-  } else {
-    estimatesByDecision[, decisionLabelCol] <-
       estimatesByDecision$decision_id;
   }
 
   if (!is.null(decisionOrder)) {
     if (is.character(decisionOrder) &&
         (length(decisionOrder) == 1) &&
-        ((tolower(decisionOrder) == "decreasing")) ||
-         (tolower(decisionOrder) == "increasing")) {
+        ((tolower(decisionOrder) == "decreasing") ||
+         (tolower(decisionOrder) == "increasing"))) {
       decisionOrder <-
         estimatesByDecision[order(estimatesByDecision[, estimateCol],
                                   decreasing = (tolower(decisionOrder) == "decreasing")),
