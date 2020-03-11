@@ -21,9 +21,12 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     criteriaLabelCol <- "criteriaLabelCol";
   }
 
-  if (!is.null(criterionLabels)) {
+  if (is.null(criteriaLabels)) {
     estimatesByCriterion[, criteriaLabelCol] <-
       estimatesByCriterion$criterion_id;
+  } else {
+    estimatesByCriterion[, criteriaLabelCol] <-
+      criteriaLabels;
   }
 
   if (!is.null(criterionOrder)) {

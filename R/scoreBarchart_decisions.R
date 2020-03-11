@@ -19,9 +19,12 @@ scoreBarchart_decisions <- function(estimatesByDecision,
     decisionLabelCol <- "decisionLabelCol";
   }
 
-  if (!is.null(decisionLabels)) {
+  if (is.null(decisionLabels)) {
     estimatesByDecision[, decisionLabelCol] <-
       estimatesByDecision$decision_id;
+  } else {
+    estimatesByDecision[, decisionLabelCol] <-
+      decisionLabels;
   }
 
   if (!is.null(decisionOrder)) {
