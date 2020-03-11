@@ -47,7 +47,8 @@ scoreBarchart_decisions <- function(estimatesByDecision,
              "must be a character vector with the criterion_id value ",
              "in the desired order!");
       }
-    estimatesByDecision <- estimatesByDecision[decisionOrder, ];
+      estimatesByDecision <- estimatesByDecision[decisionOrder, ];
+    }
   }
 
   estimatesByDecision$decision_id <-
