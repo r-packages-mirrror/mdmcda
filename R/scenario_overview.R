@@ -3,6 +3,7 @@ scenario_overview <- function(multiEstimateDf,
                               estimateCol,
                               scenario,
                               alternativeValues,
+                              createPlots = TRUE,
                               decisionPlotOrder = "decreasing",
                               criterionPlotOrder = "decreasing",
                               criteriaOrder = NULL,
@@ -46,24 +47,26 @@ scenario_overview <- function(multiEstimateDf,
            decision_alternative_sep,
            res$byDecision$alternative_label);
 
-  res$scoreBarchart_decisions <-
-    scoreBarchart_decisions(
-      res$byDecision,
-      estimateCol = estimateCol,
-      fill = "white",
-      decisionOrder = decisionPlotOrder,
-      decisionLabels = res$byDecision$decision_and_alternative
-    );
+  if (createPlots) {
 
-  res$scoreBarchart_criteria <-
-    scoreBarchart_criteria(
-      estimatesByCriterion = res$byCriterion,
-      estimateCol = estimateCol,
-      fill = "white",
-      criteriaOrder = criterionPlotOrder,
-      criteriaLabels = criteriaLabels
-    );
+    res$scoreBarchart_decisions <-
+      scoreBarchart_decisions(
+        res$byDecision,
+        estimateCol = estimateCol,
+        fill = "white",
+        decisionOrder = decisionPlotOrder,
+        decisionLabels = res$byDecision$decision_and_alternative
+      );
 
+    res$scoreBarchart_criteria <-
+      scoreBarchart_criteria(
+        estimatesByCriterion = res$byCriterion,
+        estimateCol = estimateCol,
+        fill = "white",
+        criteriaOrder = criterionPlotOrder,
+        criteriaLabels = criteriaLabels
+      );
+  }
 
   return(res);
 }
