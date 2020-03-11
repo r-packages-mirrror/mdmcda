@@ -31,22 +31,28 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
   }
 
   if (is.null(criteriaOrder)) {
-    criteriaOrder <- estimatesByCriterion$criterion_id;
-    # row.names(estimatesByCriterion) <-
-    #   estimatesByCriterion$criterion_id;
+    criteriaOrder <-
+      estimatesByCriterion$criterion_id;
+    row.names(estimatesByCriterion) <-
+      estimatesByCriterion$criterion_id;
   } else {
     if (is.character(criteriaOrder) &&
-        (length(criteriaOrder) == 1) &&
-        ((tolower(criteriaOrder) == "decreasing") ||
-         (tolower(criteriaOrder) == "increasing"))) {
-      criteriaOrder <-
-        estimatesByCriterion[order(estimatesByCriterion[, estimateCol],
-                                   decreasing = (tolower(criteriaOrder) == "decreasing")),
-                             "decision_id"];
+        (length(criteriaOrder) == 1)) {
+      if ((tolower(criteriaOrder) == "decreasing") ||
+          (tolower(criteriaOrder) == "increasing")) {
+        criteriaOrder <-
+          estimatesByCriterion[order(estimatesByCriterion[, estimateCol],
+                                     decreasing = (tolower(criteriaOrder) == "decreasing")),
+                               "criterion_id"];
+        row.names(estimatesByCriterion) <-
+          criteriaOrder;
+      } else {
+        stop("If `criteriaOrder` is not 'increasing' or 'decreasing', it ",
+             "must be a character vector with the criterion_id value ",
+             "in the desired order!");
+      }
     }
-    # row.names(estimatesByCriterion) <-
-    #   estimatesByCriterion$criterion_id;
-    # estimatesByCriterion <- estimatesByCriterion[criteriaOrder, ];
+    estimatesByCriterion <- estimatesByCriterion[criteriaOrder, ];
   }
 
   estimatesByCriterion$criterion_id <-
