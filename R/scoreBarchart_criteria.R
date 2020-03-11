@@ -29,26 +29,26 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
       criteriaLabels;
   }
 
-  if (!is.null(criterionOrder)) {
-    if (is.character(criterionOrder) &&
-        (length(criterionOrder) == 1) &&
-        ((tolower(criterionOrder) == "decreasing") ||
-         (tolower(criterionOrder) == "increasing"))) {
-      criterionOrder <-
+  if (!is.null(criteriaOrder)) {
+    if (is.character(criteriaOrder) &&
+        (length(criteriaOrder) == 1) &&
+        ((tolower(criteriaOrder) == "decreasing") ||
+         (tolower(criteriaOrder) == "increasing"))) {
+      criteriaOrder <-
         estimatesByCriterion[order(estimatesByCriterion[, estimateCol],
-                                   decreasing = (tolower(criterionOrder) == "decreasing")),
+                                   decreasing = (tolower(criteriaOrder) == "decreasing")),
                             "decision_id"];
     }
     row.names(estimatesByCriterion) <-
       estimatesByCriterion$criterion_id;
-    estimatesByCriterion <- estimatesByDecision[criterionOrder, ];
+    estimatesByCriterion <- estimatesByDecision[criteriaOrder, ];
   } else {
-    criterionOrder <- seq_along(1:nrow(estimatesByCriterion));
+    criteriaOrder <- seq_along(1:nrow(estimatesByCriterion));
   }
 
   estimatesByCriterion$criterion_id <-
     factor(estimatesByCriterion$criterion_id,
-           levels = criterionOrder,
+           levels = criteriaOrder,
            labels = estimatesByDecision[, criteriaLabelCol],
            ordered = TRUE);
 
