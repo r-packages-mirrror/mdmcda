@@ -52,7 +52,7 @@ scenario_overview <- function(multiEstimateDf,
       estimateCol = estimateCol,
       fill = "white",
       decisionOrder = decisionPlotOrder,
-      decisionLabels = scenarioScores$repression$byDecision$decision_and_alternative
+      decisionLabels = res$byDecision$decision_and_alternative
     );
 
   res$scoreBarchart_criteria <-

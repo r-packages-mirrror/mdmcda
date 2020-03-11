@@ -33,7 +33,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
          (tolower(criterionOrder) == "increasing"))) {
       criterionOrder <-
         estimatesByCriterion[order(estimatesByCriterion[, estimateCol],
-                                  decreasing = (tolower(criterionOrder) == "decreasing")),
+                                   decreasing = (tolower(criterionOrder) == "decreasing")),
                             "decision_id"];
     }
     row.names(estimatesByCriterion) <-
