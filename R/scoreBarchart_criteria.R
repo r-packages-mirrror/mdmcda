@@ -17,12 +17,12 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
 
 
 
-  if (is.null(criterionLabelCol)) {
-    criterionLabelCol <- "criterionLabelCol";
+  if (is.null(criteriaLabelCol)) {
+    criteriaLabelCol <- "criteriaLabelCol";
   }
 
   if (!is.null(criterionLabels)) {
-    estimatesByCriterion[, criterionLabelCol] <-
+    estimatesByCriterion[, criteriaLabelCol] <-
       estimatesByCriterion$criterion_id;
   }
 
@@ -46,7 +46,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
   estimatesByCriterion$criterion_id <-
     factor(estimatesByCriterion$criterion_id,
            levels = criterionOrder,
-           labels = estimatesByDecision[, criterionLabelCol],
+           labels = estimatesByDecision[, criteriaLabelCol],
            ordered = TRUE);
 
   res <-
