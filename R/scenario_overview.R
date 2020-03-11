@@ -60,8 +60,7 @@ scenario_overview <- function(multiEstimateDf,
       estimatesByCriterion = res$byCriterion,
       estimateCol = estimateCol,
       fill = "white",
-      decisionOrder = criterionPlotOrder,
-      criteriaOrder = criteriaOrder,
+      criteriaOrder = criterionPlotOrder,
       criteriaLabels = criteriaLabels
     );
 
