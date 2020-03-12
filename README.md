@@ -28,6 +28,12 @@ The pkgdown website for this project is located at
 
 See the introductory vignette for an introduction.
 
+Other R packages for MCDA are [the `MCDA`
+package](https://cran.r-project.org/package=MCDA), [the `MCDM`
+package](https://cran.r-project.org/package=MCDM), and the recently
+retired [`DecisionAnalysis`
+package](https://cran.r-project.org/package=DecisionAnalysis).
+
 <!--------------------------------------------->
 
 <!--  End of a custom bit for every package  -->
