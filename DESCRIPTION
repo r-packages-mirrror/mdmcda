@@ -1,5 +1,5 @@
-Package: dmcda
-Title: Dynamic Multi Criteria Decision Aid
+Package: mdmcda
+Title: Multi Decision Multi Criteria Decision Aid
 Version: 0.0.1
 Authors@R: 
     person(given = "Gjalt-Jorn Ygram",

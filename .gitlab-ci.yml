@@ -25,7 +25,7 @@ devtools-check:
 #    - apt-get install -y --no-install-recommends ${APT_PKGS}
     - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
   script:
-    - R -e 'install.packages(c("dplyr", "yum", "justifier"))'
+    - R -e 'install.packages(c("dplyr", "justifier", "kableExtra", "knitr", "yum"))'
     - R -e 'devtools::install_gitlab("r-packages/yum")'
     - R -e 'devtools::install_gitlab("r-packages/justifier")'
     - R -e 'devtools::check()'
