@@ -5,6 +5,8 @@ highlighted_alternative_table <-
            scenario = NULL,
            decisionLabels = NULL,
            alternativeValues = NULL,
+           colNames = c("Decisions and alternatives",
+                        "Scores"),
            caption = NULL,
            omitAlternativeLabelRegex = NULL,
            returnTableOnly = TRUE) {
@@ -21,9 +23,11 @@ highlighted_alternative_table <-
         unique(scores_per_alternative$decision_id),
         function(decision_id) {
           res <-
-            scores_per_alternative[scores_per_alternative$decision_id == decision_id, ];
+            scores_per_alternative[
+              scores_per_alternative$decision_id == decision_id,
+            ];
           res$alternative_label <-
-            unlist(estimates$alternativeValues[[decision_id]])[res$alternative_id];
+            unlist(alternativeValues[[decision_id]])[res$alternative_id];
           if (is.null(decreasing)) {
             altOrder <-
               seq_along(res$score);
@@ -33,7 +37,10 @@ highlighted_alternative_table <-
                     decreasing = decreasing);
           }
           res <- res[altOrder,
-                     c('decision_id', 'alternative_id', 'alternative_label', 'score')];
+                     c('decision_id',
+                       'alternative_id',
+                       'alternative_label',
+                       'score')];
           if (is.null(scenario)) {
             res$highlight <-
               FALSE;
@@ -69,14 +76,19 @@ highlighted_alternative_table <-
     alternativesPerDecision <-
       table(res$dat$decision_id)[unique(res$dat$decision_id)];
     packStartRows <-
-      newSequenceAt(res$dat$decision_id, shift=FALSE);
+      newSequenceAt(res$dat$decision_id);
     packEndRows <-
-      newSequenceEnds(res$dat$decision_id, shift=FALSE);
+      newSequenceEnds(res$dat$decision_id);
     # decisionPacks <-
     #   mapply(c,
     #          packStartRows,
     #          packEndRows,
     #          SIMPLIFY = FALSE);
+
+    res$decisionPacking <-
+      list(alternativesPerDecision = alternativesPerDecision,
+           packStartRows = packStartRows,
+           packEndRows = packEndRows);
 
     res$dat.clean <-
       res$dat[, c("alternative_label",
@@ -86,6 +98,7 @@ highlighted_alternative_table <-
       kableExtra::kable_styling(
         knitr::kable(
           res$dat.clean,
+          col.names = colNames,
           caption = caption
         )
       );
