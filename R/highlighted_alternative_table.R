@@ -8,8 +8,10 @@ highlighted_alternative_table <-
            colNames = c("Decisions and alternatives",
                         "Scores"),
            caption = NULL,
+           estimateParseFunction = NULL,
            omitAlternativeLabelRegex = NULL,
-           returnTableOnly = TRUE) {
+           returnTableOnly = TRUE,
+           ...) {
 
     if (is.null(decisionLabels)) {
       decisionLabels <-
@@ -93,6 +95,12 @@ highlighted_alternative_table <-
     res$dat.clean <-
       res$dat[, c("alternative_label",
                   "score")];
+
+    if (!is.null(estimateParseFunction)) {
+      res$dat.clean$score <-
+        estimateParseFunction(res$dat.clean$score,
+                              ...);
+    }
 
     res$table <-
       kableExtra::kable_styling(
