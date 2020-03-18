@@ -9,7 +9,7 @@ compute_best_alternatives <- function(scores_per_alternative,
                                  stringsAsFactors = FALSE);
   scores_per_alternative <-
     scores_per_alternative[grepl(ignoreRegex,
-                                 scores_per_alternative$alternative_id), ];
+                                 !scores_per_alternative$alternative_id), ];
   for (currentWeightProfile in unique(scores_per_alternative[, 'weightProfile'])) {
     for (currentDecision in unique(scores_per_alternative[, 'decision_id'])) {
       ### Get temporary dataframe for convenience
