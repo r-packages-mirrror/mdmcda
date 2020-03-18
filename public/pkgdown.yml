@@ -1,7 +1,7 @@
-pandoc: 2.7.2
+pandoc: 2.7.3
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
-  minimal-dmcda-example: ../../../../../../B:/Data/R/dmcda/vignettes/minimal-dmcda-example.html
-  old-minimal-dmcda-example: ../../../../../../B:/Data/R/dmcda/vignettes/old-minimal-dmcda-example.html
+  minimal-mdmcda-example: ../../../../../../B:/Data/R/mdmcda/vignettes/minimal-mdmcda-example.html
+  old-minimal-mdmcda-example: ../../../../../../B:/Data/R/mdmcda/vignettes/old-minimal-mdmcda-example.html
 

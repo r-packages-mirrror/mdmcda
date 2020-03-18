@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamic Multi Criteria Decision Aid • dmcda</title>
+<title>Multi Decision Multi Criteria Decision Aid • mdmcda</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Dynamic Multi Criteria Decision Aid">
+<script src="pkgdown.js"></script><meta property="og:title" content="Multi Decision Multi Criteria Decision Aid">
 <meta property="og:description" content="Complex decisions can be hard to oversee. To assist in such efforts,
     Multi Criteria Decision Analysis (MCDA) has been developed. This package implements
     functionality to read YAML files using the yum and the justifier packages, enabling
@@ -34,7 +34,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">dmcda</a>
+        <a class="navbar-link" href="index.html">mdmcda</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
@@ -58,10 +58,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/minimal-dmcda-example.html">Minimal Dynamic Multi-Criteria Decision Aid example</a>
+      <a href="articles/minimal-mdmcda-example.html">Multi-Decision Multi-Criteria Decision Aid example</a>
     </li>
     <li>
-      <a href="articles/old-minimal-dmcda-example.html">Old Minimal Dynamic Multi-Criteria Decision Aid example</a>
+      <a href="articles/old-minimal-mdmcda-example.html">Old Minimal Dynamic Multi-Criteria Decision Aid example</a>
     </li>
   </ul>
 </li>
@@ -94,6 +94,7 @@
 <!-- Start of a custom bit for every package -->
 <!--------------------------------------------->
 <p>See the introductory vignette for an introduction.</p>
+<p>Other R packages for MCDA are <a href="https://cran.r-project.org/package=MCDA">the <code>MCDA</code> package</a>, <a href="https://cran.r-project.org/package=MCDM">the <code>MCDM</code> package</a>, and the recently retired <a href="https://cran.r-project.org/package=DecisionAnalysis"><code>DecisionAnalysis</code> package</a>.</p>
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->
 <!--------------------------------------------->
@@ -102,9 +103,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the released version of <code>dmcda</code> from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'dmcda'</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'dmcda'</span>);</span></code></pre></div>
 <p>You can install the development version of <code>dmcda</code> from <a href="https://gitlab.com">GitLab</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_gitlab.html">install_gitlab</a></span>(<span class="st">'r-packages/dmcda'</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_gitlab.html">install_gitlab</a></span>(<span class="st">'r-packages/dmcda'</span>);</span></code></pre></div>
 <p>(assuming you have <code>remotes</code> installed; otherwise, install that first using the <code>install.packages</code> function)</p>
 <!--------------------------------------------->
 <!-- Start of a custom bit for every package -->

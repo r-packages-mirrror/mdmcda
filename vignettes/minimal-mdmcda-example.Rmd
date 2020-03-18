@@ -1,10 +1,10 @@
 ---
-title: "Minimal Dynamic Multi-Criteria Decision Aid example"
+title: "Multi-Decision Multi-Criteria Decision Aid example"
 author: "Gjalt-Jorn Peters"
 date: "`r format(Sys.time(), '%H:%M:%S on %Y-%m-%d %Z (GMT%z)')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Minimal Dynamic Multi-Criteria Decision Aid example}
+  %\VignetteIndexEntry{Multi-Decision Multi-Criteria Decision Aid example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -53,7 +53,7 @@ quietGitLabUpdate <- function(x, quiet = TRUE) {
 
 quietGitLabUpdate("r-packages/yum");
 quietGitLabUpdate("r-packages/ufs");
-quietGitLabUpdate("r-packages/dmcda");
+quietGitLabUpdate("r-packages/mdmcda");
 
 ### Check for required packages
 ufs::checkPkgs("tidyr");
@@ -61,7 +61,7 @@ ufs::checkPkgs("readxl");
 ufs::checkPkgs("svglite");
 
 ### First get the directory where 'dmcda' is installed
-currentDir <- system.file(package="dmcda");
+currentDir <- system.file(package="mdmcda");
 
 ### Specify the path of the example DMCDA files
 currentDir <- file.path(currentDir, "extdata");
