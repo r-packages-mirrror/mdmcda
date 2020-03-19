@@ -1,10 +1,10 @@
 ---
-title: "Multi-Decision Multi-Criteria Decision Aid example"
+title: "Multi-Decision Multi-Criteria Decision Aid MDMA example"
 author: "Gjalt-Jorn Peters"
 date: "`r format(Sys.time(), '%H:%M:%S on %Y-%m-%d %Z (GMT%z)')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Multi-Decision Multi-Criteria Decision Aid example}
+  %\VignetteIndexEntry{Multi-Decision Multi-Criteria Decision Aid MDMA example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -34,7 +34,7 @@ ufs::opts$set(ggSaveFigWidth = 4,
               knitAndSave.catPlot = TRUE,
               knitFig.catPlot = TRUE);
 
-dmcda::opts$set(ggSaveFigWidth = 4,
+mdmcda::opts$set(ggSaveFigWidth = 4,
                 ggSaveFigHeight = 4,
                 ggSaveUnits = "in",
                 ggBaseSize = 12);
@@ -71,7 +71,8 @@ currentDir <- here::here('inst');
 
 ### Set paths with files
 dataDir <- file.path(currentDir,
-                     "extdata");
+                     "extdata",
+					           "mdma-example");
 
 ```
 
@@ -81,15 +82,15 @@ dataDir <- file.path(currentDir,
 
 # Loading data
 
-## Criteria (outcomes of chosen policy)
+## Criteria
 
 The following tree of criteria was established:
 
 ```{r load-criteria, message=FALSE, comment=""}
 
 criteria <-
-  dmcda::load_criteria_from_xl(file.path(dataDir,
-                                         "example-fullCriteriaDf.xlsx"),
+  mdmcda::load_criteria_from_xl(file.path(dataDir,
+                                         "mdma-example-fullCriteriaDf.xlsx"),
                                showGraphs = FALSE);
 
 print(criteria$criteriaTree);
@@ -109,7 +110,7 @@ These criteria have a hierarchical structure to facilitate weighing them efficie
 ```{r load-estimates, fig.width=10, results="asis"}
 
 estimates <-
-  dmcda::load_performance_tables(input = file.path(dataDir),
+  mdmcda::load_performance_tables(input = file.path(dataDir),
                                  regex = "^performance_subtable_for_",
                                  recursive = FALSE);
 
@@ -128,7 +129,7 @@ To set weights, all experts submitted individually determined weights for each o
 ```{r load-weights, fig.width=10, results="asis"}
 
 weights <-
-  dmcda::load_weights_from_xl(input = file.path(dataDir,
+  mdmcda::load_weights_from_xl(input = file.path(dataDir,
                                                 "example-criteria-weights.xlsx"));
 
 ```
@@ -225,7 +226,7 @@ During the scoring days, each scorer expressed their confidence in each complete
 ###----------------------------------------------------------------------------
 
 estimates <-
-  dmcda::process_confidences(estimates);
+  mdmcda::process_confidences(estimates);
 
 ```
 
@@ -251,14 +252,14 @@ Again, the visualisations can be inspected in the second tab.
 ### Aggregate weight estimates
 ###----------------------------------------------------------------------------
 
-weightsMeansAndSDs <- dmcda::weightsMeansAndSDs(weights);
+weightsMeansAndSDs <- mdmcda::weightsMeansAndSDs(weights);
 
 ###----------------------------------------------------------------------------
 ### Combine with criteria tree to accumulate over the hierachy
 ###----------------------------------------------------------------------------
 
 combinedWeightsAndCriteria <-
-  dmcda::combine_weights_and_criteria(weightsMeansAndSDs,
+  mdmcda::combine_weights_and_criteria(weightsMeansAndSDs,
                                       criteria);
 
 ###----------------------------------------------------------------------------
@@ -274,7 +275,7 @@ criteria <- combinedWeightsAndCriteria$criteria;
 
 weightsByParentCriterionPlots <-
   lapply(weights$parentCriteria, function(criteriaCluster_id) {
-    return(dmcda::scorerWeightPlot(weights = weights,
+    return(mdmcda::scorerWeightPlot(weights = weights,
                                    weightsMeansAndSDs = weightsMeansAndSDs,
                                    criteriaCluster_id = criteriaCluster_id,
                                    meanColumns = c("weight_mean",
@@ -290,7 +291,7 @@ names(weightsByParentCriterionPlots) <- weights$parentCriteria;
 ###----------------------------------------------------------------------------
 
 weightProfiles <-
-  dmcda::create_weight_profile(weightsMeansAndSDs = weightsMeansAndSDs,
+  mdmcda::create_weight_profile(weightsMeansAndSDs = weightsMeansAndSDs,
                                criteria = criteria,
                                profileName = "meanWeights");
 weightProfileNames <- names(weightProfiles);
@@ -358,7 +359,7 @@ criterionNames <- criteria$convenience$childCriteriaByCluster;
 
 ### Create dataframe for the weighed estimates
 weighedEstimates <-
-  dmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
+  mdmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
                                    criterionNames = criterionNames,
                                    decisionNames = decisionNames,
                                    scenarioNames = scenarioNames,
@@ -368,7 +369,7 @@ weighedEstimates <-
 
 ### Actually weigh the estimates
 weighedEstimates <-
-  dmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
+  mdmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
                                     weight_profiles = weightProfiles);
 
 ### Add weights and weighed estimates to multiEstimateDf
@@ -424,12 +425,12 @@ Every estimate for an effect of an instrument’s option on an outcome is multip
 
 ### Do the computations
 scores_per_alternative <-
-  dmcda::compute_scores_per_alternative(multiEstimateDf = estimates$multiEstimateDf,
+  mdmcda::compute_scores_per_alternative(multiEstimateDf = estimates$multiEstimateDf,
                                         weightProfiles = weightProfiles);
 bestAlternatives <-
-  dmcda::compute_best_alternatives(scores_per_alternative=scores_per_alternative);
+  mdmcda::compute_best_alternatives(scores_per_alternative=scores_per_alternative);
 worstAlternatives <-
-  dmcda::compute_worst_alternatives(scores_per_alternative=scores_per_alternative);
+  mdmcda::compute_worst_alternatives(scores_per_alternative=scores_per_alternative);
 
 bestAlternatives$alternative_label <-
   unlist(lapply(1:nrow(bestAlternatives),
@@ -474,7 +475,7 @@ scenarioDefinitions <-
 
 ### Create dataframe for the weighed estimates
 weighedEstimates <-
-  dmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
+  mdmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
                                    criterionNames = criterionNames,
                                    decisionNames = decisionNames,
                                    scenarioNames = names(scenarioDefinitions),
@@ -484,7 +485,7 @@ weighedEstimates <-
 
 ### Actually weigh the estimates
 weighedEstimates <-
-  dmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
+  mdmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
                                     weight_profiles = weightProfiles);
 
 ### Add parent criterion identifiers
@@ -496,11 +497,11 @@ weighedEstimates$parentCriterion_id <-
 ###----------------------------------------------------------------------------
 
 bestScenarioEstimates <-
-  dmcda::select_scenario_estimates(multiEstimateDf = estimates$multiEstimateDf,
+  mdmcda::select_scenario_estimates(multiEstimateDf = estimates$multiEstimateDf,
                                    scenario = bestScenario);
 
 bestScenarioEstimatesByCriterion <-
-  dmcda::aggregate_estimates_by_criterion(bestScenarioEstimates,
+  mdmcda::aggregate_estimates_by_criterion(bestScenarioEstimates,
                                           estimateCol = "meanWeights_weighed_estimate",
                                           na.rm=TRUE);
 
@@ -527,7 +528,7 @@ knitr::kable(bestAlternatives[bestAlternatives$weightProfile=="meanWeights",
 ###----------------------------------------------------------------------------
 
 scoresPerScenario <-
-  dmcda::scores_by_scenario(weighedEstimates = weighedEstimates,
+  mdmcda::scores_by_scenario(weighedEstimates = weighedEstimates,
                             estimateCols = 'meanWeights_weighed_estimate');
 
 scoresPerScenario$meanWeights_weighed_estimate <-
@@ -589,7 +590,7 @@ heatmaps <-
                     function(currentScenario) {
 
                       return(
-                        dmcda::performanceTable_heatmap(
+                        mdmcda::performanceTable_heatmap(
                           weighedEstimates,
                           estimateCol = paste0(weightprofile_id,
                                                "_weighed_estimate"),
@@ -634,7 +635,7 @@ barcharts <-
   return(stats::setNames(
     lapply(unique(weighedEstimates$scenario_id),
            function(scenario_id) {
-             return(dmcda::scoreBarchart_decisions_criteria(weighedEstimates,
+             return(mdmcda::scoreBarchart_decisions_criteria(weighedEstimates,
                                                             scenario_id=scenario_id,
                                                             estimateCol=paste0(currentWeightProfile,
                                                                                "_weighed_estimate"),
@@ -673,7 +674,7 @@ barcharts_aggregated <-
                            ufs::cat0("\n\n### Weight profile: ", currentWeightProfile, "\n\n");
 
                            res$byDecision <-
-                             dmcda::scoreBarchart_scenarios_criteria(
+                             mdmcda::scoreBarchart_scenarios_criteria(
                                weighedEstimates,
                                estimateCol = paste0(currentWeightProfile,
                                                     "_weighed_estimate"),
@@ -682,7 +683,7 @@ barcharts_aggregated <-
                              );
 
                            res$byCriterion <-
-                             dmcda::scoreBarchart_scenarios_decisions(
+                             mdmcda::scoreBarchart_scenarios_decisions(
                                weighedEstimates,
                                estimateCol = paste0(currentWeightProfile,
                                                     "_weighed_estimate"),
@@ -731,7 +732,7 @@ In these sensitivity analyses, the weights of each individual scorer were applie
 ###----------------------------------------------------------------------------
 
 wbsa <-
-  dmcda::weight_based_sensitivity_analysis(multiEstimateDf = multiEstimateDf,
+  mdmcda::weight_based_sensitivity_analysis(multiEstimateDf = multiEstimateDf,
                                            weightsMeansAndSDs = weightsMeansAndSDs,
                                            weighedEstimates = weighedEstimates,
                                            criteria = criteria,
@@ -756,7 +757,7 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
 # scorerWeightProfiles <- list();
 # for (currentScorer in weights$scorerTxt[1:3]) {
 #   scorerWeights[[currentScorer]] <-
-#     dmcda::scorerWeights_to_profile(weights = weights,
+#     mdmcda::scorerWeights_to_profile(weights = weights,
 #                                     scorer = currentScorer,
 #                                     criteria = criteria);
 #   scorerWeights[[currentScorer]]$weight <-
@@ -771,13 +772,13 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
 # 
 # ### Add new weights
 # weighedEstimates_withScorerWeights <-
-#   dmcda::add_weights(weighedEstimates = weighedEstimates,
+#   mdmcda::add_weights(weighedEstimates = weighedEstimates,
 #                      weightProfiles = scorerWeightProfiles,
 #                      weightProfileNames = names(scorerWeightProfiles));
 # 
 # ### Compute scenario scores
 # scoresPerScenario_withScorerWeights <-
-#   dmcda::scores_by_scenario(weighedEstimates = weighedEstimates_withScorerWeights,
+#   mdmcda::scores_by_scenario(weighedEstimates = weighedEstimates_withScorerWeights,
 #                             estimateCols = paste0(names(scorerWeightProfiles),
 #                                                   '_weighed_estimate'));
 # 
@@ -858,33 +859,33 @@ In these sensitivity analyses, 10% of the estimates about which the think tank e
 confidenceBasedSensitivityAnalysis <- list();
 
 confidenceBasedSensitivityAnalysis$setToMin <-
-  dmcda::confidence_based_sensitivity_analysis(
+  mdmcda::confidence_based_sensitivity_analysis(
     multiEstimateDf = estimates$multiEstimateDf,
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
     weightProfiles = weightProfiles,
-    transformationFunction = dmcda::setToMin
+    transformationFunction = mdmcda::setToMin
   );
 
 confidenceBasedSensitivityAnalysis$setToMax <-
-  dmcda::confidence_based_sensitivity_analysis(
+  mdmcda::confidence_based_sensitivity_analysis(
     multiEstimateDf = estimates$multiEstimateDf,
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
     weightProfiles = weightProfiles,
-    transformationFunction = dmcda::setToMax
+    transformationFunction = mdmcda::setToMax
   );
 
 confidenceBasedSensitivityAnalysis$setToZero <-
-  dmcda::confidence_based_sensitivity_analysis(
+  mdmcda::confidence_based_sensitivity_analysis(
     multiEstimateDf = estimates$multiEstimateDf,
     collapsedConfidences = estimates$collapsedConfidences,
     criteria = criteria,
     scenarioDefinitions = scenarioDefinitions,
     weightProfiles = weightProfiles,
-    transformationFunction = dmcda::setToZero
+    transformationFunction = mdmcda::setToZero
   );
 
 ###----------------------------------------------------------------------------
