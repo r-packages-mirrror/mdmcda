@@ -1,24 +1,24 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dmcda 📦
+# mdmcda 📦
 
-## Dynamic Multi Criteria Decision Analysis
+## Multi-Decision Multi-Criteria Decision Analysis
 
 <!-- badges: start -->
 
 [![Pipeline
-status](https://gitlab.com/r-packages/dmcda/badges/master/pipeline.svg)](https://gitlab.com/r-packages/dmcda/commits/master)
+status](https://gitlab.com/r-packages/mdmcda/badges/master/pipeline.svg)](https://gitlab.com/r-packages/mdmcda/commits/master)
 
 [![Coverage
-status](https://codecov.io/gl/r-packages/dmcda/branch/master/graph/badge.svg)](https://codecov.io/gl/r-packages/dmcda?branch=master)
+status](https://codecov.io/gl/r-packages/mdmcda/branch/master/graph/badge.svg)](https://codecov.io/gl/r-packages/mdmcda?branch=master)
 
-<!-- [![Dependency status](https://tinyverse.netlify.com/badge/dmcda)](https://CRAN.R-project.org/package=dmcda) -->
+<!-- [![Dependency status](https://tinyverse.netlify.com/badge/mdmcda)](https://CRAN.R-project.org/package=mdmcda) -->
 
 <!-- badges: end -->
 
 The pkgdown website for this project is located at
-<https://r-packages.gitlab.io/dmcda>.
+<https://r-packages.gitlab.io/mdmcda>.
 
 <!--------------------------------------------->
 
@@ -42,18 +42,18 @@ package](https://cran.r-project.org/package=DecisionAnalysis).
 
 ## Installation
 
-You can install the released version of `dmcda` from
+You can install the released version of `mdmcda` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages('dmcda');
+install.packages('mdmcda');
 ```
 
-You can install the development version of `dmcda` from
+You can install the development version of `mdmcda` from
 [GitLab](https://gitlab.com) with:
 
 ``` r
-remotes::install_gitlab('r-packages/dmcda');
+remotes::install_gitlab('r-packages/mdmcda');
 ```
 
 (assuming you have `remotes` installed; otherwise, install that first

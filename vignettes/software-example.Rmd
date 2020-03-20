@@ -638,7 +638,7 @@ barcharts_aggregated <-
 
 In these sensitivity analyses, the weights of each individual scorer were applied, after which the total score for each scenario was then computed again. The results were then plotted.
 
-```{r sensitivity-analyses-based-on-weights, results="asis"}
+```{r sensitivity-analyses-based-on-weights, results="asis", eval=FALSE}
 
 ###----------------------------------------------------------------------------
 ###----------------------------------------------------------------------------
@@ -654,18 +654,18 @@ wbsa <-
                                            scenarioDefinitions = scenarioDefinitions,
                                            weightCols = c(rescaled = 'weight_mean_rescaled_proportion'));
 
-for (i in names(wbsa$weight_mean_rescaled_proportion)) {
-  title1 <- paste0("Sensitivity analysis (weight-based) score plot for ", i);
-  title2 <- paste0("Sensitivity analysis (weight-based) rank plot for ", i);
-  ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$scorePlot +
-                 ggplot2::labs(title = title1),
-               figCaption = title1);
-
-  ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$rankPlot +
-                 ggplot2::labs(title = title2),
-               figCaption = title2);
-
-}
+# for (i in names(wbsa$weight_mean_rescaled_proportion)) {
+#   title1 <- paste0("Sensitivity analysis (weight-based) score plot for ", i);
+#   title2 <- paste0("Sensitivity analysis (weight-based) rank plot for ", i);
+#   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$scorePlot +
+#                  ggplot2::labs(title = title1),
+#                figCaption = title1);
+# 
+#   ufs::knitFig(wbsa$weight_mean_rescaled_proportion[[i]]$rankPlot +
+#                  ggplot2::labs(title = title2),
+#                figCaption = title2);
+# 
+# }
 
 # ### Create weight profiles for each scorer who provided weights
 # scorerWeights <- list();
@@ -763,7 +763,7 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
 
 In these sensitivity analyses, 10% of the estimates about which the think tank expressed the least confidence were sequentially set to the minimum possible value of the corresponding outcome, to the maximum possible value for the corresponding outcome, and to zero. The total score for each scenario was then computed again.
 
-```{r sensitivity-analyses-based-on-confidence, results="asis"}
+```{r sensitivity-analyses-based-on-confidence, results="asis", eval=FALSE}
 
 ###----------------------------------------------------------------------------
 ###----------------------------------------------------------------------------

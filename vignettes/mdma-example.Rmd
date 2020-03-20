@@ -130,7 +130,7 @@ To set weights, all experts submitted individually determined weights for each o
 
 weights <-
   mdmcda::load_weights_from_xl(input = file.path(dataDir,
-                                                "example-criteria-weights.xlsx"));
+                                                "mdma-example-criteria-weights.xlsx"));
 
 ```
 
@@ -146,7 +146,7 @@ Weights were loaded from `r length(weights$individualWeights)` scorers with iden
 
 scenariosFile <-
   file.path(dataDir,
-            "example-scenario-definitions.xlsx");
+            "mdma-example-scenario-definitions.xlsx");
 
 scenarios <-
   as.data.frame(readxl::read_excel(scenariosFile,

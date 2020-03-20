@@ -14,8 +14,8 @@ output: github_document
 ### automatically.
 ###-----------------------------------------------------------------------------
 
-packagename <- 'dmcda';
-packageSubtitle <- "Dynamic Multi Criteria Decision Analysis";
+packagename <- 'mdmcda';
+packageSubtitle <- "Multi-Decision Multi-Criteria Decision Analysis";
 
 ###-----------------------------------------------------------------------------
 
