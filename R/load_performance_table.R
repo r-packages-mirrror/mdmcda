@@ -19,13 +19,13 @@ load_performance_table <- function(file,
     } else {
       suppressMessages(
         res$estimates <-
-          as.data.frame(readxl::read_excel(file,
+          as.data.frame(openxlsx::read.xlsx(file,
                                            sheet = estimatesSheet,
                                            col_names = FALSE),
                         stringsAsFactors = FALSE)
       )
       res$confidences <-
-        as.data.frame(readxl::read_excel(file,
+        as.data.frame(openxlsx::read.xlsx(file,
                                          sheet = confidencesSheet,
                                          col_names = TRUE),
                       stringsAsFactors = FALSE);

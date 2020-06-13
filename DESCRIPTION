@@ -23,6 +23,7 @@ Imports:
     justifier (>= 0.0.1),
     kableExtra (>= 1.1.0),
     knitr (>= 1.22),
+    openxlsx (>= 4.1),
     yum (>= 0.0.1)
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2

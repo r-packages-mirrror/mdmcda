@@ -2,7 +2,7 @@
 load_weights_from_xl <- function(input) {
 
   weightsSheets <-
-    readxl::excel_sheets(input);
+    openxlsx::getSheetNames(input);
 
   weightSheets <-
     grep('Scorer',
@@ -12,7 +12,7 @@ load_weights_from_xl <- function(input) {
   individualWeights <- list();
   for (i in weightSheets) {
     suppressMessages(individualWeights[[i]] <-
-      readxl::read_excel(input,
+      openxlsx::read.xlsx(input,
                          sheet = i));
   }
 

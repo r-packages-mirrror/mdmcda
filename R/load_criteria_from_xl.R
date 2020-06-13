@@ -8,7 +8,7 @@ load_criteria_from_xl <- function(input,
   }
 
   fullCriteriaDf <-
-    as.data.frame(readxl::read_excel(input),
+    as.data.frame(openxlsx::read.xlsx(input),
                   stringsAsFactors = FALSE);
 
   criteriaDf <-
