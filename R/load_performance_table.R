@@ -21,13 +21,13 @@ load_performance_table <- function(file,
         res$estimates <-
           as.data.frame(openxlsx::read.xlsx(file,
                                            sheet = estimatesSheet,
-                                           col_names = FALSE),
+                                           colNames = FALSE),
                         stringsAsFactors = FALSE)
       )
       res$confidences <-
         as.data.frame(openxlsx::read.xlsx(file,
                                          sheet = confidencesSheet,
-                                         col_names = TRUE),
+                                         colNames = TRUE),
                       stringsAsFactors = FALSE);
     }
   } else {
