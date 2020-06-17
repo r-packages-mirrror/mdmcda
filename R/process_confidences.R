@@ -6,7 +6,7 @@ process_confidences <- function(estimates,
                                 confidencesInDetail = "Estimate confidence scores for effects of %s",
                                 figWidth = mdmcda::opts$get("ggSaveFigWidth"),
                                 figHeight = mdmcda::opts$get("ggSaveFigHeight"),
-                                theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+                                theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
     gsub("[a-zA-Z]+([0-9]+)",
