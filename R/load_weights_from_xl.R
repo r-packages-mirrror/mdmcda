@@ -1,5 +1,6 @@
 #' @export
-load_weights_from_xl <- function(input) {
+load_weights_from_xl <- function(input,
+                                 allowedNAs = 1) {
 
   weightsSheets <-
     openxlsx::getSheetNames(input);
@@ -11,9 +12,9 @@ load_weights_from_xl <- function(input) {
 
   individualWeights <- list();
   for (i in weightSheets) {
-    suppressMessages(individualWeights[[i]] <-
+    individualWeights[[i]] <-
       openxlsx::read.xlsx(input,
-                         sheet = i));
+                          sheet = i);
   }
 
   ### Reject sheets with missing values and remove
@@ -22,8 +23,7 @@ load_weights_from_xl <- function(input) {
     lapply(individualWeights,
            function(x) {
              ### To reject all empty sheets
-             #if (length(unique(x$weight)) < 3) {
-             if (any(is.na(x$weight))) {
+             if (sum(is.na(x$weight)) > allowedNAs) {
                return(NULL);
              } else {
                return(x[, c("scorer",
