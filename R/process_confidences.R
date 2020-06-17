@@ -4,8 +4,8 @@ process_confidences <- function(estimates,
                                 confidencesByDecisionPlot = "Estimate confidence scores by decision",
                                 confidencesByCriterionPlot = "Estimate confidence scores by criterion",
                                 confidencesInDetail = "Estimate confidence scores for effects of %s",
-                                figWidth = dmcda::opts$get("ggSaveFigWidth"),
-                                figHeight = dmcda::opts$get("ggSaveFigHeight"),
+                                figWidth = mdmcda::opts$get("ggSaveFigWidth"),
+                                figHeight = mdmcda::opts$get("ggSaveFigHeight"),
                                 theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
