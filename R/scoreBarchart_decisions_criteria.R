@@ -7,7 +7,7 @@ scoreBarchart_decisions_criteria <- function (weighedEstimates,
                                               title = paste0("DMCDA bar chart to compare decisions for ", scenario_id),
                                               xLab = "Decisions",
                                               yLab = "Weighed estimated effect",
-                                              theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize")),
+                                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                               guides = ggplot2::guide_legend(ncol = 2),
                                               legend.position = "bottom",
                                               legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {

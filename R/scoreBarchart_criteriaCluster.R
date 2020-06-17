@@ -8,7 +8,7 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                           xLab = "Criteria Cluster",
                                           yLab = estimateCol,
                                           title = "DMCDA criteria bar chart",
-                                          theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize")),
+                                          theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                           guides = ggplot2::guide_legend(nrow = 1),
                                           legend.position = "top") {
 

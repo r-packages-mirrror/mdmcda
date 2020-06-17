@@ -10,7 +10,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    criteriaOrder = NULL,
                                    criteriaLabels = NULL,
                                    criteriaLabelCol = NULL,
-                                   theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize")),
+                                   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                    guides = ggplot2::guide_legend(ncol = 2),
                                    legend.position = "bottom",
                                    legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {

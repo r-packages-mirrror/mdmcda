@@ -7,7 +7,7 @@ scorerWeightPlot <- function(weights,
                              meanAlphas = NULL,
                              title = paste0("Scorer weight plot for criteria cluster",
                                             criteriaCluster_id),
-                             theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+                             theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
   res <-
     ggplot2::ggplot(data=weights$allWeights[weights$allWeights$parentCriterion_id==criteriaCluster_id, ],
                     mapping=ggplot2::aes_string(y="criterion_id",

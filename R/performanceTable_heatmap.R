@@ -4,7 +4,7 @@ performanceTable_heatmap <- function(weighedEstimates,
                                      scenario_id,
                                      criterionLabels = NULL,
                                      decisionLabels = NULL,
-                                     theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+                                     theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
   fullEstimateRange <-
     range(weighedEstimates[, estimateCol],
           na.rm=TRUE);

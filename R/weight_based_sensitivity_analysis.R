@@ -11,9 +11,9 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightCols = c(raw = 'weight_mean_proportion',
                                                              rescaled = 'weight_mean_rescaled_proportion'),
                                               steps = 10,
-                                              silent = dmcda::opts$get("silent"),
+                                              silent = mdmcda::opts$get("silent"),
                                               lineSize = 1,
-                                              theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+                                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
 
   criteriaClusters <-
     names(criteria$criteriaTree$children);
@@ -106,19 +106,19 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                                                 weightCol));
 
                     res$weightProfiles <-
-                      dmcda::create_weight_profile(weightsMeansAndSDs = res$combinedWeightsAndCriteria$weightsMeansAndSDs,
+                      mdmcda::create_weight_profile(weightsMeansAndSDs = res$combinedWeightsAndCriteria$weightsMeansAndSDs,
                                                    criteria = res$combinedWeightsAndCriteria$criteria,
                                                    profileName = "sensitivityAnalysis",
                                                    weightCol = "weight_mean_rescaled_proportion_total_percentage",
                                                    clusterWeightCol = "weight_mean_rescaled_proportion_product");
 
                     res$weighedEstimates <-
-                      dmcda::add_weights(weighedEstimates = weighedEstimates,
+                      mdmcda::add_weights(weighedEstimates = weighedEstimates,
                                          weightProfiles = res$weightProfiles,
                                          weightProfileNames = names(res$weightProfiles));
 
                     res$scoresPerScenario <-
-                      dmcda::scores_by_scenario(weighedEstimates = res$weighedEstimates,
+                      mdmcda::scores_by_scenario(weighedEstimates = res$weighedEstimates,
                                                 estimateCols = paste0(names(res$weightProfiles),
                                                                       '_weighed_estimate'));
 

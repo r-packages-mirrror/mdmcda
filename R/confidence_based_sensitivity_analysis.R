@@ -12,9 +12,9 @@ confidence_based_sensitivity_analysis <-
            scorer = "all",
            confidenceThresholds = seq(0, 1, by=.1),
            setMissingEstimates = 0,
-           silent = dmcda::opts$get("silent"),
+           silent = mdmcda::opts$get("silent"),
            lineSize = 1,
-           theme = ggplot2::theme_minimal(base_size = dmcda::opts$get("ggBaseSize"))) {
+           theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
 
     res <- list(input = as.list(environment()));
     res$sensitivityAnalyses <-
