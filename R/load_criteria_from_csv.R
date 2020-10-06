@@ -40,6 +40,9 @@ load_criteria_from_csv <- function(input,
                                    showGraphs=showGraphs,
                                    ...);
 
+  ### In data.tree, isLeaf is an active property, so we have to rename it
+  names(criteriaDf)[names(criteriaDf) == "isLeaf"] <- "leafCriterion";
+
   criteriaTree <- data.tree::as.Node(criteriaDf, mode="network");
 
   ### Take first child, since the root element (e.g. 'outcomes' or

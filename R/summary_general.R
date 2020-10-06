@@ -4,13 +4,13 @@ summary_general <- function(criteria,
                             estimates) {
 
   res <- paste0("In this dynamic multi criteria decision aid, ",
-                sum(criteria$criteriaDf$isLeaf),
+                sum(criteria$criteriaDf$leafCriterion),
                 " criteria have been specified, as well as ",
                 nrow(decisions_and_alternatives$decisionsDf),
                 " decisions that together encompass a total of ",
                 nrow(decisions_and_alternatives$alternativesDf),
                 " alternatives. This means that ",
-                sum(criteria$criteriaDf$isLeaf) * nrow(decisions_and_alternatives$alternativesDf),
+                sum(criteria$criteriaDf$leafCriterion) * nrow(decisions_and_alternatives$alternativesDf),
                 " estimates are required. Of these, ",
                 nrow(estimates$estimatesDf),
                 " have been specified.");

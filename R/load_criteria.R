@@ -39,7 +39,7 @@ load_criteria <- function(input,
                criteriaTree$Get(function(node) return(node$isLeaf)),
                stringsAsFactors=FALSE);
   names(criteriaDf) <-
-    c('id', 'parentCriterion', 'label', 'description', 'isLeaf');
+    c('id', 'parentCriterion', 'label', 'description', 'leafCriterion');
   row.names(criteriaDf) <-
     NULL;
 
@@ -61,7 +61,7 @@ load_criteria <- function(input,
       'lo_score', 'lo_label',
       'zero_score', 'zero_label',
       'hi_score', 'hi_label',
-      'id', 'parentCriterion', 'isLeaf');
+      'id', 'parentCriterion', 'leafCriterion');
   row.names(fullCriteriaDf) <-
     NULL;
 
@@ -78,7 +78,7 @@ load_criteria <- function(input,
   row.names(anchoringDf) <-
     NULL;
   anchoringDf <-
-    anchoringDf[criteriaDf$isLeaf, ];
+    anchoringDf[criteriaDf$leafCriterion, ];
 
   anchoringDf$lo_score <-
     as.numeric(anchoringDf$lo_score);

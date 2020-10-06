@@ -104,7 +104,7 @@ write_performance_table <- function(performance_table,
 
     ### Get a list of criteria and their parents
     criteriaDf <-
-      criteria$criteriaDf[criteria$criteriaDf$isLeaf, c("id", "parentCriterion", "label")];
+      criteria$criteriaDf[criteria$criteriaDf$leafCriterion, c("id", "parentCriterion", "label")];
 
     ### Add row and column numbers from performance table
 

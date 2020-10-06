@@ -38,7 +38,7 @@ scenario_scores <- function(criteria,
                                  "', no alternative is selected!"));
         } else {
           ### And per criterion
-          for (currentCriterion in criteriaDf$id[criteriaDf$isLeaf]) {
+          for (currentCriterion in criteriaDf$id[criteriaDf$leafCriterion]) {
             scoreSelection <-
               autofilledEstimatesDf$decision_id==currentDecision &
               autofilledEstimatesDf$decision_alternative_value==currentAlternative &

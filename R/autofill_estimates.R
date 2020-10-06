@@ -14,7 +14,7 @@ autofill_estimates <- function(estimates,
     estimatesDf;
 
   for (i in 1:nrow(alternativesDf)) {
-    for (j in which(criteriaDf$isLeaf)) {
+    for (j in which(criteriaDf$leafCriterion)) {
       if (any((estimatesDf$decision_id == alternativesDf[i, 'decision_id']) &
               (estimatesDf$decision_alternative_value == alternativesDf[i, 'value']) &
               (estimatesDf$criterion_id == criteriaDf[j, 'id']))) {

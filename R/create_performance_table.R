@@ -2,9 +2,9 @@
 create_performance_table <- function(criteria,
                                      decisions_and_alternatives) {
   criteria_ids <-
-    criteria$criteriaDf[criteria$criteriaDf$isLeaf, 'id'];
+    criteria$criteriaDf[criteria$criteriaDf$leafCriterion, 'id'];
   criteria_labels <-
-    criteria$criteriaDf[criteria$criteriaDf$isLeaf, 'label'];
+    criteria$criteriaDf[criteria$criteriaDf$leafCriterion, 'label'];
   decision_ids <- decisions_and_alternatives$alternativesDf$decision_id;
   decision_labels <- decisions_and_alternatives$alternativesDf$decision_label;
   alternative_values <- decisions_and_alternatives$alternativesDf$value;
