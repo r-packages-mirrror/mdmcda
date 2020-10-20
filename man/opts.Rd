@@ -7,14 +7,16 @@
 \alias{get}
 \alias{reset}
 \title{Options for the dmcda package}
-\format{An object of class \code{list} of length 5.}
+\format{
+An object of class \code{list} of length 5.
+}
 \usage{
 opts
 }
 \description{
-The `dmcda::opts` object contains three functions to set, get, and reset
-options used by the dmcda package. Use `dmcda::opts$set` to set options,
-`dmcda::opts$get` to get options, or `dmcda::opts$reset` to reset specific or
+The `mdmcda::opts` object contains three functions to set, get, and reset
+options used by the dmcda package. Use `mdmcda::opts$set` to set options,
+`mdmcda::opts$get` to get options, or `mdmcda::opts$reset` to reset specific or
 all options to their default values.
 }
 \details{
@@ -23,12 +25,12 @@ It is normally not necessary to get or set `dmcda` options.
 The following arguments can be passed:
 
 \describe{
-  \item{...}{For `dmcda::opts$set`, the dots can be used to specify the options
+  \item{...}{For `mdmcda::opts$set`, the dots can be used to specify the options
   to set, in the format `option = value`, for example,
   `varViewCols = c("values", "level")`. For
-  `dmcda::opts$reset`, a list of options to be reset can be passed.}
-  \item{option}{For `dmcda::opts$set`, the name of the option to set.}
-  \item{default}{For `dmcda::opts$get`, the default value to return if the
+  `mdmcda::opts$reset`, a list of options to be reset can be passed.}
+  \item{option}{For `mdmcda::opts$set`, the name of the option to set.}
+  \item{default}{For `mdmcda::opts$get`, the default value to return if the
   option has not been manually specified.}
 }
 
@@ -46,19 +48,19 @@ The following options can be set:
 }
 \examples{
 ### Get the default columns in the variable view
-dmcda::opts$get(varViewCols);
+mdmcda::opts$get(varViewCols);
 
 ### Set it to a custom version
-dmcda::opts$set(varViewCols = c("values", "level"));
+mdmcda::opts$set(varViewCols = c("values", "level"));
 
 ### Check that it worked
-dmcda::opts$get(varViewCols);
+mdmcda::opts$get(varViewCols);
 
 ### Reset this option to its default value
-dmcda::opts$reset(varViewCols);
+mdmcda::opts$reset(varViewCols);
 
 ### Check that the reset worked, too
-dmcda::opts$get(varViewCols);
+mdmcda::opts$get(varViewCols);
 
 }
 \keyword{datasets}

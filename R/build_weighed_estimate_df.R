@@ -1,3 +1,36 @@
+#' Build a dataframe for weighed estimates
+#'
+#' This function is used to produce a data frame that can then be filled with
+#' weighed estimates using [weigh_estimates_by_profile()].
+#'
+#' @param multiEstimateDf A multi estimate data frame that should contain
+#' columns `decision_id`, `decision_label`, `decision_alternative_value`,
+#' `decisions_alternative_label`, `criterion_id`, `criterion_label`, and
+#' one or more estimates in columns named with the scorer identifiers. Columns
+#' with the `_id` suffix contain identifiers, and columns with the `_label`
+#' suffix contain human-readable labels. This dataframe is stored in the
+#' object called `multiEstimateDf` returned by a call to
+#' [load_performance_tables()] to read a set of scored performance tables.
+#' @param criterionNames A vector with the identifiers of the criteria
+#' to process.
+#' @param scorer The name of the scorer whose estimates to process.
+#' @param decisionNames A vector with the identifiers of the decisions
+#' to process.
+#' @param scenarioNames A vector with the identifiers of the scenarios to
+#' process.
+#' @param scenarioDefinitions A named list of named vectors. Every named vector
+#' contains the selected alternative from each decision (with the decision's
+#' identifier being each elements name), and every vectors name is the
+#' identifier of the scenario it defines.
+#' @param setMissingEstimates The value to set for missing estimates.
+#' @param warnForMissingEstimates Whether to warn when missing estimates are
+#' envountered (and replaced by `setMissingEstimates`).
+#' @param warnForDuplicateEstimates Whether to warn when duplicate estimates are
+#' encountered. If multiple estimates _are_ encountered, the mean is taken.
+#'
+#' @return A dataframe with columns `scenario_id`, `decision_id`,
+#' `alternative_value`, `criterion_id`, and `estimate`. This data frame can
+#' be supplied to [weigh_estimates_by_profile()].
 #' @export
 build_weighed_estimate_df <-
   function(multiEstimateDf,

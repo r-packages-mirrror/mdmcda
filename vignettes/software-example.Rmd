@@ -195,7 +195,7 @@ childCriteriaIds <-
                   unique(parentCriterionIds));
   
 childCriteriaByCluster <-
-  criteria$criteriaDf[criteria$criteriaDf$isLeaf, ]
+  criteria$criteriaDf[criteria$criteriaDf$leafCriterion, ]
 childCriteriaByCluster <-
   childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
 

@@ -193,7 +193,7 @@ childCriteriaIds <-
                   unique(parentCriterionIds));
   
 childCriteriaByCluster <-
-  criteria$criteriaDf[criteria$criteriaDf$isLeaf, ]
+  criteria$criteriaDf[criteria$criteriaDf$leafCriterion, ]
 childCriteriaByCluster <-
   childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
 
@@ -260,7 +260,7 @@ weightsMeansAndSDs <- mdmcda::weightsMeansAndSDs(weights);
 
 combinedWeightsAndCriteria <-
   mdmcda::combine_weights_and_criteria(weightsMeansAndSDs,
-                                      criteria);
+                                       criteria);
 
 ###----------------------------------------------------------------------------
 ### Extract and set complemented objects
@@ -476,17 +476,17 @@ scenarioDefinitions <-
 ### Create dataframe for the weighed estimates
 weighedEstimates <-
   mdmcda::build_weighed_estimate_df(multiEstimateDf = estimates$multiEstimateDf,
-                                   criterionNames = criterionNames,
-                                   decisionNames = decisionNames,
-                                   scenarioNames = names(scenarioDefinitions),
-                                   scenarioDefinitions = scenarioDefinitions,
-                                   scorer = "all",
-                                   setMissingEstimates=0);
+                                    criterionNames = criterionNames,
+                                    decisionNames = decisionNames,
+                                    scenarioNames = names(scenarioDefinitions),
+                                    scenarioDefinitions = scenarioDefinitions,
+                                    scorer = "all",
+                                    setMissingEstimates=0);
 
 ### Actually weigh the estimates
 weighedEstimates <-
   mdmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
-                                    weight_profiles = weightProfiles);
+                                     weight_profiles = weightProfiles);
 
 ### Add parent criterion identifiers
 weighedEstimates$parentCriterion_id <-
