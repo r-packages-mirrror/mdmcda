@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • mdmcda</title>
+<title>Export weight profiles to an Excel spreadsheet — export_weightProfile_to_xl • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Export weight profiles to an Excel spreadsheet — export_weightProfile_to_xl" />
+<meta property="og:description" content="Weight profiles are lists of vectors with weights. Every vector is named,
+with the names being the criterion identifiers of the criterion each weight
+corresponds to. Every named vector (i.e. very weight profile) also has
+an attribute that is another named vector: the weights of the criteria
+clusters. Those are named vectors, too (again, with the names being the
+criteria identifiers, but this time of the criteria clusters)." />
 
 
 
@@ -58,7 +64,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,102 +121,43 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Export weight profiles to an Excel spreadsheet</h1>
+    
+    <div class="hidden name"><code>export_weightProfile_to_xl.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Weight profiles are lists of vectors with weights. Every vector is named,
+with the names being the criterion identifiers of the criterion each weight
+corresponds to. Every named vector (i.e. very weight profile) also has
+an attribute that is another named vector: the weights of the criteria
+clusters. Those are named vectors, too (again, with the names being the
+criteria identifiers, but this time of the criteria clusters).</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>export_weightProfile_to_xl</span>(<span class='no'>weightProfiles</span>, <span class='no'>file</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="build_weighed_estimate_df.html">build_weighed_estimate_df()</a></code> </p>
-        </td>
-        <td><p>Build a dataframe for weighed estimates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cat0.html">cat0()</a></code> </p>
-        </td>
-        <td><p>Concatenate to screen without spaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="export_weightProfile_to_xl.html">export_weightProfile_to_xl()</a></code> </p>
-        </td>
-        <td><p>Export weight profiles to an Excel spreadsheet</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="insert_if_knitting_to_html.html">insert_if_knitting_to_html()</a></code> </p>
-        </td>
-        <td><p>Insert text only if knitting to HTML</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="insert_if_knitting_to_pdf.html">insert_if_knitting_to_pdf()</a></code> </p>
-        </td>
-        <td><p>Insert text only if knitting to pdf</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="opts.html">opts</a></code> </p>
-        </td>
-        <td><p>Options for the dmcda package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_criteria.html">plot_criteria()</a></code> </p>
-        </td>
-        <td><p>Produce a DiagrammeR plot and show it and/or convert to SVG</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="repeatStr.html">repeatStr()</a></code> </p>
-        </td>
-        <td><p>Repeat a string a number of times</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vecTxt.html">vecTxt()</a></code> <code><a href="vecTxt.html">vecTxtQ()</a></code> </p>
-        </td>
-        <td><p>Easily parse a vector into a character value</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="weigh_estimates_by_profile.html">weigh_estimates_by_profile()</a></code> </p>
-        </td>
-        <td><p>Weigh estimates by one or more weight profiles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="weigh_multiEstimateDf.html">weigh_multiEstimateDf()</a></code> </p>
-        </td>
-        <td><p>Weigh estimates in a multiEstimateDf</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>weightProfiles</th>
+      <td><p>The weightprofiles object, for example as created
+by a call to [create_weight_profile()].</p></td>
+    </tr>
+    <tr>
+      <th>file</th>
+      <td><p>The file to write to.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Invisibly, the list of dataframes that's written to the file.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
