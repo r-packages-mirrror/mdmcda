@@ -66,11 +66,11 @@ plot_criteria <- function(criteria,
 
   ### Render graph
   if (renderGraph) {
-    DiagrammeR::render_graph(graph);
+    print(DiagrammeR::render_graph(graph));
   }
 
   if (is.logical(returnSVG) && (!returnSVG)) {
-    return(graph);
+    return(invisible(graph));
   }
 
   ### Produce SVG
@@ -84,7 +84,7 @@ plot_criteria <- function(criteria,
                    graphSvg);
 
   if (is.logical(returnSVG) && (!returnSVG)) {
-    return(graphSvg);
+    return(invisible(graphSvg));
   } else {
     return(list(graph = graphs,
                 graphSvg = graphSvg));
