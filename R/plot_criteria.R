@@ -66,7 +66,7 @@ plot_criteria <- function(criteria,
 
   ### Render graph
   if (renderGraph) {
-    print(DiagrammeR::render_graph(graph));
+    DiagrammeR::render_graph(graph);
   }
 
   if (is.logical(returnSVG) && (!returnSVG)) {
@@ -83,10 +83,10 @@ plot_criteria <- function(criteria,
                    '<svg viewBox=',
                    graphSvg);
 
-  if (is.logical(returnSVG) && (!returnSVG)) {
-    return(invisible(graphSvg));
+  if (is.logical(returnSVG) && (returnSVG)) {
+    return(graphSvg);
   } else {
-    return(list(graph = graphs,
+    return(list(graph = graph,
                 graphSvg = graphSvg));
   }
 }
