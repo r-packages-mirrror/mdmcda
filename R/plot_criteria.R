@@ -66,7 +66,7 @@ plot_criteria <- function(criteria,
 
   ### Render graph
   if (renderGraph) {
-    DiagrammeR::render_graph(graph);
+    print(DiagrammeR::render_graph(graph));
   }
 
   if (is.logical(returnSVG) && (!returnSVG)) {
