@@ -27,4 +27,4 @@ Imports:
     openxlsx (>= 4.1),
     yum (>= 0.0.1)
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

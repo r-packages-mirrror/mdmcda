@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Concatenate to screen without spaces — cat0 • mdmcda</title>
+<title>Import scenario definitions — import_scenarioDefinitions_from_xl • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Concatenate to screen without spaces — cat0" />
-<meta property="og:description" content="The cat0 function is to cat what paste0 is to paste; it
-simply makes concatenating many strings without a separator easier." />
+<meta property="og:title" content="Import scenario definitions — import_scenarioDefinitions_from_xl" />
+<meta property="og:description" content="Import scenario definitions" />
 
 
 
@@ -119,38 +118,32 @@ simply makes concatenating many strings without a separator easier." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Concatenate to screen without spaces</h1>
+    <h1>Import scenario definitions</h1>
     
-    <div class="hidden name"><code>cat0.Rd</code></div>
+    <div class="hidden name"><code>import_scenarioDefinitions_from_xl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The cat0 function is to cat what paste0 is to paste; it
-simply makes concatenating many strings without a separator easier.</p>
+    <p>Import scenario definitions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cat0</span><span class='op'>(</span><span class='va'>...</span>, sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>import_scenarioDefinitions_from_xl</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>The character vector(s) to print; passed to [cat].</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>The separator to pass to [cat], of course, `""` by default.</p></td>
+      <th>file</th>
+      <td><p>The filename holding the scenario definitions as exported by
+[export_scenarioDefinitions_to_xl()], where each worksheet has a
+column `decision_id` and a column `alternative_value`.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Nothing (invisible `NULL`, like [cat]).</p>
+    <p>A list of vectors (i.e. a scenarioDefinitions object).</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>cat0</span><span class='op'>(</span><span class='st'>"The first variable is '"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>"'."</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; The first variable is 'mpg'.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
