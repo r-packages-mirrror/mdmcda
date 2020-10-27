@@ -17,6 +17,13 @@ before_script:
   - R -e 'remotes::install_gitlab("r-packages/justifier")'
   - R -e 'install.packages("pkgdown");'
 
+devtools-check:
+  stage: test
+  script:
+    - R -e 'devtools::check()'
+  tags:
+    - docker
+
 pages:
   stage: build
   script:
@@ -25,16 +32,9 @@ pages:
 #    - cp img/hex-logo.png public/img/hex-logo.png
   artifacts:
     paths:
-    - public
-  only:
-  - master
-
-devtools-check:
-  stage: test
-  script:
-    - R -e 'devtools::check()'
-  tags:
-    - docker
+      - public
+#  only:
+#    - prod
 
 #coverage:
 #  stage: deploy
