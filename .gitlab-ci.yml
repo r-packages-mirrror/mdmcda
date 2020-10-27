@@ -17,18 +17,18 @@ before_script:
   - R -e 'remotes::install_gitlab("r-packages/justifier")'
   - R -e 'install.packages("pkgdown");'
 
-devtools-check:
+devtools_check:
   stage: test
   script:
-    - R -e 'install.packages(c("DiagrammeRsvg"))'
+    - R -e 'install.packages("DiagrammeRsvg")'
+    - R -e 'install.packages("ufs")'
     - R -e 'devtools::check()'
-  tags:
-    - docker
 
 pages:
   stage: build
   script:
     - R -e 'install.packages(c("DiagrammeRsvg"))'
+    - R -e 'install.packages("ufs")'
     - R -e 'pkgdown::build_site();'
 #    - mkdir public/img
 #    - cp img/hex-logo.png public/img/hex-logo.png
