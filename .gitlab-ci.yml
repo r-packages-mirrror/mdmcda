@@ -7,15 +7,14 @@ variables:
 image: rocker/tidyverse
 
 before_script:
-  script:
-    - apt-get update
+  - apt-get update
 #    - apt-get install -y --no-install-recommends ${APT_PKGS}
-    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
-    - R -e 'install.packages(c("dplyr", "kableExtra", "knitr"))'
-    - R -e 'install.packages(c("openxlsx"))'
-    - R -e 'remotes::install_gitlab("r-packages/yum")'
-    - R -e 'remotes::install_gitlab("r-packages/justifier")'
-    - R -e 'install.packages("pkgdown");'
+  - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+  - R -e 'install.packages(c("dplyr", "kableExtra", "knitr"))'
+  - R -e 'install.packages(c("openxlsx"))'
+  - R -e 'remotes::install_gitlab("r-packages/yum")'
+  - R -e 'remotes::install_gitlab("r-packages/justifier")'
+  - R -e 'install.packages("pkgdown");'
 
 pages:
   stage: build
