@@ -10,7 +10,7 @@ before_script:
   - apt-get update
 #    - apt-get install -y --no-install-recommends ${APT_PKGS}
   - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
-  - R -e 'install.packages(c("dplyr", "kableExtra", "knitr"))'
+  - R -e 'install.packages(c("dplyr", "kableExtra", "knitr", "here"))'
   - R -e 'install.packages(c("ufs", "DiagrammeR", "DiagrammeRsvg", "svglite"))'
   - R -e 'install.packages(c("openxlsx"))'
   - R -e 'remotes::install_gitlab("r-packages/yum")'
