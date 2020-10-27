@@ -4,11 +4,23 @@ variables:
   _R_CHECK_FORCE_SUGGESTS_: "true"
   APT_PKGS: "libcurl4-openssl-dev libssh2-1-dev libssl-dev libxml2-dev zlib1g-dev git libgsl0-dev"
 
+image: rocker/tidyverse
+
+before_script:
+  script:
+    - apt-get update
+#    - apt-get install -y --no-install-recommends ${APT_PKGS}
+    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+    - R -e 'install.packages(c("dplyr", "kableExtra", "knitr"))'
+    - R -e 'install.packages(c("openxlsx"))'
+    - R -e 'remotes::install_gitlab("r-packages/yum")'
+    - R -e 'remotes::install_gitlab("r-packages/justifier")'
+    - R -e 'install.packages("pkgdown");'
+
 pages:
   stage: build
-  image: alpine:latest
   script:
-     - echo "Nothing to do, but script has to be provided."
+    - R -e 'pkgdown::build_site();'
 #    - mkdir public/img
 #    - cp img/hex-logo.png public/img/hex-logo.png
   artifacts:
@@ -19,15 +31,7 @@ pages:
 
 devtools-check:
   stage: test
-  image: rocker/tidyverse
-  before_script:
-    - apt-get update
-#    - apt-get install -y --no-install-recommends ${APT_PKGS}
-    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
   script:
-    - R -e 'install.packages(c("dplyr", "justifier", "kableExtra", "knitr", "yum"))'
-    - R -e 'devtools::install_gitlab("r-packages/yum")'
-    - R -e 'devtools::install_gitlab("r-packages/justifier")'
     - R -e 'devtools::check()'
   tags:
     - docker

@@ -1,11 +1,11 @@
 #' @export
-load_estimates <- function(input,
-                           extension = "jmd",
-                           regex = NULL,
-                           encoding = "UTF-8",
-                           recursive = TRUE,
-                           decisions_and_alternatives,
-                           criteria) {
+load_estimates_from_yml <- function(input,
+                                    extension = "jmd",
+                                    regex = NULL,
+                                    encoding = "UTF-8",
+                                    recursive = TRUE,
+                                    decisions_and_alternatives,
+                                    criteria) {
 
   if (!(all(c("dmcda", "decisions_and_alternatives") %in%
             class(decisions_and_alternatives)))) {
