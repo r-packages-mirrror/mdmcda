@@ -20,6 +20,7 @@ before_script:
 devtools-check:
   stage: test
   script:
+    - R -e 'install.packages(c("DiagrammeRsvg"))'
     - R -e 'devtools::check()'
   tags:
     - docker
@@ -27,6 +28,7 @@ devtools-check:
 pages:
   stage: build
   script:
+    - R -e 'install.packages(c("DiagrammeRsvg"))'
     - R -e 'pkgdown::build_site();'
 #    - mkdir public/img
 #    - cp img/hex-logo.png public/img/hex-logo.png
