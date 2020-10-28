@@ -185,6 +185,11 @@ build_weighed_estimate_df <-
           "sticking to one decision), none of these three must be provided!");
     }
 
+    class(weighedEstimates) <-
+      c("mdmcda_weighedEstimates",
+        class(weighedEstimates)
+      );
+
     return(weighedEstimates);
 
   }

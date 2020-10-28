@@ -117,7 +117,7 @@ scenario_scores <- function(criteria,
   }
 
   class(res) <-
-    c("mcmda", "scenario_scores");
+    c("dmcmda", "scenario_scores");
 
   return(invisible(res));
 
