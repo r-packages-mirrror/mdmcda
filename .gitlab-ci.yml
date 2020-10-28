@@ -20,15 +20,11 @@ before_script:
 devtools_check:
   stage: test
   script:
-    - R -e 'install.packages(c("DiagrammeRsvg","ufs"));'
-    - R -e 'require("DiagrammeRsvg");'
-#    - R -e 'devtools::check()'
+    - R -e 'devtools::check()'
 
 pages:
   stage: build
   script:
-    - R -e 'install.packages("DiagrammeRsvg")'
-    - R -e 'install.packages("ufs")'
     - R -e 'pkgdown::build_site();'
 #    - mkdir public/img
 #    - cp img/hex-logo.png public/img/hex-logo.png
