@@ -20,7 +20,8 @@ before_script:
 devtools_check:
   stage: test
   script:
-    - R -e 'devtools::check()'
+    - R -e 'ls()'
+#    - R -e 'devtools::check()'
 
 pages:
   stage: build
