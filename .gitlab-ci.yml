@@ -20,7 +20,9 @@ before_script:
 devtools_check:
   stage: test
   script:
-    - R -e 'install.packages(c("DiagrammeRsvg","ufs"));devtools::check()'
+    - R -e 'install.packages(c("DiagrammeRsvg","ufs"));'
+    - R -e 'require("DiagrammeRsvg");'
+#    - R -e 'devtools::check()'
 
 pages:
   stage: build
