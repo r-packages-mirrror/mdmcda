@@ -74,7 +74,7 @@ plot_criteria <- function(criteria,
   }
 
   ### Produce SVG
-  dot_code <- DiagrammeR::generate_dot(graph);
+  #dot_code <- DiagrammeR::generate_dot(graph);
   graphSvg <-
     DiagrammeRsvg::export_svg(DiagrammeR::grViz(dot_code));
   graphSvg <-

@@ -1,3 +1,21 @@
+#' Create a performance table heatmap
+#'
+#' This is a convenient visualisation that shows the (weighed) estimates
+#' for each decision/criterion combination. Decisions are sorted
+#' alphabetically and criteria are sorted alphabetically within their
+#' clusters, which are also sorted alphabetically.
+#'
+#' @param weighedEstimates A `weighedEstimates` data frame as produced by
+#' [mdmcda::weigh_estimates()].
+#' @param estimateCol The name of the column with the estimates.
+#' @param scenario_id The identifier of the scenario to create the heatmap
+#' for.
+#' @param criterionLabels,decisionLabels Optionally, named vectors with labels
+#' for the criteria and decisions. These have to be named vectors, with the
+#' elements being the labels, and the names the identifiers.
+#' @param theme The `ggplot2` theme to use.
+#'
+#' @return A `ggplot2` plot.
 #' @export
 performanceTable_heatmap <- function(weighedEstimates,
                                      estimateCol,
