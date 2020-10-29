@@ -16,7 +16,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    xLabelRotationAngle = 45,
                                    theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                    guides = ggplot2::guide_legend(ncol = 2),
-                                   legend.position = "bottom",
+                                   legend.position = "top",
                                    legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
 
@@ -110,6 +110,8 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
   res <-
     res +
     theme +
+    ggplot2::scale_fill_viridis_d(end=.9, name="Criteria Clusters") +
+    ggplot2::theme_minimal() +
     ggplot2::guides(fill = guides,
                     color = guides) +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = xLabelRotationAngle,
