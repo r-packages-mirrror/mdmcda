@@ -20,14 +20,20 @@ plot_criteria <- function(criteria,
                           renderGraph = TRUE,
                           returnSVG = FALSE) {
 
+  if (is.null(labels)) {
+    labels <-
+      criteria$criteriaTree$Get('name');
+  }
+  labelNames <- names(labels);
+
   originalWeights <-
     criteria$criteriaTree$Get('rescaled');
   finalWeights <-
     criteria$criteriaTree$Get('rescaled_product');
   originalWeights <-
-    ifelse(is.na(originalWeights), 0, originalWeights);
+    ifelse(is.na(originalWeights), 0, round(originalWeights, 2));
   finalWeights <-
-    ifelse(is.na(finalWeights), 0, finalWeights);
+    ifelse(is.na(finalWeights), 0, round(finalWeights, 2));
 
   graph <-
     data.tree::ToDiagrammeRGraph(
@@ -40,16 +46,12 @@ plot_criteria <- function(criteria,
   edge_df <-
     DiagrammeR::get_edge_df(graph);
 
-  if (is.null(labels)) {
-    labels <-
-      unique(criteria$criteriaTree$Get('name'));
-  }
-
   if (sum(finalWeights, na.rm=TRUE) > 0) {
     labels <-
       paste0(labels,
              " (",
-             finalWeights[names(labels)]);
+             finalWeights[names(labels)],
+             ")");
   }
 
   if (is.numeric(wrapLabels)) {
@@ -66,12 +68,16 @@ plot_criteria <- function(criteria,
         )
       );
   }
+  names(labels) <- labelNames;
+
   graph <-
     DiagrammeR::set_node_attrs(
       graph,
       "label",
-      labels[node_df$label],
+      labels[as.character(node_df$label)],
       node_df$id);
+
+  print(DiagrammeR::get_node_df(graph));
 
   graph <-
     DiagrammeR::add_global_graph_attrs(graph,
