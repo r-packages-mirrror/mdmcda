@@ -4,7 +4,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    fill = "black",
                                    strokeColor = "black",
                                    strokeSize = .1,
-                                   title = "DMCDA criteria bar chart",
+                                   title = "MDMCDA criteria bar chart",
                                    xLab = "Criteria",
                                    yLab = estimateCol,
                                    criteriaOrder = NULL,
@@ -81,13 +81,13 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
         estimatesByCriterion$cluster
       ];
 
-    # estimatesByCriterion$clusterLabel <-
-    #   factor(
-    #     estimatesByCriterion$clusterLabel,
-    #     levels = unique(parentCriterionIds),
-    #     labels = parentCriterionLabels[unique(parentCriterionIds)],
-    #     ordered = TRUE
-    #   );
+    estimatesByCriterion$clusterLabel <-
+      factor(
+        estimatesByCriterion$clusterLabel,
+        levels = unique(parentCriterionIds),
+        labels = parentCriterionLabels[unique(parentCriterionIds)],
+        ordered = TRUE
+      );
 
     res <-
       ggplot2::ggplot(data = estimatesByCriterion,
