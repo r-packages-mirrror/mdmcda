@@ -15,7 +15,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    parentCriterionLabels = NULL,
                                    xLabelRotationAngle = 45,
                                    theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
-                                   guides = ggplot2::guide_legend(ncol = 2),
+                                   guides = ggplot2::guide_legend(nrow = 2),
                                    legend.position = "top",
                                    legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
@@ -124,7 +124,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                     color = guides) +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = xLabelRotationAngle,
                                                               hjust = 1,
-                                                              vjust = 0.5),
+                                                              vjust = 0.6),
                    plot.title.position = "plot",
                    legend.position = legend.position,
                    legend.box.margin = legend.box.margin) +
