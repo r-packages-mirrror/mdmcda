@@ -45,12 +45,12 @@ plot_criteria <- function(criteria,
       unique(criteria$criteriaTree$Get('name'));
   }
 
-  if (sum(finalWeights, na.omit=TRUE) > 0) {
-    labels <-
-      paste0(labels,
-             " (",
-             originalWeights[names(labels)]);
-  }
+  # if (sum(finalWeights, na.rm=TRUE) > 0) {
+  #   labels <-
+  #     paste0(labels,
+  #            " (",
+  #            finalWeights[names(labels)]);
+  # }
 
   if (is.numeric(wrapLabels)) {
     labels <-
