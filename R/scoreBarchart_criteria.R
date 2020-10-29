@@ -10,6 +10,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    criteriaOrder = NULL,
                                    criteriaLabels = NULL,
                                    criteriaLabelCol = NULL,
+                                   parentCriterionOrder = NULL,
                                    parentCriterionIds = NULL,
                                    parentCriterionLabels = NULL,
                                    theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
@@ -79,13 +80,13 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
         estimatesByCriterion$cluster
       ];
 
-    estimatesByCriterion$clusterLabel <-
-      factor(
-        estimatesByCriterion$clusterLabel,
-        levels = unique(parentCriterionIds),
-        labels = parentCriterionLabels[unique(parentCriterionIds)],
-        ordered = TRUE
-      );
+    # estimatesByCriterion$clusterLabel <-
+    #   factor(
+    #     estimatesByCriterion$clusterLabel,
+    #     levels = unique(parentCriterionIds),
+    #     labels = parentCriterionLabels[unique(parentCriterionIds)],
+    #     ordered = TRUE
+    #   );
 
     res <-
       ggplot2::ggplot(data = estimatesByCriterion,
