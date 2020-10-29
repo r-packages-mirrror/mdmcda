@@ -8,6 +8,7 @@ scenario_overview <- function(multiEstimateDf,
                               criterionPlotOrder = "decreasing",
                               criteriaOrder = NULL,
                               criteriaLabels = NULL,
+                              parentCriterionIds = NULL,
                               decisionOrder = NULL,
                               decisionLabels = NULL,
                               alternativeLabels = NULL,
@@ -68,7 +69,8 @@ scenario_overview <- function(multiEstimateDf,
         estimateCol = estimateCol,
         fill = "white",
         criteriaOrder = criterionPlotOrder,
-        criteriaLabels = criteriaLabels
+        criteriaLabels = criteriaLabels,
+        parentCriterionIds = parentCriterionIds
       );
   }
 

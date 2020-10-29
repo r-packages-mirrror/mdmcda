@@ -10,6 +10,8 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    criteriaOrder = NULL,
                                    criteriaLabels = NULL,
                                    criteriaLabelCol = NULL,
+                                   parentCriterionIds = NULL,
+                                   parentCriterionLabels = NULL,
                                    theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                    guides = ggplot2::guide_legend(ncol = 2),
                                    legend.position = "bottom",
@@ -61,13 +63,50 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
            labels = estimatesByCriterion[, criteriaLabelCol],
            ordered = TRUE);
 
+  if (!is.null(parentCriterionIds)) {
+    estimatesByCriterion$cluster <-
+      parentCriterionIds[
+        estimatesByCriterion$criterion_id
+      ];
+
+    if (is.null(parentCriterionLabels)) {
+      parentCriterionLabels <- unique(parentCriterionIds);
+      names(parentCriterionLabels) <- parentCriterionLabels;
+    }
+
+    estimatesByCriterion$clusterLabel <-
+      parentCriterionLabels[
+        estimatesByCriterion$cluster
+      ];
+
+    estimatesByCriterion$clusterLabel <-
+      factor(
+        estimatesByCriterion$clusterLabel,
+        levels = parentCriterionIds,
+        labels = parentCriterionLabels,
+        ordered = TRUE
+      );
+
+    res <-
+      ggplot2::ggplot(data = estimatesByCriterion,
+                      mapping = ggplot2::aes_string(x = "criterion_id",
+                                                    y = estimateCol,
+                                                    fill = "clusterLabel")) +
+      ggplot2::geom_col(color = strokeColor,
+                        size = strokeSize);
+
+  } else {
+    res <-
+      ggplot2::ggplot(data = estimatesByCriterion,
+                      mapping = ggplot2::aes_string(x = "criterion_id",
+                                                    y = estimateCol)) +
+      ggplot2::geom_col(fill = fill,
+                        color = strokeColor,
+                        size = strokeSize);
+  }
+
   res <-
-    ggplot2::ggplot(data = estimatesByCriterion,
-                    mapping = ggplot2::aes_string(x = "criterion_id",
-                                                  y = estimateCol)) +
-    ggplot2::geom_col(fill = fill,
-                      color = strokeColor,
-                      size = strokeSize) +
+    res +
     theme +
     ggplot2::guides(fill = guides,
                     color = guides) +
