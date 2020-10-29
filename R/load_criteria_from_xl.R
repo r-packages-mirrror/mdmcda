@@ -1,3 +1,14 @@
+#' Read the criteria from a spreadsheet
+#'
+#' This spreadsheet has to have column names '`id`', '`parentCriterion`',
+#' '`label`', '`description`', and '`isLeaf`'.
+#'
+#' @param input The file to read from.
+#' @param showGraphs Whether to show the anchoring graphs (passed on to
+#' [mdmcda::anchoringDf_to_anchoringGraphs()]).
+#' @param ... Passed on to [mdmcda::anchoringDf_to_anchoringGraphs()].
+#'
+#' @return A `criteria` object.
 #' @export
 load_criteria_from_xl <- function(input,
                                   showGraphs = TRUE,
@@ -53,6 +64,43 @@ load_criteria_from_xl <- function(input,
               anchoringDf = anchoringDf,
               fullCriteriaDf = fullCriteriaDf,
               anchoringGraphs = anchoringGraphs);
+
+  ###-----------------------------------------------------------------------------
+  ### Create convenience vector to find parents for criteria
+  ###-----------------------------------------------------------------------------
+
+  criterionIds <-
+    sort(unique(criteria$criteriaDf$id));
+  parentCriterionIds <-
+    as.data.frame(unique(criteria$criteriaDf[, c('id',
+                                                 'parentCriterion')]));
+  parentCriterionIds <-
+    stats::setNames(parentCriterionIds$parentCriterion,
+                    parentCriterionIds$id);
+  parentCriteriaIds <-
+    unique(criteria$criteriaDf[criteria$criteriaDf$parentCriterion=="outcomes",
+                               'id']);
+  parentCriteriaIds <-
+    unique(parentCriterionIds)[nchar(unique(parentCriterionIds))>1];
+
+  childCriteriaIds <-
+    stats::setNames(lapply(unique(parentCriterionIds),
+                           function(i)
+                             names(parentCriterionIds[parentCriterionIds==i])),
+                    unique(parentCriterionIds));
+
+  childCriteriaByCluster <-
+    criteria$criteriaDf[criteria$criteriaDf$isLeaf, ]
+  childCriteriaByCluster <-
+    childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
+
+  ### Store in 'criteria' object for convenience
+  res$convenience <-
+    list(criterionIds = criterionIds,
+         parentCriterionIds = parentCriterionIds,
+         parentCriteriaIds = parentCriteriaIds,
+         childCriteriaIds = childCriteriaIds,
+         childCriteriaByCluster = childCriteriaByCluster);
 
   class(res) <-
     c("dmcda", "criteria");

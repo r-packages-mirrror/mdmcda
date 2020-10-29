@@ -8,7 +8,11 @@ scenario_overview <- function(multiEstimateDf,
                               criterionPlotOrder = "decreasing",
                               criteriaOrder = NULL,
                               criteriaLabels = NULL,
+                              decisionOrder = NULL,
+                              decisionLabels = NULL,
+                              alternativeLabels = NULL,
                               decision_alternative_sep = ": ") {
+
   res <- list();
   res$estimates <-
     select_scenario_estimates(multiEstimateDf = multiEstimateDf,
