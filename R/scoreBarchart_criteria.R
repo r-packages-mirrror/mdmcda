@@ -19,8 +19,6 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    legend.position = "top",
                                    legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
-
-
   if (is.null(criteriaLabelCol)) {
     criteriaLabelCol <- "criteriaLabelCol";
 
