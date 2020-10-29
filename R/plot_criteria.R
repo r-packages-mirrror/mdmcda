@@ -77,8 +77,6 @@ plot_criteria <- function(criteria,
       labels[as.character(node_df$label)],
       node_df$id);
 
-  print(DiagrammeR::get_node_df(graph));
-
   graph <-
     DiagrammeR::add_global_graph_attrs(graph,
                                        "shape", "box",
