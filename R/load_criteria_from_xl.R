@@ -70,27 +70,30 @@ load_criteria_from_xl <- function(input,
   ###-----------------------------------------------------------------------------
 
   criterionIds <-
-    sort(unique(criteria$criteriaDf$id));
+    sort(unique(res$criteriaDf$id));
   parentCriterionIds <-
-    as.data.frame(unique(criteria$criteriaDf[, c('id',
+    as.data.frame(unique(res$criteriaDf[, c('id',
                                                  'parentCriterion')]));
   parentCriterionIds <-
     stats::setNames(parentCriterionIds$parentCriterion,
                     parentCriterionIds$id);
   parentCriteriaIds <-
-    unique(criteria$criteriaDf[criteria$criteriaDf$parentCriterion=="outcomes",
-                               'id']);
+    unique(res$criteriaDf[res$criteriaDf$parentCriterion=="outcomes",
+                          'id']);
   parentCriteriaIds <-
     unique(parentCriterionIds)[nchar(unique(parentCriterionIds))>1];
 
   childCriteriaIds <-
-    stats::setNames(lapply(unique(parentCriterionIds),
-                           function(i)
-                             names(parentCriterionIds[parentCriterionIds==i])),
-                    unique(parentCriterionIds));
+    stats::setNames(
+      lapply(
+        unique(parentCriterionIds),
+        function(i)
+          names(parentCriterionIds[parentCriterionIds==i])),
+      unique(parentCriterionIds)
+    );
 
   childCriteriaByCluster <-
-    criteria$criteriaDf[criteria$criteriaDf$isLeaf, ]
+    res$criteriaDf[res$criteriaDf$isLeaf, ]
   childCriteriaByCluster <-
     childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
 
