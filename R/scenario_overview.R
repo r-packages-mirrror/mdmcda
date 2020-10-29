@@ -54,21 +54,31 @@ scenario_overview <- function(multiEstimateDf,
 
   if (createPlots) {
 
+    if (is.null(decisionOrder)) {
+      decisionOrder <-
+        decisionPlotOrder;
+    }
+
     res$scoreBarchart_decisions <-
       scoreBarchart_decisions(
         res$byDecision,
         estimateCol = estimateCol,
         fill = "white",
-        decisionOrder = decisionPlotOrder,
+        decisionOrder = decisionOrder,
         decisionLabels = res$byDecision$decision_and_alternative
       );
+
+    if (is.null(criteriaOrder)) {
+      criteriaOrder <-
+        criterionPlotOrder;
+    }
 
     res$scoreBarchart_criteria <-
       scoreBarchart_criteria(
         estimatesByCriterion = res$byCriterion,
         estimateCol = estimateCol,
         fill = "white",
-        criteriaOrder = criterionPlotOrder,
+        criteriaOrder = criteriaOrder,
         criteriaLabels = criteriaLabels,
         parentCriterionIds = parentCriterionIds
       );

@@ -13,6 +13,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                    parentCriterionOrder = NULL,
                                    parentCriterionIds = NULL,
                                    parentCriterionLabels = NULL,
+                                   xLabelRotationAngle = 45,
                                    theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                    guides = ggplot2::guide_legend(ncol = 2),
                                    legend.position = "bottom",
@@ -51,7 +52,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
           criteriaOrder;
       } else {
         stop("If `criteriaOrder` is not 'increasing' or 'decreasing', it ",
-             "must be a character vector with the criterion_id value ",
+             "must be a character vector with the criterion_id values ",
              "in the desired order!");
       }
     }
@@ -61,7 +62,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
   estimatesByCriterion$criterion_id <-
     factor(estimatesByCriterion$criterion_id,
            levels = criteriaOrder,
-           labels = estimatesByCriterion[, criteriaLabelCol],
+           labels = estimatesByCriterion[criteriaOrder, criteriaLabelCol],
            ordered = TRUE);
 
   if (!is.null(parentCriterionIds)) {
@@ -111,7 +112,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     theme +
     ggplot2::guides(fill = guides,
                     color = guides) +
-    ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90,
+    ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = xLabelRotationAngle,
                                                               hjust = 1,
                                                               vjust = 0.5),
                    plot.title.position = "plot",
