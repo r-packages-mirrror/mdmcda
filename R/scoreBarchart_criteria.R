@@ -81,13 +81,13 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
         estimatesByCriterion$cluster
       ];
 
-    estimatesByCriterion$clusterLabel <-
-      factor(
-        estimatesByCriterion$clusterLabel,
-        levels = unique(estimatesByCriterion$clusterLabel),
-        labels = parentCriterionLabels[unique(estimatesByCriterion$clusterLabel)],
-        ordered = TRUE
-      );
+    # estimatesByCriterion$clusterLabel <-
+    #   factor(
+    #     estimatesByCriterion$clusterLabel,
+    #     levels = unique(estimatesByCriterion$clusterLabel),
+    #     labels = parentCriterionLabels[unique(estimatesByCriterion$clusterLabel)],
+    #     ordered = TRUE
+    #   );
 
     res <-
       ggplot2::ggplot(data = estimatesByCriterion,
