@@ -13,6 +13,7 @@ scenario_overview <- function(multiEstimateDf,
                               decisionOrder = NULL,
                               decisionLabels = NULL,
                               alternativeLabels = NULL,
+                              scenarioLabel = NULL,
                               decision_alternative_sep = ": ") {
 
   res <- list();
@@ -53,6 +54,10 @@ scenario_overview <- function(multiEstimateDf,
            decision_alternative_sep,
            res$byDecision$alternative_label);
 
+  if (is.null(scenarioLabel)) {
+    scenarioLabel <- scenario;
+  }
+
   if (createPlots) {
 
     if (is.null(decisionOrder)) {
@@ -79,6 +84,8 @@ scenario_overview <- function(multiEstimateDf,
         estimatesByCriterion = res$byCriterion,
         estimateCol = estimateCol,
         fill = "white",
+        title = paste0("MDMCDA scores per criterion for ",
+                       scenarioLabel),
         criteriaOrder = criteriaOrder,
         criteriaLabels = criteriaLabels,
         parentCriterionIds = parentCriterionIds,
