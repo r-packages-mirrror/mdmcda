@@ -84,8 +84,8 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     estimatesByCriterion$clusterLabel <-
       factor(
         estimatesByCriterion$clusterLabel,
-        levels = unique(parentCriterionIds),
-        labels = parentCriterionLabels[unique(parentCriterionIds)],
+        levels = unique(estimatesByCriterion$clusterLabel),
+        labels = parentCriterionLabels[unique(estimatesByCriterion$clusterLabel)],
         ordered = TRUE
       );
 
