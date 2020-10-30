@@ -121,14 +121,24 @@ plot_criteria <- function(criteria,
     node_df <-
       DiagrammeR::get_node_df(graph);
 
-    ### Set node text color and pen width (fill doesn't work?)
+    ### Set node fill color
     graph <-
       DiagrammeR::set_node_attrs(
         graph,
         "fillcolor",
+        ifelse(node_df$finalWeights < .2, "black", "white"),
+        node_df$id
+      );
+
+    ### Set font color
+    graph <-
+      DiagrammeR::set_node_attrs(
+        graph,
+        "fontcolor",
         node_df$weightColors,
         node_df$id
       );
+
 
     ### Set edge labels
     graph <-
@@ -176,6 +186,14 @@ plot_criteria <- function(criteria,
     );
 
   ### Final global settings
+  graph <-
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "fontname", "arial",
+                                       "node");
+  graph <-
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "fontname", "arial",
+                                       "edge");
   graph <-
     DiagrammeR::add_global_graph_attrs(graph,
                                        "shape", "box",
