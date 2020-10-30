@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce a DiagrammeR plot and show it and/or convert to SVG — plot_criteria • mdmcda</title>
+<title>Add weights of a scorer to criteria tree — add_scorerWeights_to_criteriaTree • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,12 @@
 
 
 
-<meta property="og:title" content="Produce a DiagrammeR plot and show it and/or convert to SVG — plot_criteria" />
-<meta property="og:description" content="This renders a plot with the criteria tree. If the `criteriaTree` object
-in the `criteria` object already contains the weights (as can be added with
-[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
-to [mdmcda::scorerWeights_to_profile()] or
-[mdmda::combine_weights_and_criteria()]), those will be added and used to
-color the tree and set the edge thicknesses." />
+<meta property="og:title" content="Add weights of a scorer to criteria tree — add_scorerWeights_to_criteriaTree" />
+<meta property="og:description" content="This function takes scorer weights and adds them to the criteria tree. NOTE:
+the criteria tree is an R6 object. Therefore, when this function is called,
+the object will be changed in memory; i.e. the `$criteriaTree` `data.tree`
+object that is passed in `criteria` is passed by _reference_, not by value
+(the default for normal R objects)." />
 
 
 
@@ -123,74 +122,63 @@ color the tree and set the edge thicknesses." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce a DiagrammeR plot and show it and/or convert to SVG</h1>
+    <h1>Add weights of a scorer to criteria tree</h1>
     
-    <div class="hidden name"><code>plot_criteria.Rd</code></div>
+    <div class="hidden name"><code>add_scorerWeights_to_criteriaTree.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This renders a plot with the criteria tree. If the `criteriaTree` object
-in the `criteria` object already contains the weights (as can be added with
-[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
-to [mdmcda::scorerWeights_to_profile()] or
-[mdmda::combine_weights_and_criteria()]), those will be added and used to
-color the tree and set the edge thicknesses.</p>
+    <p>This function takes scorer weights and adds them to the criteria tree. NOTE:
+the criteria tree is an R6 object. Therefore, when this function is called,
+the object will be changed in memory; i.e. the `$criteriaTree` `data.tree`
+object that is passed in `criteria` is passed by _reference_, not by value
+(the default for normal R objects).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_criteria</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>add_scorerWeights_to_criteriaTree</span><span class='op'>(</span>
+  <span class='va'>weights</span>,
+  <span class='va'>scorer</span>,
   <span class='va'>criteria</span>,
-  labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  wrapLabels <span class='op'>=</span> <span class='fl'>60</span>,
-  renderGraph <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  returnSVG <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
+  rootWeight <span class='op'>=</span> <span class='fl'>1</span>,
+  rootParentCriterion_id <span class='op'>=</span> <span class='st'>"-"</span>,
+  weightName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>scorer</span>, <span class='st'>"_weight"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>weights</th>
+      <td><p>The weights object.</p></td>
+    </tr>
+    <tr>
+      <th>scorer</th>
+      <td><p>The scorer id (a character value).</p></td>
+    </tr>
+    <tr>
       <th>criteria</th>
-      <td><p>The criteria object as produced by a call to, for
-example, [load_criteria_from_xl()]. The object should contain the
-criteria tree in `$criteriaTree`.</p></td>
+      <td><p>The criteria object.</p></td>
     </tr>
     <tr>
-      <th>labels</th>
-      <td><p>Optionally, labels to apply to the criteria nodes.</p></td>
+      <th>rootWeight</th>
+      <td><p>The weight for the root (normally, 1).</p></td>
     </tr>
     <tr>
-      <th>wrapLabels</th>
-      <td><p>If applying labels, the number of characters to wrap
-them to.</p></td>
+      <th>rootParentCriterion_id</th>
+      <td><p>The identifier of the root.</p></td>
     </tr>
     <tr>
-      <th>renderGraph</th>
-      <td><p>Whether to show the graph.</p></td>
-    </tr>
-    <tr>
-      <th>returnSVG</th>
-      <td><p>Whether to return SVG or not. Valid values are `FALSE`,
-to return the `DiagrammeR` object; `TRUE`, to return the SVG;
-and anything that's not logical to return both in a list.</p></td>
-    </tr>
-    <tr>
-      <th>outputFile</th>
-      <td><p>If not NULL and pointing to a file in an existing
-directory, the graph will be exported to this file.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments are passed to `DiagrammeR`'s
-`export_graph` function.</p></td>
+      <th>weightName</th>
+      <td><p>The name to use for the variable with these weights.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Depending on the value of `returnSVG`, a `DiagrammeR` object;,
-a character vector with SVG, or both in a list.</p>
+    <p>A dataframe with weights (invisibly). Note the updated criteria
+tree: that, after
+all, is changed in memory because it's passed by reference instead of by
+value.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

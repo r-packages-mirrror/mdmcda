@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce a DiagrammeR plot and show it and/or convert to SVG — plot_criteria • mdmcda</title>
+<title>Add weights from a data frame to criteria tree and update data frame — combine_weights_and_criteria • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,8 @@
 
 
 
-<meta property="og:title" content="Produce a DiagrammeR plot and show it and/or convert to SVG — plot_criteria" />
-<meta property="og:description" content="This renders a plot with the criteria tree. If the `criteriaTree` object
-in the `criteria` object already contains the weights (as can be added with
-[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
-to [mdmcda::scorerWeights_to_profile()] or
-[mdmda::combine_weights_and_criteria()]), those will be added and used to
-color the tree and set the edge thicknesses." />
+<meta property="og:title" content="Add weights from a data frame to criteria tree and update data frame — combine_weights_and_criteria" />
+<meta property="og:description" content="Add weights from a data frame to criteria tree and update data frame." />
 
 
 
@@ -123,74 +118,56 @@ color the tree and set the edge thicknesses." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce a DiagrammeR plot and show it and/or convert to SVG</h1>
+    <h1>Add weights from a data frame to criteria tree and update data frame</h1>
     
-    <div class="hidden name"><code>plot_criteria.Rd</code></div>
+    <div class="hidden name"><code>combine_weights_and_criteria.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This renders a plot with the criteria tree. If the `criteriaTree` object
-in the `criteria` object already contains the weights (as can be added with
-[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
-to [mdmcda::scorerWeights_to_profile()] or
-[mdmda::combine_weights_and_criteria()]), those will be added and used to
-color the tree and set the edge thicknesses.</p>
+    <p>Add weights from a data frame to criteria tree and update data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_criteria</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>combine_weights_and_criteria</span><span class='op'>(</span>
+  <span class='va'>weightsMeansAndSDs</span>,
   <span class='va'>criteria</span>,
-  labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  wrapLabels <span class='op'>=</span> <span class='fl'>60</span>,
-  renderGraph <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  returnSVG <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
+  <span class='va'>weightCols</span>,
+  rootWeight <span class='op'>=</span> <span class='fl'>1</span>,
+  rootParentCriterion_id <span class='op'>=</span> <span class='st'>"-"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>weightsMeansAndSDs</th>
+      <td><p>The data frame with the weights; should have
+a column `criterion_id` and one or more columns with weights.</p></td>
+    </tr>
+    <tr>
       <th>criteria</th>
-      <td><p>The criteria object as produced by a call to, for
-example, [load_criteria_from_xl()]. The object should contain the
-criteria tree in `$criteriaTree`.</p></td>
+      <td><p>The `criteria` object.</p></td>
     </tr>
     <tr>
-      <th>labels</th>
-      <td><p>Optionally, labels to apply to the criteria nodes.</p></td>
+      <th>weightCols</th>
+      <td><p>A named character vector, where each value is a column
+with weights in `weightsMeansAndSDs`, and each element's name is the
+name that weight should get in the `criteria$criteriaTree` and in the
+`weightsMeansAndSDs` that is returned after acculumation over the tree.</p></td>
     </tr>
     <tr>
-      <th>wrapLabels</th>
-      <td><p>If applying labels, the number of characters to wrap
-them to.</p></td>
+      <th>rootWeight</th>
+      <td><p>The weight for the tree root.</p></td>
     </tr>
     <tr>
-      <th>renderGraph</th>
-      <td><p>Whether to show the graph.</p></td>
-    </tr>
-    <tr>
-      <th>returnSVG</th>
-      <td><p>Whether to return SVG or not. Valid values are `FALSE`,
-to return the `DiagrammeR` object; `TRUE`, to return the SVG;
-and anything that's not logical to return both in a list.</p></td>
-    </tr>
-    <tr>
-      <th>outputFile</th>
-      <td><p>If not NULL and pointing to a file in an existing
-directory, the graph will be exported to this file.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments are passed to `DiagrammeR`'s
-`export_graph` function.</p></td>
+      <th>rootParentCriterion_id</th>
+      <td><p>The identifier for the tree root.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Depending on the value of `returnSVG`, a `DiagrammeR` object;,
-a character vector with SVG, or both in a list.</p>
+    <p>The updated `weightsMeansAndSDs` (and `criteria$criteriaTree` is
+updated in memory).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

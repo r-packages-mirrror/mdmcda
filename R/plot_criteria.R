@@ -17,6 +17,10 @@
 #' @param returnSVG Whether to return SVG or not. Valid values are `FALSE`,
 #' to return the `DiagrammeR` object; `TRUE`, to return the SVG;
 #' and anything that's not logical to return both in a list.
+#' @param outputFile If not NULL and pointing to a file in an existing
+#' directory, the graph will be exported to this file.
+#' @param ... Additional arguments are passed to `DiagrammeR`'s
+#' `export_graph` function.
 #'
 #' @return Depending on the value of `returnSVG`, a `DiagrammeR` object;,
 #' a character vector with SVG, or both in a list.
@@ -25,7 +29,9 @@ plot_criteria <- function(criteria,
                           labels = NULL,
                           wrapLabels = 60,
                           renderGraph = TRUE,
-                          returnSVG = FALSE) {
+                          returnSVG = FALSE,
+                          outputFile = NULL,
+                          ...) {
 
   if (is.null(labels)) {
     labels <-
@@ -184,6 +190,20 @@ plot_criteria <- function(criteria,
   ### Render graph
   if (renderGraph) {
     print(DiagrammeR::render_graph(graph));
+  }
+
+  ### Potentially save graph
+  if (!is.null(outputFile)) {
+    if (dir.exists(dirname(outputFile))) {
+      DiagrammeR::export_graph(
+        graph,
+        file_name = outputFile,
+        ...
+      );
+    } else {
+      stop("You wanted to save the criteria plot to a file in a non-existent ",
+           "directory ('", outputFile, "')!");
+    }
   }
 
   if (is.logical(returnSVG) && (!returnSVG)) {

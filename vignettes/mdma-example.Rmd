@@ -5,8 +5,10 @@ date: "`r format(Sys.time(), '%H:%M:%S on %Y-%m-%d %Z (GMT%z)')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Multi-Decision Multi-Criteria Decision Aid MDMA example}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, message=FALSE, echo=FALSE, results='asis'}
@@ -53,7 +55,7 @@ quietGitLabUpdate <- function(x, quiet = TRUE) {
 
 quietGitLabUpdate("r-packages/yum");
 quietGitLabUpdate("r-packages/ufs");
-quietGitLabUpdate("r-packages/mdmcda");
+quietGitLabUpdate("r-packages/mdmcda@dev");
 
 ### Check for required packages
 ufs::checkPkgs("tidyr");
@@ -258,33 +260,30 @@ weightsMeansAndSDs <- mdmcda::weightsMeansAndSDs(weights);
 ### Combine with criteria tree to accumulate over the hierachy
 ###----------------------------------------------------------------------------
 
-combinedWeightsAndCriteria <-
-  mdmcda::combine_weights_and_criteria(weightsMeansAndSDs,
-                                       criteria);
-
-###----------------------------------------------------------------------------
-### Extract and set complemented objects
-###----------------------------------------------------------------------------
-
-weightsMeansAndSDs <- combinedWeightsAndCriteria$weightsMeansAndSDs;
-criteria <- combinedWeightsAndCriteria$criteria;
+weightsMeansAndSDs <-
+  mdmcda::combine_weights_and_criteria(
+    weightsMeansAndSDs,
+    criteria,
+    weightCols = c(raw = 'weight_mean_proportion',
+                   rescaled = 'weight_mean_rescaled_proportion')
+  );
 
 ###----------------------------------------------------------------------------
 ### Weight plots
 ###----------------------------------------------------------------------------
 
-weightsByParentCriterionPlots <-
-  lapply(weights$parentCriteria, function(criteriaCluster_id) {
-    return(mdmcda::scorerWeightPlot(weights = weights,
-                                   weightsMeansAndSDs = weightsMeansAndSDs,
-                                   criteriaCluster_id = criteriaCluster_id,
-                                   meanColumns = c("weight_mean",
-                                                   "weight_mean_rescaled"),
-                                   meanColors = c("black", "black"),
-                                   meanAlphas = c(0.2, 1),
-                                   title = paste0("Weights for ", criteriaCluster_id)));
-  });
-names(weightsByParentCriterionPlots) <- weights$parentCriteria;
+# weightsByParentCriterionPlots <-
+#   lapply(weights$parentCriteria, function(criteriaCluster_id) {
+#     return(mdmcda::scorerWeightPlot(weights = weights,
+#                                    weightsMeansAndSDs = weightsMeansAndSDs,
+#                                    criteriaCluster_id = criteriaCluster_id,
+#                                    meanColumns = c("weight_mean",
+#                                                    "weight_mean_rescaled"),
+#                                    meanColors = c("black", "black"),
+#                                    meanAlphas = c(0.2, 1),
+#                                    title = paste0("Weights for ", criteriaCluster_id)));
+#   });
+# names(weightsByParentCriterionPlots) <- weights$parentCriteria;
 
 ###----------------------------------------------------------------------------
 ### Compile weight profile
@@ -292,8 +291,8 @@ names(weightsByParentCriterionPlots) <- weights$parentCriteria;
 
 weightProfiles <-
   mdmcda::create_weight_profile(weightsMeansAndSDs = weightsMeansAndSDs,
-                               criteria = criteria,
-                               profileName = "meanWeights");
+                                criteria = criteria,
+                                profileName = "meanWeights");
 weightProfileNames <- names(weightProfiles);
 
 ```
@@ -723,7 +722,7 @@ barcharts_aggregated <-
 
 In these sensitivity analyses, the weights of each individual scorer were applied, after which the total score for each scenario was then computed again. The results were then plotted.
 
-```{r sensitivity-analyses-based-on-weights, results="asis"}
+```{r sensitivity-analyses-based-on-weights, results="asis", eval=FALSE}
 
 ###----------------------------------------------------------------------------
 ###----------------------------------------------------------------------------
@@ -848,7 +847,7 @@ for (i in names(wbsa$weight_mean_rescaled_proportion)) {
 
 In these sensitivity analyses, 10% of the estimates about which the think tank expressed the least confidence were sequentially set to the minimum possible value of the corresponding outcome, to the maximum possible value for the corresponding outcome, and to zero. The total score for each scenario was then computed again.
 
-```{r sensitivity-analyses-based-on-confidence, results="asis"}
+```{r sensitivity-analyses-based-on-confidence, results="asis", eval=FALSE}
 
 ###----------------------------------------------------------------------------
 ###----------------------------------------------------------------------------

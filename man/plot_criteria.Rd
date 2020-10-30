@@ -9,7 +9,9 @@ plot_criteria(
   labels = NULL,
   wrapLabels = 60,
   renderGraph = TRUE,
-  returnSVG = FALSE
+  returnSVG = FALSE,
+  outputFile = NULL,
+  ...
 )
 }
 \arguments{
@@ -27,6 +29,12 @@ them to.}
 \item{returnSVG}{Whether to return SVG or not. Valid values are `FALSE`,
 to return the `DiagrammeR` object; `TRUE`, to return the SVG;
 and anything that's not logical to return both in a list.}
+
+\item{outputFile}{If not NULL and pointing to a file in an existing
+directory, the graph will be exported to this file.}
+
+\item{...}{Additional arguments are passed to `DiagrammeR`'s
+`export_graph` function.}
 }
 \value{
 Depending on the value of `returnSVG`, a `DiagrammeR` object;,
