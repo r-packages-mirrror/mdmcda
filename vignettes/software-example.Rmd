@@ -5,8 +5,10 @@ date: "`r format(Sys.time(), '%H:%M:%S on %Y-%m-%d %Z (GMT%z)')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Multi-Decision Multi-Criteria Decision Aid Software example}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, message=FALSE, echo=FALSE, results='asis'}
@@ -53,7 +55,7 @@ quietGitLabUpdate <- function(x, quiet = TRUE) {
 
 quietGitLabUpdate("r-packages/yum");
 quietGitLabUpdate("r-packages/ufs");
-quietGitLabUpdate("r-packages/mdmcda");
+quietGitLabUpdate("r-packages/mdmcda@dev");
 
 ### Check for required packages
 ufs::checkPkgs("tidyr");
@@ -260,33 +262,29 @@ weightsMeansAndSDs <- mdmcda::weightsMeansAndSDs(weights);
 ### Combine with criteria tree to accumulate over the hierachy
 ###----------------------------------------------------------------------------
 
-combinedWeightsAndCriteria <-
-  mdmcda::combine_weights_and_criteria(weightsMeansAndSDs,
-                                      criteria);
-
-###----------------------------------------------------------------------------
-### Extract and set complemented objects
-###----------------------------------------------------------------------------
-
-weightsMeansAndSDs <- combinedWeightsAndCriteria$weightsMeansAndSDs;
-criteria <- combinedWeightsAndCriteria$criteria;
+weightsMeansAndSDs <-
+  mdmcda::combine_weights_and_criteria(
+    weightsMeansAndSDs,
+    criteria,
+    weightCols = c(raw = 'weight_mean_proportion',
+                   rescaled = 'weight_mean_rescaled_proportion'));
 
 ###----------------------------------------------------------------------------
 ### Weight plots
 ###----------------------------------------------------------------------------
 
-weightsByParentCriterionPlots <-
-  lapply(weights$parentCriteria, function(criteriaCluster_id) {
-    return(mdmcda::scorerWeightPlot(weights = weights,
-                                   weightsMeansAndSDs = weightsMeansAndSDs,
-                                   criteriaCluster_id = criteriaCluster_id,
-                                   meanColumns = c("weight_mean",
-                                                   "weight_mean_rescaled"),
-                                   meanColors = c("black", "black"),
-                                   meanAlphas = c(0.2, 1),
-                                   title = paste0("Weights for ", criteriaCluster_id)));
-  });
-names(weightsByParentCriterionPlots) <- weights$parentCriteria;
+# weightsByParentCriterionPlots <-
+#   lapply(weights$parentCriteria, function(criteriaCluster_id) {
+#     return(mdmcda::scorerWeightPlot(weights = weights,
+#                                    weightsMeansAndSDs = weightsMeansAndSDs,
+#                                    criteriaCluster_id = criteriaCluster_id,
+#                                    meanColumns = c("weight_mean",
+#                                                    "weight_mean_rescaled"),
+#                                    meanColors = c("black", "black"),
+#                                    meanAlphas = c(0.2, 1),
+#                                    title = paste0("Weights for ", criteriaCluster_id)));
+#   });
+# names(weightsByParentCriterionPlots) <- weights$parentCriteria;
 
 ###----------------------------------------------------------------------------
 ### Compile weight profile

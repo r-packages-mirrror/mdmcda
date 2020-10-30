@@ -1,40 +1,35 @@
+#' Add weights from a data frame to criteria tree and update data frame
+#'
+#' Add weights from a data frame to criteria tree and update data frame.
+#'
+#' @param weightsMeansAndSDs The data frame with the weights; should have
+#' a column `criterion_id` and one or more columns with weights.
+#' @param criteria The `criteria` object.
+#' @param weightCols A named character vector, where each value is a column
+#' with weights in `weightsMeansAndSDs`, and each element's name is the
+#' name that weight should get in the `criteria$criteriaTree` and in the
+#' `weightsMeansAndSDs` that is returned after acculumation over the tree.
+#' @param rootWeight The weight for the tree root.
+#' @param rootParentCriterion_id The identifier for the tree root.
+#'
+#' @return The updated `weightsMeansAndSDs` (and `criteria$criteriaTree` is
+#' updated in memory).
 #' @export
 combine_weights_and_criteria <- function(weightsMeansAndSDs,
                                          criteria,
-                                         weightCols = c(raw = 'weight_mean_proportion',
-                                                        rescaled = 'weight_mean_rescaled_proportion'),
+                                         weightCols,
                                          rootWeight = 1,
                                          rootParentCriterion_id = "-") {
 
-  ### Add to the criteria tree
-  for (i in weightsMeansAndSDs$criterion_id) {
-    tmpNode <-
-      data.tree::FindNode(criteria$criteriaTree, i);
-    for (j in names(weightCols)) {
-      tmpNode[[j]] <-
-        weightsMeansAndSDs[weightsMeansAndSDs$criterion_id==i,
-                           weightCols[j]];
-    }
-  }
-
-  ### Set to rootWeight for root
-  for (j in names(weightCols)) {
-    criteria$criteriaTree[[rootParentCriterion_id]][[j]] <- rootWeight;
-    criteria$criteriaTree[[rootParentCriterion_id]][[j]] <- rootWeight;
-  }
-
-  ### Accumulate towards root
-  criteria$criteriaTree$Do(function(node) {
-    for (j in names(weightCols)) {
-      node[[paste0(j, "_product")]] <-
-        prod(node$Get(j, traversal="ancestor"),
-             na.rm=TRUE);
-      node[[paste0(j, "_total")]] <-
-        ifelse(data.tree::isLeaf(node),
-               node[[paste0(j, "_product")]],
-               NA);
-    }
-  });
+  ### This function changes the `criteria` object; it returns that
+  ### object, too, but we don't need that.
+  add_weights_to_criteriaTree(
+    weightsMeansAndSDs = weightsMeansAndSDs,
+    criteria = criteria,
+    weightCols = weightCols,
+    rootWeight = rootWeight,
+    rootParentCriterion_id = rootParentCriterion_id
+  );
 
   ### Add results from tree accumulation to data frame
   for (i in weightsMeansAndSDs$criterion_id) {
@@ -65,7 +60,6 @@ combine_weights_and_criteria <- function(weightsMeansAndSDs,
   criteriaClusters <-
     names(criteria$criteriaTree$children);
 
-  return(list(weightsMeansAndSDs=weightsMeansAndSDs,
-              criteria = criteria));
+  return(weightsMeansAndSDs);
 
 }

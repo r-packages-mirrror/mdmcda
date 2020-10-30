@@ -9,7 +9,9 @@ plot_criteria(
   labels = NULL,
   wrapLabels = 60,
   renderGraph = TRUE,
-  returnSVG = FALSE
+  returnSVG = FALSE,
+  outputFile = NULL,
+  ...
 )
 }
 \arguments{
@@ -27,11 +29,22 @@ them to.}
 \item{returnSVG}{Whether to return SVG or not. Valid values are `FALSE`,
 to return the `DiagrammeR` object; `TRUE`, to return the SVG;
 and anything that's not logical to return both in a list.}
+
+\item{outputFile}{If not NULL and pointing to a file in an existing
+directory, the graph will be exported to this file.}
+
+\item{...}{Additional arguments are passed to `DiagrammeR`'s
+`export_graph` function.}
 }
 \value{
 Depending on the value of `returnSVG`, a `DiagrammeR` object;,
 a character vector with SVG, or both in a list.
 }
 \description{
-Produce a DiagrammeR plot and show it and/or convert to SVG
+This renders a plot with the criteria tree. If the `criteriaTree` object
+in the `criteria` object already contains the weights (as can be added with
+[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
+to [mdmcda::scorerWeights_to_profile()] or
+[mdmda::combine_weights_and_criteria()]), those will be added and used to
+color the tree and set the edge thicknesses.
 }

@@ -40,7 +40,12 @@
 
 
 <meta property="og:title" content="Produce a DiagrammeR plot and show it and/or convert to SVG — plot_criteria" />
-<meta property="og:description" content="Produce a DiagrammeR plot and show it and/or convert to SVG" />
+<meta property="og:description" content="This renders a plot with the criteria tree. If the `criteriaTree` object
+in the `criteria` object already contains the weights (as can be added with
+[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
+to [mdmcda::scorerWeights_to_profile()] or
+[mdmda::combine_weights_and_criteria()]), those will be added and used to
+color the tree and set the edge thicknesses." />
 
 
 
@@ -124,7 +129,12 @@
     </div>
 
     <div class="ref-description">
-    <p>Produce a DiagrammeR plot and show it and/or convert to SVG</p>
+    <p>This renders a plot with the criteria tree. If the `criteriaTree` object
+in the `criteria` object already contains the weights (as can be added with
+[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
+to [mdmcda::scorerWeights_to_profile()] or
+[mdmda::combine_weights_and_criteria()]), those will be added and used to
+color the tree and set the edge thicknesses.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_criteria</span><span class='op'>(</span>
@@ -132,7 +142,9 @@
   labels <span class='op'>=</span> <span class='cn'>NULL</span>,
   wrapLabels <span class='op'>=</span> <span class='fl'>60</span>,
   renderGraph <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  returnSVG <span class='op'>=</span> <span class='cn'>FALSE</span>
+  returnSVG <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,6 +174,16 @@ them to.</p></td>
       <td><p>Whether to return SVG or not. Valid values are `FALSE`,
 to return the `DiagrammeR` object; `TRUE`, to return the SVG;
 and anything that's not logical to return both in a list.</p></td>
+    </tr>
+    <tr>
+      <th>outputFile</th>
+      <td><p>If not NULL and pointing to a file in an existing
+directory, the graph will be exported to this file.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments are passed to `DiagrammeR`'s
+`export_graph` function.</p></td>
     </tr>
     </table>
 

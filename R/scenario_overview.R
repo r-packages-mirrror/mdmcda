@@ -8,7 +8,14 @@ scenario_overview <- function(multiEstimateDf,
                               criterionPlotOrder = "decreasing",
                               criteriaOrder = NULL,
                               criteriaLabels = NULL,
+                              parentCriterionIds = NULL,
+                              parentCriterionLabels = NULL,
+                              decisionOrder = NULL,
+                              decisionLabels = NULL,
+                              alternativeLabels = NULL,
+                              scenarioLabel = NULL,
                               decision_alternative_sep = ": ") {
+
   res <- list();
   res$estimates <-
     select_scenario_estimates(multiEstimateDf = multiEstimateDf,
@@ -47,24 +54,42 @@ scenario_overview <- function(multiEstimateDf,
            decision_alternative_sep,
            res$byDecision$alternative_label);
 
+  if (is.null(scenarioLabel)) {
+    scenarioLabel <- scenario;
+  }
+
   if (createPlots) {
+
+    if (is.null(decisionOrder)) {
+      decisionOrder <-
+        decisionPlotOrder;
+    }
 
     res$scoreBarchart_decisions <-
       scoreBarchart_decisions(
         res$byDecision,
         estimateCol = estimateCol,
         fill = "white",
-        decisionOrder = decisionPlotOrder,
+        decisionOrder = decisionOrder,
         decisionLabels = res$byDecision$decision_and_alternative
       );
+
+    if (is.null(criteriaOrder)) {
+      criteriaOrder <-
+        criterionPlotOrder;
+    }
 
     res$scoreBarchart_criteria <-
       scoreBarchart_criteria(
         estimatesByCriterion = res$byCriterion,
         estimateCol = estimateCol,
         fill = "white",
-        criteriaOrder = criterionPlotOrder,
-        criteriaLabels = criteriaLabels
+        title = paste0("MDMCDA scores per criterion for ",
+                       scenarioLabel),
+        criteriaOrder = criteriaOrder,
+        criteriaLabels = criteriaLabels,
+        parentCriterionIds = parentCriterionIds,
+        parentCriterionLabels = parentCriterionLabels
       );
   }
 
