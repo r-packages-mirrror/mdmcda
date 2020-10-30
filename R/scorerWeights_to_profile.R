@@ -8,7 +8,7 @@ scorerWeights_to_profile <- function(weights,
 
   ### Note: this returns a data frame
   res <-
-    add_weights_to_criteriaTree(
+    add_scorerWeights_to_criteriaTree(
       weights,
       scorer,
       criteria,

@@ -1,5 +1,12 @@
 #' Produce a DiagrammeR plot and show it and/or convert to SVG
 #'
+#' This renders a plot with the criteria tree. If the `criteriaTree` object
+#' in the `criteria` object already contains the weights (as can be added with
+#' [mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
+#' to [mdmcda::scorerWeights_to_profile()] or
+#' [mdmda::combine_weights_and_criteria()]), those will be added and used to
+#' color the tree and set the edge thicknesses.
+#'
 #' @param criteria The criteria object as produced by a call to, for
 #' example, [load_criteria_from_xl()]. The object should contain the
 #' criteria tree in `$criteriaTree`.
@@ -42,7 +49,7 @@ plot_criteria <- function(criteria,
 
   graph <-
     DiagrammeR::add_global_graph_attrs(graph,
-                                       "shape", "square",
+                                       "shape", "box",
                                        "node");
   graph <-
     DiagrammeR::add_global_graph_attrs(graph,
@@ -151,17 +158,10 @@ plot_criteria <- function(criteria,
   graph <-
     DiagrammeR::set_node_attrs(
       graph,
-      "fontcolor",
+      "fillcolor",
       node_df$weightColors,
       node_df$id
     );
-  # graph <-
-  #   DiagrammeR::set_node_attrs(
-  #     graph,
-  #     "penwidth",
-  #     .5 + (2.5 * node_df$finalWeights),
-  #     node_df$id
-  #   );
 
   ### Set edge labels
   graph <-
