@@ -55,6 +55,12 @@ plot_criteria <- function(criteria,
       criteria$criteriaTree
     );
 
+  node_df <-
+    DiagrammeR::get_node_df(graph);
+
+  edge_df <-
+    DiagrammeR::get_edge_df(graph);
+
   ### If weights were present, add and visualise thise
   if (sum(finalWeights, na.rm=TRUE) > 0) {
 
@@ -63,12 +69,6 @@ plot_criteria <- function(criteria,
              " (",
              finalWeights[names(labels)],
              ")");
-
-    node_df <-
-      DiagrammeR::get_node_df(graph);
-
-    edge_df <-
-      DiagrammeR::get_edge_df(graph);
 
     ### Store old labels (the identifiers) and add node weights
     node_df$criterion_id <- node_df$label;
