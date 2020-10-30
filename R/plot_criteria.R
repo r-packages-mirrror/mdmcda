@@ -39,6 +39,7 @@ plot_criteria <- function(criteria,
   }
   labelNames <- names(labels);
 
+  ### Get weights, if they are present
   originalWeights <-
     criteria$criteriaTree$Get('rescaled');
   finalWeights <-
@@ -48,42 +49,107 @@ plot_criteria <- function(criteria,
   finalWeights <-
     ifelse(is.na(finalWeights), 0, round(finalWeights, 2));
 
+  ### Create graph
   graph <-
     data.tree::ToDiagrammeRGraph(
       criteria$criteriaTree
     );
 
-  graph <-
-    DiagrammeR::add_global_graph_attrs(graph,
-                                       "shape", "box",
-                                       "node");
-  graph <-
-    DiagrammeR::add_global_graph_attrs(graph,
-                                       "layout", "dot",
-                                       "graph");
-  graph <-
-    DiagrammeR::add_global_graph_attrs(graph,
-                                       "rankdir", "LR",
-                                       "graph");
-  graph <-
-    DiagrammeR::add_global_graph_attrs(graph,
-                                       "outputorder", "nodesfirst",
-                                       "graph");
-
-  node_df <-
-    DiagrammeR::get_node_df(graph);
-
-  edge_df <-
-    DiagrammeR::get_edge_df(graph);
-
+  ### If weights were present, add and visualise thise
   if (sum(finalWeights, na.rm=TRUE) > 0) {
+
     labels <-
       paste0(labels,
              " (",
              finalWeights[names(labels)],
              ")");
+
+    node_df <-
+      DiagrammeR::get_node_df(graph);
+
+    edge_df <-
+      DiagrammeR::get_edge_df(graph);
+
+    ### Store old labels (the identifiers) and add node weights
+    node_df$criterion_id <- node_df$label;
+    node_df$finalWeights <- finalWeights[node_df$criterion_id];
+
+    ### Convenience vector to translate Diagrammer ids (numbers) to criterion_ids
+    criterionId_to_dgrmId  <-
+      stats::setNames(
+        node_df$criterion_id,
+        nm = node_df$id
+      );
+
+    ### Add identifiers to edges
+    edge_df$to_criterion_id <-
+      criterionId_to_dgrmId[edge_df$to];
+
+    ### Add original weights to edges
+    edge_df$originalWeights <-
+      originalWeights[edge_df$to_criterion_id];
+
+    ### Add weights to nodes
+    graph <-
+      DiagrammeR::set_node_attrs(
+        graph,
+        "finalWeights",
+        node_df$finalWeights,
+        node_df$id
+      );
+
+    ### Set node style to filled
+    graph <-
+      DiagrammeR::set_node_attrs(
+        graph,
+        "style",
+        "filled"
+      );
+
+    ### Add colours based on node weights
+    graph <-
+      DiagrammeR::colorize_node_attrs(
+        graph = graph,
+        node_attr_from = "finalWeights",
+        node_attr_to = "weightColors",
+        palette = "viridis",
+        alpha = 100,
+        reverse_palette = TRUE
+      );
+
+    ### Get updated node_df
+    node_df <-
+      DiagrammeR::get_node_df(graph);
+
+    ### Set node text color and pen width (fill doesn't work?)
+    graph <-
+      DiagrammeR::set_node_attrs(
+        graph,
+        "fillcolor",
+        node_df$weightColors,
+        node_df$id
+      );
+
+    ### Set edge labels
+    graph <-
+      DiagrammeR::set_edge_attrs(
+        graph,
+        "label",
+        edge_df$originalWeights,
+        edge_df$id
+      );
+
+    ### Set edge thickness
+    graph <-
+      DiagrammeR::set_edge_attrs(
+        graph,
+        "penwidth",
+        .5 + (5 * edge_df$originalWeights),
+        edge_df$id
+      );
   }
 
+  ### Wrap and set labels
   if (is.numeric(wrapLabels)) {
     labels <-
       unlist(
@@ -100,25 +166,6 @@ plot_criteria <- function(criteria,
   }
   names(labels) <- labelNames;
 
-  ### Store old labels (the identifiers) and add node weights
-  node_df$criterion_id <- node_df$label;
-  node_df$finalWeights <- finalWeights[node_df$criterion_id];
-
-  ### Convenience vector to translate Diagrammer ids (numbers) to criterion_ids
-  criterionId_to_dgrmId  <-
-    stats::setNames(
-      node_df$criterion_id,
-      nm = node_df$id
-    );
-
-  ### Add identifiers to edges
-  edge_df$to_criterion_id <-
-    criterionId_to_dgrmId[edge_df$to];
-
-  ### Add original weights to edges
-  edge_df$originalWeights <-
-    originalWeights[edge_df$to_criterion_id];
-
   ### Replace node labels
   graph <-
     DiagrammeR::set_node_attrs(
@@ -128,64 +175,23 @@ plot_criteria <- function(criteria,
       node_df$id
     );
 
-  ### Add weights to nodes
+  ### Final global settings
   graph <-
-    DiagrammeR::set_node_attrs(
-      graph,
-      "finalWeights",
-      node_df$finalWeights,
-      node_df$id
-    );
-
-  ### Set node style to filled
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "shape", "box",
+                                       "node");
   graph <-
-    DiagrammeR::set_node_attrs(
-      graph,
-      "style",
-      "filled"
-    );
-
-  ### Add colours based on node weights
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "layout", "dot",
+                                       "graph");
   graph <-
-    DiagrammeR::colorize_node_attrs(
-      graph = graph,
-      node_attr_from = "finalWeights",
-      node_attr_to = "weightColors",
-      palette = "viridis",
-      alpha = 100,
-      reverse_palette = TRUE
-    );
-
-  ### Get updated node_df
-  node_df <-
-    DiagrammeR::get_node_df(graph);
-
-  ### Set node text color and pen width (fill doesn't work?)
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "rankdir", "LR",
+                                       "graph");
   graph <-
-    DiagrammeR::set_node_attrs(
-      graph,
-      "fillcolor",
-      node_df$weightColors,
-      node_df$id
-    );
-
-  ### Set edge labels
-  graph <-
-    DiagrammeR::set_edge_attrs(
-      graph,
-      "label",
-      edge_df$originalWeights,
-      edge_df$id
-    );
-
-  ### Set edge thickness
-  graph <-
-    DiagrammeR::set_edge_attrs(
-      graph,
-      "penwidth",
-      .5 + (5 * edge_df$originalWeights),
-      edge_df$id
-    );
+    DiagrammeR::add_global_graph_attrs(graph,
+                                       "outputorder", "nodesfirst",
+                                       "graph");
 
   ### Render graph
   if (renderGraph) {
