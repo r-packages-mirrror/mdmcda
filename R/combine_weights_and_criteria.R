@@ -1,8 +1,23 @@
+#' Add weights from a data frame to criteria tree and update data frame
+#'
+#' Add weights from a data frame to criteria tree and update data frame.
+#'
+#' @param weightsMeansAndSDs The data frame with the weights; should have
+#' a column `criterion_id` and one or more columns with weights.
+#' @param criteria The `criteria` object.
+#' @param weightCols A named character vector, where each value is a column
+#' with weights in `weightsMeansAndSDs`, and each element's name is the
+#' name that weight should get in the `criteria$criteriaTree` and in the
+#' `weightsMeansAndSDs` that is returned after acculumation over the tree.
+#' @param rootWeight The weight for the tree root.
+#' @param rootParentCriterion_id The identifier for the tree root.
+#'
+#' @return The updated `weightsMeansAndSDs` (and `criteria$criteriaTree` is
+#' updated in memory).
 #' @export
 combine_weights_and_criteria <- function(weightsMeansAndSDs,
                                          criteria,
-                                         weightCols = c(raw = 'weight_mean_proportion',
-                                                        rescaled = 'weight_mean_rescaled_proportion'),
+                                         weightCols,
                                          rootWeight = 1,
                                          rootParentCriterion_id = "-") {
 

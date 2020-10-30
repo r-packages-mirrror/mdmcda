@@ -33,5 +33,10 @@ Depending on the value of `returnSVG`, a `DiagrammeR` object;,
 a character vector with SVG, or both in a list.
 }
 \description{
-Produce a DiagrammeR plot and show it and/or convert to SVG
+This renders a plot with the criteria tree. If the `criteriaTree` object
+in the `criteria` object already contains the weights (as can be added with
+[mdmcda::add_scorerWeights_to_criteriaTree()] or by a call
+to [mdmcda::scorerWeights_to_profile()] or
+[mdmda::combine_weights_and_criteria()]), those will be added and used to
+color the tree and set the edge thicknesses.
 }
