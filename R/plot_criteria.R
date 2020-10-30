@@ -126,7 +126,7 @@ plot_criteria <- function(criteria,
       DiagrammeR::set_node_attrs(
         graph,
         "fillcolor",
-        ifelse(node_df$finalWeights < .2, "black", "white"),
+        node_df$weightColors,
         node_df$id
       );
 
@@ -135,7 +135,7 @@ plot_criteria <- function(criteria,
       DiagrammeR::set_node_attrs(
         graph,
         "fontcolor",
-        node_df$weightColors,
+        ifelse(node_df$finalWeights < .2, "black", "white"),
         node_df$id
       );
 
