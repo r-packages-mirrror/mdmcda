@@ -8,6 +8,8 @@ plot_criteria(
   criteria,
   labels = NULL,
   wrapLabels = 60,
+  color_nodes = TRUE,
+  color_palette = "viridis",
   renderGraph = TRUE,
   returnSVG = FALSE,
   outputFile = NULL,
@@ -23,6 +25,10 @@ criteria tree in `$criteriaTree`.}
 
 \item{wrapLabels}{If applying labels, the number of characters to wrap
 them to.}
+
+\item{color_nodes, color_palette}{Whether to use `DiagrammeR`s
+`colorize_node_attrs()` function to color the nodes, and if so, which
+palette to use.}
 
 \item{renderGraph}{Whether to show the graph.}
 

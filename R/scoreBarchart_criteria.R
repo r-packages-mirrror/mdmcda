@@ -1,3 +1,29 @@
+#' Create a bar chart with scores per criterion
+#'
+#' @param estimatesByCriterion An `estimatesByCriterion` object as created by
+#' [aggregate_estimates_by_criterion()].
+#' @param estimateCol The column name with the estimates to use.
+#' @param fill The color to use to fill the bars, if not by criterion cluster.
+#' @param strokeColor,strokeSize The color and pen width of the stroke.
+#' @param title,xLab,yLab The title and x and y axis labels.
+#' @param criterionOrder The order of the criteria, a vector
+#' with criterion identifiers.
+#' @param criterionLabels The criterion labels, a names vector where every
+#' element if a label and the corresponding name the criterion identifier.
+#' @param parentCriterionOrder The order of the parent criteria (the clusters),
+#' a vector with criterion identifiers.
+#' @param parentCriterionIds_by_childId A names vector to easily find the
+#' parent criterion identifier of each criterion identifier; the names should
+#' be the criterion identifiers in `criterionOrder`, and the values the
+#' corresponding parent criterion identifiers.
+#' @param xLabelRotationAngle THe angel to rotate the x axis labels.
+#' @param verticalPlot Whether to plot vertically.
+#' @param theme The `ggplot2` theme to use.
+#' @param guides A guides argument to tweak the legend.
+#' @param legend.position,legend.box.margin The position and spacing for the
+#' legend.
+#'
+#' @return A `ggplot2` plot.
 #' @export
 scoreBarchart_criteria <- function(estimatesByCriterion,
                                    estimateCol,
