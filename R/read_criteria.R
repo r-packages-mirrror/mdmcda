@@ -1,5 +1,5 @@
 #' @export
-load_criteria <- function(input,
+read_criteria <- function(input,
                           extension = "jmd",
                           regex = NULL,
                           recursive = TRUE,
@@ -11,7 +11,7 @@ load_criteria <- function(input,
   }
 
   criteria <-
-    yum::load_and_simplify_dir(path=input,
+    yum::read_and_simplify_dir(path=input,
                                fileRegexes = regex,
                                recursive = recursive,
                                encoding=encoding,

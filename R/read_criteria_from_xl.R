@@ -10,7 +10,7 @@
 #'
 #' @return A `criteria` object.
 #' @export
-load_criteria_from_xl <- function(input,
+read_criteria_from_xl <- function(input,
                                   showGraphs = TRUE,
                                   ...) {
 

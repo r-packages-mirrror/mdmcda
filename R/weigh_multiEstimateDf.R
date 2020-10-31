@@ -7,7 +7,7 @@
 #' with the `_id` suffix contain identifiers, and columns with the `_label`
 #' suffix contain human-readable labels. This dataframe is stored in the
 #' object called `multiEstimateDf` returned by a call to
-#' [load_performance_tables()] to read a set of scored performance tables.
+#' [read_performance_tables()] to read a set of scored performance tables.
 #' @param weight_profiles The weight profiles: a named list of vectors, where
 #' every vector element's value is the weight of a criterion, that
 #' element's name is the criterion's identifier, and the vector's name is the

@@ -8,7 +8,7 @@
 #' color the tree and set the edge thicknesses.
 #'
 #' @param criteria The criteria object as produced by a call to, for
-#' example, [load_criteria_from_xl()]. The object should contain the
+#' example, [read_criteria_from_xl()]. The object should contain the
 #' criteria tree in `$criteriaTree`.
 #' @param labels Optionally, labels to apply to the criteria nodes.
 #' @param wrapLabels If applying labels, the number of characters to wrap

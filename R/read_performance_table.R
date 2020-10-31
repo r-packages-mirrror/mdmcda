@@ -1,5 +1,5 @@
 #' @export
-load_performance_table <- function(file,
+read_performance_table <- function(file,
                                    estimatesSheet="Estimates",
                                    confidencesSheet = "Confidences",
                                    sep=",",

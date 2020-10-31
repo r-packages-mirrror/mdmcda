@@ -16,7 +16,7 @@ plot_criteria(
 }
 \arguments{
 \item{criteria}{The criteria object as produced by a call to, for
-example, [load_criteria_from_xl()]. The object should contain the
+example, [read_criteria_from_xl()]. The object should contain the
 criteria tree in `$criteriaTree`.}
 
 \item{labels}{Optionally, labels to apply to the criteria nodes.}

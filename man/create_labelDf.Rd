@@ -4,15 +4,14 @@
 \alias{create_labelDf}
 \title{Create data frame with identifiers and labels}
 \usage{
-create_labelDf(namedVector, type)
+create_labelDf(namedVector, idCol, labelCol)
 }
 \arguments{
 \item{namedVector}{The named vector, names should be identifiers,
 values should be labels.}
 
-\item{type}{The type is prefixed to the column names (the suffixes
-`_id` and `_label` are added). Common types are "`decision`", "`criterion`",
-and "`scenario`".}
+\item{idCol, labelCol}{The names to use for the identifier column and the
+label column.}
 }
 \value{
 The data frame
@@ -21,11 +20,12 @@ The data frame
 Convenience function to convert a label vector to a label data frame.
 }
 \examples{
-create_labelDf(
+mdmcda::create_labelDf(
   c(
     id1 = "first element",
     id2 = "second element"
   ),
-  type = "example"
+  idCol = "example_id",
+  labelCol = "example_label"
 );
 }

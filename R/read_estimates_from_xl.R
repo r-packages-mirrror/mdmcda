@@ -2,7 +2,7 @@
 #'
 #' This function loads estimates that have been exported
 #' from an Excel file. For loading estimates from
-#' completed performance tables, use [mdmcda::load_performance_tables()].
+#' completed performance tables, use [mdmcda::read_performance_tables()].
 #'
 #' @param file The filename.
 #' @param multiEstimateDf Whether the file contains an exported
@@ -12,7 +12,7 @@
 #' `$multiEstimateDf`.
 #'
 #' @export
-load_estimates_from_xl <- function(file,
+read_estimates_from_xl <- function(file,
                                    multiEstimateDf = TRUE) {
 
   dat <- openxlsx::read.xlsx(file);

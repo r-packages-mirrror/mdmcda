@@ -4,28 +4,29 @@
 #'
 #' @param namedVector The named vector, names should be identifiers,
 #' values should be labels.
-#' @param type The type is prefixed to the column names (the suffixes
-#' `_id` and `_label` are added). Common types are "`decision`", "`criterion`",
-#' and "`scenario`".
+#' @param idCol,labelCol The names to use for the identifier column and the
+#' label column.
 #'
 #' @return The data frame
 #' @export
 #'
-#' @examples create_labelDf(
+#' @examples mdmcda::create_labelDf(
 #'   c(
 #'     id1 = "first element",
 #'     id2 = "second element"
 #'   ),
-#'   type = "example"
+#'   idCol = "example_id",
+#'   labelCol = "example_label"
 #' );
 create_labelDf <- function(namedVector,
-                           type) {
+                           idCol,
+                           labelCol) {
   res <-
     data.frame(
       id = names(namedVector),
       label = unname(namedVector)
     );
   names(res) <-
-    paste0(type, c("_id", "_label"));
+    c(idCol, labelCol);
   return(res);
 }

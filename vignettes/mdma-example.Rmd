@@ -91,7 +91,7 @@ The following tree of criteria was established:
 ```{r load-criteria, message=FALSE, comment=""}
 
 criteria <-
-  mdmcda::load_criteria_from_xl(file.path(dataDir,
+  mdmcda::read_criteria_from_xl(file.path(dataDir,
                                          "mdma-example-fullCriteriaDf.xlsx"),
                                showGraphs = FALSE);
 
@@ -112,7 +112,7 @@ These criteria have a hierarchical structure to facilitate weighing them efficie
 ```{r load-estimates, fig.width=10, results="asis"}
 
 estimates <-
-  mdmcda::load_performance_tables(input = file.path(dataDir),
+  mdmcda::read_performance_tables(input = file.path(dataDir),
                                  regex = "^performance_subtable_for_",
                                  recursive = FALSE);
 
@@ -131,7 +131,7 @@ To set weights, all experts submitted individually determined weights for each o
 ```{r load-weights, fig.width=10, results="asis"}
 
 weights <-
-  mdmcda::load_weights_from_xl(input = file.path(dataDir,
+  mdmcda::read_weights_from_xl(input = file.path(dataDir,
                                                 "mdma-example-criteria-weights.xlsx"));
 
 ```
