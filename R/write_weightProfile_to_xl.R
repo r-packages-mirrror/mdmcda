@@ -1,4 +1,4 @@
-#' Export weight profiles to an Excel spreadsheet
+#' Write weight profiles to an Excel spreadsheet
 #'
 #' Weight profiles are lists of vectors with weights. Every vector is named,
 #' with the names being the criterion identifiers of the criterion each weight
@@ -13,7 +13,7 @@
 #'
 #' @return Invisibly, the list of dataframes that's written to the file.
 #' @export
-export_weightProfile_to_xl <- function(weightProfiles,
+write_weightProfile_to_xl <- function(weightProfiles,
                                        file) {
   if (!dir.exists(dirname(file))) {
     stop("The file you specified is located in a directory that ",

@@ -53,10 +53,10 @@ write_labels_to_xl <- function(x,
 
 #' @rdname write_labels_to_xl
 #' @export
-write_criterionLabels_from_xl <- function(x,
-                                          file,
-                                          preventOverwriting = mdmcda::opts$get("preventOverwriting"),
-                                          quiet = mdmcda::opts$get("quiet")) {
+write_criterionLabels_to_xl <- function(x,
+                                        file,
+                                        preventOverwriting = mdmcda::opts$get("preventOverwriting"),
+                                        quiet = mdmcda::opts$get("quiet")) {
   return(
     write_labels_to_xl(
       x,
