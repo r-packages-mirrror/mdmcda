@@ -152,14 +152,16 @@ opts$ez$figSize <-
 opts$defaults <-
   list(
 
-    decisionId_col       = "decision_id",
-    decisionLabel_col    = "decision_label",
-    criterionId_col      = "criterion_id",
-    criterionLabel_col   = "criterion_label",
-    alternativeValue_col = "alternative_value",
-    alternativeLabel_col = "alternative_label",
-    scenarioId_col       = "scenario_id",
-    scenarioLabel_col    = "scenario_label",
+    decisionId_col           = "decision_id",
+    decisionLabel_col        = "decision_label",
+    criterionId_col          = "criterion_id",
+    criterionLabel_col       = "criterion_label",
+    alternativeValue_col     = "alternative_value",
+    alternativeLabel_col     = "alternative_label",
+    scenarioId_col           = "scenario_id",
+    scenarioLabel_col        = "scenario_label",
+    decisionDescription_col  = "decision_description",
+    decisionAlternatives_col = "decision_alternatives",
 
     ### ggSave defaults
     ggSaveFigWidth = 11,

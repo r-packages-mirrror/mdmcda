@@ -53,36 +53,54 @@ write_labels_to_xl <- function(x,
 
 #' @rdname write_labels_to_xl
 #' @export
-read_criterionLabels_from_xl <- function(file) {
+write_criterionLabels_from_xl <- function(x,
+                                          file,
+                                          preventOverwriting = mdmcda::opts$get("preventOverwriting"),
+                                          quiet = mdmcda::opts$get("quiet")) {
   return(
     write_labels_to_xl(
+      x,
       file = file,
       idCol = mdmcda::opts$get("criterionId_col"),
-      labelCol = mdmcda::opts$get("criterionLabel_col")
+      labelCol = mdmcda::opts$get("criterionLabel_col"),
+      preventOverwriting = preventOverwriting,
+      quiet = quiet
     )
   );
 }
 
 #' @rdname write_labels_to_xl
 #' @export
-write_decisionLabels_to_xl <- function(file) {
+write_decisionLabels_to_xl <- function(x,
+                                       file,
+                                       preventOverwriting = mdmcda::opts$get("preventOverwriting"),
+                                       quiet = mdmcda::opts$get("quiet")) {
   return(
     write_labels_to_xl(
+      x,
       file = file,
       idCol = mdmcda::opts$get("decisionId_col"),
-      labelCol = mdmcda::opts$get("decisionLabel_col")
+      labelCol = mdmcda::opts$get("decisionLabel_col"),
+      preventOverwriting = preventOverwriting,
+      quiet = quiet
     )
   );
 }
 
 #' @rdname write_labels_to_xl
 #' @export
-write_scenarioLabels_to_xl <- function(file) {
+write_scenarioLabels_to_xl <- function(x,
+                                       file,
+                                       preventOverwriting = mdmcda::opts$get("preventOverwriting"),
+                                       quiet = mdmcda::opts$get("quiet")) {
   return(
     write_labels_to_xl(
+      x,
       file = file,
       idCol = mdmcda::opts$get("scenarioId_col"),
-      labelCol = mdmcda::opts$get("scenarioLabel_col")
+      labelCol = mdmcda::opts$get("scenarioLabel_col"),
+      preventOverwriting = preventOverwriting,
+      quiet = quiet
     )
   );
 }
