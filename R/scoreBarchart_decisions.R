@@ -43,7 +43,7 @@ scoreBarchart_decisions <- function(estimatesByDecision,
         row.names(estimatesByDecision) <-
           estimatesByDecision$decision_id;
       } else {
-        stop("If `criteriaOrder` is not 'increasing' or 'decreasing', it ",
+        stop("If `criterionOrder` is not 'increasing' or 'decreasing', it ",
              "must be a character vector with the criterion_id value ",
              "in the desired order!");
       }

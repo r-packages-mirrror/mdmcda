@@ -162,6 +162,7 @@ opts$defaults <-
     scenarioLabel_col        = "scenario_label",
     decisionDescription_col  = "decision_description",
     decisionAlternatives_col = "decision_alternatives",
+    rootCriterionId          = "outcomes",
 
     ### ggSave defaults
     ggSaveFigWidth = 11,

@@ -4,13 +4,20 @@
 \alias{read_criteria_from_xl}
 \title{Read the criteria from a spreadsheet}
 \usage{
-read_criteria_from_xl(input, showGraphs = TRUE, ...)
+read_criteria_from_xl(
+  input,
+  showGraphs = TRUE,
+  rootCriterionId = mdmcda::opts$get("rootCriterionId"),
+  ...
+)
 }
 \arguments{
 \item{input}{The file to read from.}
 
 \item{showGraphs}{Whether to show the anchoring graphs (passed on to
 [mdmcda::anchoringDf_to_anchoringGraphs()]).}
+
+\item{rootCriterionId}{The identifier of the root criterion.}
 
 \item{...}{Passed on to [mdmcda::anchoringDf_to_anchoringGraphs()].}
 }

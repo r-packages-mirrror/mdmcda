@@ -53,6 +53,8 @@ read_scenarioDefinitions_in_columns_from_xl <-
              );
            });
 
+  names(res) <- scenarioIds;
+
   return(res);
 
 }

@@ -1,12 +1,13 @@
 #' @export
 aggregate_estimates_by_criterion <- function(multiEstimateDf,
                                              estimateCol,
+                                             criterionId_col = mdmcda::opts$get("criterionId_col"),
                                              fun = sum,
                                              ...) {
   res <-
     do.call(rbind,
             lapply(by(multiEstimateDf[[estimateCol]],
-                      multiEstimateDf$criterion_id,
+                      multiEstimateDf[[criterionId_col]],
                       fun,
                       ...),
                    as.data.frame));

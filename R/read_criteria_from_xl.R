@@ -6,12 +6,14 @@
 #' @param input The file to read from.
 #' @param showGraphs Whether to show the anchoring graphs (passed on to
 #' [mdmcda::anchoringDf_to_anchoringGraphs()]).
+#' @param rootCriterionId The identifier of the root criterion.
 #' @param ... Passed on to [mdmcda::anchoringDf_to_anchoringGraphs()].
 #'
 #' @return A `criteria` object.
 #' @export
 read_criteria_from_xl <- function(input,
                                   showGraphs = TRUE,
+                                  rootCriterionId = mdmcda::opts$get("rootCriterionId"),
                                   ...) {
 
   if (!file.exists(input)) {
@@ -71,39 +73,40 @@ read_criteria_from_xl <- function(input,
 
   criterionIds <-
     sort(unique(res$criteriaDf$id));
-  parentCriterionIds <-
+  parentCriterionIds_by_childId <-
     as.data.frame(unique(res$criteriaDf[, c('id',
-                                                 'parentCriterion')]));
+                                            'parentCriterion')]));
+  parentCriterionIds_by_childId <-
+    stats::setNames(parentCriterionIds_by_childId$parentCriterion,
+                    parentCriterionIds_by_childId$id);
   parentCriterionIds <-
-    stats::setNames(parentCriterionIds$parentCriterion,
-                    parentCriterionIds$id);
-  parentCriteriaIds <-
     unique(res$criteriaDf[res$criteriaDf$parentCriterion=="outcomes",
                           'id']);
-  parentCriteriaIds <-
-    unique(parentCriterionIds)[nchar(unique(parentCriterionIds))>1];
+  parentCriterionIds <-
+    unique(parentCriterionIds_by_childId)[nchar(unique(parentCriterionIds_by_childId))>1];
 
-  childCriteriaIds <-
+  childCriterionIds_by_parentId <-
     stats::setNames(
       lapply(
-        unique(parentCriterionIds),
+        unique(parentCriterionIds_by_childId),
         function(i)
-          names(parentCriterionIds[parentCriterionIds==i])),
-      unique(parentCriterionIds)
+          names(parentCriterionIds_by_childId[parentCriterionIds_by_childId==i])),
+      unique(parentCriterionIds_by_childId)
     );
 
-  childCriteriaByCluster <-
-    res$criteriaDf[res$criteriaDf$isLeaf, ]
-  childCriteriaByCluster <-
-    childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
+  leafCriterionIds <-
+    res$criteriaDf[res$criteriaDf$leafCriterion, 'id'];
 
   ### Store in 'criteria' object for convenience
   res$convenience <-
-    list(criterionIds = criterionIds,
-         parentCriterionIds = parentCriterionIds,
-         parentCriteriaIds = parentCriteriaIds,
-         childCriteriaIds = childCriteriaIds,
-         childCriteriaByCluster = childCriteriaByCluster);
+    list(
+      rootCriterionId = rootCriterionId,
+      criterionIds = criterionIds,
+      leafCriterionIds = leafCriterionIds,
+      parentCriterionIds = parentCriterionIds,
+      parentCriterionIds_by_childId = parentCriterionIds_by_childId,
+      childCriterionIds_by_parentId = childCriterionIds_by_parentId,
+      topCriterionClusters = childCriterionIds_by_parentId[[rootCriterionId]]);
 
   class(res) <-
     c("dmcda", "criteria");
