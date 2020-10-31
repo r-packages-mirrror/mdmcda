@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_labels_to_xl.R
 \name{write_labels_to_xl}
 \alias{write_labels_to_xl}
-\alias{write_criterionLabels_from_xl}
+\alias{write_criterionLabels_to_xl}
 \alias{write_decisionLabels_to_xl}
 \alias{write_scenarioLabels_to_xl}
 \alias{write_alternativeLabels_to_xl}
@@ -17,7 +17,7 @@ write_labels_to_xl(
   quiet = mdmcda::opts$get("quiet")
 )
 
-write_criterionLabels_from_xl(
+write_criterionLabels_to_xl(
   x,
   file,
   preventOverwriting = mdmcda::opts$get("preventOverwriting"),
