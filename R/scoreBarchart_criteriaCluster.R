@@ -57,7 +57,9 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                                   y = estimateCol,
                                                   group = "scenario_id",
                                                   fill="scenario_id")) +
-    ggplot2::geom_col(position=ggplot2::position_dodge()) +
+    ggplot2::geom_col(position=ggplot2::position_dodge(),
+                      color = strokeColor,
+                      size = strokeSize) +
     ggplot2::scale_fill_viridis_d(name=NULL) +
     theme +
     ggplot2::guides(fill = guides,

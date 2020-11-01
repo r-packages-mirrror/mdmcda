@@ -1,17 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mdmcda 📦
+# <img src='img/hex-logo.png' align="right" height="200" /> mdmcda 📦
 
 ## Multi-Decision Multi-Criteria Decision Analysis
 
 <!-- badges: start -->
 
 [![Pipeline
-status](https://gitlab.com/r-packages/mdmcda/badges/master/pipeline.svg)](https://gitlab.com/r-packages/mdmcda/commits/master)
+status](https://gitlab.com/r-packages/mdmcda/badges/prod/pipeline.svg)](https://gitlab.com/r-packages/mdmcda/commits/prod)
 
 [![Coverage
-status](https://codecov.io/gl/r-packages/mdmcda/branch/master/graph/badge.svg)](https://codecov.io/gl/r-packages/mdmcda?branch=master)
+status](https://codecov.io/gl/r-packages/mdmcda/branch/prod/graph/badge.svg)](https://codecov.io/gl/r-packages/mdmcda?branch=prod)
 
 <!-- [![Dependency status](https://tinyverse.netlify.com/badge/mdmcda)](https://CRAN.R-project.org/package=mdmcda) -->
 
@@ -56,8 +56,15 @@ You can install the development version of `mdmcda` from
 remotes::install_gitlab('r-packages/mdmcda');
 ```
 
-(assuming you have `remotes` installed; otherwise, install that first
-using the `install.packages` function)
+If you want the even more cutting edge version, you can install from the
+`dev` branch (as opposed to the default branch, `prod`) with:
+
+``` r
+remotes::install_gitlab('r-packages/mdmcda@dev');
+```
+
+(This is assuming you have the `remotes` packages installed; otherwise,
+install that first using the `install.packages` function.)
 
 <!--------------------------------------------->
 
