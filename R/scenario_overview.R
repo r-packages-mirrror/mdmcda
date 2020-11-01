@@ -77,7 +77,7 @@ scenario_overview <- function(multiEstimateDf,
         decisionLabels = res$byDecision$decision_and_alternative
       ) +
       ggplot2::theme(
-        plot.margin = ggplot2::margin(l=5, r=1, t=1, b=2,
+        plot.margin = ggplot2::margin(l=7, r=1, t=1, b=4,
                                       unit = "line")
       );
 
@@ -117,7 +117,7 @@ scenario_overview <- function(multiEstimateDf,
         scoreBarchart_criteria_args
       ) +
       ggplot2::theme(
-        plot.margin = ggplot2::margin(l=5, r=1, t=1, b=2,
+        plot.margin = ggplot2::margin(l=7, r=1, t=1, b=4,
                                       unit = "line")
       );
 
