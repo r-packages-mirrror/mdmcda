@@ -70,10 +70,6 @@ scoreBarchart_decisions <- function(estimatesByDecision,
                       nm = decisionOrder);
   }
 
-  print(decisionOrder);
-  print(decisionLabels);
-  print(decisionLabels[decisionOrder]);
-
   estimatesByDecision$decision <-
     factor(estimatesByDecision[, decisionId_col],
            levels = decisionOrder,
