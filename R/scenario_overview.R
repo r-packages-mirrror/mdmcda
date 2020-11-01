@@ -75,6 +75,10 @@ scenario_overview <- function(multiEstimateDf,
         fill = "white",
         decisionOrder = decisionOrder,
         decisionLabels = res$byDecision$decision_and_alternative
+      ) +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(l=5, r=1, t=1, b=2,
+                                      unit = "line")
       );
 
     if (is.null(criterionOrder)) {
@@ -111,6 +115,10 @@ scenario_overview <- function(multiEstimateDf,
       do.call(
         scoreBarchart_criteria,
         scoreBarchart_criteria_args
+      ) +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(l=5, r=1, t=1, b=2,
+                                      unit = "line")
       );
 
   }
