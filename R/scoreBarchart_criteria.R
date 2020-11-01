@@ -72,6 +72,12 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
     criterionOrder <- rev(criterionOrder);
   }
 
+  if (is.null(criterionLabels)) {
+    criterionLabels <-
+      stats::setNames(criterionOrder,
+                      nm = criterionOrder);
+  }
+
   estimatesByCriterion$criteria <-
     factor(estimatesByCriterion[, criterionId_col],
            levels = criterionOrder,
@@ -103,13 +109,13 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                                                     y = estimateCol)) +
       ggplot2::geom_col(fill = fill,
                         color = strokeColor,
-                        size = strokeSize);
+                        size = strokeSize) +
+      ggplot2::scale_fill_viridis_d(end=.9, name="Criteria Clusters");
   }
 
   res <-
     res +
     theme +
-    ggplot2::scale_fill_viridis_d(end=.9, name="Criteria Clusters") +
     ggplot2::theme_minimal() +
     ggplot2::guides(fill = guides,
                     color = guides) +
