@@ -20,7 +20,7 @@ get_alternativeLabel <- function(x,
         return(alternativeLabels[[decision_id]][[alternative_value]])
       },
       x[, decisionId_col],
-      x[, alternativeValue_col]
+      as.character(x[, alternativeValue_col])
     )
   );
 }
