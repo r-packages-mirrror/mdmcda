@@ -8,11 +8,14 @@
 #' color the tree and set the edge thicknesses.
 #'
 #' @param criteria The criteria object as produced by a call to, for
-#' example, [load_criteria_from_xl()]. The object should contain the
+#' example, [read_criteria_from_xl()]. The object should contain the
 #' criteria tree in `$criteriaTree`.
 #' @param labels Optionally, labels to apply to the criteria nodes.
 #' @param wrapLabels If applying labels, the number of characters to wrap
 #' them to.
+#' @param color_nodes,color_palette Whether to use `DiagrammeR`s
+#' `colorize_node_attrs()` function to color the nodes, and if so, which
+#' palette to use.
 #' @param renderGraph Whether to show the graph.
 #' @param returnSVG Whether to return SVG or not. Valid values are `FALSE`,
 #' to return the `DiagrammeR` object; `TRUE`, to return the SVG;
@@ -28,6 +31,8 @@
 plot_criteria <- function(criteria,
                           labels = NULL,
                           wrapLabels = 60,
+                          color_nodes = TRUE,
+                          color_palette = "viridis",
                           renderGraph = TRUE,
                           returnSVG = FALSE,
                           outputFile = NULL,
@@ -106,39 +111,42 @@ plot_criteria <- function(criteria,
         "filled"
       );
 
-    ### Add colours based on node weights
-    graph <-
-      DiagrammeR::colorize_node_attrs(
-        graph = graph,
-        node_attr_from = "finalWeights",
-        node_attr_to = "weightColors",
-        palette = "viridis",
-        alpha = 100,
-        reverse_palette = TRUE
-      );
+    if (color_nodes) {
 
-    ### Get updated node_df
-    node_df <-
-      DiagrammeR::get_node_df(graph);
+      ### Add colours based on node weights
+      graph <-
+        DiagrammeR::colorize_node_attrs(
+          graph = graph,
+          node_attr_from = "finalWeights",
+          node_attr_to = "weightColors",
+          palette = color_palette,
+          alpha = 100,
+          reverse_palette = TRUE
+        );
 
-    ### Set node fill color
-    graph <-
-      DiagrammeR::set_node_attrs(
-        graph,
-        "fillcolor",
-        node_df$weightColors,
-        node_df$id
-      );
+      ### Get updated node_df
+      node_df <-
+        DiagrammeR::get_node_df(graph);
 
-    ### Set font color
-    graph <-
-      DiagrammeR::set_node_attrs(
-        graph,
-        "fontcolor",
-        ifelse(node_df$finalWeights < .2, "black", "white"),
-        node_df$id
-      );
+      ### Set node fill color
+      graph <-
+        DiagrammeR::set_node_attrs(
+          graph,
+          "fillcolor",
+          node_df$weightColors,
+          node_df$id
+        );
 
+      ### Set font color
+      graph <-
+        DiagrammeR::set_node_attrs(
+          graph,
+          "fontcolor",
+          ifelse(node_df$finalWeights < .2, "black", "white"),
+          node_df$id
+        );
+
+    }
 
     ### Set edge labels
     graph <-

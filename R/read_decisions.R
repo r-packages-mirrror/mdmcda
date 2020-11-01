@@ -1,5 +1,5 @@
 #' @export
-load_decisions <- function(input,
+read_decisions <- function(input,
                            extension = "jmd",
                            regex = NULL,
                            recursive = TRUE,
@@ -12,7 +12,7 @@ load_decisions <- function(input,
   ### Use suppressWarnings because we do not need identifiers
   suppressWarnings(
     decisions_raw <-
-      justifier::load_justifications_dir(path=input,
+      justifier::read_justifications_dir(path=input,
                                          regex = regex,
                                          justificationContainer = 'decision',
                                          recursive = recursive,

@@ -1,10 +1,11 @@
 #' @export
 highlighted_alternative_table <-
   function(scores_per_alternative,
+           alternativeLabels,
            decreasing = FALSE,
            scenario = NULL,
            decisionLabels = NULL,
-           alternativeValues = NULL,
+           decisionOrder = NULL,
            colNames = c("Decisions and alternatives",
                         "Scores"),
            caption = NULL,
@@ -13,32 +14,43 @@ highlighted_alternative_table <-
            returnTableOnly = TRUE,
            ...) {
 
+    decisionId_col <- mdmcda::opts$get("decisionId_col");
+
+    if (is.null(decisionOrder)) {
+      decisionOrder <-
+        unique(scores_per_alternative[, decisionId_col]);
+    }
+
     if (is.null(decisionLabels)) {
       decisionLabels <-
-        stats::setNames(unique(scores_per_alternative$decision_id),
-                        unique(scores_per_alternative$decision_id));
+        stats::setNames(decisionOrder,
+                        decisionOrder);
     }
 
     res <- list();
     res$raw <-
       lapply(
-        unique(scores_per_alternative$decision_id),
+        decisionOrder,
         function(decision_id) {
+          ### Select scores for this decision
           res <-
             scores_per_alternative[
-              scores_per_alternative$decision_id == decision_id,
+              scores_per_alternative[, decisionId_col] == decision_id,
             ];
+          ### Set the alternative labels
           res$alternative_label <-
-            unlist(alternativeValues[[decision_id]])[res$alternative_id];
+            unlist(alternativeLabels[[decision_id]])[res$alternative_id];
+          ### Determine order of alternatives
           if (is.null(decreasing)) {
-            altOrder <-
+            alternativesOrder <-
               seq_along(res$score);
           } else {
-            altOrder <-
+            alternativesOrder <-
               order(res$score,
                     decreasing = decreasing);
           }
-          res <- res[altOrder,
+          ### Create dataframe to return
+          res <- res[alternativesOrder,
                      c('decision_id',
                        'alternative_id',
                        'alternative_label',

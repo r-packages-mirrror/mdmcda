@@ -6,7 +6,7 @@
 #'
 #' @return A list of vectors (i.e. a scenarioDefinitions object).
 #' @export
-import_scenarioDefinitions_from_xl <- function(file) {
+read_scenarioDefinitions_from_xl <- function(file) {
 
   if (!file.exists(file)) {
     stop("The file you specified does not exist!");

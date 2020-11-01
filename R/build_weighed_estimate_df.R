@@ -10,7 +10,7 @@
 #' with the `_id` suffix contain identifiers, and columns with the `_label`
 #' suffix contain human-readable labels. This dataframe is stored in the
 #' object called `multiEstimateDf` returned by a call to
-#' [load_performance_tables()] to read a set of scored performance tables.
+#' [read_performance_tables()] to read a set of scored performance tables.
 #' @param criterionNames A vector with the identifiers of the criteria
 #' to process.
 #' @param scorer The name of the scorer whose estimates to process.
@@ -49,7 +49,7 @@ build_weighed_estimate_df <-
 
       if (length(currentDecision) > 1) {
         stop("When not working with scenarios, I can analyze only ",
-             "one decision, but the estimates your provided concern ",
+             "one decision, but the estimates you provided concern ",
              length(unique(estimates$multiEstimateDf$decision_id)),
              " decisions (specifically, ",
              vecTxtQ(unique(estimates$multiEstimateDf$decision_id)), ").");
@@ -76,29 +76,29 @@ build_weighed_estimate_df <-
             if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
                 (length(setMissingEstimates) == 1)) {
               if (warnForMissingEstimates) {
-                cat("\n- Warning: no estimate found for the effect of alternative ",
+                cat("\n- Warning: no estimate found for the effect of alternative '",
                     currentAlternativeValue,
-                    " of decision ", currentDecision, " on criterion ",
-                    currentCriterion, " - setting it to the value of `setMissingEstimates` (",
-                    setMissingEstimates, ")\n", sep="");
+                    "' of decision ", currentDecision, "' on criterion '",
+                    currentCriterion, "' - setting it to the value of `setMissingEstimates` ('",
+                    setMissingEstimates, "')\n", sep="");
               }
               estimate <- setMissingEstimates;
             } else {
               if (warnForMissingEstimates) {
-                cat("\n- Error: no estimate found for the effect of alternative ",
+                cat("\n- Error: no estimate found for the effect of alternative '",
                     scenarioDefinitions[[currentScenario]][currentDecision],
-                    " of decision ", currentDecision, " on criterion ",
-                    currentCriterion, ".\n", sep="");
+                    "' of decision '", currentDecision, "' on criterion '",
+                    currentCriterion, "'.\n", sep="");
               }
               estimate <- NA;
             }
           }
           if (length(estimate) > 1) {
             if (warnForDuplicateEstimates) {
-              cat("\n- Warning: multiple estimates found for the effect of alternative ",
+              cat("\n- Warning: multiple estimates found for the effect of alternative '",
                   currentAlternativeValue,
-                  " of decision ", currentDecision, " on criterion ",
-                  currentCriterion, ". Averaging them.\n", sep="");
+                  "' of decision '", currentDecision, "' on criterion '",
+                  currentCriterion, "'. Averaging them.\n", sep="");
             }
             estimate <- mean(estimate, na.rm = TRUE);
           }
@@ -138,29 +138,29 @@ build_weighed_estimate_df <-
               if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
                   (length(setMissingEstimates) == 1)) {
                 if (warnForMissingEstimates) {
-                  cat("\n- Warning: no estimate found for the effect of alternative ",
+                  cat("\n- Warning: no estimate found for the effect of alternative '",
                       scenarioDefinitions[[currentScenario]][currentDecision],
-                      " of decision ", currentDecision, " on criterion ",
-                      currentCriterion, " - setting it to the value of `setMissingEstimates` (",
-                      setMissingEstimates, ")\n", sep="");
+                      "' of decision '", currentDecision, "' on criterion '",
+                      currentCriterion, "' - setting it to the value of `setMissingEstimates` ('",
+                      setMissingEstimates, "')\n", sep="");
                 }
                 estimate <- setMissingEstimates;
               } else {
                 if (warnForMissingEstimates) {
-                  cat("\n- Error: no estimate found for the effect of alternative ",
+                  cat("\n- Error: no estimate found for the effect of alternative '",
                       scenarioDefinitions[[currentScenario]][currentDecision],
-                      " of decision ", currentDecision, " on criterion ",
-                      currentCriterion, ".\n", sep="");
+                      "' of decision '", currentDecision, "' on criterion '",
+                      currentCriterion, "'.\n", sep="");
                 }
                 estimate <- NA;
               }
             }
             if (length(estimate) > 1) {
               if (warnForDuplicateEstimates) {
-                cat("\n- Warning: multiple estimates found for the effect of alternative ",
+                cat("\n- Warning: multiple estimates found for the effect of alternative '",
                     scenarioDefinitions[[currentScenario]][currentDecision],
-                    " of decision ", currentDecision, " on criterion ",
-                    currentCriterion, ". Averaging them.\n", sep="");
+                    "' of decision '", currentDecision, "' on criterion '",
+                    currentCriterion, "'. Averaging them.\n", sep="");
               }
               estimate <- mean(estimate, na.rm = TRUE);
             }

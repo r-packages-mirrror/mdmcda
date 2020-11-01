@@ -27,14 +27,14 @@ knitr::opts_chunk$set(
 )
 
 gitLab_ci_badge <-
-  paste0("https://gitlab.com/r-packages/", packagename, "/badges/master/pipeline.svg");
+  paste0("https://gitlab.com/r-packages/", packagename, "/badges/prod/pipeline.svg");
 gitLab_ci_url <-
-  paste0("https://gitlab.com/r-packages/", packagename, "/commits/master");
+  paste0("https://gitlab.com/r-packages/", packagename, "/commits/prod");
 
 codecov_badge <-
-  paste0("https://codecov.io/gl/r-packages/", packagename, "/branch/master/graph/badge.svg");
+  paste0("https://codecov.io/gl/r-packages/", packagename, "/branch/prod/graph/badge.svg");
 codecov_url <-
-  paste0("https://codecov.io/gl/r-packages/", packagename, "?branch=master");
+  paste0("https://codecov.io/gl/r-packages/", packagename, "?branch=prod");
 
 dependency_badge <-
   paste0("https://tinyverse.netlify.com/badge/", packagename);
@@ -96,7 +96,15 @@ remotes::install_gitlab('r-packages/", packagename, "');
 ```"));
 ```
 
-(assuming you have `remotes` installed; otherwise, install that first using the `install.packages` function)
+If you want the even more cutting edge version, you can install from the `dev` branch (as opposed to the default branch, `prod`) with:
+
+```{r echo=FALSE, comment="", results="asis"}
+cat(paste0("``` r
+remotes::install_gitlab('r-packages/", packagename, "@dev');
+```"));
+```
+
+(This is assuming you have the `remotes` packages installed; otherwise, install that first using the `install.packages` function.)
 
 <!--------------------------------------------->
 <!-- Start of a custom bit for every package -->

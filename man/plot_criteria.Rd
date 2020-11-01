@@ -8,6 +8,8 @@ plot_criteria(
   criteria,
   labels = NULL,
   wrapLabels = 60,
+  color_nodes = TRUE,
+  color_palette = "viridis",
   renderGraph = TRUE,
   returnSVG = FALSE,
   outputFile = NULL,
@@ -16,13 +18,17 @@ plot_criteria(
 }
 \arguments{
 \item{criteria}{The criteria object as produced by a call to, for
-example, [load_criteria_from_xl()]. The object should contain the
+example, [read_criteria_from_xl()]. The object should contain the
 criteria tree in `$criteriaTree`.}
 
 \item{labels}{Optionally, labels to apply to the criteria nodes.}
 
 \item{wrapLabels}{If applying labels, the number of characters to wrap
 them to.}
+
+\item{color_nodes, color_palette}{Whether to use `DiagrammeR`s
+`colorize_node_attrs()` function to color the nodes, and if so, which
+palette to use.}
 
 \item{renderGraph}{Whether to show the graph.}
 

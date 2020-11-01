@@ -6,7 +6,7 @@
 \alias{set}
 \alias{get}
 \alias{reset}
-\title{Options for the dmcda package}
+\title{Options for the mdmcda package}
 \format{
 An object of class \code{list} of length 5.
 }
@@ -20,7 +20,7 @@ options used by the dmcda package. Use `mdmcda::opts$set` to set options,
 all options to their default values.
 }
 \details{
-It is normally not necessary to get or set `dmcda` options.
+It is normally not necessary to get or set `mdmcda` options.
 
 The following arguments can be passed:
 

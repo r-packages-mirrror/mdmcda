@@ -1,5 +1,5 @@
 #' @export
-load_performance_tables <- function(input,
+read_performance_tables <- function(input,
                                     extension="xlsx",
                                     regex=NULL,
                                     ignore="empty-performance-table",
@@ -60,7 +60,7 @@ load_performance_tables <- function(input,
                  basename(filename), "'.\n"));
     }
     currentTable <-
-      load_performance_table(filename,
+      read_performance_table(filename,
                              estimatesSheet=estimatesSheet,
                              confidencesSheet=confidencesSheet,
                              sep=sep,

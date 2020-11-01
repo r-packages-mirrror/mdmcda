@@ -1,5 +1,5 @@
 #' @export
-load_weights_from_xl <- function(input,
+read_weights_from_xl <- function(input,
                                  allowedNAs = 1) {
 
   weightsSheets <-

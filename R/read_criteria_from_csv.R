@@ -1,5 +1,5 @@
 #' @export
-load_criteria_from_csv <- function(input,
+read_criteria_from_csv <- function(input,
                                    encoding = "UTF-8",
                                    showGraphs = TRUE,
                                    ...) {

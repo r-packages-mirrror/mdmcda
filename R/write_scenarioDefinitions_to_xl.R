@@ -1,4 +1,4 @@
-#' Export scenario definitions to an Excel spreadsheet
+#' Write scenario definitions to an Excel spreadsheet
 #'
 #' Scenario defintions are lists of vectors with selected alternatives.
 #' Every vector is named, with the names being the decision identifiers of
@@ -11,7 +11,7 @@
 #'
 #' @return Invisibly, the list of dataframes that's written to the file.
 #' @export
-export_scenarioDefinitions_to_xl <- function(scenarioDefinitions,
+write_scenarioDefinitions_to_xl <- function(scenarioDefinitions,
                                              file,
                                              scenarios = names(scenarioDefinitions)) {
 

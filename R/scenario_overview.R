@@ -6,15 +6,18 @@ scenario_overview <- function(multiEstimateDf,
                               createPlots = TRUE,
                               decisionPlotOrder = "decreasing",
                               criterionPlotOrder = "decreasing",
-                              criteriaOrder = NULL,
-                              criteriaLabels = NULL,
-                              parentCriterionIds = NULL,
-                              parentCriterionLabels = NULL,
+                              criterionOrder = NULL,
+                              criterionLabels = NULL,
+                              parentCriterionOrder = NULL,
+                              parentCriterionIds_by_childId = NULL,
                               decisionOrder = NULL,
                               decisionLabels = NULL,
                               alternativeLabels = NULL,
                               scenarioLabel = NULL,
-                              decision_alternative_sep = ": ") {
+                              verticalPlots = FALSE,
+                              decision_alternative_sep = ": ",
+                              scoreBarchart_criteria_args = NULL,
+                              scoreBarchart_decisions_args = NULL) {
 
   res <- list();
   res$estimates <-
@@ -74,23 +77,42 @@ scenario_overview <- function(multiEstimateDf,
         decisionLabels = res$byDecision$decision_and_alternative
       );
 
-    if (is.null(criteriaOrder)) {
-      criteriaOrder <-
+    if (is.null(criterionOrder)) {
+      criterionOrder <-
         criterionPlotOrder;
     }
 
-    res$scoreBarchart_criteria <-
-      scoreBarchart_criteria(
+    if (is.null(scoreBarchart_criteria_args)) {
+      scoreBarchart_criteria_args <- NULL;
+    }
+
+    scoreBarchart_criteria_args_default <-
+      list(
         estimatesByCriterion = res$byCriterion,
         estimateCol = estimateCol,
         fill = "white",
         title = paste0("MDMCDA scores per criterion for ",
                        scenarioLabel),
-        criteriaOrder = criteriaOrder,
-        criteriaLabels = criteriaLabels,
-        parentCriterionIds = parentCriterionIds,
-        parentCriterionLabels = parentCriterionLabels
+        criterionOrder = criterionOrder,
+        criterionLabels = criterionLabels,
+        parentCriterionOrder = parentCriterionOrder,
+        parentCriterionIds_by_childId = parentCriterionIds_by_childId,
+        verticalPlot = verticalPlots
       );
+
+    scoreBarchart_criteria_args <-
+      c(scoreBarchart_criteria_args,
+        scoreBarchart_criteria_args_default[
+          setdiff(names(scoreBarchart_criteria_args_default),
+                  names(scoreBarchart_criteria_args))
+        ]);
+
+    res$scoreBarchart_criteria <-
+      do.call(
+        scoreBarchart_criteria,
+        scoreBarchart_criteria_args
+      );
+
   }
 
   return(res);
