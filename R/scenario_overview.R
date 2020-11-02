@@ -123,7 +123,6 @@ scenario_overview <- function(multiEstimateDf,
         decisionPlotOrder;
     }
 
-
     if (is.null(scoreBarchart_decisions_args)) {
       scoreBarchart_decisions_args <- NULL;
     }
