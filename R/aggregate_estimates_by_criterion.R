@@ -20,7 +20,8 @@ aggregate_estimates_by_criterion <- function(multiEstimateDf,
                       fun,
                       ...),
                    as.data.frame));
+
   names(res) <- estimateCol;
-  res$criterion_id <- row.names(res);
+  res[, criterionId_col] <- row.names(res);
   return(res);
 };

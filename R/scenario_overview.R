@@ -39,13 +39,21 @@ scenario_overview <- function(multiEstimateDf,
                                     estimateCol = estimateCol,
                                     na.rm=TRUE);
 
-  res$byDecision$decision_label <-
-    decisionLabels[res$byDecision[, decisionId_col]];
+  if (is.null(decisionLabels)) {
+    res$byDecision$decision_label <-
+      res$byDecision[, decisionId_col];
+  } else {
+    res$byDecision$decision_label <-
+      decisionLabels[res$byDecision[, decisionId_col]];
+  }
 
   if (!is.null(alternativeLabels)) {
-    res$byDecision$alternative_label <-
+    altLabels <-
       get_alternativeLabel(res$byDecision,
-                           alternativeLabels = alternativeLabels)[decisionOrder];
+                           alternativeLabels = alternativeLabels);
+    res$byDecision$alternative_label <-
+      altLabels[res$byDecision[, decisionId_col]];
+
   } else {
 
     warning(
@@ -114,19 +122,46 @@ scenario_overview <- function(multiEstimateDf,
 
   if (createPlots) {
 
+    ###-------------------------------------------------------------------------
+    ### Decisions plot
+    ###-------------------------------------------------------------------------
+
     if (is.null(decisionOrder)) {
       decisionOrder <-
         decisionPlotOrder;
     }
 
-    res$scoreBarchart_decisions <-
-      scoreBarchart_decisions(
-        res$byDecision,
+    if (is.null(scoreBarchart_decisions_args)) {
+      scoreBarchart_decisions_args <- NULL;
+    }
+
+    scoreBarchart_decisions_args_default <-
+      list(
+        estimatesByDecision = res$byDecision,
         estimateCol = estimateCol,
-        fill = "white",
         decisionOrder = decisionOrder,
         decisionLabels = decisionLabels,
+        title = paste0("MDMCDA scores per criterion for ",
+                       scenarioLabel),
+        verticalPlot = verticalPlots
       );
+
+    scoreBarchart_decisions_args <-
+      c(scoreBarchart_decisions_args,
+        scoreBarchart_decisions_args_default[
+          setdiff(names(scoreBarchart_decisions_args_default),
+                  names(scoreBarchart_decisions_args))
+        ]);
+
+    res$scoreBarchart_decisions <-
+      do.call(
+        scoreBarchart_decisions,
+        scoreBarchart_decisions_args
+      );
+
+    ###-------------------------------------------------------------------------
+    ### Criteria plot
+    ###-------------------------------------------------------------------------
 
     if (is.null(criterionOrder)) {
       criterionOrder <-
@@ -141,7 +176,6 @@ scenario_overview <- function(multiEstimateDf,
       list(
         estimatesByCriterion = res$byCriterion,
         estimateCol = estimateCol,
-        fill = "white",
         title = paste0("MDMCDA scores per criterion for ",
                        scenarioLabel),
         criterionOrder = criterionOrder,
