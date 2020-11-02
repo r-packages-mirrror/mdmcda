@@ -23,13 +23,13 @@ confidence_based_sensitivity_analysis <-
         function(lowConfidence) {
 
           if (!silent) {
-            ufs::cat0("\n\n**Starting to process confidence <= quantile ",
+            cat0("\n\n**Starting to process confidence <= quantile ",
                       lowConfidence, ".\n\n");
           }
 
 
           if (!silent) {
-            ufs::cat0("Replacing estimates:\n\n");
+            cat0("Replacing estimates:\n\n");
           }
 
           res <- list();
@@ -44,7 +44,7 @@ confidence_based_sensitivity_analysis <-
               silent = silent);
 
           if (!silent) {
-            ufs::cat0("\nPreparing dataframe to weight estimates.\n");
+            cat0("\nPreparing dataframe to weight estimates.\n");
           }
 
           ### Create dataframe for the weighed estimates
@@ -60,7 +60,7 @@ confidence_based_sensitivity_analysis <-
                                       warnForDuplicateEstimates = !silent);
 
           if (!silent) {
-            ufs::cat0("Actually weighing estimates.\n");
+            cat0("Actually weighing estimates.\n");
           }
 
           ### Actually weigh the estimates
@@ -69,7 +69,7 @@ confidence_based_sensitivity_analysis <-
                                        weight_profiles = weightProfiles,
                                        weightProfileNames = names(weightProfiles));
           if (!silent) {
-            ufs::cat0("Computing scenario scores.\n");
+            cat0("Computing scenario scores.\n");
           }
 
           ### Process the estimates to get to scenario-level scores
@@ -89,7 +89,7 @@ confidence_based_sensitivity_analysis <-
       as.character(confidenceThresholds);
 
     if (!silent) {
-      ufs::cat0("\nDone with replacements. Combining all scenario scores into one dataframe.\n");
+      cat0("\nDone with replacements. Combining all scenario scores into one dataframe.\n");
     }
 
     res$dat <-
@@ -119,7 +119,7 @@ confidence_based_sensitivity_analysis <-
           }));
 
     if (!silent) {
-      ufs::cat0("\nBuilding plot.\n");
+      cat0("\nBuilding plot.\n");
     }
 
     res$scorePlot <-

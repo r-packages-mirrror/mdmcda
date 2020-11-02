@@ -10,6 +10,20 @@ read_performance_tables <- function(input,
                                     silent=TRUE,
                                     ...) {
 
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
   if (!is.character(input) || !length(input)==1) {
     stop("Only specify a single string as 'input'!");
   }
@@ -102,7 +116,7 @@ read_performance_tables <- function(input,
   res$estimatorCodes <- unique(na.omit(res$estimatorCodeVector));
 
   if (!silent) {
-    ufs::cat0("\nFull final list of estimator codes: ", ufs::vecTxtQ(res$estimatorCodes), ".");
+    cat0("\nFull final list of estimator codes: ", vecTxtQ(res$estimatorCodes), ".");
     cat("\nProcessing performance subtables to extract the estimates.");
   }
 
@@ -126,21 +140,29 @@ read_performance_tables <- function(input,
   ### Combine estimates in one dataframe
   res$multiEstimateDf <- data.frame(decision_id = character(),
                                     decision_label = character(),
-                                    decision_alternative_value = character(),
-                                    decision_alternative_label = character(),
+                                    alternative_value = character(),
+                                    alternative_label = character(),
                                     criterion_id = character(),
                                     criterion_label = character(),
                                     stringsAsFactors = FALSE);
 
+  names(res$multiEstimateDf) <-
+    c(decisionId_col,
+      decisionLabel_col,
+      alternativeValue_col,
+      alternativeLabel_col,
+      criterionId_col,
+      criterionLabel_col);
+
   for (i in names(res$multiEstimateLegend)) {
     if (!silent) {
-      ufs::cat0("\n  Starting to process estimates for '",
+      cat0("\n  Starting to process estimates for '",
                 i, "'.");
     }
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
         which(res$multiEstimateDf$decision_id %in% res$estimates[[i]]$estimatesDf[j, 'decision_id'] &
-              res$multiEstimateDf$decision_alternative_value %in% res$estimates[[i]]$estimatesDf[j, 'decision_alternative_value'] &
+              res$multiEstimateDf[, alternativeValue_col] %in% res$estimates[[i]]$estimatesDf[j, alternativeValue_col] &
               res$multiEstimateDf$criterion_id %in% res$estimates[[i]]$estimatesDf[j, 'criterion_id']);
       if (is.null(rowNr) || !length(rowNr)) {
         rowNr <-
@@ -152,10 +174,10 @@ read_performance_tables <- function(input,
         res$estimates[[i]]$estimatesDf[j, 'decision_id'];
       res$multiEstimateDf[rowNr, 'decision_label'] <-
         res$estimates[[i]]$estimatesDf[j, 'decision_label'];
-      res$multiEstimateDf[rowNr, 'decision_alternative_value'] <-
-        res$estimates[[i]]$estimatesDf[j, 'decision_alternative_value'];
-      res$multiEstimateDf[rowNr, 'decision_alternative_label'] <-
-        res$estimates[[i]]$estimatesDf[j, 'decision_alternative_label'];
+      res$multiEstimateDf[rowNr, alternativeValue_col] <-
+        res$estimates[[i]]$estimatesDf[j, alternativeValue_col];
+      res$multiEstimateDf[rowNr, alternativeLabel_col] <-
+        res$estimates[[i]]$estimatesDf[j, alternativeLabel_col];
       res$multiEstimateDf[rowNr, 'criterion_id'] <-
         res$estimates[[i]]$estimatesDf[j, 'criterion_id'];
       res$multiEstimateDf[rowNr, 'criterion_label'] <-
@@ -166,7 +188,7 @@ read_performance_tables <- function(input,
   }
 
   if (!silent) {
-    ufs::cat0("\nFinished building the 'multi estimate dataframe'. Starting to convert the ",
+    cat0("\nFinished building the 'multi estimate dataframe'. Starting to convert the ",
               "estimates to numeric.");
   }
 
@@ -177,7 +199,7 @@ read_performance_tables <- function(input,
              x <-
                res$multiEstimateDf[, i];
              if (!silent) {
-               ufs::cat0("\nStarting to process '",
+               cat0("\nStarting to process '",
                          res$multiEstimateInverseLegend[i],
                          "'.");
              }
@@ -209,7 +231,7 @@ read_performance_tables <- function(input,
                         i, "' in file '",
                         res$multiEstimateInverseLegend[i],
                         "' cannot be converted to a numeric value. Specifically, this concerns ",
-                        "alternative(s) ", res$multiEstimateDf[mismatches, 'decision_alternative_value'],
+                        "alternative(s) ", res$multiEstimateDf[mismatches, alternativeValue_col],
                         " in decision(s) ", res$multiEstimateDf[mismatches, 'decision_id'],
                         " for criterion or criteria ", res$multiEstimateDf[mismatches, 'criterion_id'],
                         ", where ",
@@ -226,7 +248,7 @@ read_performance_tables <- function(input,
            });
 
   if (!silent) {
-    ufs::cat0("\nDone converting the estimates to numeric.");
+    cat0("\nDone converting the estimates to numeric.");
               #"Starting to generate complete performance tables. ");
   }
 
@@ -362,10 +384,10 @@ read_performance_tables <- function(input,
     lapply(by(res$multiEstimateDf,
               res$multiEstimateDf$decision_id,
               function(x) {
-                uniqueAlts <- unique(x[, c('decision_alternative_value',
-                                           'decision_alternative_label')]);
-                return(stats::setNames(uniqueAlts$decision_alternative_label,
-                                       nm=as.character(uniqueAlts$decision_alternative_value)));
+                uniqueAlts <- unique(x[, c(alternativeValue_col,
+                                           alternativeLabel_col)]);
+                return(stats::setNames(uniqueAlts[, alternativeLabel_col],
+                                       nm=as.character(uniqueAlts[, alternativeValue_col])));
               }),
            as.list);
 

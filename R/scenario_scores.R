@@ -5,6 +5,16 @@ scenario_scores <- function(criteria,
                             scenarios_and_alternatives,
                             weights) {
 
+  criterionId_col      <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col   <- mdmcda::opts$get("criterionLabel_col");
+  decisionId_col       <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col    <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col       <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col  <- mdmcda::opts$get("weightProfileId_col");
+  score_col            <- mdmcda::opts$get("score_col");
+
   weightsDf <- weights$weightsDf;
   multipliedWeights <- weights$multipliedWeights;
   autofilledEstimatesDf <- estimates$autofilledEstimatesDf;
@@ -28,7 +38,7 @@ scenario_scores <- function(criteria,
         ### And only for the chosen alternative
         currentAlternative <-
           scenarioAlternativesDf[scenarioAlternativesDf$scenario_id==currentScenario &
-                              scenarioAlternativesDf$decision_id==currentDecision, 'decision_alternative_value'];
+                              scenarioAlternativesDf$decision_id==currentDecision, alternativeValue_col];
         if (length(currentAlternative) == 0) {
           scoringLog <- c(scoringLog,
                           paste0("For scenario '",
@@ -41,7 +51,7 @@ scenario_scores <- function(criteria,
           for (currentCriterion in criteriaDf$id[criteriaDf$leafCriterion]) {
             scoreSelection <-
               autofilledEstimatesDf$decision_id==currentDecision &
-              autofilledEstimatesDf$decision_alternative_value==currentAlternative &
+              autofilledEstimatesDf[, alternativeValue_col]==currentAlternative &
               autofilledEstimatesDf$criterion_id==currentCriterion;
 
             currentScore <-
@@ -91,9 +101,18 @@ scenario_scores <- function(criteria,
                     data.frame(scenario_id = currentScenario,
                                weight_profile_id = currentWtProf,
                                decision_id = currentDecision,
-                               decision_alternative_value = currentAlternative,
+                               alternative_value = currentAlternative,
                                criterion_id = currentCriterion,
                                score = currentScore));
+            names(scenarioScores[[currentScenario]][[currentWtProf]]) <-
+              c(scenarioId_col,
+                weightProfileId_col,
+                decisionId_col,
+                alternativeValue_col,
+                criterionId_col,
+                score_col
+              );
+
           }
         }
       }

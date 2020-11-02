@@ -9,6 +9,7 @@ aggregate_estimates_by_decision <- function(multiEstimateDf,
 
   if (("decision_alternative_value" %in% names(multiEstimateDf)) &&
       (!(alternativeValue_col %in% names(multiEstimateDf)))) {
+    warning("Found column 'decision_alternative_value': this is obsolete!");
     alternativeValue_col <- "decision_alternative_value";
   }
 

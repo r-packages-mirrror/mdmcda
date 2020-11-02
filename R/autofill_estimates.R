@@ -4,6 +4,12 @@ autofill_estimates <- function(estimates,
                                decisions_and_alternatives,
                                autofill = NA) {
 
+  criterionId_col <- mdmcda::opts$get("criterionId_col");
+  decisionId_col <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
+
   estimatesDf <- estimates$estimatesDf;
   criteriaDf <- criteria$criteriaDf;
   alternativesDf <- decisions_and_alternatives$alternativesDf;
@@ -15,9 +21,9 @@ autofill_estimates <- function(estimates,
 
   for (i in 1:nrow(alternativesDf)) {
     for (j in which(criteriaDf$leafCriterion)) {
-      if (any((estimatesDf$decision_id == alternativesDf[i, 'decision_id']) &
-              (estimatesDf$decision_alternative_value == alternativesDf[i, 'value']) &
-              (estimatesDf$criterion_id == criteriaDf[j, 'id']))) {
+      if (any((estimatesDf[, decisionId_col] == alternativesDf[i, decisionId_col]) &
+              (estimatesDf[, alternativeValue_col] == alternativesDf[i, 'value']) &
+              (estimatesDf[, criterionId_col] == criteriaDf[j, 'id']))) {
         autofillLogs <-
           c(autofillLogs,
             paste0("- Estimate found for the effect of alternative '",
@@ -27,8 +33,8 @@ autofill_estimates <- function(estimates,
                    "' for criterion '",
                    criteriaDf[j, 'id'],
                    "': ",
-                   estimatesDf[(estimatesDf$decision_id==alternativesDf[i, 'decision_id']) &
-                                 (estimatesDf$decision_alternative_value==alternativesDf[i, 'value']) &
+                   estimatesDf[(estimatesDf$decision_id==alternativesDf[i, decisionId_col]) &
+                                 (estimatesDf[, alternativeValue_col]==alternativesDf[i, 'value']) &
                                  (estimatesDf$criterion_id==criteriaDf[j, 'id']),
                                "value"]));
       } else {
@@ -37,7 +43,7 @@ autofill_estimates <- function(estimates,
             paste0("- **No** estimate found for the effect of alternative '",
                    alternativesDf[i, 'label'],
                    "' for decision '",
-                   decisionsDf[decisionsDf$id==alternativesDf[i, 'decision_id'], 'label'],
+                   decisionsDf[decisionsDf$id==alternativesDf[i, decisionId_col], 'label'],
                    "' for criterion '",
                    criteriaDf[j, 'id'],
                    "'. Setting this estimate to '",
@@ -45,9 +51,9 @@ autofill_estimates <- function(estimates,
                    "'."));
         autofilledEstimatesDf <-
           rbind(autofilledEstimatesDf,
-                data.frame(decision_id = alternativesDf[i, 'decision_id'],
-                           decision_label = alternativesDf[i, 'decision_label'],
-                           decision_alternative_value = alternativesDf[i, 'value'],
+                data.frame(decision_id = alternativesDf[i, decisionId_col],
+                           decision_label = alternativesDf[i, decisionLabel_col],
+                           alternative_value = alternativesDf[i, 'value'],
                            alternative_label = alternativesDf[i, 'label'],
                            criterion_id = criteriaDf[j, 'id'],
                            criterion_label = criteriaDf[j, 'label'],

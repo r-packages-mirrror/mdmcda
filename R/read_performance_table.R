@@ -5,6 +5,20 @@ read_performance_table <- function(file,
                                    sep=",",
                                    ...) {
 
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
   if (!is.character(file) || (length(file) != 1)) {
     stop("Specify only one filename in the 'file' argument!");
   } else if (!file.exists(file)) {
@@ -42,12 +56,12 @@ read_performance_table <- function(file,
   ### Convert confidences to numeric
   tryCatch({
     res$confidences$Confidence <-
-      ufs::convertToNumeric(res$confidences$Confidence);
+      convertToNumeric(res$confidences$Confidence);
   }, error = function(e) {
-    ufs::cat0("Could not convert the Confidences in '",
+    cat0("Could not convert the Confidences in '",
               basename(file), "' to numeric values! All ",
               "non-NA Confidence values in that file are: ",
-              ufs::vecTxtQ(res$confidences$Confidence[!is.na(res$confidences$Confidence)]),
+              vecTxtQ(res$confidences$Confidence[!is.na(res$confidences$Confidence)]),
               ".");
   });
 

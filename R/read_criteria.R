@@ -6,6 +6,20 @@ read_criteria <- function(input,
                           encoding = "UTF-8",
                           ...) {
 
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
   if (is.null(regex)) {
     regex <- paste0("^(.*)\\.", extension, "$");
   }
@@ -98,7 +112,7 @@ read_criteria <- function(input,
               anchoringGraphs = anchoringGraphs);
 
   class(res) <-
-    c("dmcda", "criteria");
+    c("mdmcda", "criteria");
 
   return(res);
 

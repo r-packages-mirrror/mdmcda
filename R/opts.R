@@ -156,12 +156,17 @@ opts$defaults <-
     decisionLabel_col        = "decision_label",
     criterionId_col          = "criterion_id",
     criterionLabel_col       = "criterion_label",
+    criterionDescription_col = "criterion_description",
+    parentCriterionId_col    = "parentCriterion_id",
     alternativeValue_col     = "alternative_value",
     alternativeLabel_col     = "alternative_label",
     scenarioId_col           = "scenario_id",
     scenarioLabel_col        = "scenario_label",
     decisionDescription_col  = "decision_description",
     decisionAlternatives_col = "decision_alternatives",
+    weightProfileId_col      = "weight_profile_id",
+    score_col                = "score",
+    leafCriterion_col        = "leafCriterion",
     rootCriterionId          = "outcomes",
 
     ### ggSave defaults

@@ -24,9 +24,9 @@ set_postsets <- function(multiEstimateDf,
   for (i in 1:nrow(postsets)) {
     if (!is.na(postsets[i, coder])) {
       estimatesRowNr <-
-        which(multiEstimateDf$decision_id==postsets[i, decisionId_col] &
-                multiEstimateDf$criterion_id==postsets[i, criterionId_col] &
-                multiEstimateDf$decision_alternative_value==postsets[i, alternativeValue_col]);
+        which(multiEstimateDf[, decisionId_col]==postsets[i, decisionId_col] &
+                multiEstimateDf[, criterionId_col]==postsets[i, criterionId_col] &
+                multiEstimateDf[, alternativeValue_col]==postsets[i, alternativeValue_col]);
       cat("\n- replacing estimate for the effect of alternative ",
           postsets[i, alternativeValue_col], " for decision ",
           postsets[i, decisionId_col], " on criterion ",

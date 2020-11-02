@@ -74,7 +74,7 @@ read_weights_from_xl <- function(input,
 
   ### Convert weight to numeric
   allWeights$weight <-
-    ufs::convertToNumeric(allWeights$weight);
+    convertToNumeric(allWeights$weight);
 
   res <- list(individualWeights = individualWeights,
               allWeights = allWeights,

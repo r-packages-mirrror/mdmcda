@@ -16,6 +16,20 @@ read_criteria_from_xl <- function(input,
                                   rootCriterionId = mdmcda::opts$get("rootCriterionId"),
                                   ...) {
 
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
   if (!file.exists(input)) {
     stop("Specified file ('", input, "') does not exist!");
   }
@@ -24,16 +38,27 @@ read_criteria_from_xl <- function(input,
     as.data.frame(openxlsx::read.xlsx(input),
                   stringsAsFactors = FALSE);
 
+  # if ('isLeaf' %in% names(fullCriteriaDf)) {
+  #   warning(
+  #     paste0(
+  #       "Column 'isLeaf' encountered; this is obsolete, renaming to ",
+  #       "'", leafCriterion_col, "'!"
+  #     )
+  #   );
+  #   names(fullCriteriaDf)[names(fullCriteriaDf) == 'isLeaf'] <-
+  #     leafCriterion_col;
+  # }
+
   criteriaDf <-
-    fullCriteriaDf[, c('id',
-                       'parentCriterion',
-                       'label',
-                       'description',
-                       'isLeaf')];
+    fullCriteriaDf[, c(criterionId_col,
+                       parentCriterionId_col,
+                       criterionLabel_col,
+                       criterionDescription_col,
+                       leafCriterion_col)];
 
   anchoringDf <-
-    fullCriteriaDf[fullCriteriaDf$isLeaf,
-                   c('id',
+    fullCriteriaDf[fullCriteriaDf[, leafCriterion_col],
+                   c(criterionId_col,
                      'lo_label',
                      'zero_label',
                      'hi_label',
@@ -50,9 +75,6 @@ read_criteria_from_xl <- function(input,
                                    criteriaDf=criteriaDf,
                                    showGraphs=showGraphs,
                                    ...);
-
-  ### In data.tree, isLeaf is an active property, so we have to rename it
-  names(criteriaDf)[names(criteriaDf) == "isLeaf"] <- "leafCriterion";
 
   criteriaTree <- data.tree::as.Node(criteriaDf, mode="network");
 
@@ -72,16 +94,16 @@ read_criteria_from_xl <- function(input,
   ###-----------------------------------------------------------------------------
 
   criterionIds <-
-    sort(unique(res$criteriaDf$id));
+    sort(unique(res$criteriaDf[, criterionId_col]));
   parentCriterionIds_by_childId <-
-    as.data.frame(unique(res$criteriaDf[, c('id',
-                                            'parentCriterion')]));
+    as.data.frame(unique(res$criteriaDf[, c(criterionId_col,
+                                            parentCriterionId_col)]));
   parentCriterionIds_by_childId <-
-    stats::setNames(parentCriterionIds_by_childId$parentCriterion,
-                    parentCriterionIds_by_childId$id);
+    stats::setNames(parentCriterionIds_by_childId[, parentCriterionId_col],
+                    parentCriterionIds_by_childId[, criterionId_col]);
   parentCriterionIds <-
-    unique(res$criteriaDf[res$criteriaDf$parentCriterion=="outcomes",
-                          'id']);
+    unique(res$criteriaDf[res$criteriaDf[, parentCriterionId_col]==rootCriterionId,
+                          criterionId_col]);
   parentCriterionIds <-
     unique(parentCriterionIds_by_childId)[nchar(unique(parentCriterionIds_by_childId))>1];
 
@@ -95,7 +117,7 @@ read_criteria_from_xl <- function(input,
     );
 
   leafCriterionIds <-
-    res$criteriaDf[res$criteriaDf$leafCriterion, 'id'];
+    res$criteriaDf[res$criteriaDf[, leafCriterion_col], criterionId_col];
 
   ### Store in 'criteria' object for convenience
   res$convenience <-
@@ -106,10 +128,11 @@ read_criteria_from_xl <- function(input,
       parentCriterionIds = parentCriterionIds,
       parentCriterionIds_by_childId = parentCriterionIds_by_childId,
       childCriterionIds_by_parentId = childCriterionIds_by_parentId,
-      topCriterionClusters = childCriterionIds_by_parentId[[rootCriterionId]]);
+      topCriterionClusters = childCriterionIds_by_parentId[[rootCriterionId]]
+    );
 
   class(res) <-
-    c("dmcda", "criteria");
+    c("mdmcda", "criteria");
 
   return(res);
 

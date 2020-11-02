@@ -13,15 +13,26 @@ read_criteria_from_csv <- function(input,
              stringsAsFactors =FALSE,
              encoding=encoding);
 
+  # if ('isLeaf' %in% names(fullCriteriaDf)) {
+  #   warning(
+  #     paste0(
+  #       "Column 'isLeaf' encountered; this is obsolete, renaming to ",
+  #       "'leafCriterion'!"
+  #     )
+  #   );
+  #   names(fullCriteriaDf)[names(fullCriteriaDf) == 'isLeaf'] <-
+  #     "leafCriterion"
+  # }
+
   criteriaDf <-
     fullCriteriaDf[, c('id',
                        'parentCriterion',
                        'label',
                        'description',
-                       'isLeaf')];
+                       'leafCriterion')];
 
   anchoringDf <-
-    fullCriteriaDf[fullCriteriaDf$isLeaf,
+    fullCriteriaDf[fullCriteriaDf$leafCriterion,
                    c('id',
                      'lo_label',
                      'zero_label',
@@ -40,9 +51,6 @@ read_criteria_from_csv <- function(input,
                                    showGraphs=showGraphs,
                                    ...);
 
-  ### In data.tree, isLeaf is an active property, so we have to rename it
-  names(criteriaDf)[names(criteriaDf) == "isLeaf"] <- "leafCriterion";
-
   criteriaTree <- data.tree::as.Node(criteriaDf, mode="network");
 
   ### Take first child, since the root element (e.g. 'outcomes' or
@@ -57,7 +65,7 @@ read_criteria_from_csv <- function(input,
               anchoringGraphs = anchoringGraphs);
 
   class(res) <-
-    c("dmcda", "criteria");
+    c("mdmcda", "criteria");
 
   return(res);
 
