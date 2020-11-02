@@ -23,17 +23,19 @@ aggregate_estimates_by_decision <- function(multiEstimateDf,
   res[, decisionId_col] <- row.names(res);
 
   ### Add alternative values for each decision
-  res[, mdmcda::opts$get("alternativeValue_col")] <-
+  alternativeLabels <-
     unlist(
       lapply(
         unique(multiEstimateDf[, decisionId_col]),
         function(x) {
 
           res <-
-            multiEstimateDf[
-              multiEstimateDf[, decisionId_col] == x,
-              alternativeValue_col
-            ];
+            as.character(
+              multiEstimateDf[
+                multiEstimateDf[, decisionId_col] == x,
+                alternativeValue_col
+              ]
+            );
 
           if (length(unique(res)) == 1) {
             return(unique(res));
@@ -57,6 +59,12 @@ aggregate_estimates_by_decision <- function(multiEstimateDf,
         }
       )
     );
+
+  names(alternativeLabels) <-
+    unique(multiEstimateDf[, decisionId_col]);
+
+  res[, mdmcda::opts$get("alternativeValue_col")] <-
+    alternativeLabels[res[, decisionId_col]];
 
   return(res);
 }

@@ -39,13 +39,21 @@ scenario_overview <- function(multiEstimateDf,
                                     estimateCol = estimateCol,
                                     na.rm=TRUE);
 
-  res$byDecision$decision_label <-
-    decisionLabels[res$byDecision[, decisionId_col]];
+  if (is.null(decisionLabels)) {
+    res$byDecision$decision_label <-
+      res$byDecision[, decisionId_col];
+  } else {
+    res$byDecision$decision_label <-
+      decisionLabels[res$byDecision[, decisionId_col]];
+  }
 
   if (!is.null(alternativeLabels)) {
-    res$byDecision$alternative_label <-
+    altLabels <-
       get_alternativeLabel(res$byDecision,
-                           alternativeLabels = alternativeLabels)[decisionOrder];
+                           alternativeLabels = alternativeLabels);
+    res$byDecision$alternative_label <-
+      altLabels[res$byDecision[, decisionId_col]];
+
   } else {
 
     warning(

@@ -121,7 +121,7 @@ scoreBarchart_criteria <- function(estimatesByCriterion,
                     color = guides) +
     ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = xLabelRotationAngle,
                                                               hjust = 1,
-                                                              vjust = 0.6),
+                                                              vjust = 1),
                    plot.title.position = "plot",
                    legend.position = legend.position,
                    legend.box.margin = legend.box.margin) +
