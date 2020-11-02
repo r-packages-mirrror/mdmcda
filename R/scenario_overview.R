@@ -15,9 +15,15 @@ scenario_overview <- function(multiEstimateDf,
                               alternativeLabels = NULL,
                               scenarioLabel = NULL,
                               verticalPlots = FALSE,
-                              decision_alternative_sep = ": ",
+                              useDecisionAlternativeLabels = TRUE,
+                              decision_alternative_pre = "**",
+                              decision_alternative_sep = "**:<br />",
+                              decision_alternative_suf = "",
                               scoreBarchart_criteria_args = NULL,
                               scoreBarchart_decisions_args = NULL) {
+
+  decisionId_col <- mdmcda::opts$get("decisionId_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
 
   res <- list();
   res$estimates <-
@@ -33,29 +39,74 @@ scenario_overview <- function(multiEstimateDf,
                                     estimateCol = estimateCol,
                                     na.rm=TRUE);
 
-  res$byDecision$alternative_value <-
-    scenario[res$byDecision$decision_id];
+  res$byDecision$decision_label <-
+    decisionLabels[res$byDecision[, decisionId_col]];
 
-  res$byDecision$alternative_label <-
-    unlist(lapply(1:nrow(res$byDecision),
-                  function(i) {
-                    alternative <- as.character(res$byDecision$alternative_value[i]);
-                    decision <- as.character(res$byDecision$decision_id[i]);
-                    if (grepl(" or ",
-                              alternative)) {
-                      alternatives <- unlist(strsplit(alternative,
-                                                      " or "));
-                      return(ufs::vecTxtQ(alternativeValues[[decision]][alternatives]));
-                    } else {
-                      return(paste0("'", alternativeValues[[decision]][[alternative]],
-                                    "'"));
-                    }
-                  }));
+  if (!is.null(alternativeLabels)) {
+    res$byDecision$alternative_label <-
+      get_alternativeLabel(res$byDecision,
+                           alternativeLabels = alternativeLabels)[decisionOrder];
+  } else {
+
+    warning(
+      paste0(
+        "There is still a bug in this code; please provide alternative ",
+        "labels using argument `alternativeLabels`!"
+      )
+    );
+
+    if (("decision_alternative_value" %in% names(multiEstimateDf)) &&
+        (!(alternativeValue_col %in% names(multiEstimateDf)))) {
+      alternativeValue_col <- "decision_alternative_value";
+    }
+
+    res$byDecision[, mdmcda::opts$get("alternativeValue_col")] <-
+        unlist(
+          lapply(
+            unique(res$estimates[, decisionId_col]),
+            function(x) {
+
+              res <-
+                res$estimates[
+                  res$estimates[, decisionId_col] == x,
+                  alternativeValue_col
+                ];
+
+              if (length(unique(res)) == 1) {
+                res <- unique(res);
+              } else {
+                warning(
+                  paste0(
+                    "When collecting the alternative labels, I found a decision ",
+                    "that did not have exactly one alternative label in the ",
+                    " multiEstimateDf you specified. Specifically, ",
+                    "'", x, "' had as specified alternative labels: ",
+                    vecTxtQ(res), "!"
+                  )
+                );
+              }
+
+              return(res[1]);
+            }
+          )
+        );
+
+  }
 
   res$byDecision$decision_and_alternative <-
-    paste0(res$byDecision$decision_id,
+    paste0(decision_alternative_pre,
+           res$byDecision$decision_label,
            decision_alternative_sep,
-           res$byDecision$alternative_label);
+           res$byDecision$alternative_label,
+           decision_alternative_suf);
+
+  if (useDecisionAlternativeLabels) {
+    decisionLabels <-
+      stats::setNames(
+        res$byDecision$decision_and_alternative,
+        nm = res$byDecision[, decisionId_col]
+      );
+  }
 
   if (is.null(scenarioLabel)) {
     scenarioLabel <- scenario;
@@ -74,7 +125,7 @@ scenario_overview <- function(multiEstimateDf,
         estimateCol = estimateCol,
         fill = "white",
         decisionOrder = decisionOrder,
-        decisionLabels = res$byDecision$decision_and_alternative
+        decisionLabels = decisionLabels,
       );
 
     if (is.null(criterionOrder)) {

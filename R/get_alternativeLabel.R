@@ -15,12 +15,14 @@ get_alternativeLabel <- function(x,
                                  decisionId_col = mdmcda::opts$get("decisionId_col"),
                                  alternativeValue_col = mdmcda::opts$get("alternativeValue_col")) {
   return(
-    mapply(
-      function(decision_id, alternative_value) {
-        return(alternativeLabels[[decision_id]][[alternative_value]])
-      },
-      x[, decisionId_col],
-      as.character(x[, alternativeValue_col])
+    unlist(
+      mapply(
+        function(decision_id, alternative_value) {
+          return(alternativeLabels[[decision_id]][[alternative_value]])
+        },
+        x[, decisionId_col],
+        as.character(x[, alternativeValue_col])
+      )
     )
   );
 }

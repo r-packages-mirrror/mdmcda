@@ -87,9 +87,10 @@ scoreBarchart_decisions <- function(estimatesByDecision,
     ggplot2::theme_minimal() +
     ggplot2::guides(fill = guides,
                     color = guides) +
-    ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = xLabelRotationAngle,
-                                                              hjust = 1,
-                                                              vjust = 0.6),
+    ggplot2::theme(axis.text.x.bottom = ggtext::element_markdown(
+      angle = xLabelRotationAngle,
+      hjust = 1,
+      vjust = 0.6),
                    plot.title.position = "plot",
                    legend.position = legend.position,
                    legend.box.margin = legend.box.margin) +
