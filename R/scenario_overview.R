@@ -1,19 +1,52 @@
+#' Create an object with various useful data frames and plots for a scenario
+#'
+#' @param multiEstimateDf A `multiEstimateDf`.
+#' @param estimateCol The column name with the estimates to use.
+#' @param scenario The `scenarioDefinition` object with the scenario
+#' definition: a named vector, with each element's name corresponding to
+#' a decision, and each element's value to the alternative value for that
+#' decision within the scenario.
+#' @param createPlots Whether to create the plots.
+#' @param decisionPlotOrder,criterionPlotOrder If no decisionOrder is
+#' specified, whether to sort the decisions in the decision plot and criterion
+#' plot in decreasing or increasing order.
+#' @param criterionOrder,parentCriterionOrder,decisionOrder The order used to
+#' organise the plots. These are vectors of identifiers.
+#' @param criterionLabels,decisionLabels,alternativeLabels,scenarioLabel The
+#' labels to use for the criteria, decisions, alternatives, and the scenario.
+#' These are named vectors, with the elements being the labels, and their names
+#' the corresponding identifiers (e.g. decision identifiers).
+#' @param parentCriterionIds_by_childId Optionally, a named vector with the
+#' names being the criteria, and the elements being their parent criterion. If
+#' provided, the criteria plot will be organised and coloured by parent
+#' criterion (i.e. criteria cluster).
+#' @param verticalPlots Whether to print the plots vertically or horizontally.
+#' @param useDecisionAlternativeLabels Whether to label the decision plot with
+#' the decisions or combined labels that also include the alternative for
+#' the scenario.
+#' @param decision_alternative_pre,decision_alternative_sep,decision_alternative_suf If
+#' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
+#' are used to compose the decision plot labels.
+#' @param scoreBarchart_criteria_args,scoreBarchart_decisions_args These
+#' arguments can be used to specify named lists with additional arguments for
+#' `scoreBarChart_decisions` and `scoreBarChart_criteria`.
+#'
+#' @return And object with two plots and three data frames.
 #' @export
 scenario_overview <- function(multiEstimateDf,
                               estimateCol,
                               scenario,
-                              alternativeValues,
                               createPlots = TRUE,
                               decisionPlotOrder = "decreasing",
                               criterionPlotOrder = "decreasing",
                               criterionOrder = NULL,
-                              criterionLabels = NULL,
                               parentCriterionOrder = NULL,
-                              parentCriterionIds_by_childId = NULL,
                               decisionOrder = NULL,
+                              criterionLabels = NULL,
                               decisionLabels = NULL,
                               alternativeLabels = NULL,
                               scenarioLabel = NULL,
+                              parentCriterionIds_by_childId = NULL,
                               verticalPlots = FALSE,
                               useDecisionAlternativeLabels = TRUE,
                               decision_alternative_pre = "**",

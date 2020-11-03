@@ -8,8 +8,16 @@ performanceTable_heatmap(
   weighedEstimates,
   estimateCol,
   scenario_id,
+  criterionOrder = NULL,
+  decisionOrder = NULL,
   criterionLabels = NULL,
   decisionLabels = NULL,
+  criterionId_col = mdmcda::opts$get("criterionId_col"),
+  parentCriterionId_col = mdmcda::opts$get("parentCriterionId_col"),
+  criterionLabel_col = mdmcda::opts$get("criterionLabel_col"),
+  decisionId_col = mdmcda::opts$get("decisionId_col"),
+  decisionLabel_col = mdmcda::opts$get("decisionLabel_col"),
+  scenarioId_col = mdmcda::opts$get("scenarioId_col"),
   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))
 )
 }
@@ -22,9 +30,15 @@ performanceTable_heatmap(
 \item{scenario_id}{The identifier of the scenario to create the heatmap
 for.}
 
+\item{criterionOrder, decisionOrder}{Optionally, vectors with criterion
+and decision identifiers to indicate the order that should be used.}
+
 \item{criterionLabels, decisionLabels}{Optionally, named vectors with labels
 for the criteria and decisions. These have to be named vectors, with the
 elements being the labels, and the names the identifiers.}
+
+\item{criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, scenarioId_col}{The
+column names in the `weighedEstimates` data frame.}
 
 \item{theme}{The `ggplot2` theme to use.}
 }

@@ -15,7 +15,7 @@ aggregate_estimates_by_criterion(
 \arguments{
 \item{multiEstimateDf}{A `multiEstimateDf` data frame.}
 
-\item{estimateCol}{The column with the estimated to use.}
+\item{estimateCol}{The column with the estimates to use.}
 
 \item{criterionId_col}{The columns containing the criterion identifiers.}
 

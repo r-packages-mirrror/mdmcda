@@ -118,7 +118,7 @@ estimates <-
 
 ```
 
-In total, `r nrow(estimates$multiEstimateDf)` estimates were read. These estimates express estimated effects of `r length(unique(estimates$multiEstimateDf$decision_id))` decisions (policy instruments), that together comprise a total of `r nrow(unique(estimates$multiEstimateDf[, c('decision_id', 'decision_alternative_value')]))` alternatives (policy options), on a total of `r length(unique(estimates$multiEstimateDf$criterion_id))` criteria (outcomes).
+In total, `r nrow(estimates$multiEstimateDf)` estimates were read. These estimates express estimated effects of `r length(unique(estimates$multiEstimateDf$decision_id))` decisions (policy instruments), that together comprise a total of `r nrow(unique(estimates$multiEstimateDf[, c('decision_id', 'alternative_value')]))` alternatives (policy options), on a total of `r length(unique(estimates$multiEstimateDf$criterion_id))` criteria (outcomes).
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
@@ -165,53 +165,6 @@ scenarios <-
 # Preparing data
 
 In this section, the imported data are preprocessed.
-
-## Criteria
-
-```{r prepare-criteria, message=FALSE}
-
-###---------------------------------------------------------------------------
-### Create convenience vector to find parents for criteria
-###---------------------------------------------------------------------------
-
-criterionIds <-
-  sort(unique(criteria$criteriaDf$id));
-parentCriterionIds <-
-  as.data.frame(unique(criteria$criteriaDf[, c('id',
-                                               'parentCriterion')]));
-parentCriterionIds <-
-  stats::setNames(parentCriterionIds$parentCriterion,
-                  parentCriterionIds$id);
-parentCriteriaIds <-
-  unique(criteria$criteriaDf[criteria$criteriaDf$parentCriterion=="outcomes",
-                             'id']);
-parentCriteriaIds <-
-  unique(parentCriterionIds)[nchar(unique(parentCriterionIds))>1];
-
-childCriteriaIds <-
-  stats::setNames(lapply(unique(parentCriterionIds),
-                         function(i)
-                           names(parentCriterionIds[parentCriterionIds==i])),
-                  unique(parentCriterionIds));
-  
-childCriteriaByCluster <-
-  criteria$criteriaDf[criteria$criteriaDf$leafCriterion, ]
-childCriteriaByCluster <-
-  childCriteriaByCluster$id[order(childCriteriaByCluster$parentCriterion)];
-
-### Store in 'criteria' object for convenience
-criteria$convenience <-
-  list(criterionIds = criterionIds,
-       parentCriterionIds = parentCriterionIds,
-       parentCriteriaIds = parentCriteriaIds,
-       childCriteriaIds = childCriteriaIds,
-       childCriteriaByCluster = childCriteriaByCluster);
-
-```
-
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
 
 ## Process confidence scores {.tabset}
 
@@ -407,7 +360,7 @@ names(performanceTables) <- unique(weighedEstimates$scenario_id);
 Because in this example, we have only 54 estimates, it's feasible to show the overview of all estimates, their weight, and the final scores.
 
 ```{r all-weighed-estimates}
-knitr::kable(estimates$multiEstimateDf[, c('decision_id', 'decision_alternative_value', 'criterion_id', 'all', "meanWeights_weight", "meanWeights_weighed_estimate")],
+knitr::kable(estimates$multiEstimateDf[, c('decision_id', 'alternative_value', 'criterion_id', 'all', "meanWeights_weight", "meanWeights_weighed_estimate")],
              col.names = c("Decision", "Alternative", "Criterion",
                            "Estimate", "Weight", "Score"));
 ```
@@ -489,7 +442,9 @@ weighedEstimates <-
 
 ### Add parent criterion identifiers
 weighedEstimates$parentCriterion_id <-
-    parentCriterionIds[as.character(weighedEstimates$criterion_id)];
+  criteria$convenience$parentCriterionIds_by_childId[
+    as.character(weighedEstimates$criterion_id)
+  ];
 
 ###----------------------------------------------------------------------------
 ### Select estimates for best scenario
@@ -510,7 +465,7 @@ bestScenarioEstimatesByCriterion <-
 
 The highest possible score is `r sum(bestAlternatives$score)`, which is achieved by the following scenario:
 
-```{r best-scenario-show-table}
+```{r best-scenario-show-table, eval=FALSE}
 knitr::kable(bestAlternatives[bestAlternatives$weightProfile=="meanWeights",
                               c("decision_id", "alternative_id", "alternative_label", "score")],
              row.names = FALSE);
@@ -566,7 +521,7 @@ for (i in names(scenarioDefinitions)) {
 
 # Visualisations
 
-```{r main-result-visualisations, results="asis"}
+```{r main-result-visualisations, results="asis", eval=FALSE}
 
 ###----------------------------------------------------------------------------
 ###----------------------------------------------------------------------------

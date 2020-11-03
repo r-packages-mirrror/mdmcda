@@ -1,7 +1,7 @@
 #' Aggregate estimates by criterion
 #'
 #' @param multiEstimateDf A `multiEstimateDf` data frame.
-#' @param estimateCol The column with the estimated to use.
+#' @param estimateCol The column with the estimates to use.
 #' @param criterionId_col The columns containing the criterion identifiers.
 #' @param fun The function to use to aggregate the scores.
 #' @param ... Any additional arguments are passed to `fun`.

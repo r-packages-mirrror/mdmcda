@@ -1,16 +1,24 @@
+#' Aggregate the (potentially weighed) estimates by decision
+#'
+#' @param multiEstimateDf The `multiEstimateDf`.
+#' @param estimateCol The name of the column with the estimates to aggregate.
+#' @param decisionId_col,alternativeValue_col The columns containing the
+#' decision identifiers and the values in each decision
+#' @param fun The function to use to aggregate the estimates.
+#' @param ... Any additional arguments are passed to `fun`.
+#'
+#' @return A data frame with aggregated estimates.
 #' @export
 aggregate_estimates_by_decision <- function(multiEstimateDf,
                                             estimateCol,
+                                            decisionId_col = mdmcda::opts$get("decisionId_col"),
+                                            alternativeValue_col = mdmcda::opts$get("alternativeValue_col"),
                                             fun = sum,
                                             ...) {
 
-  decisionId_col <- mdmcda::opts$get("decisionId_col");
-  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
-
   if (("decision_alternative_value" %in% names(multiEstimateDf)) &&
       (!(alternativeValue_col %in% names(multiEstimateDf)))) {
-    warning("Found column 'decision_alternative_value': this is obsolete!");
-    alternativeValue_col <- "decision_alternative_value";
+    stop("Found column 'decision_alternative_value': this is obsolete!");
   }
 
   res <-
@@ -64,7 +72,7 @@ aggregate_estimates_by_decision <- function(multiEstimateDf,
   names(alternativeLabels) <-
     unique(multiEstimateDf[, decisionId_col]);
 
-  res[, mdmcda::opts$get("alternativeValue_col")] <-
+  res[, alternativeValue_col] <-
     alternativeLabels[res[, decisionId_col]];
 
   return(res);

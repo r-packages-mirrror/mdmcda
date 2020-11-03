@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -72,14 +72,14 @@
 
       
 
-      </header><link href="software-example_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+      </header><script src="software-example_files/header-attrs-2.5/header-attrs.js"></script><script src="software-example_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="software-example_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="software-example_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Multi-Decision Multi-Criteria Decision Aid Software example</h1>
                         <h4 class="author">Gjalt-Jorn Peters</h4>
             
-            <h4 class="date">13:41:13 on 2020-10-30 CET (GMT+0100)</h4>
+            <h4 class="date">22:17:46 on 2020-11-03 CET (GMT+0100)</h4>
       
       
       <div class="hidden name"><code>software-example.Rmd</code></div>
@@ -152,13 +152,6 @@
 <h1 class="hasAnchor">
 <a href="#preparing-data" class="anchor"></a>Preparing data</h1>
 <p>In this section, the imported data are preprocessed.</p>
-<div id="criteria" class="section level2">
-<h2 class="hasAnchor">
-<a href="#criteria" class="anchor"></a>Criteria</h2>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</div>
 <div id="process-confidence-scores" class="section level2 tabset">
 <h2 class="hasAnchor">
 <a href="#process-confidence-scores" class="anchor"></a>Process confidence scores</h2>
@@ -264,14 +257,6 @@
 <div id="results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#results" class="anchor"></a>Results</h1>
-<pre><code>Warning: The `value` argument of ``names&lt;-`()` must have the same length as `x` as of tibble 3.0.0.
-`names` must have length 7, not 1.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_warnings()` to see where this warning was generated.
-Warning: The `value` argument of ``names&lt;-`()` can't be empty as of tibble 3.0.0.
-Columns 2, 3, 4, 5, 6, and 1 more must be named.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <div id="overview-of-all-weighed-estimates-for-each-decision-and-criterion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview-of-all-weighed-estimates-for-each-decision-and-criterion" class="anchor"></a>Overview of all weighed estimates for each decision and criterion</h2>
@@ -461,66 +446,6 @@ Call `lifecycle::last_warnings()` to see where this warning was generated.</code
 <div id="visualisations-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#visualisations-1" class="anchor"></a>Visualisations</h1>
-<div id="heatmaps-showing-all-weighes-estimates-for-each-policy-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#heatmaps-showing-all-weighes-estimates-for-each-policy-model" class="anchor"></a>Heatmaps showing all weighes estimates for each policy model</h2>
-<div id="weighing-profile-meanweights" class="section level3">
-<h3 class="hasAnchor">
-<a href="#weighing-profile-meanweights" class="anchor"></a>Weighing profile: meanWeights</h3>
-<div id="policy-model-none" class="section level4">
-<h4 class="hasAnchor">
-<a href="#policy-model-none" class="anchor"></a>Policy model: none</h4>
-<div class="figure">
-<img src="software-example_files/figure-html/315dd9aa6af502c7cf0408d7448f8665-1.png" alt="Heatmap for scenario none in weight profile meanWeights" width="400"><p class="caption">
-Heatmap for scenario none in weight profile meanWeights
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id="bar-charts-for-instruments-x-and-scores-y-by-criterion-color" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bar-charts-for-instruments-x-and-scores-y-by-criterion-color" class="anchor"></a>Bar charts for instruments (x) and scores (y) by criterion (color)</h2>
-<div id="weighing-profile-meanweights-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#weighing-profile-meanweights-1" class="anchor"></a>Weighing profile: meanWeights</h3>
-<div id="policy-model-none-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#policy-model-none-1" class="anchor"></a>Policy model: none</h4>
-<div class="figure">
-<img src="software-example_files/figure-html/9cf8152617443c188aa236b7b6291740-1.png" alt="Bar chart for scenario none in weight profile meanWeights" width="400"><p class="caption">
-Bar chart for scenario none in weight profile meanWeights
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id="bar-charts-by-scenario-policy-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bar-charts-by-scenario-policy-model" class="anchor"></a>Bar charts by scenario (policy model)</h2>
-<div id="weight-profile-meanweights" class="section level3">
-<h3 class="hasAnchor">
-<a href="#weight-profile-meanweights" class="anchor"></a>Weight profile: meanWeights</h3>
-</div>
-<div id="bar-chart-for-models-x-and-scores-y-by-outcome-color" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bar-chart-for-models-x-and-scores-y-by-outcome-color" class="anchor"></a>Bar chart for models (x) and scores (y) by outcome (color)</h3>
-<div class="figure">
-<img src="software-example_files/figure-html/8de010cb406cefb07a982a85851c605b-1.png" alt="Bar chart, aggregated by decision, for weight profile meanWeights" width="400"><p class="caption">
-Bar chart, aggregated by decision, for weight profile meanWeights
-</p>
-</div>
-</div>
-<div id="bar-chart-for-models-x-and-scores-y-by-instrument-color" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bar-chart-for-models-x-and-scores-y-by-instrument-color" class="anchor"></a>Bar chart for models (x) and scores (y) by instrument (color)</h3>
-<div class="figure">
-<img src="software-example_files/figure-html/788f545f7ce891aab8f6d7f9d1e89b76-1.png" alt="Bar chart, aggregated by criterion, for weight profile meanWeights" width="400"><p class="caption">
-Bar chart, aggregated by criterion, for weight profile meanWeights
-</p>
-</div>
-</div>
-</div>
 </div>
 <div id="sensitivity-analyses" class="section level1">
 <h1 class="hasAnchor">
