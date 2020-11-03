@@ -66,13 +66,13 @@ process_confidences <- function(estimates,
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
       theme;
     if (!is.null(path) && is.character(confidencesByDecisionPlot)) {
-      ufs::cat0("\n\n");
+      cat0("\n\n");
       ufs::knitAndSave(estimates$confidencesByDecisionPlot,
                        figCaption=confidencesByDecisionPlot,
                        path = path,
                        figWidth = figWidth,
                        figHeight = figHeight);
-      ufs::cat0("\n\n");
+      cat0("\n\n");
     }
   }
 
@@ -90,13 +90,13 @@ process_confidences <- function(estimates,
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
       theme;
     if (!is.null(path) && is.character(confidencesByCriterionPlot)) {
-      ufs::cat0("\n\n");
+      cat0("\n\n");
       ufs::knitAndSave(estimates$confidencesByCriterionPlot,
                        figCaption=confidencesByCriterionPlot,
                        path = path,
                        figWidth = figWidth,
                        figHeight = figHeight);
-      ufs::cat0("\n\n");
+      cat0("\n\n");
     }
   }
 
@@ -127,13 +127,13 @@ process_confidences <- function(estimates,
                                  segment.alpha=.5,
                                  alpha=.5);
       if (!is.null(path) && is.character(confidencesInDetail)) {
-        ufs::cat0("\n\n");
+        cat0("\n\n");
         ufs::knitAndSave(estimates$confidencesInDetail[[i]],
                          figCaption=sprintf(confidencesInDetail, i),
                          path = path,
                          figWidth = figWidth,
                          figHeight = figHeight);
-        ufs::cat0("\n\n");
+        cat0("\n\n");
       }
     }
   }

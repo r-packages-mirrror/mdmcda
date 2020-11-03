@@ -2,6 +2,13 @@
 estimates_from_performance_table <- function(performance_table,
                                              idprefix="ptimport_id_") {
 
+  criterionId_col <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col <- mdmcda::opts$get("criterionLabel_col");
+  decisionId_col <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
+
   if (!('performance_table' %in% class(performance_table))) {
     stop("As argument 'performance_table', you have to provide a ",
          "performance table (sorry if that was not clear :-)). You ",
@@ -20,8 +27,8 @@ estimates_from_performance_table <- function(performance_table,
       idcounter <- idcounter + 1;
       estimatesDf[newrowNr, 'decision_id'] <- performance_table[j, 1];
       estimatesDf[newrowNr, 'decision_label'] <- performance_table[j, 3];
-      estimatesDf[newrowNr, 'decision_alternative_value'] <- performance_table[j, 2];
-      estimatesDf[newrowNr, 'decision_alternative_label'] <- performance_table[j, 4];
+      estimatesDf[newrowNr, alternativeValue_col] <- performance_table[j, 2];
+      estimatesDf[newrowNr, alternativeLabel_col] <- performance_table[j, 4];
       estimatesDf[newrowNr, 'criterion_id'] <- performance_table[1, i];
       estimatesDf[newrowNr, 'criterion_label'] <- performance_table[2, i];
       estimatesDf[newrowNr, 'value'] <- performance_table[j, i];
@@ -39,7 +46,7 @@ estimates_from_performance_table <- function(performance_table,
               estimatesDf = estimatesDf);
 
   class(res) <-
-    c("dmcda", "estimates");
+    c("mdmcda", "estimates");
 
   return(res);
 

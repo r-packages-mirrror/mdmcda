@@ -1,8 +1,8 @@
 #' Weigh estimates in a multiEstimateDf
 #'
 #' @param multiEstimateDf A multi estimate data frame that should contain
-#' columns `decision_id`, `decision_label`, `decision_alternative_value`,
-#' `decisions_alternative_label`, `criterion_id`, `criterion_label`, and
+#' columns `decision_id`, `decision_label`, `alternative_value`,
+#' `alternative_label`, `criterion_id`, `criterion_label`, and
 #' one or more estimates in columns named with the scorer identifiers. Columns
 #' with the `_id` suffix contain identifiers, and columns with the `_label`
 #' suffix contain human-readable labels. This dataframe is stored in the

@@ -1,4 +1,4 @@
-#' Create a bar chart with scores per criteria cluster
+#' Create a bar chart with scores per criteria cluster per scenario
 #'
 #' @param weighedEstimates A `weighedEstimates` object.
 #' @param estimateCol The column name with the estimates to use.
@@ -15,20 +15,32 @@
 #'
 #' @return A `ggplot2` plot.
 #' @export
-scoreBarchart_criteriaCluster <- function(weighedEstimates,
-                                          estimateCol,
-                                          parentCriterion_ids = unique(weighedEstimates$parentCriterion_id),
-                                          parentCriterion_labels = parentCriterion_ids,
-                                          scenario_ids = unique(weighedEstimates$scenario_id),
-                                          scenario_labels = scenario_ids,
-                                          strokeColor = "black",
-                                          strokeSize = .1,
-                                          title = "MDMCDA criteria cluster bar chart",
-                                          xLab = "Criteria Cluster",
-                                          yLab = estimateCol,
-                                          theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
-                                          guides = ggplot2::guide_legend(nrow = 1),
-                                          legend.position = "top") {
+scoreBarchart_scenariosByCluster <- function(weighedEstimates,
+                                             estimateCol,
+                                             parentCriterion_ids = unique(weighedEstimates$parentCriterion_id),
+                                             parentCriterion_labels = NULL,
+                                             scenario_ids = unique(weighedEstimates$scenario_id),
+                                             scenario_labels = NULL,
+                                             strokeColor = "black",
+                                             strokeSize = .1,
+                                             title = "MDMCDA scenarios by criteria cluster bar chart",
+                                             xLab = "Scenario",
+                                             yLab = estimateCol,
+                                             theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
+                                             guides = ggplot2::guide_legend(nrow = 2),
+                                             legend.position = "top") {
+
+  if (is.null(parentCriterion_labels)) {
+    parentCriterion_labels <-
+      stats::setNames(parentCriterion_ids,
+                      nm = parentCriterion_ids);
+  }
+
+  if (is.null(scenario_labels)) {
+    scenario_labels <-
+      stats::setNames(scenario_ids,
+                      nm = scenario_ids);
+  }
 
   tmpDf <-
     criteriaCluster_df(weighedEstimates = weighedEstimates,
@@ -40,10 +52,10 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
 
   res <-
     ggplot2::ggplot(data = tmpDf,
-                    mapping = ggplot2::aes_string(x = "parentCriterion_label",
+                    mapping = ggplot2::aes_string(x = "scenario_label",
                                                   y = estimateCol,
-                                                  group = "scenario_label",
-                                                  fill="scenario_label")) +
+                                                  group = "parentCriterion_label",
+                                                  fill="parentCriterion_label")) +
     ggplot2::geom_col(position=ggplot2::position_dodge(),
                       color = strokeColor,
                       size = strokeSize) +

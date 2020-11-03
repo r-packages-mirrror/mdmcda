@@ -4,8 +4,8 @@
 #' weighed estimates using [weigh_estimates_by_profile()].
 #'
 #' @param multiEstimateDf A multi estimate data frame that should contain
-#' columns `decision_id`, `decision_label`, `decision_alternative_value`,
-#' `decisions_alternative_label`, `criterion_id`, `criterion_label`, and
+#' columns `decision_id`, `decision_label`, `alternative_value`,
+#' `alternative_label`, `criterion_id`, `criterion_label`, and
 #' one or more estimates in columns named with the scorer identifiers. Columns
 #' with the `_id` suffix contain identifiers, and columns with the `_label`
 #' suffix contain human-readable labels. This dataframe is stored in the
@@ -43,6 +43,20 @@ build_weighed_estimate_df <-
            warnForMissingEstimates = TRUE,
            warnForDuplicateEstimates = TRUE) {
 
+    criterionId_col          <- mdmcda::opts$get("criterionId_col");
+    criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+    criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+    parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+    decisionId_col           <- mdmcda::opts$get("decisionId_col");
+    decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+    alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+    alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+    scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+    weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+    score_col                <- mdmcda::opts$get("score_col");
+    leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+    rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
     if (is.null(scenarioNames) && is.null(scenarioDefinitions) && is.null(decisionNames)) {
 
       currentDecision <- unique(estimates$multiEstimateDf$decision_id);
@@ -55,8 +69,8 @@ build_weighed_estimate_df <-
              vecTxtQ(unique(estimates$multiEstimateDf$decision_id)), ").");
       }
 
-      decision_alternative_values <-
-        unique(estimates$multiEstimateDf$decision_alternative_value);
+      alternative_values <-
+        unique(estimates$multiEstimateDf[, alternativeValue_col]);
 
       weighedEstimates <- data.frame(scenario_id=character(),
                                      decision_id=character(),
@@ -64,11 +78,11 @@ build_weighed_estimate_df <-
                                      criterion_id=character(),
                                      estimate=numeric());
 
-      for (currentAlternativeValue in decision_alternative_values) {
+      for (currentAlternativeValue in alternative_values) {
         for (currentCriterion in criterionNames) {
           estimate <-
             multiEstimateDf[multiEstimateDf$decision_id == currentDecision &
-                              multiEstimateDf$decision_alternative_value ==
+                              multiEstimateDf[, alternativeValue_col] ==
                               currentAlternativeValue &
                               multiEstimateDf$criterion_id==currentCriterion,
                             scorer];
@@ -130,7 +144,7 @@ build_weighed_estimate_df <-
           for (currentCriterion in criterionNames) {
             estimate <-
               multiEstimateDf[multiEstimateDf$decision_id == currentDecision &
-                                multiEstimateDf$decision_alternative_value ==
+                                multiEstimateDf[, alternativeValue_col] ==
                                 scenarioDefinitions[[currentScenario]][currentDecision] &
                                 multiEstimateDf$criterion_id==currentCriterion,
                               scorer];

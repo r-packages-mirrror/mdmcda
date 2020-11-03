@@ -22,8 +22,16 @@ scenario_overview <- function(multiEstimateDf,
                               scoreBarchart_criteria_args = NULL,
                               scoreBarchart_decisions_args = NULL) {
 
-  decisionId_col <- mdmcda::opts$get("decisionId_col");
-  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
 
   res <- list();
   res$estimates <-
@@ -65,6 +73,7 @@ scenario_overview <- function(multiEstimateDf,
 
     if (("decision_alternative_value" %in% names(multiEstimateDf)) &&
         (!(alternativeValue_col %in% names(multiEstimateDf)))) {
+      warning("Found column 'decision_alternative_value': this is obsolete!");
       alternativeValue_col <- "decision_alternative_value";
     }
 

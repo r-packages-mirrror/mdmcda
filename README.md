@@ -18,7 +18,8 @@ status](https://codecov.io/gl/r-packages/mdmcda/branch/prod/graph/badge.svg)](ht
 <!-- badges: end -->
 
 The pkgdown website for this project is located at
-<https://r-packages.gitlab.io/mdmcda>.
+<https://r-packages.gitlab.io/mdmcda> and its Git repository is located
+at <https://gitlab.com/r-packages/mdmcda>.
 
 <!--------------------------------------------->
 
@@ -26,12 +27,19 @@ The pkgdown website for this project is located at
 
 <!--------------------------------------------->
 
-See the introductory vignette for an introduction.
+See the introductory vignette for an introduction. The Dutch MDMA Policy
+Think Tank that was active in 2019-2020 used this package to formulate
+policy recommendations. The rendered report of that project, including
+all code, is located at <https://denktank.gitlab.io/mdma-policy-mdmcda>;
+the corresponding Git repository at
+<https://gitlab.com/denktank/mdma-policy-mdmcda>; and the accompanying
+Open Science Framework repository which contains frozen registrations at
+<https://osf.io/h58r6>.
 
 Other R packages for MCDA are [the `MCDA`
 package](https://cran.r-project.org/package=MCDA), [the `MCDM`
-package](https://cran.r-project.org/package=MCDM), and the recently
-retired [`DecisionAnalysis`
+package](https://cran.r-project.org/package=MCDM), and
+[`DecisionAnalysis`
 package](https://cran.r-project.org/package=DecisionAnalysis).
 
 <!--------------------------------------------->

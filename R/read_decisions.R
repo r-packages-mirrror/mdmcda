@@ -63,7 +63,7 @@ read_decisions <- function(input,
               alternativesDf = alternativesDf);
 
   class(res) <-
-    c("dmcda", "decisions_and_alternatives");
+    c("mdmcda", "decisions_and_alternatives");
 
   return(res);
 
