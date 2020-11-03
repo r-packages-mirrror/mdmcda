@@ -27,8 +27,8 @@ pages:
   stage: build
   script:
     - R -e 'pkgdown::build_site();'
-#    - mkdir public/img
-#    - cp img/hex-logo.png public/img/hex-logo.png
+    - mkdir public/img
+    - cp img/hex-logo.png public/img/hex-logo.png
   artifacts:
     paths:
       - public
