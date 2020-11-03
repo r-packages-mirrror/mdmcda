@@ -26,6 +26,7 @@ devtools_check:
 pages:
   stage: build
   script:
+    - R -e 'remotes::install_gitlab("r-packages/mdmcda")'
     - R -e 'pkgdown::build_site();'
     - mkdir public/img
     - cp img/hex-logo.png public/img/hex-logo.png
