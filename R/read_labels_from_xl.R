@@ -1,7 +1,7 @@
-#' Read labels from an Excel file
+#' Read labels or descriptions from an Excel file
 #'
-#' These function reads labels from an Excel file and returns them
-#' as a named vector (except when reading alternative labels; see Details).
+#' These function reads labels or descriptions from an Excel file and returns
+#' them as a named vector (except when reading alternative labels; see Details).
 #'
 #' The `read_labels_from_xl()` function is the underlying function; users
 #' typically don't interact with this function, unless they specified custom
@@ -12,7 +12,7 @@
 #' columns with the identifiers and the labels.
 #'
 #' @return A named vector, unless alternative labels are read, in which case
-#' a named nested list is returns. Each list element is named with a
+#' a named nested list is returned. Each list element is named with a
 #' decision identifiers, and consist of a named list, where each element is an
 #' alternative label, and each name the corresponding alternative value.
 #'
@@ -62,6 +62,18 @@ read_decisionLabels_from_xl <- function(file) {
       file = file,
       idCol = mdmcda::opts$get("decisionId_col"),
       labelCol = mdmcda::opts$get("decisionLabel_col")
+    )
+  );
+}
+
+#' @rdname read_labels_from_xl
+#' @export
+read_decisionDescriptions_from_xl <- function(file) {
+  return(
+    read_labels_from_xl(
+      file = file,
+      idCol = mdmcda::opts$get("decisionId_col"),
+      labelCol = mdmcda::opts$get("decisionDescription_col")
     )
   );
 }

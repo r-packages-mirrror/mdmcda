@@ -1,11 +1,14 @@
 #' @export
 scores_by_scenario <- function(weighedEstimates,
                                estimateCols) {
+
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+
   res <- list();
   for (currentEstimateCol in estimateCols) {
     res[[currentEstimateCol]] <-
       as.data.frame(cbind(by(weighedEstimates[[currentEstimateCol]],
-                             weighedEstimates$scenario_id,
+                             weighedEstimates[, scenarioId_col],
                              sum)),
                     stringsAsFactors = FALSE);
     res[[currentEstimateCol]] <-

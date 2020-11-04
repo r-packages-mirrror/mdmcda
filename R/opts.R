@@ -136,8 +136,8 @@ opts$ez$figSize <-
 
     if (setOption) {
       mdmcda::opts$set(ggSaveFigWidth = width,
-                      ggSaveFigHeight = height,
-                      ggSaveUnits = "in");
+                       ggSaveFigHeight = height,
+                       ggSaveUnits = "in");
     }
 
     if (setFontSize) {

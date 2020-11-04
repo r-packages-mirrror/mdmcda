@@ -4,15 +4,18 @@
 \alias{read_labels_from_xl}
 \alias{read_criterionLabels_from_xl}
 \alias{read_decisionLabels_from_xl}
+\alias{read_decisionDescriptions_from_xl}
 \alias{read_scenarioLabels_from_xl}
 \alias{read_alternativeLabels_from_xl}
-\title{Read labels from an Excel file}
+\title{Read labels or descriptions from an Excel file}
 \usage{
 read_labels_from_xl(file, idCol, labelCol)
 
 read_criterionLabels_from_xl(file)
 
 read_decisionLabels_from_xl(file)
+
+read_decisionDescriptions_from_xl(file)
 
 read_scenarioLabels_from_xl(file)
 
@@ -26,13 +29,13 @@ columns with the identifiers and the labels.}
 }
 \value{
 A named vector, unless alternative labels are read, in which case
-a named nested list is returns. Each list element is named with a
+a named nested list is returned. Each list element is named with a
 decision identifiers, and consist of a named list, where each element is an
 alternative label, and each name the corresponding alternative value.
 }
 \description{
-These function reads labels from an Excel file and returns them
-as a named vector (except when reading alternative labels; see Details).
+These function reads labels or descriptions from an Excel file and returns
+them as a named vector (except when reading alternative labels; see Details).
 }
 \details{
 The `read_labels_from_xl()` function is the underlying function; users

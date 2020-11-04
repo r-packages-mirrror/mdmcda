@@ -57,20 +57,42 @@ build_weighed_estimate_df <-
     leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
     rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
 
+    if (!is.data.frame(multiEstimateDf)) {
+      stop("`multiEstimateDf` must be a data frame!");
+    }
+
+    if (!(all(c(criterionId_col, decisionId_col,
+                alternativeValue_col, scorer) %in% names(multiEstimateDf)))) {
+      stop("`multiEstimateDf` must contain columns with ",
+           "criterion identifiers (", criterionId_col,
+           "), decision identifiers (", decisionId_col, "),
+           alternative values (", alternativeValue_col, "), and estimates ",
+           "(you specified column name '", scorer, "'. However, the columns ",
+           "in `multiEstimateDf` are: ", vectTxtQ(names(multiEstimateDf)), ".");
+    }
+
+    if (!is.vector(decisionNames)) {
+      stop("`decisionNames` has to be a vector (and isn't)!");
+    }
+
+    if (!is.vector(scenarioNames)) {
+      stop("`scenarioNames` has to be a vector (and isn't)!");
+    }
+
     if (is.null(scenarioNames) && is.null(scenarioDefinitions) && is.null(decisionNames)) {
 
-      currentDecision <- unique(estimates$multiEstimateDf$decision_id);
+      currentDecision <- unique(multiEstimateDf[, decisionId_col]);
 
       if (length(currentDecision) > 1) {
         stop("When not working with scenarios, I can analyze only ",
              "one decision, but the estimates you provided concern ",
-             length(unique(estimates$multiEstimateDf$decision_id)),
+             length(unique(multiEstimateDf[, decisionId_col])),
              " decisions (specifically, ",
-             vecTxtQ(unique(estimates$multiEstimateDf$decision_id)), ").");
+             vecTxtQ(unique(multiEstimateDf[, decisionId_col])), ").");
       }
 
       alternative_values <-
-        unique(estimates$multiEstimateDf[, alternativeValue_col]);
+        unique(multiEstimateDf[, alternativeValue_col]);
 
       weighedEstimates <- data.frame(scenario_id=character(),
                                      decision_id=character(),
@@ -81,10 +103,10 @@ build_weighed_estimate_df <-
       for (currentAlternativeValue in alternative_values) {
         for (currentCriterion in criterionNames) {
           estimate <-
-            multiEstimateDf[multiEstimateDf$decision_id == currentDecision &
+            multiEstimateDf[multiEstimateDf[, decisionId_col] == currentDecision &
                               multiEstimateDf[, alternativeValue_col] ==
                               currentAlternativeValue &
-                              multiEstimateDf$criterion_id==currentCriterion,
+                              multiEstimateDf[, criterionId_col]==currentCriterion,
                             scorer];
           if (is.null(estimate) || is.na(estimate) || (length(estimate) == 0)) {
             if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
@@ -143,10 +165,10 @@ build_weighed_estimate_df <-
         for (currentDecision in decisionNames) {
           for (currentCriterion in criterionNames) {
             estimate <-
-              multiEstimateDf[multiEstimateDf$decision_id == currentDecision &
+              multiEstimateDf[multiEstimateDf[, decisionId_col] == currentDecision &
                                 multiEstimateDf[, alternativeValue_col] ==
                                 scenarioDefinitions[[currentScenario]][currentDecision] &
-                                multiEstimateDf$criterion_id==currentCriterion,
+                                multiEstimateDf[, criterionId_col]==currentCriterion,
                               scorer];
             if (is.null(estimate) || is.na(estimate) || (length(estimate) == 0)) {
               if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
