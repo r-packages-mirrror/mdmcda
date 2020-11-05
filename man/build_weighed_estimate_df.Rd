@@ -24,7 +24,8 @@ one or more estimates in columns named with the scorer identifiers. Columns
 with the `_id` suffix contain identifiers, and columns with the `_label`
 suffix contain human-readable labels. This dataframe is stored in the
 object called `multiEstimateDf` returned by a call to
-[read_performance_tables()] to read a set of scored performance tables.}
+[read_performance_tables()] to read a set of scored performance tables. Note
+that different column names can be set using [mdmcda::opts].}
 
 \item{criterionOrder}{A vector with the identifiers of the criteria
 to process.}

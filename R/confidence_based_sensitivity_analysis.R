@@ -1,3 +1,45 @@
+#' Conduct a sensitivity analysis based on confidence scores
+#'
+#' When estimating the effects of alternatives on the criteria,
+#' the raters can attach a confidence score to the estimates in the
+#' performance table (or, more accurately, to the entire performance
+#' table). This function uses these to test the robustness of the
+#' results.
+#'
+#' In the confidence-based sensitivity analyses, by default 10% of the
+#' estimates about which the raters expressed the least confidence
+#' are sequentially set to the result of the `transformationFunction`.
+#' The total score for each scenario is then computed again.
+#'
+#' @param multiEstimateDf A multi estimate data frame that should contain
+#' columns `decision_id`, `decision_label`, `alternative_value`,
+#' `alternative_label`, `criterion_id`, `criterion_label`, and
+#' one or more estimates in columns named with the scorer identifiers. Columns
+#' with the `_id` suffix contain identifiers, and columns with the `_label`
+#' suffix contain human-readable labels. This dataframe is stored in the
+#' object called `multiEstimateDf` returned by a call to
+#' [read_performance_tables()] to read a set of scored performance tables. Note
+#' that different column names can be set using [mdmcda::opts].
+#' @param collapsedConfidences The `collapsedConfidences` object.
+#' @param scenarioDefinitions The `scenarioDefinitions` object.
+#' @param weightProfiles The `weightProfiles` object.
+#' @param criteria The `criteria` object.
+#' @param transformationFunction The function to apply to the estimates in
+#' performance tables below the confidence threshold
+#' @param scenarioOrder The scenarios to process and the order in which to
+#' organise them.
+#' @param scenarioLabels The labels of the scenarios.
+#' @param scorer The scorer of whom to process the confidences.
+#' @param confidenceThresholds The confidence thresholds to process (by
+#' default, 0 to 1 in steps of .1).
+#' @param setMissingEstimates What to set missing values to, if any are
+#' encountered.
+#' @param silent Whether to suppress messages about progress.
+#' @param lineSize The line size to use in the plots.
+#' @param theme The `ggplot2` theme to use.
+#'
+#' @return An object with a data frame summarizing the sensitivity analysis,
+#' and two produced plots: one with the scores, and one with the ranks.
 #' @export
 confidence_based_sensitivity_analysis <-
   function(multiEstimateDf,
@@ -44,15 +86,15 @@ confidence_based_sensitivity_analysis <-
               silent = silent);
 
           if (!silent) {
-            cat0("\nPreparing dataframe to weight estimates.\n");
+            cat0("\nPreparing dataframe to weigh estimates.\n");
           }
 
           ### Create dataframe for the weighed estimates
           res$weighedEstimates <-
             build_weighed_estimate_df(multiEstimateDf = res$multiEstimateDf,
-                                      criterionNames = unique(multiEstimateDf$criterion_id),
-                                      decisionNames = unique(multiEstimateDf$decision_id),
-                                      scenarioNames = names(scenarioDefinitions),
+                                      criterionOrder = unique(multiEstimateDf$criterion_id),
+                                      decisionOrder = unique(multiEstimateDf$decision_id),
+                                      scenarioOrder = scenarioOrder,
                                       scenarioDefinitions = scenarioDefinitions,
                                       scorer = scorer,
                                       setMissingEstimates = setMissingEstimates,
