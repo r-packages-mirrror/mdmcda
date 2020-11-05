@@ -25,12 +25,12 @@ estimates_from_performance_table <- function(performance_table,
     for (j in 3:nrow(performance_table)) {
       newrowNr <- nrow(estimatesDf) + 1;
       idcounter <- idcounter + 1;
-      estimatesDf[newrowNr, 'decision_id'] <- performance_table[j, 1];
-      estimatesDf[newrowNr, 'decision_label'] <- performance_table[j, 3];
+      estimatesDf[newrowNr, decisionId_col] <- performance_table[j, 1];
+      estimatesDf[newrowNr, decisionLabel_col] <- performance_table[j, 3];
       estimatesDf[newrowNr, alternativeValue_col] <- performance_table[j, 2];
       estimatesDf[newrowNr, alternativeLabel_col] <- performance_table[j, 4];
-      estimatesDf[newrowNr, 'criterion_id'] <- performance_table[1, i];
-      estimatesDf[newrowNr, 'criterion_label'] <- performance_table[2, i];
+      estimatesDf[newrowNr, criterionId_col] <- performance_table[1, i];
+      estimatesDf[newrowNr, criterionLabel_col] <- performance_table[2, i];
       estimatesDf[newrowNr, 'value'] <- performance_table[j, i];
       estimatesDf[newrowNr, 'label'] <- "Imported from performance table";
       estimatesDf[newrowNr, 'description'] <- "This estimation has no description because it was imported from a performance table.";

@@ -54,6 +54,7 @@ build_weighed_estimate_df <-
     alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
     scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
     weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+    estimate_col             <- mdmcda::opts$get("estimate_col");
     score_col                <- mdmcda::opts$get("score_col");
     leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
     rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
@@ -162,7 +163,14 @@ build_weighed_estimate_df <-
                                      alternative_value=numeric(),
                                      criterion_id=character(),
                                      estimate=numeric());
+
       for (currentScenario in scenarioOrder) {
+
+        if (!(currentScenario %in% names(scenarioDefinitions))) {
+          stop("Trying to process scenario '", currentScenario,
+               "', but it does not exist in the scenarioDefinitions object!");
+        }
+
         for (currentDecision in decisionOrder) {
           for (currentCriterion in criterionOrder) {
             estimate <-
@@ -202,13 +210,19 @@ build_weighed_estimate_df <-
               estimate <- mean(estimate, na.rm = TRUE);
             }
             weighedEstimates <-
-              rbind(weighedEstimates,
-                    data.frame(scenario_id=currentScenario,
-                               decision_id=currentDecision,
-                               alternative_value=scenarioDefinitions[[currentScenario]][currentDecision],
-                               criterion_id=currentCriterion,
-                               estimate=estimate,
-                               stringsAsFactors = FALSE));
+              rbind(
+                weighedEstimates,
+                stats::setNames(
+                  data.frame(scenario_id=currentScenario,
+                             decision_id=currentDecision,
+                             alternative_value=scenarioDefinitions[[currentScenario]][currentDecision],
+                             criterion_id=currentCriterion,
+                             estimate=estimate,
+                             stringsAsFactors = FALSE),
+                  nm = c(scenarioId_col, decisionId_col, alternativeValue_col,
+                         criterionId_col, estimate_col)
+                )
+              );
             # cat("\nWithin scenario ", currentScenario, ", for the effect of decision ",
             #     currentDecision, " for criterion ", currentCriterion,
             #     ", found estimate ", estimate, ".", sep="");

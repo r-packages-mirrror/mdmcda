@@ -3,9 +3,9 @@ replace_estimates <- function(multiEstimateDf,
                               criteria,
                               scorer,
                               transformationFunction,
-                              decision = NULL,
+                              decision_id = NULL,
                               alternative_value = NULL,
-                              criterion = NULL,
+                              criterion_id = NULL,
                               silent = TRUE,
                               ...) {
 
@@ -23,28 +23,29 @@ replace_estimates <- function(multiEstimateDf,
   }
 
   decisionSelection <-
-    ifelseObj(is.null(decision),
+    ifelseObj(is.null(decision_id),
               rep(TRUE, nrow(multiEstimateDf)),
-              multiEstimateDf$decision_id==decision);
+              multiEstimateDf[, decisionId_col]==decision_id);
 
   alternative_valueSelection <-
     ifelseObj(is.null(alternative_value),
               rep(TRUE, nrow(multiEstimateDf)),
               multiEstimateDf[, alternativeValue_col]==alternative_value);
 
-  if (all(criterion %in% criteria$convenience$childCriteriaByCluster)) {
-    criterionSelectionList <- criterion;
+  if (all(criterion_id %in% criteria$convenience$leafCriterionIds)) {
+    criterionSelectionList <- criterion_id;
     criterionSelection <-
-      multiEstimateDf$criterion_id %in% criterionSelectionList;
-  } else if (all(criterion %in% criteria$convenience$parentCriteriaIds)) {
-    criterionSelectionList <- unlist(criteria$convenience$childCriteriaIds[[criterion]]);
+      multiEstimateDf[, criterionId_col] %in% criterionSelectionList;
+  } else if (all(criterion_id %in% criteria$convenience$parentCriteriaIds)) {
+    criterionSelectionList <-
+      unlist(criteria$convenience$childCriterionIds_by_parentId[[criterion_id]]);
     criterionSelection <-
-      multiEstimateDf$criterion_id %in% criterionSelectionList;
+      multiEstimateDf[, criterionId_col] %in% criterionSelectionList;
   } else {
     criterionSelection <-
       rep(TRUE, nrow(multiEstimateDf));
     criterionSelectionList <-
-      criteria$convenience$childCriteriaByCluster;
+      criteria$convenience$leafCriterionIds;
   }
 
   rowsToReplace <-
@@ -52,28 +53,30 @@ replace_estimates <- function(multiEstimateDf,
 
   if (!silent) {
     cat0("\n- For decision ",
-              vecTxtQ(decision),
-              ", alternatives ",
+              vecTxtQ(decision_id),
+              ", alternative ",
               ifelse(is.null(alternative_value),
                      "*",
                      vecTxtQ(alternative_value)),
-              ", and criteria ",
+              ", and criterion ",
               vecTxtQ(criterionSelectionList),
               ", replacing ", sum(rowsToReplace), " estimates.\n");
   }
 
   for (currentCriterion in criterionSelectionList) {
     multiEstimateDf[rowsToReplace &
-                      (multiEstimateDf$criterion_id == currentCriterion),
+                      (multiEstimateDf[, criterionId_col] == currentCriterion),
                     scorer] <-
-      transformationFunction(multiEstimateDf[rowsToReplace &
-                                               (multiEstimateDf$criterion_id == currentCriterion),
-                                             scorer],
-                             anchoringDf = criteria$anchoringDf,
-                             criterion = currentCriterion,
-                             decision = decision,
-                             alternative_value = alternative_value,
-                             ...);
+      transformationFunction(
+        multiEstimateDf[rowsToReplace &
+                          (multiEstimateDf[, criterionId_col] == currentCriterion),
+                        scorer],
+        anchoringDf = criteria$anchoringDf,
+        criterion_id = currentCriterion,
+        decision_id = decision_id,
+        alternative_value = alternative_value,
+        ...
+      );
   }
 
   return(multiEstimateDf);
@@ -87,12 +90,12 @@ setToZero <- function(x, ...) return(rep(0, length(x)));
 #' @export
 setToMin <- function(x,
                      anchoringDf,
-                     criterion,
-                     decision = NULL,
+                     criterion_id,
+                     decision_id = NULL,
                      alternative_value = NULL,
                      ...) {
   criterionMin <-
-    anchoringDf[anchoringDf$id %in% criterion,
+    anchoringDf[anchoringDf$criterion_id %in% criterion_id,
                 'lo_score'];
   return(rep(criterionMin, length(x)));
 }
@@ -100,12 +103,12 @@ setToMin <- function(x,
 #' @export
 setToMax <- function(x,
                      anchoringDf,
-                     criterion,
-                     decision = NULL,
+                     criterion_id,
+                     decision_id = NULL,
                      alternative_value = NULL,
                      ...) {
   criterionMax <-
-    anchoringDf[anchoringDf$id %in% criterion,
+    anchoringDf[anchoringDf$criterion_id %in% criterion_id,
                 'hi_score'];
   return(rep(criterionMax, length(x)));
 }

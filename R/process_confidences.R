@@ -1,18 +1,34 @@
 #' Process the confidence scores and create plots
 #'
 #' @param estimates The `estimates` object.
-#' @param criterionOrder,criterionLabels The order and labels of the criteria.
+#' @param parentCriterionOrder,parentCriterionLabels The order and labels of
+#' the parent criteria (i.e. the criterion clusters).
 #' @param decisionOrder,decisionLabels The order and labels of the decisions.
 #' @param theme The `ggplot2` theme to use for the plots.
 #'
 #' @return The `estimates` object, with plots and a data frame added.
 #' @export
 process_confidences <- function(estimates,
-                                criterionOrder = NULL,
-                                criterionLabels = NULL,
+                                parentCriterionOrder = NULL,
+                                parentCriterionLabels = NULL,
                                 decisionOrder = NULL,
                                 decisionLabels = NULL,
                                 theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
+
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  parentCriterionLabel_col <- mdmcda::opts$get("parentCriterionLabel_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
 
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
@@ -30,38 +46,34 @@ process_confidences <- function(estimates,
            levels=scorerTxt[order(as.numeric(scorerNrs))],
            ordered=TRUE);
 
-  ### Remove "_by_all" from criteria
-  estimates$mergedConfidences$criterion <-
-    gsub("_by_all",
-         "",
-         estimates$mergedConfidences$criterion);
-
   ### Set order and labels if those were not provided
-  if (is.null(decisionOrder)) {
-    decisionOrder <- rev(sort(unique(estimates$mergedConfidences$decision)));
+  if (is.null(parentCriterionOrder)) {
+    parentCriterionOrder <-
+      rev(sort(unique(estimates$mergedConfidences[, parentCriterionId_col])));
   }
-  if (is.null(criterionLabels)) {
+  if (is.null(parentCriterionLabels)) {
+    parentCriterionLabels <- stats::setNames(parentCriterionOrder,
+                                             parentCriterionOrder);
+  }
+  if (is.null(decisionOrder)) {
+    decisionOrder <-
+      rev(sort(unique(estimates$mergedConfidences[, decisionId_col])));
+  }
+  if (is.null(decisionLabels)) {
     decisionLabels <- stats::setNames(decisionOrder,
                                       decisionOrder);
   }
-  if (is.null(criterionOrder)) {
-    criterionOrder <- rev(sort(unique(estimates$mergedConfidences$criterion)));
-  }
-  if (is.null(criterionLabels)) {
-    criterionLabels <- stats::setNames(criterionOrder,
-                                       criterionOrder);
-  }
 
-  #### Also store decisions and criteria as ordered factors
-  estimates$mergedConfidences$criterion <-
-    factor(estimates$mergedConfidences$criterion,
-           levels=criterionOrder,
-           labels=criterionLabels,
+  #### Store decisions and criteria labels as ordered factors
+  estimates$mergedConfidences[, parentCriterionLabel_col] <-
+    factor(estimates$mergedConfidences[, parentCriterionId_col],
+           levels=parentCriterionOrder,
+           labels=parentCriterionLabels[parentCriterionOrder],
            ordered=TRUE);
-  estimates$mergedConfidences$decision <-
-    factor(estimates$mergedConfidences$decision,
+  estimates$mergedConfidences[, decisionLabel_col] <-
+    factor(estimates$mergedConfidences[, decisionId_col],
            levels=decisionOrder,
-           labels=decisionLabels,
+           labels=decisionLabels[decisionOrder],
            ordered=TRUE);
 
   ### Add collapsed version (over performance table)
@@ -70,17 +82,19 @@ process_confidences <- function(estimates,
             by(estimates$mergedConfidences,
                estimates$mergedConfidences$performance_table,
                function(x) {
-                 return(data.frame(decision = unique(x$decision),
-                                   criterion = unique(x$criterion),
+                 return(data.frame(decision_id = unique(x[, decisionId_col]),
+                                   criterion_id = unique(x[, parentCriterionId_col]),
                                    confidenceMean = mean(x$Confidence, na.rm=TRUE),
                                    confidenceSD = sd(x$Confidence, na.rm=TRUE)));
                }));
+  names(estimates$collapsedConfidences) <-
+    c(decisionId_col, parentCriterionId_col, "confidenceMean", "confidenceSD");
   row.names(estimates$collapsedConfidences) <- NULL;
 
   ### Confidences per decision (instrument)
   estimates$confidencesByDecisionPlot <-
     ggplot2::ggplot(data=estimates$mergedConfidences,
-                    mapping=ggplot2::aes_string(y='decision',
+                    mapping=ggplot2::aes_string(y=decisionLabel_col,
                                                 x='Confidence',
                                                 color='Scorer')) +
     ggplot2::geom_jitter(alpha=.25,
@@ -88,12 +102,14 @@ process_confidences <- function(estimates,
                          height=.25) +
     ggplot2::scale_color_viridis_d(end=.9) +
     ggplot2::coord_cartesian(xlim=c(0, 100)) +
+    ggplot2::labs(title = "Confidence scores per decision",
+                  y = "Decisions") +
     theme;
 
   ### Confidences per criterion (outcome)
   estimates$confidencesByCriterionPlot <-
     ggplot2::ggplot(data=estimates$mergedConfidences,
-                    mapping=ggplot2::aes_string(y='criterion',
+                    mapping=ggplot2::aes_string(y=parentCriterionLabel_col,
                                                 x='Confidence',
                                                 color='Scorer')) +
     ggplot2::geom_jitter(alpha=.25,
@@ -101,19 +117,23 @@ process_confidences <- function(estimates,
                          height=.25) +
     ggplot2::scale_color_viridis_d(end=.9) +
     ggplot2::coord_cartesian(xlim=c(0, 100)) +
+    ggplot2::labs(title = "Confidence scores per parent criterion (cluser)",
+                  y = "Criteria") +
     theme;
 
   estimates$confidencesInDetail <- list();
-  for (i in rev(levels(estimates$mergedConfidences$decision))) {
+  for (i in decisionOrder) {
     tmpDf <-
-      estimates$mergedConfidences[(estimates$mergedConfidences$decision == i), ];
+      estimates$mergedConfidences[
+        (estimates$mergedConfidences[, decisionId_col] == i),
+      ];
     estimates$confidencesInDetail[[i]] <-
       ggplot2::ggplot(data=tmpDf,
-                      mapping=ggplot2::aes_string(y='criterion',
+                      mapping=ggplot2::aes_string(y=parentCriterionLabel_col,
                                                   x='Confidence',
                                                   color='Scorer')) +
 
-      ggplot2::geom_jitter(mapping=ggplot2::aes(color=Scorer),
+      ggplot2::geom_jitter(mapping=ggplot2::aes_string(color="Scorer"),
                            alpha=.5,
                            width=.5,
                            height=.1,
@@ -122,15 +142,15 @@ process_confidences <- function(estimates,
       ggplot2::labs(title=paste0("Confidence scores for ", i)) +
       theme +
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
-      ggrepel::geom_text_repel(mapping=ggplot2::aes(color=Scorer,
-                                                    label=ScorerNr),
+      ggrepel::geom_text_repel(mapping=ggplot2::aes_string(color="Scorer",
+                                                           label="ScorerNr"),
                                size=2.5,
                                point.padding = .25,
                                segment.alpha=.5,
                                alpha=.5);
   }
   names(estimates$confidencesInDetail) <-
-    rev(levels(estimates$mergedConfidences$decision));
+    decisionOrder;
 
   return(estimates);
 

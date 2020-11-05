@@ -169,6 +169,7 @@ opts$defaults <-
     criterionLabel_col       = "criterion_label",
     criterionDescription_col = "criterion_description",
     parentCriterionId_col    = "parentCriterion_id",
+    parentCriterionLabel_col    = "parentCriterionLabel_col",
     alternativeValue_col     = "alternative_value",
     alternativeLabel_col     = "alternative_label",
     scenarioId_col           = "scenario_id",
@@ -176,9 +177,16 @@ opts$defaults <-
     decisionDescription_col  = "decision_description",
     decisionAlternatives_col = "decision_alternatives",
     weightProfileId_col      = "weight_profile_id",
+    estimate_col             = "estimate_col",
     score_col                = "score",
     leafCriterion_col        = "leafCriterion",
+
     rootCriterionId          = "outcomes",
+
+    performanceTable_decisionRegex = c("performance_subtable_for_(.*)_on_.*\\.xlsx$",
+                                       "\\1"),
+    performanceTable_criterionRegex = c("performance_subtable_for_.*_on_(.*)\\.xlsx$",
+                                        "\\1"),
 
     ### ggSave defaults
     ggSaveFigWidth = 11,

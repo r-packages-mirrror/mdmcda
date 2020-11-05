@@ -24,6 +24,8 @@
 #' @param scenarioDefinitions The `scenarioDefinitions` object.
 #' @param weightProfiles The `weightProfiles` object.
 #' @param criteria The `criteria` object.
+#' @param collapsedConfidences_criterionIdCol The column name of the
+#' criterion identifiers in the `collapsedConfidences` object to use.
 #' @param transformationFunction The function to apply to the estimates in
 #' performance tables below the confidence threshold
 #' @param scenarioOrder The scenarios to process and the order in which to
@@ -47,6 +49,7 @@ confidence_based_sensitivity_analysis <-
            scenarioDefinitions,
            weightProfiles,
            criteria,
+           collapsedConfidences_criterionIdCol = "parentCriterion_id",
            transformationFunction = setToZero,
            scenarioOrder = names(scenarioDefinitions),
            scenarioLabels = stats::setNames(names(scenarioDefinitions),
@@ -57,6 +60,22 @@ confidence_based_sensitivity_analysis <-
            silent = mdmcda::opts$get("silent"),
            lineSize = 1,
            theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
+
+    criterionId_col          <- mdmcda::opts$get("criterionId_col");
+    criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+    criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+    parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+    parentCriterionLabel_col <- mdmcda::opts$get("parentCriterionLabel_col");
+    decisionId_col           <- mdmcda::opts$get("decisionId_col");
+    decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+    alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+    alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+    scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+    weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+    score_col                <- mdmcda::opts$get("score_col");
+    estimate_col             <- mdmcda::opts$get("estimate_col");
+    leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+    rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
 
     res <- list(input = as.list(environment()));
     res$sensitivityAnalyses <-
@@ -79,6 +98,7 @@ confidence_based_sensitivity_analysis <-
             replace_estimates_based_on_confidence(
               multiEstimateDf = multiEstimateDf,
               collapsedConfidences = collapsedConfidences,
+              collapsedConfidences_criterionIdCol = collapsedConfidences_criterionIdCol,
               confidenceQuantile = lowConfidence,
               transformationFunction = transformationFunction,
               scorer = scorer,
@@ -92,8 +112,8 @@ confidence_based_sensitivity_analysis <-
           ### Create dataframe for the weighed estimates
           res$weighedEstimates <-
             build_weighed_estimate_df(multiEstimateDf = res$multiEstimateDf,
-                                      criterionOrder = unique(multiEstimateDf$criterion_id),
-                                      decisionOrder = unique(multiEstimateDf$decision_id),
+                                      criterionOrder = unique(res$multiEstimateDf[, criterionId_col]),
+                                      decisionOrder = unique(res$multiEstimateDf[, decisionId_col]),
                                       scenarioOrder = scenarioOrder,
                                       scenarioDefinitions = scenarioDefinitions,
                                       scorer = scorer,
@@ -122,8 +142,8 @@ confidence_based_sensitivity_analysis <-
             compute_best_alternatives(scores_per_alternative=res$scores_per_alternative);
 
           res$scoresPerScenario <-
-            by(res$weighedEstimates$meanWeights_weighed_estimate,
-               res$weighedEstimates$scenario_id,
+            by(res$weighedEstimates[, estimate_col],
+               res$weighedEstimates[, scenarioId_col],
                sum);
           return(res);
         });
@@ -173,6 +193,7 @@ confidence_based_sensitivity_analysis <-
         ggplot2::geom_line(size=lineSize) +
         ggplot2::scale_color_viridis_d(end = .9) +
         ggplot2::labs(x = "'Low confidence' threshold determining estimate replacement",
+                      color = "Scenario",
                       y = "Scores") +
         theme;
 
@@ -185,6 +206,7 @@ confidence_based_sensitivity_analysis <-
       ggplot2::geom_line(size=lineSize) +
       ggplot2::scale_color_viridis_d(end = .9) +
       ggplot2::labs(x = "'Low confidence' threshold determining estimate replacement",
+                    color = "Scenario",
                     y = "Ranks") +
       theme;
 

@@ -24,6 +24,11 @@ read_performance_tables <- function(input,
   leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
   rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
 
+  performanceTable_decisionRegex  <-
+    mdmcda::opts$get("performanceTable_decisionRegex");
+  performanceTable_criterionRegex <-
+    mdmcda::opts$get("performanceTable_criterionRegex");
+
   if (!is.character(input) || !length(input)==1) {
     stop("Only specify a single string as 'input'!");
   }
@@ -39,8 +44,8 @@ read_performance_tables <- function(input,
   }
 
   if (grepl('\\.xls', regex)) {
-    if (!requireNamespace("readxl", quietly = TRUE)) {
-      stop("To import from excel format, the \"readxl\" package is required.");
+    if (!requireNamespace("openxlsx", quietly = TRUE)) {
+      stop("To import from excel format, the \"openxlsx\" package is required.");
     }
   }
 
@@ -161,27 +166,28 @@ read_performance_tables <- function(input,
     }
     for (j in 1:nrow(res$estimates[[i]]$estimatesDf)) {
       rowNr <-
-        which(res$multiEstimateDf$decision_id %in% res$estimates[[i]]$estimatesDf[j, 'decision_id'] &
-              res$multiEstimateDf[, alternativeValue_col] %in% res$estimates[[i]]$estimatesDf[j, alternativeValue_col] &
-              res$multiEstimateDf$criterion_id %in% res$estimates[[i]]$estimatesDf[j, 'criterion_id']);
+        which(
+          res$multiEstimateDf[, decisionId_col] %in% res$estimates[[i]]$estimatesDf[j, decisionId_col] &
+            res$multiEstimateDf[, alternativeValue_col] %in% res$estimates[[i]]$estimatesDf[j, alternativeValue_col] &
+              res$multiEstimateDf[, criterionId_col] %in% res$estimates[[i]]$estimatesDf[j, criterionId_col]);
       if (is.null(rowNr) || !length(rowNr)) {
         rowNr <-
           nrow(res$multiEstimateDf) + 1;
       } else if (length(rowNr) > 1) {
         stop("Error: duplicate rows!");
       }
-      res$multiEstimateDf[rowNr, 'decision_id'] <-
-        res$estimates[[i]]$estimatesDf[j, 'decision_id'];
-      res$multiEstimateDf[rowNr, 'decision_label'] <-
-        res$estimates[[i]]$estimatesDf[j, 'decision_label'];
+      res$multiEstimateDf[rowNr, decisionId_col] <-
+        res$estimates[[i]]$estimatesDf[j, decisionId_col];
+      res$multiEstimateDf[rowNr, decisionLabel_col] <-
+        res$estimates[[i]]$estimatesDf[j, decisionLabel_col];
       res$multiEstimateDf[rowNr, alternativeValue_col] <-
         res$estimates[[i]]$estimatesDf[j, alternativeValue_col];
       res$multiEstimateDf[rowNr, alternativeLabel_col] <-
         res$estimates[[i]]$estimatesDf[j, alternativeLabel_col];
-      res$multiEstimateDf[rowNr, 'criterion_id'] <-
-        res$estimates[[i]]$estimatesDf[j, 'criterion_id'];
-      res$multiEstimateDf[rowNr, 'criterion_label'] <-
-        res$estimates[[i]]$estimatesDf[j, 'criterion_label'];
+      res$multiEstimateDf[rowNr, criterionId_col] <-
+        res$estimates[[i]]$estimatesDf[j, criterionId_col];
+      res$multiEstimateDf[rowNr, criterionLabel_col] <-
+        res$estimates[[i]]$estimatesDf[j, criterionLabel_col];
       res$multiEstimateDf[rowNr, res$multiEstimateLegend[i]] <-
         res$estimates[[i]]$estimatesDf[j, 'value'];
     }
@@ -230,10 +236,12 @@ read_performance_tables <- function(input,
                  paste0(length(mismatches), " of the estimates loaded from '",
                         i, "' in file '",
                         res$multiEstimateInverseLegend[i],
-                        "' cannot be converted to a numeric value. Specifically, this concerns ",
-                        "alternative(s) ", res$multiEstimateDf[mismatches, alternativeValue_col],
-                        " in decision(s) ", res$multiEstimateDf[mismatches, 'decision_id'],
-                        " for criterion or criteria ", res$multiEstimateDf[mismatches, 'criterion_id'],
+                        "' cannot be converted to a numeric value. Specifically, this concerns the ",
+                        "alternative with value ", res$multiEstimateDf[mismatches, alternativeValue_col],
+                        " in decision with identifier ",
+                        res$multiEstimateDf[mismatches, decisionId_col],
+                        " for criterion with identifier ",
+                        res$multiEstimateDf[mismatches, criterionId_col],
                         ", where ",
                         "the original version ('", x,"') is not identical to the version ",
                         "converted to numeric ('", y, "') and back to character ('", z, "').");
@@ -261,14 +269,14 @@ read_performance_tables <- function(input,
     res$mergedConfidences[!is.na(res$mergedConfidences$Confidence), c("performance_table",
                                                                       "Scorer", "Confidence")];
 
-  ### Derive decisions and criteria from performance subtable names
-  res$mergedConfidences$decision <-
-    gsub("performance_subtable_for_(.*)_on_.*$",
-         "\\1",
+  ### Derive decision and criteria identifiers from performance subtable names
+  res$mergedConfidences[, decisionId_col] <-
+    gsub(performanceTable_decisionRegex[1],
+         performanceTable_decisionRegex[2],
          res$mergedConfidences$performance_table);
-  res$mergedConfidences$criterion <-
-    gsub("performance_subtable_for_.*_on_(.*)\\.xlsx$",
-         "\\1",
+  res$mergedConfidences[, parentCriterionId_col] <-
+    gsub(performanceTable_criterionRegex[1],
+         performanceTable_criterionRegex[2],
          res$mergedConfidences$performance_table);
 
   ### Store aggregate indicators
@@ -382,7 +390,7 @@ read_performance_tables <- function(input,
 
   res$alternativeValues <-
     lapply(by(res$multiEstimateDf,
-              res$multiEstimateDf$decision_id,
+              res$multiEstimateDf[, decisionId_col],
               function(x) {
                 uniqueAlts <- unique(x[, c(alternativeValue_col,
                                            alternativeLabel_col)]);

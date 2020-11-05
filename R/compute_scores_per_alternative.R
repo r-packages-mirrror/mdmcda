@@ -28,14 +28,25 @@ compute_scores_per_alternative <- function(multiEstimateDf,
                                   stringsAsFactors = FALSE);
 
   for (currentWeightProfile in names(weightProfiles)) {
-    for (currentDecision in unique(multiEstimateDf$decision_id)) {
+    for (currentDecision in unique(multiEstimateDf[, decisionId_col])) {
+
+      tmpCols <- c(criterionId_col,
+                   alternativeValue_col,
+                   paste0(currentWeightProfile,
+                          '_weighed_estimate'));
+
+      if (!(all(tmpCols %in% names(multiEstimateDf)))) {
+        stop("I need columns ", vecTxtQ(tmpCols),
+             " in the multiEstimateDf data frame, but one or more of them ",
+             "does not exist, specifically: ",
+             vecTxtQ(tmpCols[!(tmpCols %in% names(multiEstimateDf))]),
+             ". The columns I do have are: ", vecTxtQ(names(multiEstimateDf)),
+             ".");
+      }
 
       tmpDf <-
-        multiEstimateDf[multiEstimateDf$decision_id==currentDecision,
-                        c(criterionId_col,
-                          alternativeValue_col,
-                          paste0(currentWeightProfile,
-                                 '_weighed_estimate'))];
+        multiEstimateDf[multiEstimateDf[, decisionId_col]==currentDecision,
+                        tmpCols];
 
       missingWeighedEstimates <-
         is.na(tmpDf[, paste0(currentWeightProfile,
