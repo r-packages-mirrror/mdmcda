@@ -64,16 +64,17 @@ process_confidences <- function(estimates,
                                       decisionOrder);
   }
 
-  #### Store decisions and criteria labels as ordered factors
+  ### Store decisions and criteria labels as ordered factors; flip
+  ### the order so that the first ones are displayed at the top.
   estimates$mergedConfidences[, parentCriterionLabel_col] <-
     factor(estimates$mergedConfidences[, parentCriterionId_col],
-           levels=parentCriterionOrder,
-           labels=parentCriterionLabels[parentCriterionOrder],
+           levels=rev(parentCriterionOrder),
+           labels=rev(parentCriterionLabels[parentCriterionOrder]),
            ordered=TRUE);
   estimates$mergedConfidences[, decisionLabel_col] <-
     factor(estimates$mergedConfidences[, decisionId_col],
-           levels=decisionOrder,
-           labels=decisionLabels[decisionOrder],
+           levels=rev(decisionOrder),
+           labels=rev(decisionLabels[decisionOrder]),
            ordered=TRUE);
 
   ### Add collapsed version (over performance table)
@@ -117,7 +118,7 @@ process_confidences <- function(estimates,
                          height=.25) +
     ggplot2::scale_color_viridis_d(end=.9) +
     ggplot2::coord_cartesian(xlim=c(0, 100)) +
-    ggplot2::labs(title = "Confidence scores per parent criterion (cluser)",
+    ggplot2::labs(title = "Confidence scores per parent criterion (cluster)",
                   y = "Criteria") +
     theme;
 
@@ -139,12 +140,13 @@ process_confidences <- function(estimates,
                            height=.1,
                            size=5) +
       ggplot2::scale_color_viridis_d(end=.9) +
-      ggplot2::labs(title=paste0("Confidence scores for ", i)) +
+      ggplot2::labs(title=paste0("Confidence scores for ", i),
+                    y = "Parent criterion (cluster)") +
       theme +
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
       ggrepel::geom_text_repel(mapping=ggplot2::aes_string(color="Scorer",
                                                            label="ScorerNr"),
-                               size=2.5,
+                               size=4,
                                point.padding = .25,
                                segment.alpha=.5,
                                alpha=.5);

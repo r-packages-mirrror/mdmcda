@@ -36,7 +36,7 @@ replace_estimates <- function(multiEstimateDf,
     criterionSelectionList <- criterion_id;
     criterionSelection <-
       multiEstimateDf[, criterionId_col] %in% criterionSelectionList;
-  } else if (all(criterion_id %in% criteria$convenience$parentCriteriaIds)) {
+  } else if (all(criterion_id %in% criteria$convenience$parentCriterionIds)) {
     criterionSelectionList <-
       unlist(criteria$convenience$childCriterionIds_by_parentId[[criterion_id]]);
     criterionSelection <-
