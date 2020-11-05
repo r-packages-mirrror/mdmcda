@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build a dataframe for weighed estimates — build_weighed_estimate_df • mdmcda</title>
+<title>Get the aggregated scores for each scenario — scores_by_scenario • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Build a dataframe for weighed estimates — build_weighed_estimate_df" />
-<meta property="og:description" content="This function is used to produce a data frame that can then be filled with
-weighed estimates using [weigh_estimates_by_profile()]." />
+<meta property="og:title" content="Get the aggregated scores for each scenario — scores_by_scenario" />
+<meta property="og:description" content="Get the aggregated scores for each scenario" />
 
 
 
@@ -104,90 +103,45 @@ weighed estimates using [weigh_estimates_by_profile()]." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build a dataframe for weighed estimates</h1>
+    <h1>Get the aggregated scores for each scenario</h1>
     
-    <div class="hidden name"><code>build_weighed_estimate_df.Rd</code></div>
+    <div class="hidden name"><code>scores_by_scenario.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is used to produce a data frame that can then be filled with
-weighed estimates using [weigh_estimates_by_profile()].</p>
+    <p>Get the aggregated scores for each scenario</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_weighed_estimate_df</span><span class='op'>(</span>
-  <span class='va'>multiEstimateDf</span>,
-  <span class='va'>criterionOrder</span>,
-  <span class='va'>scorer</span>,
-  decisionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioDefinitions <span class='op'>=</span> <span class='cn'>NULL</span>,
-  setMissingEstimates <span class='op'>=</span> <span class='cn'>NULL</span>,
-  warnForMissingEstimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  warnForDuplicateEstimates <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>scores_by_scenario</span><span class='op'>(</span><span class='va'>weighedEstimates</span>, <span class='va'>estimateCols</span>, fun <span class='op'>=</span> <span class='va'>sum</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>multiEstimateDf</th>
-      <td><p>A multi estimate data frame that should contain
-columns `decision_id`, `decision_label`, `alternative_value`,
-`alternative_label`, `criterion_id`, `criterion_label`, and
-one or more estimates in columns named with the scorer identifiers. Columns
-with the `_id` suffix contain identifiers, and columns with the `_label`
-suffix contain human-readable labels. This dataframe is stored in the
-object called `multiEstimateDf` returned by a call to
-[read_performance_tables()] to read a set of scored performance tables. Note
-that different column names can be set using [mdmcda::opts].</p></td>
+      <th>weighedEstimates</th>
+      <td><p>The `weighedEstimates` object as created by
+[mdmcda::build_weighed_estimate_df()] and filled with the desired
+weighed estimates by [mdmcda::weigh_estimates_by_profile()].</p></td>
     </tr>
     <tr>
-      <th>criterionOrder</th>
-      <td><p>A vector with the identifiers of the criteria
-to process.</p></td>
+      <th>estimateCols</th>
+      <td><p>The column name(s) of the estimates to aggregate using
+function `fun`</p></td>
     </tr>
     <tr>
-      <th>scorer</th>
-      <td><p>The name of the scorer whose estimates to process.</p></td>
+      <th>fun</th>
+      <td><p>The function to use for the aggregation.</p></td>
     </tr>
     <tr>
-      <th>decisionOrder</th>
-      <td><p>A vector with the identifiers of the decisions
-to process.</p></td>
-    </tr>
-    <tr>
-      <th>scenarioOrder</th>
-      <td><p>A vector with the identifiers of the scenarios to
-process.</p></td>
-    </tr>
-    <tr>
-      <th>scenarioDefinitions</th>
-      <td><p>A named list of named vectors. Every named vector
-contains the selected alternative from each decision (with the decision's
-identifier being each elements name), and every vectors name is the
-identifier of the scenario it defines.</p></td>
-    </tr>
-    <tr>
-      <th>setMissingEstimates</th>
-      <td><p>The value to set for missing estimates.</p></td>
-    </tr>
-    <tr>
-      <th>warnForMissingEstimates</th>
-      <td><p>Whether to warn when missing estimates are
-envountered (and replaced by `setMissingEstimates`).</p></td>
-    </tr>
-    <tr>
-      <th>warnForDuplicateEstimates</th>
-      <td><p>Whether to warn when duplicate estimates are
-encountered. If multiple estimates _are_ encountered, the mean is taken.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments are passed to `fun`.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe with columns `scenario_id`, `decision_id`,
-`alternative_value`, `criterion_id`, and `estimate`. This data frame can
-be supplied to [weigh_estimates_by_profile()].</p>
+    <p>A data frame with the scenario identifiers and the aggregated
+scores.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

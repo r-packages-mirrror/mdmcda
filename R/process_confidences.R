@@ -1,6 +1,19 @@
+#' Process the confidence scores and create plots
+#'
+#' @param estimates The `estimates` object.
+#' @param criterionOrder,criterionLabels The order and labels of the criteria.
+#' @param decisionOrder,decisionLabels The order and labels of the decisions.
+#' @param theme The `ggplot2` theme to use for the plots.
+#'
+#' @return The `estimates` object, with plots and a data frame added.
 #' @export
 process_confidences <- function(estimates,
+                                criterionOrder = NULL,
+                                criterionLabels = NULL,
+                                decisionOrder = NULL,
+                                decisionLabels = NULL,
                                 theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
+
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
     gsub("[a-zA-Z]+([0-9]+)",
@@ -23,14 +36,32 @@ process_confidences <- function(estimates,
          "",
          estimates$mergedConfidences$criterion);
 
+  ### Set order and labels if those were not provided
+  if (is.null(decisionOrder)) {
+    decisionOrder <- rev(sort(unique(estimates$mergedConfidences$decision)));
+  }
+  if (is.null(criterionLabels)) {
+    decisionLabels <- stats::setNames(decisionOrder,
+                                      decisionOrder);
+  }
+  if (is.null(criterionOrder)) {
+    criterionOrder <- rev(sort(unique(estimates$mergedConfidences$criterion)));
+  }
+  if (is.null(criterionLabels)) {
+    criterionLabels <- stats::setNames(criterionOrder,
+                                       criterionOrder);
+  }
+
   #### Also store decisions and criteria as ordered factors
-  estimates$mergedConfidences$decision <-
-    factor(estimates$mergedConfidences$decision,
-           levels=rev(sort(unique(estimates$mergedConfidences$decision))),
-           ordered=TRUE);
   estimates$mergedConfidences$criterion <-
     factor(estimates$mergedConfidences$criterion,
-           levels=rev(sort(unique(estimates$mergedConfidences$criterion))),
+           levels=criterionOrder,
+           labels=criterionLabels,
+           ordered=TRUE);
+  estimates$mergedConfidences$decision <-
+    factor(estimates$mergedConfidences$decision,
+           levels=decisionOrder,
+           labels=decisionLabels,
            ordered=TRUE);
 
   ### Add collapsed version (over performance table)

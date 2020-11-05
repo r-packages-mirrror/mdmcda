@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build a dataframe for weighed estimates — build_weighed_estimate_df • mdmcda</title>
+<title>Conduct a sensitivity analysis based on confidence scores — confidence_based_sensitivity_analysis • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,12 @@
 
 
 
-<meta property="og:title" content="Build a dataframe for weighed estimates — build_weighed_estimate_df" />
-<meta property="og:description" content="This function is used to produce a data frame that can then be filled with
-weighed estimates using [weigh_estimates_by_profile()]." />
+<meta property="og:title" content="Conduct a sensitivity analysis based on confidence scores — confidence_based_sensitivity_analysis" />
+<meta property="og:description" content="When estimating the effects of alternatives on the criteria,
+the raters can attach a confidence score to the estimates in the
+performance table (or, more accurately, to the entire performance
+table). This function uses these to test the robustness of the
+results." />
 
 
 
@@ -104,26 +107,35 @@ weighed estimates using [weigh_estimates_by_profile()]." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build a dataframe for weighed estimates</h1>
+    <h1>Conduct a sensitivity analysis based on confidence scores</h1>
     
-    <div class="hidden name"><code>build_weighed_estimate_df.Rd</code></div>
+    <div class="hidden name"><code>confidence_based_sensitivity_analysis.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is used to produce a data frame that can then be filled with
-weighed estimates using [weigh_estimates_by_profile()].</p>
+    <p>When estimating the effects of alternatives on the criteria,
+the raters can attach a confidence score to the estimates in the
+performance table (or, more accurately, to the entire performance
+table). This function uses these to test the robustness of the
+results.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_weighed_estimate_df</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>confidence_based_sensitivity_analysis</span><span class='op'>(</span>
   <span class='va'>multiEstimateDf</span>,
-  <span class='va'>criterionOrder</span>,
-  <span class='va'>scorer</span>,
-  decisionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioDefinitions <span class='op'>=</span> <span class='cn'>NULL</span>,
-  setMissingEstimates <span class='op'>=</span> <span class='cn'>NULL</span>,
-  warnForMissingEstimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  warnForDuplicateEstimates <span class='op'>=</span> <span class='cn'>TRUE</span>
+  <span class='va'>collapsedConfidences</span>,
+  <span class='va'>scenarioDefinitions</span>,
+  <span class='va'>weightProfiles</span>,
+  <span class='va'>criteria</span>,
+  transformationFunction <span class='op'>=</span> <span class='va'>setToZero</span>,
+  scenarioOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>scenarioDefinitions</span><span class='op'>)</span>,
+  scenarioLabels <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>scenarioDefinitions</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>scenarioDefinitions</span><span class='op'>)</span><span class='op'>)</span>,
+  scorer <span class='op'>=</span> <span class='st'>"all"</span>,
+  confidenceThresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>,
+  setMissingEstimates <span class='op'>=</span> <span class='fl'>0</span>,
+  silent <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>,
+  lineSize <span class='op'>=</span> <span class='fl'>1</span>,
+  theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,52 +154,73 @@ object called `multiEstimateDf` returned by a call to
 that different column names can be set using [mdmcda::opts].</p></td>
     </tr>
     <tr>
-      <th>criterionOrder</th>
-      <td><p>A vector with the identifiers of the criteria
-to process.</p></td>
-    </tr>
-    <tr>
-      <th>scorer</th>
-      <td><p>The name of the scorer whose estimates to process.</p></td>
-    </tr>
-    <tr>
-      <th>decisionOrder</th>
-      <td><p>A vector with the identifiers of the decisions
-to process.</p></td>
-    </tr>
-    <tr>
-      <th>scenarioOrder</th>
-      <td><p>A vector with the identifiers of the scenarios to
-process.</p></td>
+      <th>collapsedConfidences</th>
+      <td><p>The `collapsedConfidences` object.</p></td>
     </tr>
     <tr>
       <th>scenarioDefinitions</th>
-      <td><p>A named list of named vectors. Every named vector
-contains the selected alternative from each decision (with the decision's
-identifier being each elements name), and every vectors name is the
-identifier of the scenario it defines.</p></td>
+      <td><p>The `scenarioDefinitions` object.</p></td>
+    </tr>
+    <tr>
+      <th>weightProfiles</th>
+      <td><p>The `weightProfiles` object.</p></td>
+    </tr>
+    <tr>
+      <th>criteria</th>
+      <td><p>The `criteria` object.</p></td>
+    </tr>
+    <tr>
+      <th>transformationFunction</th>
+      <td><p>The function to apply to the estimates in
+performance tables below the confidence threshold</p></td>
+    </tr>
+    <tr>
+      <th>scenarioOrder</th>
+      <td><p>The scenarios to process and the order in which to
+organise them.</p></td>
+    </tr>
+    <tr>
+      <th>scenarioLabels</th>
+      <td><p>The labels of the scenarios.</p></td>
+    </tr>
+    <tr>
+      <th>scorer</th>
+      <td><p>The scorer of whom to process the confidences.</p></td>
+    </tr>
+    <tr>
+      <th>confidenceThresholds</th>
+      <td><p>The confidence thresholds to process (by
+default, 0 to 1 in steps of .1).</p></td>
     </tr>
     <tr>
       <th>setMissingEstimates</th>
-      <td><p>The value to set for missing estimates.</p></td>
+      <td><p>What to set missing values to, if any are
+encountered.</p></td>
     </tr>
     <tr>
-      <th>warnForMissingEstimates</th>
-      <td><p>Whether to warn when missing estimates are
-envountered (and replaced by `setMissingEstimates`).</p></td>
+      <th>silent</th>
+      <td><p>Whether to suppress messages about progress.</p></td>
     </tr>
     <tr>
-      <th>warnForDuplicateEstimates</th>
-      <td><p>Whether to warn when duplicate estimates are
-encountered. If multiple estimates _are_ encountered, the mean is taken.</p></td>
+      <th>lineSize</th>
+      <td><p>The line size to use in the plots.</p></td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td><p>The `ggplot2` theme to use.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe with columns `scenario_id`, `decision_id`,
-`alternative_value`, `criterion_id`, and `estimate`. This data frame can
-be supplied to [weigh_estimates_by_profile()].</p>
+    <p>An object with a data frame summarizing the sensitivity analysis,
+and two produced plots: one with the scores, and one with the ranks.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>In the confidence-based sensitivity analyses, by default 10<!-- % of the -->
+estimates about which the raters expressed the least confidence
+are sequentially set to the result of the `transformationFunction`.
+The total score for each scenario is then computed again.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
