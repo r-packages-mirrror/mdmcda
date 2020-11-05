@@ -88,7 +88,7 @@ process_confidences <- function(estimates,
                            height=.1,
                            size=5) +
       ggplot2::scale_color_viridis_d(end=.9) +
-      ggplot2::labs(title=sprintf(confidencesInDetail, i)) +
+      ggplot2::labs(title=paste0("Confidence scores for ", i)) +
       theme +
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
       ggrepel::geom_text_repel(mapping=ggplot2::aes(color=Scorer,
