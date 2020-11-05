@@ -25,6 +25,7 @@ Imports:
     DiagrammeR (>= 1.0.6),
     DiagrammeRsvg (>= 0.1),
     ggplot2 (>= 3.3),
+    ggrepel (0.8),
     ggtext (>= 0.1),
     justifier (>= 0.0.1),
     kableExtra (>= 1.1.0),

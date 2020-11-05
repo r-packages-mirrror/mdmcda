@@ -1,4 +1,4 @@
-#' @export
+### Not exported; only used by weight_based_sensitivity_analysis
 scores_by_scenario <- function(weighedEstimates,
                                estimateCols) {
 

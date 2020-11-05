@@ -40,20 +40,27 @@ read_decisions <- function(input,
   row.names(decisionsDf) <-
     NULL;
 
+  miniPurrChr <- function(list, chr) {
+    return(unlist(lapply(list, function(i) return(as.character(i[[chr]])))));
+  }
+
   alternativesDf <-
-    do.call(rbind,
-            lapply(decisions,
-                   function(x) {
-                     return(data.frame(decision_id = rep(x$id, length(x$alternatives)),
-                                       decision_label = rep(x$label, length(x$alternatives)),
-                                       value = purrr::map_chr(x$alternatives,
-                                                              "value"),
-                                       label = purrr::map_chr(x$alternatives,
-                                                              "label"),
-                                       description = purrr::map_chr(x$alternatives,
-                                                                    "description"),
-                                       stringsAsFactors = FALSE));
-                   }));
+    do.call(
+      rbind,
+      lapply(
+        decisions,
+        function(x) {
+          return(
+            data.frame(
+              decision_id = rep(x$id, length(x$alternatives)),
+              decision_label = rep(x$label, length(x$alternatives)),
+              value = miniPurrChr(x$alternatives, "value"),
+              label = miniPurrChr(x$alternatives, "label"),
+              description = miniPurrChr(x$alternatives, "description"),
+              stringsAsFactors = FALSE
+            )
+          );
+        }));
   row.names(alternativesDf) <-
     NULL;
 

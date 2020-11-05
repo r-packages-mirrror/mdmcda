@@ -38,11 +38,22 @@ The following options can be set:
 
 \describe{
 
-  \item{varViewCols}{The order and names of the columns to include in the
-  variable view.}
-
-  \item{showLabellerWarning}{Whether to show a warning if labeller labels
-  are encountered.}
+  \item{decisionId_col}{The default column name for the decision identifier}
+  \item{decisionLabel_col}{The default column name for the decision label}
+  \item{criterionId_col}{The default column name for the criterion identifier}
+  \item{criterionLabel_col}{The default column name for the criterion label}
+  \item{criterionDescription_col}{The default column name for the criterion description}
+  \item{parentCriterionId_col}{The default column name for the parent criterion identifier}
+  \item{alternativeValue_col}{The default column name for the alternaive value}
+  \item{alternativeLabel_col}{The default column name for the alternative label}
+  \item{scenarioId_col}{The default column name for the scenario identifier}
+  \item{scenarioLabel_col}{The default column name for the scenario label}
+  \item{decisionDescription_col}{The default column name for the decision description}
+  \item{decisionAlternatives_col}{The default column name for the label combining a decision and the selected alternative}
+  \item{weightProfileId_col}{The default column name for the decision identifier}
+  \item{score_col}{The column with the scores returned by `scenario_scores`}
+  \item{leafCriterion_col}{The name of the column name indicating whether a criterion is a leaf (without children) or not}
+  \item{rootCriterionId}{The name of the root criterion in the criaria tree}
 
 }
 }

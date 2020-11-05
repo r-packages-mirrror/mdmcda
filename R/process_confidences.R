@@ -1,11 +1,5 @@
 #' @export
 process_confidences <- function(estimates,
-                                path = NULL,
-                                confidencesByDecisionPlot = "Estimate confidence scores by decision",
-                                confidencesByCriterionPlot = "Estimate confidence scores by criterion",
-                                confidencesInDetail = "Estimate confidence scores for effects of %s",
-                                figWidth = mdmcda::opts$get("ggSaveFigWidth"),
-                                figHeight = mdmcda::opts$get("ggSaveFigHeight"),
                                 theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
   ### Get number only
   estimates$mergedConfidences$ScorerNr <-
@@ -53,90 +47,59 @@ process_confidences <- function(estimates,
   row.names(estimates$collapsedConfidences) <- NULL;
 
   ### Confidences per decision (instrument)
-  if (!is.null(confidencesByDecisionPlot)) {
-    estimates$confidencesByDecisionPlot <-
-      ggplot2::ggplot(data=estimates$mergedConfidences,
-                      mapping=ggplot2::aes(y=decision,
-                                           x=Confidence,
-                                           color=Scorer)) +
-      ggplot2::geom_jitter(alpha=.25,
-                           width=2,
-                           height=.25) +
-      ggplot2::scale_color_viridis_d(end=.9) +
-      ggplot2::coord_cartesian(xlim=c(0, 100)) +
-      theme;
-    if (!is.null(path) && is.character(confidencesByDecisionPlot)) {
-      cat0("\n\n");
-      ufs::knitAndSave(estimates$confidencesByDecisionPlot,
-                       figCaption=confidencesByDecisionPlot,
-                       path = path,
-                       figWidth = figWidth,
-                       figHeight = figHeight);
-      cat0("\n\n");
-    }
-  }
+  estimates$confidencesByDecisionPlot <-
+    ggplot2::ggplot(data=estimates$mergedConfidences,
+                    mapping=ggplot2::aes_string(y='decision',
+                                                x='Confidence',
+                                                color='Scorer')) +
+    ggplot2::geom_jitter(alpha=.25,
+                         width=2,
+                         height=.25) +
+    ggplot2::scale_color_viridis_d(end=.9) +
+    ggplot2::coord_cartesian(xlim=c(0, 100)) +
+    theme;
 
   ### Confidences per criterion (outcome)
-  if (!is.null(confidencesByCriterionPlot)) {
-    estimates$confidencesByCriterionPlot <-
-      ggplot2::ggplot(data=estimates$mergedConfidences,
-                      mapping=ggplot2::aes(y=criterion,
-                                           x=Confidence,
-                                           color=Scorer)) +
-      ggplot2::geom_jitter(alpha=.25,
-                           width=2,
-                           height=.25) +
+  estimates$confidencesByCriterionPlot <-
+    ggplot2::ggplot(data=estimates$mergedConfidences,
+                    mapping=ggplot2::aes_string(y='criterion',
+                                                x='Confidence',
+                                                color='Scorer')) +
+    ggplot2::geom_jitter(alpha=.25,
+                         width=2,
+                         height=.25) +
+    ggplot2::scale_color_viridis_d(end=.9) +
+    ggplot2::coord_cartesian(xlim=c(0, 100)) +
+    theme;
+
+  estimates$confidencesInDetail <- list();
+  for (i in rev(levels(estimates$mergedConfidences$decision))) {
+    tmpDf <-
+      estimates$mergedConfidences[(estimates$mergedConfidences$decision == i), ];
+    estimates$confidencesInDetail[[i]] <-
+      ggplot2::ggplot(data=tmpDf,
+                      mapping=ggplot2::aes_string(y='criterion',
+                                                  x='Confidence',
+                                                  color='Scorer')) +
+
+      ggplot2::geom_jitter(mapping=ggplot2::aes(color=Scorer),
+                           alpha=.5,
+                           width=.5,
+                           height=.1,
+                           size=5) +
       ggplot2::scale_color_viridis_d(end=.9) +
+      ggplot2::labs(title=sprintf(confidencesInDetail, i)) +
+      theme +
       ggplot2::coord_cartesian(xlim=c(0, 100)) +
-      theme;
-    if (!is.null(path) && is.character(confidencesByCriterionPlot)) {
-      cat0("\n\n");
-      ufs::knitAndSave(estimates$confidencesByCriterionPlot,
-                       figCaption=confidencesByCriterionPlot,
-                       path = path,
-                       figWidth = figWidth,
-                       figHeight = figHeight);
-      cat0("\n\n");
-    }
+      ggrepel::geom_text_repel(mapping=ggplot2::aes(color=Scorer,
+                                                    label=ScorerNr),
+                               size=2.5,
+                               point.padding = .25,
+                               segment.alpha=.5,
+                               alpha=.5);
   }
-
-  if (!is.null(confidencesInDetail)) {
-    estimates$confidencesInDetail <- list();
-    for (i in rev(levels(estimates$mergedConfidences$decision))) {
-      tmpDf <-
-        estimates$mergedConfidences[(estimates$mergedConfidences$decision == i), ];
-      estimates$confidencesInDetail[[i]] <-
-        ggplot2::ggplot(data=tmpDf,
-                        mapping=ggplot2::aes(y=criterion,
-                                             x=Confidence,
-                                             color=Scorer)) +
-
-        ggplot2::geom_jitter(mapping=ggplot2::aes(color=Scorer),
-                             alpha=.5,
-                             width=.5,
-                             height=.1,
-                             size=5) +
-        ggplot2::scale_color_viridis_d(end=.9) +
-        ggplot2::labs(title=sprintf(confidencesInDetail, i)) +
-        theme +
-        ggplot2::coord_cartesian(xlim=c(0, 100)) +
-        ggrepel::geom_text_repel(mapping=ggplot2::aes(color=Scorer,
-                                                      label=ScorerNr),
-                                 size=2.5,
-                                 point.padding = .25,
-                                 segment.alpha=.5,
-                                 alpha=.5);
-      if (!is.null(path) && is.character(confidencesInDetail)) {
-        cat0("\n\n");
-        ufs::knitAndSave(estimates$confidencesInDetail[[i]],
-                         figCaption=sprintf(confidencesInDetail, i),
-                         path = path,
-                         figWidth = figWidth,
-                         figHeight = figHeight);
-        cat0("\n\n");
-      }
-    }
-  }
+  names(estimates$confidencesInDetail) <-
+    rev(levels(estimates$mergedConfidences$decision));
 
   return(estimates);
 
