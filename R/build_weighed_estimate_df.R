@@ -11,12 +11,12 @@
 #' suffix contain human-readable labels. This dataframe is stored in the
 #' object called `multiEstimateDf` returned by a call to
 #' [read_performance_tables()] to read a set of scored performance tables.
-#' @param criterionNames A vector with the identifiers of the criteria
+#' @param criterionOrder A vector with the identifiers of the criteria
 #' to process.
 #' @param scorer The name of the scorer whose estimates to process.
-#' @param decisionNames A vector with the identifiers of the decisions
+#' @param decisionOrder A vector with the identifiers of the decisions
 #' to process.
-#' @param scenarioNames A vector with the identifiers of the scenarios to
+#' @param scenarioOrder A vector with the identifiers of the scenarios to
 #' process.
 #' @param scenarioDefinitions A named list of named vectors. Every named vector
 #' contains the selected alternative from each decision (with the decision's
@@ -34,10 +34,10 @@
 #' @export
 build_weighed_estimate_df <-
   function(multiEstimateDf,
-           criterionNames,
+           criterionOrder,
            scorer,
-           decisionNames = NULL,
-           scenarioNames = NULL,
+           decisionOrder = NULL,
+           scenarioOrder = NULL,
            scenarioDefinitions = NULL,
            setMissingEstimates = NULL,
            warnForMissingEstimates = TRUE,
@@ -71,15 +71,15 @@ build_weighed_estimate_df <-
            "in `multiEstimateDf` are: ", vectTxtQ(names(multiEstimateDf)), ".");
     }
 
-    if (!is.vector(decisionNames)) {
-      stop("`decisionNames` has to be a vector (and isn't)!");
+    if (!is.vector(decisionOrder)) {
+      stop("`decisionOrder` has to be a vector (and isn't)!");
     }
 
-    if (!is.vector(scenarioNames)) {
-      stop("`scenarioNames` has to be a vector (and isn't)!");
+    if (!is.vector(scenarioOrder)) {
+      stop("`scenarioOrder` has to be a vector (and isn't)!");
     }
 
-    if (is.null(scenarioNames) && is.null(scenarioDefinitions) && is.null(decisionNames)) {
+    if (is.null(scenarioOrder) && is.null(scenarioDefinitions) && is.null(decisionOrder)) {
 
       currentDecision <- unique(multiEstimateDf[, decisionId_col]);
 
@@ -101,7 +101,7 @@ build_weighed_estimate_df <-
                                      estimate=numeric());
 
       for (currentAlternativeValue in alternative_values) {
-        for (currentCriterion in criterionNames) {
+        for (currentCriterion in criterionOrder) {
           estimate <-
             multiEstimateDf[multiEstimateDf[, decisionId_col] == currentDecision &
                               multiEstimateDf[, alternativeValue_col] ==
@@ -152,18 +152,18 @@ build_weighed_estimate_df <-
         }
       }
 
-    } else if (!is.null(scenarioNames) &&
+    } else if (!is.null(scenarioOrder) &&
                !is.null(scenarioDefinitions) &&
-               !is.null(decisionNames)) {
+               !is.null(decisionOrder)) {
 
       weighedEstimates <- data.frame(scenario_id=character(),
                                      decision_id=character(),
                                      alternative_value=numeric(),
                                      criterion_id=character(),
                                      estimate=numeric());
-      for (currentScenario in scenarioNames) {
-        for (currentDecision in decisionNames) {
-          for (currentCriterion in criterionNames) {
+      for (currentScenario in scenarioOrder) {
+        for (currentDecision in decisionOrder) {
+          for (currentCriterion in criterionOrder) {
             estimate <-
               multiEstimateDf[multiEstimateDf[, decisionId_col] == currentDecision &
                                 multiEstimateDf[, alternativeValue_col] ==
@@ -216,7 +216,7 @@ build_weighed_estimate_df <-
       }
     } else {
       stop("When working with scenarios, all three arguments ",
-          "`decisionNames`, `scenarioNames`, and `scenarioDefinitions` ",
+          "`decisionOrder`, `scenarioOrder`, and `scenarioDefinitions` ",
           "must be provided; when not working with scenarios (and ",
           "sticking to one decision), none of these three must be provided!");
     }

@@ -90,21 +90,6 @@ all options to their default values." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -157,11 +142,22 @@ all options to their default values.</p>
 <p>The following options can be set:</p>
 <dl>
 
-  <dt>varViewCols</dt><dd><p>The order and names of the columns to include in the
-  variable view.</p></dd>
-
-  <dt>showLabellerWarning</dt><dd><p>Whether to show a warning if labeller labels
-  are encountered.</p></dd>
+  <dt>decisionId_col</dt><dd><p>The default column name for the decision identifier</p></dd>
+  <dt>decisionLabel_col</dt><dd><p>The default column name for the decision label</p></dd>
+  <dt>criterionId_col</dt><dd><p>The default column name for the criterion identifier</p></dd>
+  <dt>criterionLabel_col</dt><dd><p>The default column name for the criterion label</p></dd>
+  <dt>criterionDescription_col</dt><dd><p>The default column name for the criterion description</p></dd>
+  <dt>parentCriterionId_col</dt><dd><p>The default column name for the parent criterion identifier</p></dd>
+  <dt>alternativeValue_col</dt><dd><p>The default column name for the alternaive value</p></dd>
+  <dt>alternativeLabel_col</dt><dd><p>The default column name for the alternative label</p></dd>
+  <dt>scenarioId_col</dt><dd><p>The default column name for the scenario identifier</p></dd>
+  <dt>scenarioLabel_col</dt><dd><p>The default column name for the scenario label</p></dd>
+  <dt>decisionDescription_col</dt><dd><p>The default column name for the decision description</p></dd>
+  <dt>decisionAlternatives_col</dt><dd><p>The default column name for the label combining a decision and the selected alternative</p></dd>
+  <dt>weightProfileId_col</dt><dd><p>The default column name for the decision identifier</p></dd>
+  <dt>score_col</dt><dd><p>The column with the scores returned by `scenario_scores`</p></dd>
+  <dt>leafCriterion_col</dt><dd><p>The name of the column name indicating whether a criterion is a leaf (without children) or not</p></dd>
+  <dt>rootCriterionId</dt><dd><p>The name of the root criterion in the criaria tree</p></dd>
 
 
 </dl>

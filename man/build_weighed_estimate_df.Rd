@@ -6,10 +6,10 @@
 \usage{
 build_weighed_estimate_df(
   multiEstimateDf,
-  criterionNames,
+  criterionOrder,
   scorer,
-  decisionNames = NULL,
-  scenarioNames = NULL,
+  decisionOrder = NULL,
+  scenarioOrder = NULL,
   scenarioDefinitions = NULL,
   setMissingEstimates = NULL,
   warnForMissingEstimates = TRUE,
@@ -26,15 +26,15 @@ suffix contain human-readable labels. This dataframe is stored in the
 object called `multiEstimateDf` returned by a call to
 [read_performance_tables()] to read a set of scored performance tables.}
 
-\item{criterionNames}{A vector with the identifiers of the criteria
+\item{criterionOrder}{A vector with the identifiers of the criteria
 to process.}
 
 \item{scorer}{The name of the scorer whose estimates to process.}
 
-\item{decisionNames}{A vector with the identifiers of the decisions
+\item{decisionOrder}{A vector with the identifiers of the decisions
 to process.}
 
-\item{scenarioNames}{A vector with the identifiers of the scenarios to
+\item{scenarioOrder}{A vector with the identifiers of the scenarios to
 process.}
 
 \item{scenarioDefinitions}{A named list of named vectors. Every named vector

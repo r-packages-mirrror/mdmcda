@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Weigh estimates in a multiEstimateDf — weigh_multiEstimateDf • mdmcda</title>
+<title>Read weightsMeansAndSDs data frame from an Excel file — read_weightsMeansAndSDs_from_xl • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Weigh estimates in a multiEstimateDf — weigh_multiEstimateDf" />
-<meta property="og:description" content="Weigh estimates in a multiEstimateDf" />
+<meta property="og:title" content="Read weightsMeansAndSDs data frame from an Excel file — read_weightsMeansAndSDs_from_xl" />
+<meta property="og:description" content="These function reads a weightsMeansAndSDs data frame from an Excel file." />
 
 
 
@@ -103,57 +103,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Weigh estimates in a multiEstimateDf</h1>
+    <h1>Read weightsMeansAndSDs data frame from an Excel file</h1>
     
-    <div class="hidden name"><code>weigh_multiEstimateDf.Rd</code></div>
+    <div class="hidden name"><code>read_weightsMeansAndSDs_from_xl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Weigh estimates in a multiEstimateDf</p>
+    <p>These function reads a weightsMeansAndSDs data frame from an Excel file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>weigh_multiEstimateDf</span><span class='op'>(</span>
-  <span class='va'>multiEstimateDf</span>,
-  <span class='va'>weightProfiles</span>,
-  <span class='va'>scorer</span>,
-  weightProfileNames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>weightProfiles</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_weightsMeansAndSDs_from_xl</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>multiEstimateDf</th>
-      <td><p>A multi estimate data frame that should contain
-columns `decision_id`, `decision_label`, `alternative_value`,
-`alternative_label`, `criterion_id`, `criterion_label`, and
-one or more estimates in columns named with the scorer identifiers. Columns
-with the `_id` suffix contain identifiers, and columns with the `_label`
-suffix contain human-readable labels. This dataframe is stored in the
-object called `multiEstimateDf` returned by a call to
-[read_performance_tables()] to read a set of scored performance tables.</p></td>
+      <th>file</th>
+      <td><p>The filename.</p></td>
     </tr>
     <tr>
-      <th>scorer</th>
-      <td><p>The name of the scorer whose estimates to process.</p></td>
-    </tr>
-    <tr>
-      <th>weightProfileNames</th>
-      <td><p>The weight profile name(s) to process.</p></td>
-    </tr>
-    <tr>
-      <th>weight_profiles</th>
-      <td><p>The weight profiles: a named list of vectors, where
-every vector element's value is the weight of a criterion, that
-element's name is the criterion's identifier, and the vector's name is the
-identifier of the weight profile.</p></td>
+      <th>idCol, labelCol</th>
+      <td><p>For `read_labels_from_xl()`, the name of the
+columns with the identifiers and the labels.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The `multiEstimateDf` with columns appended with the weights
-and the weighed estimates.</p>
+    <p>A data frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
