@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aggregate estimates by criterion clusters (parent criteria) — aggregate_estimates_by_criterionCluster • mdmcda</title>
+<title>Copute the worst and best alternatives — compute_best_alternatives • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Aggregate estimates by criterion clusters (parent criteria) — aggregate_estimates_by_criterionCluster" />
-<meta property="og:description" content="Aggregate estimates by criterion clusters (parent criteria)" />
+<meta property="og:title" content="Copute the worst and best alternatives — compute_best_alternatives" />
+<meta property="og:description" content="Given the scores per alternative, return the worst or best alternatives for
+each decision." />
 
 
 
@@ -103,54 +104,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Aggregate estimates by criterion clusters (parent criteria)</h1>
+    <h1>Copute the worst and best alternatives</h1>
     
-    <div class="hidden name"><code>aggregate_estimates_by_criterionCluster.Rd</code></div>
+    <div class="hidden name"><code>compute_bestOrWorst_alternative.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Aggregate estimates by criterion clusters (parent criteria)</p>
+    <p>Given the scores per alternative, return the worst or best alternatives for
+each decision.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aggregate_estimates_by_criterionCluster</span><span class='op'>(</span>
-  <span class='va'>multiEstimateDf</span>,
-  <span class='va'>estimateCol</span>,
-  parentCriterionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"parentCriterionId_col"</span><span class='op'>)</span>,
-  fun <span class='op'>=</span> <span class='va'>sum</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compute_best_alternatives</span><span class='op'>(</span><span class='va'>scores_per_alternative</span>, ignoreRegex <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='fu'>compute_worst_alternatives</span><span class='op'>(</span><span class='va'>scores_per_alternative</span>, ignoreRegex <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>multiEstimateDf</th>
-      <td><p>A `multiEstimateDf` data frame that must contain
-the columns with the names specified in `estimateCol` and
-`parentCriterionId_col`.</p></td>
+      <th>scores_per_alternative</th>
+      <td><p>The `scores_per_alternative` object as
+returned by [compute_scores_per_alternative()].</p></td>
     </tr>
     <tr>
-      <th>estimateCol</th>
-      <td><p>The column with the estimates to use.</p></td>
-    </tr>
-    <tr>
-      <th>parentCriterionId_col</th>
-      <td><p>The column containing the parent criterion
-identifiers (i.e. the cluster identifiers).</p></td>
-    </tr>
-    <tr>
-      <th>fun</th>
-      <td><p>The function to use to aggregate the scores.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Any additional arguments are passed to `fun`.</p></td>
+      <th>ignoreRegex</th>
+      <td><p>Optionally, a regular expression: alternative labels
+matching this regular expression will not be eligible as best alternatives.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with aggregated estimates.</p>
+    <p>A data frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
