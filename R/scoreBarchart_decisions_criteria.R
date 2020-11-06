@@ -1,3 +1,14 @@
+#' @param alternativeLabels The `alternativeLabels` object; optionally, to
+#' override the alternative labels in the `weighedEstimates` object.
+#' @param useDecisionAlternativeLabels Whether to label the decision plot with
+#' the decisions or combined labels that also include the alternative for
+#' the scenario.
+#' @param decision_alternative_pre,decision_alternative_sep,decision_alternative_suf If
+#' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
+#' are used to compose the decision plot labels.
+
+
+
 #' @export
 scoreBarchart_decisions_criteria <- function(weighedEstimates,
                                              scenario_id,
@@ -7,18 +18,25 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
                                              decisionLabels = NULL,
                                              criterionOrder = NULL,
                                              criterionLabels = NULL,
+                                             alternativeLabels = NULL,
+                                             useDecisionAlternativeLabels = TRUE,
+                                             decision_alternative_pre = "**",
+                                             decision_alternative_sep = "**: ",
+                                             decision_alternative_suf = "",
                                              strokeSize = 0,
                                              strokeColor = "black",
-                                             wrapDecisionLabels = 20,
+                                             wrapDecisionLabels = 35,
                                              wrapCriterionLabels = 50,
                                              title = paste0("MDMCDA bar chart to compare decisions for ", scenario_label),
                                              xLab = "Decisions",
                                              yLab = "Weighed estimated effect",
                                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                              guides = ggplot2::guide_legend(ncol = 2),
-                                             axis.text.x.bottom = ggplot2::element_text(angle = 90,
-                                                                                        hjust = 1,
-                                                                                        vjust = 1),
+                                             axis.text.x.bottom = ggtext::element_markdown(
+                                               angle = 90,
+                                               hjust = 1,
+                                               vjust = 1
+                                             ),
                                              legend.position = "bottom",
                                              legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
 
@@ -28,6 +46,8 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
   decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
   criterionLabel_col <- mdmcda::opts$get("criterionLabel_col");
   scenarioLabel_col <- mdmcda::opts$get("scenarioLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
 
   if (is.null(decisionOrder)) {
     decisionOrder <- unique(weighedEstimates[, decisionId_col]);
@@ -44,20 +64,55 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
                                        nm = criterionOrder);
   }
 
+  tmpDf <-
+    weighedEstimates[weighedEstimates[, scenarioId_col] == scenario_id,
+                     c(decisionId_col,
+                       criterionId_col,
+                       alternativeValue_col,
+                       estimateCol)];
+
+  if (is.null(alternativeLabels)) {
+
+    tmpDf[, alternativeLabel_col] <-
+      paste0("value ", tmpDf[, alternativeValue_col]);
+
+  } else {
+
+    tmpDf[, alternativeLabel_col] <-
+      get_alternativeLabel(tmpDf,
+                           alternativeLabels);
+
+  }
+
+  tmpDf[, decisionLabel_col] <-
+    decisionLabels[tmpDf[, decisionId_col]];
+
+  tmpDf$decision_and_alternative <-
+    paste0(decision_alternative_pre,
+           tmpDf[, decisionLabel_col],
+           decision_alternative_sep,
+           tmpDf[, alternativeLabel_col],
+           decision_alternative_suf);
+
+  if (useDecisionAlternativeLabels) {
+    decisionLabels <-
+      stats::setNames(
+        tmpDf$decision_and_alternative,
+        nm = tmpDf[, decisionId_col]
+      );
+  }
+
   criterionLabels <-
     unlist(lapply(criterionLabels, function(x)
       paste(strwrap(x, wrapCriterionLabels), collapse="\n")
     ));
   decisionLabels <-
     unlist(lapply(decisionLabels, function(x)
-      paste(strwrap(x, wrapDecisionLabels), collapse="\n")
+      paste(strwrap(x, wrapDecisionLabels),
+            collapse=ifelse(useDecisionAlternativeLabels,
+                            "  \n",
+                            "\n"))
     ));
-
-  tmpDf <-
-    weighedEstimates[weighedEstimates[, scenarioId_col] == scenario_id,
-                     c(decisionId_col,
-                       criterionId_col,
-                       estimateCol)];
 
   tmpDf[, decisionLabel_col] <-
     factor(tmpDf[, decisionId_col],
