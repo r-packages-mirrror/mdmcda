@@ -1,3 +1,16 @@
+#' Compute the scores per alternative
+#'
+#' @param multiEstimateDf A `multiEstimateDf` that must contain the columns
+#' specified in the `mdmcda` options `decisionId_col`, `alternativeValue_col`
+#' (see [mdmcda::opts], and for each weight profile in `weightProfiles`, its
+#' name appended with '`_weighed_estimate`'.
+#' @param weightProfiles A `weightProfiles` object.
+#' @param silent Whether to suppress messages.
+#' @param setMissingEstimates What to set missing estimates to.
+#' @param warnForMissingEstimates Whether to warn when encountering missing
+#' estimates.
+#'
+#' @return A data frame.
 #' @export
 compute_scores_per_alternative <- function(multiEstimateDf,
                                            weightProfiles,
