@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Process the confidence scores and create plots — process_confidences • mdmcda</title>
+<title>Produce one or more 'clean' performance subtables — performanceSubtable_from_estimates • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Process the confidence scores and create plots — process_confidences" />
-<meta property="og:description" content="Process the confidence scores and create plots" />
+<meta property="og:title" content="Produce one or more 'clean' performance subtables — performanceSubtable_from_estimates" />
+<meta property="og:description" content="These functions take the `estimates`, `criteria`, and `alternativeLabels`
+objects and produce one or more clean performance subtables." />
 
 
 
@@ -103,22 +104,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Process the confidence scores and create plots</h1>
+    <h1>Produce one or more 'clean' performance subtables</h1>
     
-    <div class="hidden name"><code>process_confidences.Rd</code></div>
+    <div class="hidden name"><code>performanceSubtable_from_estimates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Process the confidence scores and create plots</p>
+    <p>These functions take the `estimates`, `criteria`, and `alternativeLabels`
+objects and produce one or more clean performance subtables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_confidences</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>performanceSubtable_from_estimates</span><span class='op'>(</span>
   <span class='va'>estimates</span>,
-  parentCriterionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  parentCriterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  decisionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
-  decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>criteria</span>,
+  <span class='va'>alternativeLabels</span>,
+  <span class='va'>parentCriterion_id</span>,
+  <span class='va'>criterionLabels</span>,
+  <span class='va'>decision_id</span>,
+  <span class='va'>decision_label</span>,
+  estimateColumn <span class='op'>=</span> <span class='st'>"all"</span>,
+  humanReadableOnly <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>all_performanceSubtables_from_estimates</span><span class='op'>(</span>
+  <span class='va'>estimates</span>,
+  <span class='va'>criteria</span>,
+  <span class='va'>alternativeLabels</span>,
+  <span class='va'>parentCriterionOrder</span>,
+  <span class='va'>criterionLabels</span>,
+  <span class='va'>decisionOrder</span>,
+  <span class='va'>decisionLabels</span>,
+  estimateColumn <span class='op'>=</span> <span class='st'>"all"</span>,
+  humanReadableOnly <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -129,23 +146,63 @@
       <td><p>The `estimates` object.</p></td>
     </tr>
     <tr>
-      <th>parentCriterionOrder, parentCriterionLabels</th>
-      <td><p>The order and labels of
-the parent criteria (i.e. the criterion clusters).</p></td>
+      <th>criteria</th>
+      <td><p>The `criteri` object.</p></td>
     </tr>
     <tr>
-      <th>decisionOrder, decisionLabels</th>
-      <td><p>The order and labels of the decisions.</p></td>
+      <th>alternativeLabels</th>
+      <td><p>The `alternativeLabels` object.</p></td>
     </tr>
     <tr>
-      <th>theme</th>
-      <td><p>The `ggplot2` theme to use for the plots.</p></td>
+      <th>parentCriterion_id</th>
+      <td><p>The identifier of the criterion cluster (parent
+criterion) for which to produce the performance subtable.</p></td>
+    </tr>
+    <tr>
+      <th>criterionLabels</th>
+      <td><p>The named vector with criterion (and parent
+criterion) labels.</p></td>
+    </tr>
+    <tr>
+      <th>decision_id</th>
+      <td><p>The identifier of the decisions for which to produce the
+performance subtable.</p></td>
+    </tr>
+    <tr>
+      <th>decision_label</th>
+      <td><p>The decision labels.</p></td>
+    </tr>
+    <tr>
+      <th>estimateColumn</th>
+      <td><p>The column with the estimates; this can be changed to,
+for example, the column with the estimates of a specific scorer, or the
+weighed estimates, etc.</p></td>
+    </tr>
+    <tr>
+      <th>humanReadableOnly</th>
+      <td><p>Whether to strip the columns with the decision
+identifiers and the alternative values (if `humanReadableOnly=TRUE`).</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionOrder</th>
+      <td><p>The vector with the parent criterion identifiers
+to process (in the right order).</p></td>
+    </tr>
+    <tr>
+      <th>decisionOrder</th>
+      <td><p>The vector with the decision identifiers to process (in
+the right order).</p></td>
+    </tr>
+    <tr>
+      <th>decisionLabels</th>
+      <td><p>The named vector with decision labels.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The `estimates` object, with plots and a data frame added.</p>
+    <p>For `performanceSubtable_from_estimates()`, a data frame; for
+`all_performanceSubtables_from_estimates()`, a list of lists of data frames.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

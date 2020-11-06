@@ -10,6 +10,7 @@ confidence_based_sensitivity_analysis(
   scenarioDefinitions,
   weightProfiles,
   criteria,
+  collapsedConfidences_criterionIdCol = "parentCriterion_id",
   transformationFunction = setToZero,
   scenarioOrder = names(scenarioDefinitions),
   scenarioLabels = stats::setNames(names(scenarioDefinitions),
@@ -40,6 +41,9 @@ that different column names can be set using [mdmcda::opts].}
 \item{weightProfiles}{The `weightProfiles` object.}
 
 \item{criteria}{The `criteria` object.}
+
+\item{collapsedConfidences_criterionIdCol}{The column name of the
+criterion identifiers in the `collapsedConfidences` object to use.}
 
 \item{transformationFunction}{The function to apply to the estimates in
 performance tables below the confidence threshold}

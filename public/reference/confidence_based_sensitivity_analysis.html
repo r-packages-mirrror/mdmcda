@@ -126,6 +126,7 @@ results.</p>
   <span class='va'>scenarioDefinitions</span>,
   <span class='va'>weightProfiles</span>,
   <span class='va'>criteria</span>,
+  collapsedConfidences_criterionIdCol <span class='op'>=</span> <span class='st'>"parentCriterion_id"</span>,
   transformationFunction <span class='op'>=</span> <span class='va'>setToZero</span>,
   scenarioOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>scenarioDefinitions</span><span class='op'>)</span>,
   scenarioLabels <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>scenarioDefinitions</span><span class='op'>)</span>,
@@ -168,6 +169,11 @@ that different column names can be set using [mdmcda::opts].</p></td>
     <tr>
       <th>criteria</th>
       <td><p>The `criteria` object.</p></td>
+    </tr>
+    <tr>
+      <th>collapsedConfidences_criterionIdCol</th>
+      <td><p>The column name of the
+criterion identifiers in the `collapsedConfidences` object to use.</p></td>
     </tr>
     <tr>
       <th>transformationFunction</th>

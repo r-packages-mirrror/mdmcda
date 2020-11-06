@@ -13,6 +13,8 @@
 #' @param labels Optionally, labels to apply to the criteria nodes.
 #' @param wrapLabels If applying labels, the number of characters to wrap
 #' them to.
+#' @param show_weights Whether to add the weighs to the labels of the
+#' nodes and edges (and potentially colorized the nodes).
 #' @param color_nodes,color_palette Whether to use `DiagrammeR`s
 #' `colorize_node_attrs()` function to color the nodes, and if so, which
 #' palette to use.
@@ -31,6 +33,7 @@
 plot_criteria <- function(criteria,
                           labels = NULL,
                           wrapLabels = 60,
+                          show_weights = TRUE,
                           color_nodes = TRUE,
                           color_palette = "viridis",
                           renderGraph = TRUE,
@@ -67,7 +70,7 @@ plot_criteria <- function(criteria,
     DiagrammeR::get_edge_df(graph);
 
   ### If weights were present, add and visualise thise
-  if (sum(finalWeights, na.rm=TRUE) > 0) {
+  if (show_weights && sum(finalWeights, na.rm=TRUE) > 0) {
 
     labels <-
       paste0(labels,

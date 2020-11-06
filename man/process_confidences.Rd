@@ -6,8 +6,8 @@
 \usage{
 process_confidences(
   estimates,
-  criterionOrder = NULL,
-  criterionLabels = NULL,
+  parentCriterionOrder = NULL,
+  parentCriterionLabels = NULL,
   decisionOrder = NULL,
   decisionLabels = NULL,
   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))
@@ -16,7 +16,8 @@ process_confidences(
 \arguments{
 \item{estimates}{The `estimates` object.}
 
-\item{criterionOrder, criterionLabels}{The order and labels of the criteria.}
+\item{parentCriterionOrder, parentCriterionLabels}{The order and labels of
+the parent criteria (i.e. the criterion clusters).}
 
 \item{decisionOrder, decisionLabels}{The order and labels of the decisions.}
 

@@ -126,6 +126,7 @@ color the tree and set the edge thicknesses.</p>
   <span class='va'>criteria</span>,
   labels <span class='op'>=</span> <span class='cn'>NULL</span>,
   wrapLabels <span class='op'>=</span> <span class='fl'>60</span>,
+  show_weights <span class='op'>=</span> <span class='cn'>TRUE</span>,
   color_nodes <span class='op'>=</span> <span class='cn'>TRUE</span>,
   color_palette <span class='op'>=</span> <span class='st'>"viridis"</span>,
   renderGraph <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -151,6 +152,11 @@ criteria tree in `$criteriaTree`.</p></td>
       <th>wrapLabels</th>
       <td><p>If applying labels, the number of characters to wrap
 them to.</p></td>
+    </tr>
+    <tr>
+      <th>show_weights</th>
+      <td><p>Whether to add the weighs to the labels of the
+nodes and edges (and potentially colorized the nodes).</p></td>
     </tr>
     <tr>
       <th>color_nodes, color_palette</th>
