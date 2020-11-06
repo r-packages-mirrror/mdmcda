@@ -8,8 +8,8 @@
 #' @param weighedEstimates A `weighedEstimates` data frame as produced by
 #' [mdmcda::weigh_estimates()].
 #' @param estimateCol The name of the column with the estimates.
-#' @param scenario_id The identifier of the scenario to create the heatmap
-#' for.
+#' @param scenario_id,scenario_label The identifier and label of the scenario
+#' to create the heatmap for.
 #' @param criterionOrder,decisionOrder Optionally, vectors with criterion
 #' and decision identifiers to indicate the order that should be used.
 #' @param criterionLabels,decisionLabels Optionally, named vectors with labels
@@ -32,6 +32,7 @@
 performanceTable_heatmap <- function(weighedEstimates,
                                      estimateCol,
                                      scenario_id,
+                                     scenario_label = scenario_id,
                                      criterionOrder = NULL,
                                      decisionOrder = NULL,
                                      criterionLabels = NULL,
@@ -149,7 +150,7 @@ performanceTable_heatmap <- function(weighedEstimates,
                                               hjust = 0,
                                               vjust = 0.5),
       axis.text.y.left = ggtext::element_markdown()) +
-    ggplot2::labs(title=paste0("Heatmap for ", scenario_id),
+    ggplot2::labs(title=paste0("Heatmap for ", scenario_label),
                   x="Criterion",
                   y="Decision") +
     NULL;
