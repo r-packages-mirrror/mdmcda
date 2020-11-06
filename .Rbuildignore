@@ -1,5 +1,9 @@
 ^dmcda\.Rproj$
 ^\.Rproj\.user$
-public
-figure
-
+public/
+figure/
+img/
+^\.gitlab-ci\.yml$
+^README\.Rmd$
+^pkgdown\.yml$
+^mdmcda\.Rproj$

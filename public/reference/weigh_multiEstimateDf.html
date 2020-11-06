@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -86,21 +86,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -140,13 +125,13 @@
     <tr>
       <th>multiEstimateDf</th>
       <td><p>A multi estimate data frame that should contain
-columns `decision_id`, `decision_label`, `decision_alternative_value`,
-`decisions_alternative_label`, `criterion_id`, `criterion_label`, and
+columns `decision_id`, `decision_label`, `alternative_value`,
+`alternative_label`, `criterion_id`, `criterion_label`, and
 one or more estimates in columns named with the scorer identifiers. Columns
 with the `_id` suffix contain identifiers, and columns with the `_label`
 suffix contain human-readable labels. This dataframe is stored in the
 object called `multiEstimateDf` returned by a call to
-[load_performance_tables()] to read a set of scored performance tables.</p></td>
+[read_performance_tables()] to read a set of scored performance tables.</p></td>
     </tr>
     <tr>
       <th>scorer</th>

@@ -1,24 +1,25 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mdmcda 📦
+# <img src='img/hex-logo.png' align="right" height="200" /> mdmcda 📦
 
 ## Multi-Decision Multi-Criteria Decision Analysis
 
 <!-- badges: start -->
 
 [![Pipeline
-status](https://gitlab.com/r-packages/mdmcda/badges/master/pipeline.svg)](https://gitlab.com/r-packages/mdmcda/commits/master)
+status](https://gitlab.com/r-packages/mdmcda/badges/prod/pipeline.svg)](https://gitlab.com/r-packages/mdmcda/commits/prod)
 
 [![Coverage
-status](https://codecov.io/gl/r-packages/mdmcda/branch/master/graph/badge.svg)](https://codecov.io/gl/r-packages/mdmcda?branch=master)
+status](https://codecov.io/gl/r-packages/mdmcda/branch/prod/graph/badge.svg)](https://codecov.io/gl/r-packages/mdmcda?branch=prod)
 
 <!-- [![Dependency status](https://tinyverse.netlify.com/badge/mdmcda)](https://CRAN.R-project.org/package=mdmcda) -->
 
 <!-- badges: end -->
 
 The pkgdown website for this project is located at
-<https://r-packages.gitlab.io/mdmcda>.
+<https://r-packages.gitlab.io/mdmcda> and its Git repository is located
+at <https://gitlab.com/r-packages/mdmcda>.
 
 <!--------------------------------------------->
 
@@ -26,12 +27,19 @@ The pkgdown website for this project is located at
 
 <!--------------------------------------------->
 
-See the introductory vignette for an introduction.
+See the introductory vignette for an introduction. The Dutch MDMA Policy
+Think Tank that was active in 2019-2020 used this package to formulate
+policy recommendations. The rendered report of that project, including
+all code, is located at <https://denktank.gitlab.io/mdma-policy-mdmcda>;
+the corresponding Git repository at
+<https://gitlab.com/denktank/mdma-policy-mdmcda>; and the accompanying
+Open Science Framework repository which contains frozen registrations at
+<https://osf.io/h58r6>.
 
 Other R packages for MCDA are [the `MCDA`
 package](https://cran.r-project.org/package=MCDA), [the `MCDM`
-package](https://cran.r-project.org/package=MCDM), and the recently
-retired [`DecisionAnalysis`
+package](https://cran.r-project.org/package=MCDM), and
+[`DecisionAnalysis`
 package](https://cran.r-project.org/package=DecisionAnalysis).
 
 <!--------------------------------------------->
@@ -56,8 +64,15 @@ You can install the development version of `mdmcda` from
 remotes::install_gitlab('r-packages/mdmcda');
 ```
 
-(assuming you have `remotes` installed; otherwise, install that first
-using the `install.packages` function)
+If you want the even more cutting edge version, you can install from the
+`dev` branch (as opposed to the default branch, `prod`) with:
+
+``` r
+remotes::install_gitlab('r-packages/mdmcda@dev');
+```
+
+(This is assuming you have the `remotes` packages installed; otherwise,
+install that first using the `install.packages` function.)
 
 <!--------------------------------------------->
 

@@ -6,10 +6,10 @@
 \usage{
 build_weighed_estimate_df(
   multiEstimateDf,
-  criterionNames,
+  criterionOrder,
   scorer,
-  decisionNames = NULL,
-  scenarioNames = NULL,
+  decisionOrder = NULL,
+  scenarioOrder = NULL,
   scenarioDefinitions = NULL,
   setMissingEstimates = NULL,
   warnForMissingEstimates = TRUE,
@@ -18,23 +18,24 @@ build_weighed_estimate_df(
 }
 \arguments{
 \item{multiEstimateDf}{A multi estimate data frame that should contain
-columns `decision_id`, `decision_label`, `decision_alternative_value`,
-`decisions_alternative_label`, `criterion_id`, `criterion_label`, and
+columns `decision_id`, `decision_label`, `alternative_value`,
+`alternative_label`, `criterion_id`, `criterion_label`, and
 one or more estimates in columns named with the scorer identifiers. Columns
 with the `_id` suffix contain identifiers, and columns with the `_label`
 suffix contain human-readable labels. This dataframe is stored in the
 object called `multiEstimateDf` returned by a call to
-[load_performance_tables()] to read a set of scored performance tables.}
+[read_performance_tables()] to read a set of scored performance tables. Note
+that different column names can be set using [mdmcda::opts].}
 
-\item{criterionNames}{A vector with the identifiers of the criteria
+\item{criterionOrder}{A vector with the identifiers of the criteria
 to process.}
 
 \item{scorer}{The name of the scorer whose estimates to process.}
 
-\item{decisionNames}{A vector with the identifiers of the decisions
+\item{decisionOrder}{A vector with the identifiers of the decisions
 to process.}
 
-\item{scenarioNames}{A vector with the identifiers of the scenarios to
+\item{scenarioOrder}{A vector with the identifiers of the scenarios to
 process.}
 
 \item{scenarioDefinitions}{A named list of named vectors. Every named vector

@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -85,21 +85,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -143,6 +128,42 @@
       <tr>
         
         <td>
+          <p><code><a href="add_scorerWeights_to_criteriaTree.html">add_scorerWeights_to_criteriaTree()</a></code> </p>
+        </td>
+        <td><p>Add weights of a scorer to criteria tree</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_weights.html">add_weights()</a></code> </p>
+        </td>
+        <td><p>Add weights to a data frame for weighed estimates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_weights_to_criteriaTree.html">add_weights_to_criteriaTree()</a></code> </p>
+        </td>
+        <td><p>Add weights to criteria tree</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="aggregate_estimates_by_criterion.html">aggregate_estimates_by_criterion()</a></code> </p>
+        </td>
+        <td><p>Aggregate estimates by criterion</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="aggregate_estimates_by_criterionCluster.html">aggregate_estimates_by_criterionCluster()</a></code> </p>
+        </td>
+        <td><p>Aggregate estimates by criterion clusters (parent criteria)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="aggregate_estimates_by_decision.html">aggregate_estimates_by_decision()</a></code> </p>
+        </td>
+        <td><p>Aggregate the (potentially weighed) estimates by decision</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="build_weighed_estimate_df.html">build_weighed_estimate_df()</a></code> </p>
         </td>
         <td><p>Build a dataframe for weighed estimates</p></td>
@@ -155,21 +176,33 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="export_scenarioDefinitions_to_xl.html">export_scenarioDefinitions_to_xl()</a></code> </p>
+          <p><code><a href="combine_weights_and_criteria.html">combine_weights_and_criteria()</a></code> </p>
         </td>
-        <td><p>Export scenario definitions to an Excel spreadsheet</p></td>
+        <td><p>Add weights from a data frame to criteria tree and update data frame</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="export_weightProfile_to_xl.html">export_weightProfile_to_xl()</a></code> </p>
+          <p><code><a href="confidence_based_sensitivity_analysis.html">confidence_based_sensitivity_analysis()</a></code> </p>
         </td>
-        <td><p>Export weight profiles to an Excel spreadsheet</p></td>
+        <td><p>Conduct a sensitivity analysis based on confidence scores</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="import_scenarioDefinitions_from_xl.html">import_scenarioDefinitions_from_xl()</a></code> </p>
+          <p><code><a href="create_labelDf.html">create_labelDf()</a></code> </p>
         </td>
-        <td><p>Import scenario definitions</p></td>
+        <td><p>Create data frame with identifiers and labels</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_alternativeLabel.html">get_alternativeLabel()</a></code> </p>
+        </td>
+        <td><p>Get the alternative labels based on a data frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="highlighted_alternative_table.html">highlighted_alternative_table()</a></code> </p>
+        </td>
+        <td><p>Create a scenario overview with highlighted alternatives</p></td>
       </tr><tr>
         
         <td>
@@ -187,7 +220,19 @@
         <td>
           <p><code><a href="opts.html">opts</a></code> </p>
         </td>
-        <td><p>Options for the dmcda package</p></td>
+        <td><p>Options for the mdmcda package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="performanceSubtable_from_estimates.html">performanceSubtable_from_estimates()</a></code> <code><a href="performanceSubtable_from_estimates.html">all_performanceSubtables_from_estimates()</a></code> </p>
+        </td>
+        <td><p>Produce one or more 'clean' performance subtables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="performanceTable_heatmap.html">performanceTable_heatmap()</a></code> </p>
+        </td>
+        <td><p>Create a performance table heatmap</p></td>
       </tr><tr>
         
         <td>
@@ -197,9 +242,99 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="process_confidences.html">process_confidences()</a></code> </p>
+        </td>
+        <td><p>Process the confidence scores and create plots</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_criteria_from_xl.html">read_criteria_from_xl()</a></code> </p>
+        </td>
+        <td><p>Read the criteria from a spreadsheet</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_estimates_from_xl.html">read_estimates_from_xl()</a></code> </p>
+        </td>
+        <td><p>Load estimates from an Excel file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_labels_from_xl.html">read_labels_from_xl()</a></code> <code><a href="read_labels_from_xl.html">read_criterionLabels_from_xl()</a></code> <code><a href="read_labels_from_xl.html">read_decisionLabels_from_xl()</a></code> <code><a href="read_labels_from_xl.html">read_decisionDescriptions_from_xl()</a></code> <code><a href="read_labels_from_xl.html">read_scenarioLabels_from_xl()</a></code> <code><a href="read_labels_from_xl.html">read_alternativeLabels_from_xl()</a></code> </p>
+        </td>
+        <td><p>Read labels or descriptions from an Excel file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_scenarioDefinitions_from_xl.html">read_scenarioDefinitions_from_xl()</a></code> </p>
+        </td>
+        <td><p>Import scenario definitions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_scenarioDefinitions_in_columns_from_xl.html">read_scenarioDefinitions_in_columns_from_xl()</a></code> </p>
+        </td>
+        <td><p>Import scenario definitions defined in columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_weightsMeansAndSDs_from_xl.html">read_weightsMeansAndSDs_from_xl()</a></code> </p>
+        </td>
+        <td><p>Read weightsMeansAndSDs data frame from an Excel file</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="repeatStr.html">repeatStr()</a></code> </p>
         </td>
         <td><p>Repeat a string a number of times</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scenario_alternative_table.html">scenario_alternative_table()</a></code> </p>
+        </td>
+        <td><p>Create a scenario overview with the selected alternatives</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scenario_overview.html">scenario_overview()</a></code> </p>
+        </td>
+        <td><p>Create an object with various useful data frames and plots for a scenario</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scoreBarchart_criteria.html">scoreBarchart_criteria()</a></code> </p>
+        </td>
+        <td><p>Create a bar chart with scores per criterion</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scoreBarchart_criteriaCluster.html">scoreBarchart_criteriaCluster()</a></code> </p>
+        </td>
+        <td><p>Create a bar chart with scores per criteria cluster</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scoreBarchart_decisions.html">scoreBarchart_decisions()</a></code> </p>
+        </td>
+        <td><p>Create a bar chart with scores per decision</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scoreBarchart_scenariosByCluster.html">scoreBarchart_scenariosByCluster()</a></code> </p>
+        </td>
+        <td><p>Create a bar chart with scores per criteria cluster per scenario</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scores_by_scenario.html">scores_by_scenario()</a></code> </p>
+        </td>
+        <td><p>Get the aggregated scores for each scenario</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="set_postsets.html">set_postsets()</a></code> </p>
+        </td>
+        <td><p>Set postsets</p></td>
       </tr><tr>
         
         <td>
@@ -218,6 +353,24 @@
           <p><code><a href="weigh_multiEstimateDf.html">weigh_multiEstimateDf()</a></code> </p>
         </td>
         <td><p>Weigh estimates in a multiEstimateDf</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_labels_to_xl.html">write_labels_to_xl()</a></code> <code><a href="write_labels_to_xl.html">write_criterionLabels_to_xl()</a></code> <code><a href="write_labels_to_xl.html">write_decisionLabels_to_xl()</a></code> <code><a href="write_labels_to_xl.html">write_scenarioLabels_to_xl()</a></code> <code><a href="write_labels_to_xl.html">write_alternativeLabels_to_xl()</a></code> </p>
+        </td>
+        <td><p>Write labels to an Excel file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_scenarioDefinitions_to_xl.html">write_scenarioDefinitions_to_xl()</a></code> </p>
+        </td>
+        <td><p>Write scenario definitions to an Excel spreadsheet</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_weightProfile_to_xl.html">write_weightProfile_to_xl()</a></code> </p>
+        </td>
+        <td><p>Write weight profiles to an Excel spreadsheet</p></td>
       </tr>
     </tbody>
     </table>

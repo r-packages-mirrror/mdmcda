@@ -2,6 +2,13 @@
 estimateDf_to_performance_table <- function(estimateDf,
                                             valueCol = c('value', 'value_mean')) {
 
+  criterionId_col <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col <- mdmcda::opts$get("criterionLabel_col");
+  decisionId_col <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
+
   if (!is.data.frame(estimateDf)) {
     stop("As 'estimateDf', you have to pass a dataframe with estimates!");
   }
@@ -16,12 +23,12 @@ estimateDf_to_performance_table <- function(estimateDf,
 
   valueCol <- valueCol[min(which(existingValueCols))];
 
-  requiredCols <- c('decision_id',
-                    'decision_label',
-                    'decision_alternative_value',
-                    'decision_alternative_label',
-                    'criterion_id',
-                    'criterion_label');
+  requiredCols <- c(decisionId_col,
+                    decisionLabel_col,
+                    alternativeValue_col,
+                    alternativeLabel_col,
+                    criterionId_col,
+                    criterionLabel_col);
 
   if (!all(requiredCols %in% names(estimateDf))) {
     stop("The dataframe suppied as 'estimateDf' does not seem to be ",
@@ -38,12 +45,12 @@ estimateDf_to_performance_table <- function(estimateDf,
   ### 'unique' because the labels can be ignored
   unique_decisions_and_alternatives <-
     !duplicated(estimateDf[, c('decision_id',
-                               'decision_alternative_value')]);
+                               alternativeValue_col)]);
   decisions_and_alternatives <-
     estimateDf[unique_decisions_and_alternatives,
                c('decision_id', 'decision_label',
-                 'decision_alternative_value',
-                 'decision_alternative_label')];
+                 alternativeValue_col,
+                 alternativeLabel_col)];
 
   ### Since the performance table has the criteria (and labels)
   ### along the columns and the decisons and alternatives (and
@@ -51,11 +58,17 @@ estimateDf_to_performance_table <- function(estimateDf,
 
   ### Build dataframe filled with NAs
   performance_table_leftside <-
-    data.frame(decision_id = c(rep(NA, 2), decisions_and_alternatives$decision_id),
-               decision_alternative_value = c(rep(NA, 2), decisions_and_alternatives$decision_alternative_value),
-               decision_label = c(rep(NA, 2), decisions_and_alternatives$decision_label),
-               decision_alternative_label = c(rep(NA, 2), decisions_and_alternatives$decision_alternative_label),
+    data.frame(decision_id = c(rep(NA, 2), decisions_and_alternatives[, decisionId_col]),
+               alternative_value = c(rep(NA, 2), decisions_and_alternatives[, alternativeValue_col]),
+               decision_label = c(rep(NA, 2), decisions_and_alternatives[, decisionLabel_col]),
+               alternative_label = c(rep(NA, 2), decisions_and_alternatives[, alternativeLabel_col]),
                stringsAsFactors = FALSE);
+
+  names(performance_table_leftside) <-
+    c(decisionId_col,
+      alternativeValue_col,
+      decisionLabel_col,
+      alternativeLabel_col);
 
   performance_table_topside <-
     t(as.matrix(criteria_and_labels));
@@ -80,7 +93,7 @@ estimateDf_to_performance_table <- function(estimateDf,
   for (i in 1:nrow(decisions_and_alternatives)) {
     targetRow <-
       which(performance_table$decision_id == decisions_and_alternatives$decision_id[i] &
-              performance_table$decision_alternative_value == decisions_and_alternatives$decision_alternative_value[i]);
+              performance_table[, alternativeValue_col] == decisions_and_alternatives[, alternativeValue_col][i]);
     if (length(targetRow) != 1) {
       stop("Either zero or more than one target row identified - this should be impossible, ",
            "given how the performance table is constructed - unless labels have been changed.");
@@ -88,7 +101,7 @@ estimateDf_to_performance_table <- function(estimateDf,
     for (targetCol in criteria_and_labels$criterion_id) {
       performance_table[targetRow, targetCol] <-
         estimateDf[estimateDf$decision_id == decisions_and_alternatives$decision_id[i] &
-                     estimateDf$decision_alternative_value == decisions_and_alternatives$decision_alternative_value[i] &
+                     estimateDf[, alternativeValue_col] == decisions_and_alternatives[, alternativeValue_col][i] &
                      estimateDf$criterion_id == targetCol, valueCol];
     }
   }

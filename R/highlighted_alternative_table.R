@@ -1,10 +1,36 @@
+#' Create a scenario overview with highlighted alternatives
+#'
+#' @param scores_per_alternative The `scorer_per_alternative` object as created
+#' by [compute_scores_per_alternative()].
+#' @param alternativeLabels The `alternativeLabels` object.
+#' @param decreasing Whether to sort the alternatives in decreasing order
+#' based on their final score.
+#' @param scenarioDefinition The `scenarioDefinition` object to highlight;
+#' if omitted, no highlighting is done.
+#' @param decisionOrder The vector with the decision identifiers to include
+#' (in the right order).
+#' @param decisionLabels The named vector with the decision labels.
+#' @param colNames The (two) column names to set in the resulting table.
+#' @param caption The table caption to pass to [knitr::kable()].
+#' @param estimateParseFunction Optionally, a function that is called to
+#' parse the estimates before adding them to the table.
+#' @param omitAlternativeLabelRegex A regular expression that can be used to
+#' omit one or more alternatives based on their labels.
+#' @param returnTableOnly Whether to return the table only, or the full
+#' object that includes intermediate steps.
+#' @param ... Any additional arguments are passed on to `estimateParseFunction`.
+#'
+#' @return
 #' @export
+#'
+#' @examples
 highlighted_alternative_table <-
   function(scores_per_alternative,
+           alternativeLabels,
            decreasing = FALSE,
-           scenario = NULL,
+           scenarioDefinition = NULL,
+           decisionOrder = NULL,
            decisionLabels = NULL,
-           alternativeValues = NULL,
            colNames = c("Decisions and alternatives",
                         "Scores"),
            caption = NULL,
@@ -13,42 +39,53 @@ highlighted_alternative_table <-
            returnTableOnly = TRUE,
            ...) {
 
+    decisionId_col <- mdmcda::opts$get("decisionId_col");
+
+    if (is.null(decisionOrder)) {
+      decisionOrder <-
+        unique(scores_per_alternative[, decisionId_col]);
+    }
+
     if (is.null(decisionLabels)) {
       decisionLabels <-
-        stats::setNames(unique(scores_per_alternative$decision_id),
-                        unique(scores_per_alternative$decision_id));
+        stats::setNames(decisionOrder,
+                        decisionOrder);
     }
 
     res <- list();
     res$raw <-
       lapply(
-        unique(scores_per_alternative$decision_id),
+        decisionOrder,
         function(decision_id) {
+          ### Select scores for this decision
           res <-
             scores_per_alternative[
-              scores_per_alternative$decision_id == decision_id,
+              scores_per_alternative[, decisionId_col] == decision_id,
             ];
+          ### Set the alternative labels
           res$alternative_label <-
-            unlist(alternativeValues[[decision_id]])[res$alternative_id];
+            unlist(alternativeLabels[[decision_id]])[res$alternative_id];
+          ### Determine order of alternatives
           if (is.null(decreasing)) {
-            altOrder <-
+            alternativesOrder <-
               seq_along(res$score);
           } else {
-            altOrder <-
+            alternativesOrder <-
               order(res$score,
                     decreasing = decreasing);
           }
-          res <- res[altOrder,
+          ### Create dataframe to return
+          res <- res[alternativesOrder,
                      c('decision_id',
                        'alternative_id',
                        'alternative_label',
                        'score')];
-          if (is.null(scenario)) {
+          if (is.null(scenarioDefinition)) {
             res$highlight <-
               FALSE;
           } else {
             res$highlight <-
-              res$alternative_id == scenario[decision_id];
+              res$alternative_id == scenarioDefinition[decision_id];
           }
           if (is.null(omitAlternativeLabelRegex)) {
             res$omit <-

@@ -8,6 +8,13 @@ write_estimate_specs <- function(estimateDf,
                                  encoding="UTF-8",
                                  filenameCol = NULL) {
 
+  criterionId_col <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col <- mdmcda::opts$get("criterionLabel_col");
+  decisionId_col <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
+
   if (!is.data.frame(estimateDf)) {
     stop("As 'estimateDf', you have to pass a dataframe with estimates!");
   }
@@ -26,8 +33,8 @@ write_estimate_specs <- function(estimateDf,
 
   requiredCols <- c('decision_id',
                     'decision_label',
-                    'decision_alternative_value',
-                    'decision_alternative_label',
+                    alternativeValue_col,
+                    alternativeLabel_col,
                     'criterion_id',
                     'criterion_label');
 
@@ -50,7 +57,7 @@ write_estimate_specs <- function(estimateDf,
       paste0("estimate--",
              estimateDf$decision_id,
              "--",
-             estimateDf$decision_alternative_value,
+             estimateDf[, alternativeValue_col],
              "--",
              estimateDf$criterion_id,
              ".jmd");
@@ -75,7 +82,7 @@ justification:
     ### Specify the identifier of the decision and the value of the alternative
     ### within that decision that this estimate pertains to.
     decision_id: ", estimateDf[i, 'decision_id'], "
-    decision_alternative_value: ", estimateDf[i, 'decision_alternative_value'], "
+    ", alternativeValue_col, ": ", estimateDf[i, alternativeValue_col], "
 
     ### Specify the identifier of the criterion to which this estimate applies.
     criterion_id: ", estimateDf[i, 'criterion_id'], "

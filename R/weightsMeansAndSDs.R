@@ -5,9 +5,15 @@ weightsMeansAndSDs <- function(weights,
 
   ### Compute means and standard deviations for the weights
   weightMeans <-
-    unclass(by(weights$allWeights$weight, weights$allWeights$criterion_id, mean, na.rm=TRUE));
+    unclass(by(weights$allWeights$weight,
+               weights$allWeights$criterion_id,
+               mean,
+               na.rm=TRUE));
   weightSDs <-
-    unclass(by(weights$allWeights$weight, weights$allWeights$criterion_id, sd, na.rm=TRUE));
+    unclass(by(weights$allWeights$weight,
+               weights$allWeights$criterion_id,
+               sd,
+               na.rm=TRUE));
 
   criterionIds <-
     sort(unique(weights$allWeights$criterion_id));

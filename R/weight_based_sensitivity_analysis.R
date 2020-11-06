@@ -99,28 +99,31 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                     res$weightsMeansAndSDs[criteriaClusters, weightCol] <-
                       weightsPerCluster[[criteriaClusterName]][criteriaClusters, weightFraction];
 
-                    res$combinedWeightsAndCriteria <-
+                    res$weightsMeansAndSDs <-
                       combine_weights_and_criteria(weightsMeansAndSDs = res$weightsMeansAndSDs,
                                                    criteria = criteria,
                                                    weightCols = stats::setNames(weightCol,
                                                                                 weightCol));
 
                     res$weightProfiles <-
-                      mdmcda::create_weight_profile(weightsMeansAndSDs = res$combinedWeightsAndCriteria$weightsMeansAndSDs,
-                                                    criteria = res$combinedWeightsAndCriteria$criteria,
+                      mdmcda::create_weight_profile(weightsMeansAndSDs = res$weightsMeansAndSDs,
+                                                    criteria = res$criteria,
                                                     profileName = "sensitivityAnalysis",
                                                     weightCol = "weight_mean_rescaled_proportion_total_percentage",
                                                     clusterWeightCol = "weight_mean_rescaled_proportion_product");
 
                     res$weighedEstimates <-
                       mdmcda::add_weights(weighedEstimates = weighedEstimates,
-                                         weightProfiles = res$weightProfiles,
-                                         weightProfileNames = names(res$weightProfiles));
+                                          weightProfiles = res$weightProfiles,
+                                          weightProfileNames = names(res$weightProfiles));
 
                     res$scoresPerScenario <-
-                      mdmcda::scores_by_scenario(weighedEstimates = res$weighedEstimates,
-                                                 estimateCols = paste0(names(res$weightProfiles),
-                                                                       '_weighed_estimate'));
+                      mdmcda::scores_by_scenario(
+                        weighedEstimates = res$weighedEstimates,
+                        estimateCols = paste0(names(res$weightProfiles),
+                                              '_weighed_estimate'),
+                        fun = sum,
+                        na.rm=TRUE);
 
                     res$scoresPerScenario$score <-
                       res$scoresPerScenario$sensitivityAnalysis_weighed_estimate;

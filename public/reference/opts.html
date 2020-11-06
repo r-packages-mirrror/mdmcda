@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Options for the dmcda package — opts • mdmcda</title>
+<title>Options for the mdmcda package — opts • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Options for the dmcda package — opts" />
+<meta property="og:title" content="Options for the mdmcda package — opts" />
 <meta property="og:description" content="The `mdmcda::opts` object contains three functions to set, get, and reset
 options used by the dmcda package. Use `mdmcda::opts$set` to set options,
 `mdmcda::opts$get` to get options, or `mdmcda::opts$reset` to reset specific or
@@ -75,7 +75,7 @@ all options to their default values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -89,21 +89,6 @@ all options to their default values." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -121,7 +106,7 @@ all options to their default values." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Options for the dmcda package</h1>
+    <h1>Options for the mdmcda package</h1>
     
     <div class="hidden name"><code>opts.Rd</code></div>
     </div>
@@ -141,7 +126,7 @@ all options to their default values.</p>
     <p>An object of class <code>list</code> of length 5.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>It is normally not necessary to get or set `dmcda` options.</p>
+    <p>It is normally not necessary to get or set `mdmcda` options.</p>
 <p>The following arguments can be passed:</p>
 <dl>
   <dt>...</dt><dd><p>For `mdmcda::opts$set`, the dots can be used to specify the options
@@ -157,11 +142,22 @@ all options to their default values.</p>
 <p>The following options can be set:</p>
 <dl>
 
-  <dt>varViewCols</dt><dd><p>The order and names of the columns to include in the
-  variable view.</p></dd>
-
-  <dt>showLabellerWarning</dt><dd><p>Whether to show a warning if labeller labels
-  are encountered.</p></dd>
+  <dt>decisionId_col</dt><dd><p>The default column name for the decision identifier</p></dd>
+  <dt>decisionLabel_col</dt><dd><p>The default column name for the decision label</p></dd>
+  <dt>criterionId_col</dt><dd><p>The default column name for the criterion identifier</p></dd>
+  <dt>criterionLabel_col</dt><dd><p>The default column name for the criterion label</p></dd>
+  <dt>criterionDescription_col</dt><dd><p>The default column name for the criterion description</p></dd>
+  <dt>parentCriterionId_col</dt><dd><p>The default column name for the parent criterion identifier</p></dd>
+  <dt>alternativeValue_col</dt><dd><p>The default column name for the alternaive value</p></dd>
+  <dt>alternativeLabel_col</dt><dd><p>The default column name for the alternative label</p></dd>
+  <dt>scenarioId_col</dt><dd><p>The default column name for the scenario identifier</p></dd>
+  <dt>scenarioLabel_col</dt><dd><p>The default column name for the scenario label</p></dd>
+  <dt>decisionDescription_col</dt><dd><p>The default column name for the decision description</p></dd>
+  <dt>decisionAlternatives_col</dt><dd><p>The default column name for the label combining a decision and the selected alternative</p></dd>
+  <dt>weightProfileId_col</dt><dd><p>The default column name for the decision identifier</p></dd>
+  <dt>score_col</dt><dd><p>The column with the scores returned by `scenario_scores`</p></dd>
+  <dt>leafCriterion_col</dt><dd><p>The name of the column name indicating whether a criterion is a leaf (without children) or not</p></dd>
+  <dt>rootCriterionId</dt><dd><p>The name of the root criterion in the criaria tree</p></dd>
 
 
 </dl>
@@ -170,19 +166,19 @@ all options to their default values.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>### Get the default columns in the variable view</span>
 <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'>opts</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>varViewCols</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for dmcda!</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for the `mdmcda` package!!</span></div><div class='input'>
 <span class='co'>### Set it to a custom version</span>
 <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'>opts</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>varViewCols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"values"</span>, <span class='st'>"level"</span><span class='op'>)</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$set(varViewCols = c("values", "level")): Option 'varViewCols' is/are not a valid (i.e. existing) option for dmcda!</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$set(varViewCols = c("values", "level")): Option 'varViewCols' is/are not a valid (i.e. existing) option for the `mdmcda` package!!</span></div><div class='input'>
 <span class='co'>### Check that it worked</span>
 <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'>opts</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>varViewCols</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for dmcda!</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for the `mdmcda` package!!</span></div><div class='input'>
 <span class='co'>### Reset this option to its default value</span>
 <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'>opts</span><span class='op'>$</span><span class='fu'>reset</span><span class='op'>(</span><span class='va'>varViewCols</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$reset(varViewCols): Option(s) 'varViewCols'' is/are not a valid (i.e. existing) option for dmcda!</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$reset(varViewCols): Option(s) 'varViewCols'' is/are not a valid (i.e. existing) option for the `mdmcda` package!</span></div><div class='input'>
 <span class='co'>### Check that the reset worked, too</span>
 <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'>opts</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>varViewCols</span><span class='op'>)</span>;
-</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for dmcda!</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in mdmcda::opts$get(varViewCols): Option 'varViewCols' is not a valid (i.e. existing) option for the `mdmcda` package!!</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
