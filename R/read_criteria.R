@@ -75,7 +75,7 @@ read_criteria <- function(input,
       'lo_score', 'lo_label',
       'zero_score', 'zero_label',
       'hi_score', 'hi_label',
-      'id', 'parentCriterion', 'leafCriterion');
+      criterionId_col, 'parentCriterion', 'leafCriterion');
   row.names(fullCriteriaDf) <-
     NULL;
 
@@ -88,7 +88,7 @@ read_criteria <- function(input,
                criteriaTree$Get('hi_score'),
                stringsAsFactors=FALSE);
   names(anchoringDf) <-
-    c('id', 'lo_label', 'zero_label', 'hi_label', 'lo_score', 'hi_score');
+    c(criterionId_col, 'lo_label', 'zero_label', 'hi_label', 'lo_score', 'hi_score');
   row.names(anchoringDf) <-
     NULL;
   anchoringDf <-

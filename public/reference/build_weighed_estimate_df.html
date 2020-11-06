@@ -88,21 +88,6 @@ weighed estimates using [weigh_estimates_by_profile()]." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -131,10 +116,10 @@ weighed estimates using [weigh_estimates_by_profile()].</p>
 
     <pre class="usage"><span class='fu'>build_weighed_estimate_df</span><span class='op'>(</span>
   <span class='va'>multiEstimateDf</span>,
-  <span class='va'>criterionNames</span>,
+  <span class='va'>criterionOrder</span>,
   <span class='va'>scorer</span>,
-  decisionNames <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioNames <span class='op'>=</span> <span class='cn'>NULL</span>,
+  decisionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scenarioOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
   scenarioDefinitions <span class='op'>=</span> <span class='cn'>NULL</span>,
   setMissingEstimates <span class='op'>=</span> <span class='cn'>NULL</span>,
   warnForMissingEstimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -153,10 +138,11 @@ one or more estimates in columns named with the scorer identifiers. Columns
 with the `_id` suffix contain identifiers, and columns with the `_label`
 suffix contain human-readable labels. This dataframe is stored in the
 object called `multiEstimateDf` returned by a call to
-[read_performance_tables()] to read a set of scored performance tables.</p></td>
+[read_performance_tables()] to read a set of scored performance tables. Note
+that different column names can be set using [mdmcda::opts].</p></td>
     </tr>
     <tr>
-      <th>criterionNames</th>
+      <th>criterionOrder</th>
       <td><p>A vector with the identifiers of the criteria
 to process.</p></td>
     </tr>
@@ -165,12 +151,12 @@ to process.</p></td>
       <td><p>The name of the scorer whose estimates to process.</p></td>
     </tr>
     <tr>
-      <th>decisionNames</th>
+      <th>decisionOrder</th>
       <td><p>A vector with the identifiers of the decisions
 to process.</p></td>
     </tr>
     <tr>
-      <th>scenarioNames</th>
+      <th>scenarioOrder</th>
       <td><p>A vector with the identifiers of the scenarios to
 process.</p></td>
     </tr>

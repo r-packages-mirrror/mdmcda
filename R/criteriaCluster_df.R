@@ -6,6 +6,8 @@ criteriaCluster_df <- function(weighedEstimates,
                                scenario_ids = unique(weighedEstimates$scenario_id),
                                scenario_labels = NULL) {
 
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+
   if (is.null(parentCriterion_labels)) {
     parentCriterion_labels <-
       stats::setNames(parentCriterion_ids,
@@ -24,9 +26,9 @@ criteriaCluster_df <- function(weighedEstimates,
                    function(scenario_id) {
                      res <-
                        aggregate_estimates_by_criterionCluster(
-                         weighedEstimates[weighedEstimates$scenario_id==scenario_id, ],
+                         weighedEstimates[weighedEstimates[, scenarioId_col]==scenario_id, ],
                          estimateCol);
-                     res$scenario_id <- scenario_id;
+                     res[, scenarioId_col] <- scenario_id;
                      return(res);
                    }));
 

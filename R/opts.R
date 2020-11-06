@@ -23,11 +23,22 @@
 #'
 #' \describe{
 #'
-#'   \item{varViewCols}{The order and names of the columns to include in the
-#'   variable view.}
-#'
-#'   \item{showLabellerWarning}{Whether to show a warning if labeller labels
-#'   are encountered.}
+#'   \item{decisionId_col}{The default column name for the decision identifier}
+#'   \item{decisionLabel_col}{The default column name for the decision label}
+#'   \item{criterionId_col}{The default column name for the criterion identifier}
+#'   \item{criterionLabel_col}{The default column name for the criterion label}
+#'   \item{criterionDescription_col}{The default column name for the criterion description}
+#'   \item{parentCriterionId_col}{The default column name for the parent criterion identifier}
+#'   \item{alternativeValue_col}{The default column name for the alternaive value}
+#'   \item{alternativeLabel_col}{The default column name for the alternative label}
+#'   \item{scenarioId_col}{The default column name for the scenario identifier}
+#'   \item{scenarioLabel_col}{The default column name for the scenario label}
+#'   \item{decisionDescription_col}{The default column name for the decision description}
+#'   \item{decisionAlternatives_col}{The default column name for the label combining a decision and the selected alternative}
+#'   \item{weightProfileId_col}{The default column name for the decision identifier}
+#'   \item{score_col}{The column with the scores returned by `scenario_scores`}
+#'   \item{leafCriterion_col}{The name of the column name indicating whether a criterion is a leaf (without children) or not}
+#'   \item{rootCriterionId}{The name of the root criterion in the criaria tree}
 #'
 #' }
 #'
@@ -136,8 +147,8 @@ opts$ez$figSize <-
 
     if (setOption) {
       mdmcda::opts$set(ggSaveFigWidth = width,
-                      ggSaveFigHeight = height,
-                      ggSaveUnits = "in");
+                       ggSaveFigHeight = height,
+                       ggSaveUnits = "in");
     }
 
     if (setFontSize) {
@@ -158,6 +169,7 @@ opts$defaults <-
     criterionLabel_col       = "criterion_label",
     criterionDescription_col = "criterion_description",
     parentCriterionId_col    = "parentCriterion_id",
+    parentCriterionLabel_col    = "parentCriterionLabel_col",
     alternativeValue_col     = "alternative_value",
     alternativeLabel_col     = "alternative_label",
     scenarioId_col           = "scenario_id",
@@ -165,9 +177,16 @@ opts$defaults <-
     decisionDescription_col  = "decision_description",
     decisionAlternatives_col = "decision_alternatives",
     weightProfileId_col      = "weight_profile_id",
+    estimate_col             = "estimate_col",
     score_col                = "score",
     leafCriterion_col        = "leafCriterion",
+
     rootCriterionId          = "outcomes",
+
+    performanceTable_decisionRegex = c("performance_subtable_for_(.*)_on_.*\\.xlsx$",
+                                       "\\1"),
+    performanceTable_criterionRegex = c("performance_subtable_for_.*_on_(.*)\\.xlsx$",
+                                        "\\1"),
 
     ### ggSave defaults
     ggSaveFigWidth = 11,

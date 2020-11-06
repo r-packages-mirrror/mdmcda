@@ -8,19 +8,39 @@ anchoringDf_to_anchoringGraphs <- function(anchoringDf,
                                            dot_size = 6,
                                            showGraphs = TRUE) {
 
+  criterionId_col          <- mdmcda::opts$get("criterionId_col");
+  criterionLabel_col       <- mdmcda::opts$get("criterionLabel_col");
+  criterionDescription_col <- mdmcda::opts$get("criterionDescription_col");
+  parentCriterionId_col    <- mdmcda::opts$get("parentCriterionId_col");
+  decisionId_col           <- mdmcda::opts$get("decisionId_col");
+  decisionLabel_col        <- mdmcda::opts$get("decisionLabel_col");
+  alternativeValue_col     <- mdmcda::opts$get("alternativeValue_col");
+  alternativeLabel_col     <- mdmcda::opts$get("alternativeLabel_col");
+  scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
+  weightProfileId_col      <- mdmcda::opts$get("weightProfileId_col");
+  score_col                <- mdmcda::opts$get("score_col");
+  leafCriterion_col        <- mdmcda::opts$get("leafCriterion_col");
+  rootCriterionId          <- mdmcda::opts$get("rootCriterionId");
+
   res <-
     apply(anchoringDf,
           1,
           function(x) {
 
             plotTitle <-
-              paste0(strwrap(criteriaDf$label[criteriaDf$id == x['id']],
+              paste0(
+                strwrap(
+                  criteriaDf[, criterionLabel_col][criteriaDf[, criterionId_col] == x[criterionId_col]],
                              width=graphTitleWrapping),
-                     collapse="\n");
+                collapse="\n"
+              );
             plotSubtitle <-
-              paste0(strwrap(criteriaDf$description[criteriaDf$id == x['id']],
-                             width=graphDescriptionWrapping),
-                     collapse="\n");
+              paste0(
+                strwrap(
+                  criteriaDf[, criterionDescription_col][criteriaDf[, criterionId_col] == x[criterionId_col]],
+                  width=graphDescriptionWrapping),
+                collapse="\n"
+              );
 
             lo_score <- as.numeric(x['lo_score']);
             hi_score <- as.numeric(x['hi_score']);
@@ -134,7 +154,7 @@ anchoringDf_to_anchoringGraphs <- function(anchoringDf,
           });
 
   names(res) <-
-    anchoringDf$id;
+    anchoringDf[, criterionId_col];
 
   return(res);
 

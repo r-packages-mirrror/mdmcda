@@ -322,7 +322,7 @@ weighedEstimates <-
 ### Actually weigh the estimates
 weighedEstimates <-
   mdmcda::weigh_estimates_by_profile(weighed_estimate_df = weighedEstimates,
-                                    weight_profiles = weightProfiles);
+                                     weight_profiles = weightProfiles);
 
 ### Add weights and weighed estimates to multiEstimateDf
 for (currentWeightProfile in weightProfileNames) {
@@ -465,7 +465,7 @@ bestScenarioEstimatesByCriterion <-
 
 The highest possible score is `r sum(bestAlternatives$score)`, which is achieved by the following scenario:
 
-```{r best-scenario-show-table, eval=FALSE}
+```{r best-scenario-show-table}
 knitr::kable(bestAlternatives[bestAlternatives$weightProfile=="meanWeights",
                               c("decision_id", "alternative_id", "alternative_label", "score")],
              row.names = FALSE);
@@ -483,7 +483,7 @@ knitr::kable(bestAlternatives[bestAlternatives$weightProfile=="meanWeights",
 
 scoresPerScenario <-
   mdmcda::scores_by_scenario(weighedEstimates = weighedEstimates,
-                            estimateCols = 'meanWeights_weighed_estimate');
+                             estimateCols = 'meanWeights_weighed_estimate');
 
 scoresPerScenario$meanWeights_weighed_estimate <-
   round(scoresPerScenario$meanWeights_weighed_estimate);

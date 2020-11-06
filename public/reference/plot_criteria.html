@@ -92,21 +92,6 @@ color the tree and set the edge thicknesses." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/mdma-example.html">Multi-Decision Multi-Criteria Decision Aid MDMA example</a>
-    </li>
-    <li>
-      <a href="../articles/software-example.html">Multi-Decision Multi-Criteria Decision Aid Software example</a>
-    </li>
-  </ul>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -141,6 +126,7 @@ color the tree and set the edge thicknesses.</p>
   <span class='va'>criteria</span>,
   labels <span class='op'>=</span> <span class='cn'>NULL</span>,
   wrapLabels <span class='op'>=</span> <span class='fl'>60</span>,
+  show_weights <span class='op'>=</span> <span class='cn'>TRUE</span>,
   color_nodes <span class='op'>=</span> <span class='cn'>TRUE</span>,
   color_palette <span class='op'>=</span> <span class='st'>"viridis"</span>,
   renderGraph <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -166,6 +152,11 @@ criteria tree in `$criteriaTree`.</p></td>
       <th>wrapLabels</th>
       <td><p>If applying labels, the number of characters to wrap
 them to.</p></td>
+    </tr>
+    <tr>
+      <th>show_weights</th>
+      <td><p>Whether to add the weighs to the labels of the
+nodes and edges (and potentially colorized the nodes).</p></td>
     </tr>
     <tr>
       <th>color_nodes, color_palette</th>

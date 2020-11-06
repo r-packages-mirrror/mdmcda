@@ -28,8 +28,8 @@ read_performance_table <- function(file,
   res <- list();
 
   if (grepl('\\.xls', file)) {
-    if (!requireNamespace("readxl", quietly = TRUE)) {
-      stop("To import from excel format, the \"readxl\" package is required.");
+    if (!requireNamespace("openxlsx", quietly = TRUE)) {
+      stop("To import from excel format, the \"openxlsx\" package is required.");
     } else {
       suppressMessages(
         res$estimates <-
