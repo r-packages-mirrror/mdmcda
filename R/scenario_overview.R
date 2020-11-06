@@ -145,9 +145,9 @@ scenario_overview <- function(multiEstimateDf,
 
   res$byDecision$decision_and_alternative <-
     paste0(decision_alternative_pre,
-           res$byDecision$decision_label,
+           res$byDecision[, decisionLabel_col],
            decision_alternative_sep,
-           res$byDecision$alternative_label,
+           res$byDecision[, alternativeLabel_col],
            decision_alternative_suf);
 
   if (useDecisionAlternativeLabels) {

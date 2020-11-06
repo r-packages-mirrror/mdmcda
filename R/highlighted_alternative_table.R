@@ -22,8 +22,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 highlighted_alternative_table <-
   function(scores_per_alternative,
            alternativeLabels,

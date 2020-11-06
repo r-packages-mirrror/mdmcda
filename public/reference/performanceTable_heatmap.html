@@ -122,15 +122,23 @@ clusters, which are also sorted alphabetically.</p>
   <span class='va'>weighedEstimates</span>,
   <span class='va'>estimateCol</span>,
   <span class='va'>scenario_id</span>,
+  scenario_label <span class='op'>=</span> <span class='va'>scenario_id</span>,
   criterionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
   decisionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
   criterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
   decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alternativeLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  useDecisionAlternativeLabels <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  decision_alternative_pre <span class='op'>=</span> <span class='st'>"**"</span>,
+  decision_alternative_sep <span class='op'>=</span> <span class='st'>"**:&lt;br /&gt;"</span>,
+  decision_alternative_suf <span class='op'>=</span> <span class='st'>""</span>,
   criterionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"criterionId_col"</span><span class='op'>)</span>,
   parentCriterionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"parentCriterionId_col"</span><span class='op'>)</span>,
   criterionLabel_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"criterionLabel_col"</span><span class='op'>)</span>,
   decisionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionId_col"</span><span class='op'>)</span>,
   decisionLabel_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionLabel_col"</span><span class='op'>)</span>,
+  alternativeValue_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"alternativeValue_col"</span><span class='op'>)</span>,
+  alternativeLabel_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"alternativeLabel_col"</span><span class='op'>)</span>,
   scenarioId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"scenarioId_col"</span><span class='op'>)</span>,
   theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -148,9 +156,9 @@ clusters, which are also sorted alphabetically.</p>
       <td><p>The name of the column with the estimates.</p></td>
     </tr>
     <tr>
-      <th>scenario_id</th>
-      <td><p>The identifier of the scenario to create the heatmap
-for.</p></td>
+      <th>scenario_id, scenario_label</th>
+      <td><p>The identifier and label of the scenario
+to create the heatmap for.</p></td>
     </tr>
     <tr>
       <th>criterionOrder, decisionOrder</th>
@@ -164,7 +172,24 @@ for the criteria and decisions. These have to be named vectors, with the
 elements being the labels, and the names the identifiers.</p></td>
     </tr>
     <tr>
-      <th>criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, scenarioId_col</th>
+      <th>alternativeLabels</th>
+      <td><p>The `alternativeLabels` object; optionally, to
+override the alternative labels in the `weighedEstimates` object.</p></td>
+    </tr>
+    <tr>
+      <th>useDecisionAlternativeLabels</th>
+      <td><p>Whether to label the decision plot with
+the decisions or combined labels that also include the alternative for
+the scenario.</p></td>
+    </tr>
+    <tr>
+      <th>decision_alternative_pre, decision_alternative_sep, decision_alternative_suf</th>
+      <td><p>If
+`useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
+are used to compose the decision plot labels.</p></td>
+    </tr>
+    <tr>
+      <th>criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, alternativeValue_col, alternativeLabel_col, alternativeLabel_col, scenarioId_col</th>
       <td><p>The
 column names in the `weighedEstimates` data frame.</p></td>
     </tr>

@@ -8,15 +8,23 @@ performanceTable_heatmap(
   weighedEstimates,
   estimateCol,
   scenario_id,
+  scenario_label = scenario_id,
   criterionOrder = NULL,
   decisionOrder = NULL,
   criterionLabels = NULL,
   decisionLabels = NULL,
+  alternativeLabels = NULL,
+  useDecisionAlternativeLabels = TRUE,
+  decision_alternative_pre = "**",
+  decision_alternative_sep = "**:<br />",
+  decision_alternative_suf = "",
   criterionId_col = mdmcda::opts$get("criterionId_col"),
   parentCriterionId_col = mdmcda::opts$get("parentCriterionId_col"),
   criterionLabel_col = mdmcda::opts$get("criterionLabel_col"),
   decisionId_col = mdmcda::opts$get("decisionId_col"),
   decisionLabel_col = mdmcda::opts$get("decisionLabel_col"),
+  alternativeValue_col = mdmcda::opts$get("alternativeValue_col"),
+  alternativeLabel_col = mdmcda::opts$get("alternativeLabel_col"),
   scenarioId_col = mdmcda::opts$get("scenarioId_col"),
   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))
 )
@@ -27,8 +35,8 @@ performanceTable_heatmap(
 
 \item{estimateCol}{The name of the column with the estimates.}
 
-\item{scenario_id}{The identifier of the scenario to create the heatmap
-for.}
+\item{scenario_id, scenario_label}{The identifier and label of the scenario
+to create the heatmap for.}
 
 \item{criterionOrder, decisionOrder}{Optionally, vectors with criterion
 and decision identifiers to indicate the order that should be used.}
@@ -37,7 +45,18 @@ and decision identifiers to indicate the order that should be used.}
 for the criteria and decisions. These have to be named vectors, with the
 elements being the labels, and the names the identifiers.}
 
-\item{criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, scenarioId_col}{The
+\item{alternativeLabels}{The `alternativeLabels` object; optionally, to
+override the alternative labels in the `weighedEstimates` object.}
+
+\item{useDecisionAlternativeLabels}{Whether to label the decision plot with
+the decisions or combined labels that also include the alternative for
+the scenario.}
+
+\item{decision_alternative_pre, decision_alternative_sep, decision_alternative_suf}{If
+`useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
+are used to compose the decision plot labels.}
+
+\item{criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, alternativeValue_col, alternativeLabel_col, alternativeLabel_col, scenarioId_col}{The
 column names in the `weighedEstimates` data frame.}
 
 \item{theme}{The `ggplot2` theme to use.}

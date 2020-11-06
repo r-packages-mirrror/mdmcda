@@ -12,8 +12,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 scenario_alternative_table <-
   function(scenarioDefinition,
            alternativeLabels,
