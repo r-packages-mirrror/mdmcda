@@ -17,10 +17,10 @@
 #' @export
 scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                           estimateCol,
-                                          parentCriterion_ids = unique(weighedEstimates$parentCriterion_id),
-                                          parentCriterion_labels = parentCriterion_ids,
-                                          scenario_ids = unique(weighedEstimates$scenario_id),
-                                          scenario_labels = scenario_ids,
+                                          parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+                                          parentCriterionLabels = parentCriterion_ids,
+                                          scenarioOrder = unique(weighedEstimates$scenario_id),
+                                          scenarioLabels = scenario_ids,
                                           strokeColor = "black",
                                           strokeSize = .1,
                                           title = "MDMCDA criteria cluster bar chart",
@@ -30,20 +30,24 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
                                           guides = ggplot2::guide_legend(nrow = 1),
                                           legend.position = "top") {
 
+  parentCriterionLabel_col <- mdmcda::opts$get("parentCriterionLabel_col");
+  scenarioLabel_col <- mdmcda::opts$get("scenarioLabel_col");
+
+
   tmpDf <-
     criteriaCluster_df(weighedEstimates = weighedEstimates,
                        estimateCol = estimateCol,
-                       parentCriterion_ids = parentCriterion_ids,
-                       parentCriterion_labels = parentCriterion_labels,
-                       scenario_ids = scenario_ids,
-                       scenario_labels = scenario_labels);
+                       parentCriterionOrder = parentCriterionOrder,
+                       parentCriterionLabels = parentCriterionLabels,
+                       scenarioOrder = scenarioOrder,
+                       scenarioLabels = scenarioLabels);
 
   res <-
     ggplot2::ggplot(data = tmpDf,
-                    mapping = ggplot2::aes_string(x = "parentCriterion_label",
+                    mapping = ggplot2::aes_string(x = parentCriterionLabel_col,
                                                   y = estimateCol,
-                                                  group = "scenario_label",
-                                                  fill="scenario_label")) +
+                                                  group = scenarioLabel_col,
+                                                  fill = scenarioLabel_col)) +
     ggplot2::geom_col(position=ggplot2::position_dodge(),
                       color = strokeColor,
                       size = strokeSize) +

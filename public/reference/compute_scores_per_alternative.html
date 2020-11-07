@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aggregate estimates by criterion clusters (parent criteria) — aggregate_estimates_by_criterionCluster • mdmcda</title>
+<title>Compute the scores per alternative — compute_scores_per_alternative • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Aggregate estimates by criterion clusters (parent criteria) — aggregate_estimates_by_criterionCluster" />
-<meta property="og:description" content="Aggregate estimates by criterion clusters (parent criteria)" />
+<meta property="og:title" content="Compute the scores per alternative — compute_scores_per_alternative" />
+<meta property="og:description" content="Compute the scores per alternative" />
 
 
 
@@ -103,21 +103,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Aggregate estimates by criterion clusters (parent criteria)</h1>
+    <h1>Compute the scores per alternative</h1>
     
-    <div class="hidden name"><code>aggregate_estimates_by_criterionCluster.Rd</code></div>
+    <div class="hidden name"><code>compute_scores_per_alternative.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Aggregate estimates by criterion clusters (parent criteria)</p>
+    <p>Compute the scores per alternative</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aggregate_estimates_by_criterionCluster</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>compute_scores_per_alternative</span><span class='op'>(</span>
   <span class='va'>multiEstimateDf</span>,
-  <span class='va'>estimateCol</span>,
-  parentCriterionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"parentCriterionId_col"</span><span class='op'>)</span>,
-  fun <span class='op'>=</span> <span class='va'>sum</span>,
-  <span class='va'>...</span>
+  <span class='va'>weightProfiles</span>,
+  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  setMissingEstimates <span class='op'>=</span> <span class='fl'>0</span>,
+  warnForMissingEstimates <span class='op'>=</span> <span class='op'>!</span><span class='va'>silent</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -125,32 +125,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>multiEstimateDf</th>
-      <td><p>A `multiEstimateDf` data frame that must contain
-the columns with the names specified in `estimateCol` and
-`parentCriterionId_col`.</p></td>
+      <td><p>A `multiEstimateDf` that must contain the columns
+specified in the `mdmcda` options `decisionId_col`, `alternativeValue_col`
+(see [mdmcda::opts], and for each weight profile in `weightProfiles`, its
+name appended with '`_weighed_estimate`'.</p></td>
     </tr>
     <tr>
-      <th>estimateCol</th>
-      <td><p>The column with the estimates to use.</p></td>
+      <th>weightProfiles</th>
+      <td><p>A `weightProfiles` object.</p></td>
     </tr>
     <tr>
-      <th>parentCriterionId_col</th>
-      <td><p>The column containing the parent criterion
-identifiers (i.e. the cluster identifiers).</p></td>
+      <th>silent</th>
+      <td><p>Whether to suppress messages.</p></td>
     </tr>
     <tr>
-      <th>fun</th>
-      <td><p>The function to use to aggregate the scores.</p></td>
+      <th>setMissingEstimates</th>
+      <td><p>What to set missing estimates to.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Any additional arguments are passed to `fun`.</p></td>
+      <th>warnForMissingEstimates</th>
+      <td><p>Whether to warn when encountering missing
+estimates.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with aggregated estimates.</p>
+    <p>A data frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

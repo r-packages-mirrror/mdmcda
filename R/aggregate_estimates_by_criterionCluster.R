@@ -1,8 +1,10 @@
 #' Aggregate estimates by criterion clusters (parent criteria)
 #'
-#' @param multiEstimateDf A `multiEstimateDf` data frame.
+#' @param multiEstimateDf A `multiEstimateDf` data frame that must contain
+#' the columns with the names specified in `estimateCol` and
+#' `parentCriterionId_col`.
 #' @param estimateCol The column with the estimates to use.
-#' @param parentCriterionId_col The columns containing the parent criterion
+#' @param parentCriterionId_col The column containing the parent criterion
 #' identifiers (i.e. the cluster identifiers).
 #' @param fun The function to use to aggregate the scores.
 #' @param ... Any additional arguments are passed to `fun`.

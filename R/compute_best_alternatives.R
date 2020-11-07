@@ -1,3 +1,15 @@
+#' Copute the worst and best alternatives
+#'
+#' Given the scores per alternative, return the worst or best alternatives for
+#' each decision.
+#'
+#' @param scores_per_alternative The `scores_per_alternative` object as
+#' returned by [compute_scores_per_alternative()].
+#' @param ignoreRegex Optionally, a regular expression: alternative labels
+#' matching this regular expression will not be eligible as best alternatives.
+#'
+#' @return A data frame.
+#' @rdname compute_bestOrWorst_alternative
 #' @export
 compute_best_alternatives <- function(scores_per_alternative,
                                       ignoreRegex = NULL) {

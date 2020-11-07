@@ -1,3 +1,4 @@
+#' @rdname compute_bestOrWorst_alternative
 #' @export
 compute_worst_alternatives <- function(scores_per_alternative,
                                        ignoreRegex = NULL) {

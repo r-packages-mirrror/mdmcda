@@ -7,13 +7,15 @@
 scoreBarchart_scenariosByCluster(
   weighedEstimates,
   estimateCol,
-  parentCriterion_ids = unique(weighedEstimates$parentCriterion_id),
-  parentCriterion_labels = NULL,
-  scenario_ids = unique(weighedEstimates$scenario_id),
-  scenario_labels = NULL,
+  parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+  parentCriterionLabels = NULL,
+  scenarioOrder = unique(weighedEstimates$scenario_id),
+  scenarioLabels = NULL,
+  sortByScore = FALSE,
+  decreasing = TRUE,
+  strokeSize = 0,
   strokeColor = "black",
-  strokeSize = 0.1,
-  title = "MDMCDA scenarios by criteria cluster bar chart",
+  title = "MDMCDA scores by scenarios by criteria cluster",
   xLab = "Scenario",
   yLab = estimateCol,
   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
@@ -26,13 +28,13 @@ scoreBarchart_scenariosByCluster(
 
 \item{estimateCol}{The column name with the estimates to use.}
 
-\item{parentCriterion_ids}{The parent criteria to include.}
+\item{scenarioOrder}{The scenarios to include.}
 
-\item{parentCriterion_labels}{The labels for the parent criteria.}
+\item{scenarioLabels}{The labels for the scenarios.}
 
-\item{scenario_ids}{The scenarios to include.}
-
-\item{scenario_labels}{The labels for the scenarios.}
+\item{sortByScore, decreasing}{Whether to sort the scenarios by their total
+scores, and if so, whether to sort them in decreasing order (from the left
+side) or in increasing order.}
 
 \item{strokeColor, strokeSize}{The color and pen width of the stroke.}
 
@@ -44,6 +46,10 @@ scoreBarchart_scenariosByCluster(
 
 \item{legend.position, legend.box.margin}{The position and spacing for the
 legend.}
+
+\item{parentCriterion_ids}{The parent criteria to include.}
+
+\item{parentCriterion_labels}{The labels for the parent criteria.}
 }
 \value{
 A `ggplot2` plot.

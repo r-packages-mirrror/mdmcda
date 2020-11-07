@@ -7,10 +7,10 @@
 scoreBarchart_criteriaCluster(
   weighedEstimates,
   estimateCol,
-  parentCriterion_ids = unique(weighedEstimates$parentCriterion_id),
-  parentCriterion_labels = parentCriterion_ids,
-  scenario_ids = unique(weighedEstimates$scenario_id),
-  scenario_labels = scenario_ids,
+  parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+  parentCriterionLabels = parentCriterion_ids,
+  scenarioOrder = unique(weighedEstimates$scenario_id),
+  scenarioLabels = scenario_ids,
   strokeColor = "black",
   strokeSize = 0.1,
   title = "MDMCDA criteria cluster bar chart",
@@ -26,14 +26,6 @@ scoreBarchart_criteriaCluster(
 
 \item{estimateCol}{The column name with the estimates to use.}
 
-\item{parentCriterion_ids}{The parent criteria to include.}
-
-\item{parentCriterion_labels}{The labels for the parent criteria.}
-
-\item{scenario_ids}{The scenarios to include.}
-
-\item{scenario_labels}{The labels for the scenarios.}
-
 \item{strokeColor, strokeSize}{The color and pen width of the stroke.}
 
 \item{title, xLab, yLab}{The title and x and y axis labels.}
@@ -44,6 +36,14 @@ scoreBarchart_criteriaCluster(
 
 \item{legend.position, legend.box.margin}{The position and spacing for the
 legend.}
+
+\item{parentCriterion_ids}{The parent criteria to include.}
+
+\item{parentCriterion_labels}{The labels for the parent criteria.}
+
+\item{scenario_ids}{The scenarios to include.}
+
+\item{scenario_labels}{The labels for the scenarios.}
 }
 \value{
 A `ggplot2` plot.
