@@ -186,7 +186,7 @@ scenario_overview <- function(multiEstimateDf,
         estimateCol = estimateCol,
         decisionOrder = decisionOrder,
         decisionLabels = decisionLabels,
-        title = paste0("MDMCDA scores per criterion for ",
+        title = paste0("MDMCDA scores per decision for ",
                        scenarioLabel),
         verticalPlot = verticalPlots
       );
