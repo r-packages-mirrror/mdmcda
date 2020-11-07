@@ -27,6 +27,8 @@
 #' @param decision_alternative_pre,decision_alternative_sep,decision_alternative_suf If
 #' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 #' are used to compose the decision plot labels.
+#' @param alternativeToOmitInTable This alternative is not shown in the
+#' table with highlighted options, unless it's selected for a scenario.
 #' @param scoreBarchart_criteria_args,scoreBarchart_decisions_args These
 #' arguments can be used to specify named lists with additional arguments for
 #' `scoreBarChart_decisions` and `scoreBarChart_criteria`.
@@ -36,6 +38,7 @@
 scenario_overview <- function(multiEstimateDf,
                               estimateCol,
                               scenario,
+                              scenarioLabel = NULL,
                               createPlots = TRUE,
                               decisionPlotOrder = "decreasing",
                               criterionPlotOrder = "decreasing",
@@ -45,13 +48,13 @@ scenario_overview <- function(multiEstimateDf,
                               criterionLabels = NULL,
                               decisionLabels = NULL,
                               alternativeLabels = NULL,
-                              scenarioLabel = NULL,
                               parentCriterionIds_by_childId = NULL,
                               verticalPlots = FALSE,
                               useDecisionAlternativeLabels = TRUE,
                               decision_alternative_pre = "**",
                               decision_alternative_sep = "**:<br />",
                               decision_alternative_suf = "",
+                              alternativeToOmitInTable = "Not applicable",
                               scoreBarchart_criteria_args = NULL,
                               scoreBarchart_decisions_args = NULL) {
 
@@ -238,6 +241,38 @@ scenario_overview <- function(multiEstimateDf,
       do.call(
         scoreBarchart_criteria,
         scoreBarchart_criteria_args
+      );
+
+    ###-------------------------------------------------------------------------
+    ### Table with only the selected alternatives
+    ###-------------------------------------------------------------------------
+
+    res$scenario_alternative_table <-
+      mdmcda::scenario_alternative_table(
+        scenarioDefinition = scenario,
+        alternativeLabels = alternativeLabels,
+        decisionOrder = decisionOrder,
+        decisionLabels = decisionLabels
+      );
+
+    ###-------------------------------------------------------------------------
+    ### Table with selected alternatives highlighted
+    ###-------------------------------------------------------------------------
+
+    res$highlighted_alternative_table <-
+      mdmcda::highlighted_alternative_table(
+        scores_per_alternative,
+        scenario=scenario,
+        alternativeLabels = alternativeLabels,
+        decisionOrder = decisionOrder,
+        decisionLabels = decisionLabels,
+        colNames = c("Policy instruments and selected options", "Scores"),
+        omit = alternativeToOmitInTable,
+        caption = paste0("Overview of alternatives ",
+                         "with the alternatives selected in scenario '",
+                         scenarioLabel, "' in bold."),
+        estimateParseFunction = round,
+        digits = 0
       );
 
   }
