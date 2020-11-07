@@ -154,11 +154,13 @@ scenario_overview <- function(multiEstimateDf,
            decision_alternative_suf);
 
   if (useDecisionAlternativeLabels) {
-    decisionLabels <-
+    decisionLabels_plot <-
       stats::setNames(
         res$byDecision$decision_and_alternative,
         nm = res$byDecision[, decisionId_col]
       );
+  } else {
+    decisionLabels_plot <- decisionLabels;
   }
 
   if (is.null(scenarioLabel)) {
@@ -185,7 +187,7 @@ scenario_overview <- function(multiEstimateDf,
         estimatesByDecision = res$byDecision,
         estimateCol = estimateCol,
         decisionOrder = decisionOrder,
-        decisionLabels = decisionLabels,
+        decisionLabels = decisionLabels_plot,
         title = paste0("MDMCDA scores per decision for ",
                        scenarioLabel),
         verticalPlot = verticalPlots
