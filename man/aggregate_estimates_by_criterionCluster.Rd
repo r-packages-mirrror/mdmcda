@@ -13,11 +13,13 @@ aggregate_estimates_by_criterionCluster(
 )
 }
 \arguments{
-\item{multiEstimateDf}{A `multiEstimateDf` data frame.}
+\item{multiEstimateDf}{A `multiEstimateDf` data frame that must contain
+the columns with the names specified in `estimateCol` and
+`parentCriterionId_col`.}
 
 \item{estimateCol}{The column with the estimates to use.}
 
-\item{parentCriterionId_col}{The columns containing the parent criterion
+\item{parentCriterionId_col}{The column containing the parent criterion
 identifiers (i.e. the cluster identifiers).}
 
 \item{fun}{The function to use to aggregate the scores.}

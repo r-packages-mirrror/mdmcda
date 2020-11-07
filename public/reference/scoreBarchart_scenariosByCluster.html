@@ -115,13 +115,15 @@
     <pre class="usage"><span class='fu'>scoreBarchart_scenariosByCluster</span><span class='op'>(</span>
   <span class='va'>weighedEstimates</span>,
   <span class='va'>estimateCol</span>,
-  parentCriterion_ids <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
-  parentCriterion_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenario_ids <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>scenario_id</span><span class='op'>)</span>,
-  scenario_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parentCriterionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
+  parentCriterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scenarioOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>scenario_id</span><span class='op'>)</span>,
+  scenarioLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sortByScore <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  decreasing <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  strokeSize <span class='op'>=</span> <span class='fl'>0</span>,
   strokeColor <span class='op'>=</span> <span class='st'>"black"</span>,
-  strokeSize <span class='op'>=</span> <span class='fl'>0.1</span>,
-  title <span class='op'>=</span> <span class='st'>"MDMCDA scenarios by criteria cluster bar chart"</span>,
+  title <span class='op'>=</span> <span class='st'>"MDMCDA scores by scenarios by criteria cluster"</span>,
   xLab <span class='op'>=</span> <span class='st'>"Scenario"</span>,
   yLab <span class='op'>=</span> <span class='va'>estimateCol</span>,
   theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>,
@@ -141,20 +143,18 @@
       <td><p>The column name with the estimates to use.</p></td>
     </tr>
     <tr>
-      <th>parentCriterion_ids</th>
-      <td><p>The parent criteria to include.</p></td>
-    </tr>
-    <tr>
-      <th>parentCriterion_labels</th>
-      <td><p>The labels for the parent criteria.</p></td>
-    </tr>
-    <tr>
-      <th>scenario_ids</th>
+      <th>scenarioOrder</th>
       <td><p>The scenarios to include.</p></td>
     </tr>
     <tr>
-      <th>scenario_labels</th>
+      <th>scenarioLabels</th>
       <td><p>The labels for the scenarios.</p></td>
+    </tr>
+    <tr>
+      <th>sortByScore, decreasing</th>
+      <td><p>Whether to sort the scenarios by their total
+scores, and if so, whether to sort them in decreasing order (from the left
+side) or in increasing order.</p></td>
     </tr>
     <tr>
       <th>strokeColor, strokeSize</th>
@@ -176,6 +176,14 @@
       <th>legend.position, legend.box.margin</th>
       <td><p>The position and spacing for the
 legend.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterion_ids</th>
+      <td><p>The parent criteria to include.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterion_labels</th>
+      <td><p>The labels for the parent criteria.</p></td>
     </tr>
     </table>
 

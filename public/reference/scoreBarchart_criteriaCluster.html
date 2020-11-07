@@ -115,10 +115,10 @@
     <pre class="usage"><span class='fu'>scoreBarchart_criteriaCluster</span><span class='op'>(</span>
   <span class='va'>weighedEstimates</span>,
   <span class='va'>estimateCol</span>,
-  parentCriterion_ids <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
-  parentCriterion_labels <span class='op'>=</span> <span class='va'>parentCriterion_ids</span>,
-  scenario_ids <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>scenario_id</span><span class='op'>)</span>,
-  scenario_labels <span class='op'>=</span> <span class='va'>scenario_ids</span>,
+  parentCriterionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
+  parentCriterionLabels <span class='op'>=</span> <span class='va'>parentCriterion_ids</span>,
+  scenarioOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weighedEstimates</span><span class='op'>$</span><span class='va'>scenario_id</span><span class='op'>)</span>,
+  scenarioLabels <span class='op'>=</span> <span class='va'>scenario_ids</span>,
   strokeColor <span class='op'>=</span> <span class='st'>"black"</span>,
   strokeSize <span class='op'>=</span> <span class='fl'>0.1</span>,
   title <span class='op'>=</span> <span class='st'>"MDMCDA criteria cluster bar chart"</span>,
@@ -141,22 +141,6 @@
       <td><p>The column name with the estimates to use.</p></td>
     </tr>
     <tr>
-      <th>parentCriterion_ids</th>
-      <td><p>The parent criteria to include.</p></td>
-    </tr>
-    <tr>
-      <th>parentCriterion_labels</th>
-      <td><p>The labels for the parent criteria.</p></td>
-    </tr>
-    <tr>
-      <th>scenario_ids</th>
-      <td><p>The scenarios to include.</p></td>
-    </tr>
-    <tr>
-      <th>scenario_labels</th>
-      <td><p>The labels for the scenarios.</p></td>
-    </tr>
-    <tr>
       <th>strokeColor, strokeSize</th>
       <td><p>The color and pen width of the stroke.</p></td>
     </tr>
@@ -176,6 +160,22 @@
       <th>legend.position, legend.box.margin</th>
       <td><p>The position and spacing for the
 legend.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterion_ids</th>
+      <td><p>The parent criteria to include.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterion_labels</th>
+      <td><p>The labels for the parent criteria.</p></td>
+    </tr>
+    <tr>
+      <th>scenario_ids</th>
+      <td><p>The scenarios to include.</p></td>
+    </tr>
+    <tr>
+      <th>scenario_labels</th>
+      <td><p>The labels for the scenarios.</p></td>
     </tr>
     </table>
 
