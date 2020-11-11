@@ -7,7 +7,7 @@
 #' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 #' are used to compose the decision plot labels.
 #' @export
-scoreBarchart_decisions_criteria <- function(weightedEstimates,
+scoreBarchart_criteria_decisions <- function(weightedEstimates,
                                              scenario_id,
                                              scenario_label = scenario_id,
                                              estimateCol,
@@ -24,8 +24,8 @@ scoreBarchart_decisions_criteria <- function(weightedEstimates,
                                              strokeColor = "black",
                                              wrapDecisionLabels = 35,
                                              wrapCriterionLabels = 50,
-                                             title = paste0("MDMCDA bar chart to compare decisions for ", scenario_label),
-                                             xLab = "Decisions",
+                                             title = paste0("MDMCDA bar chart to compare criteria for ", scenario_label),
+                                             xLab = "Criteria",
                                              yLab = "Weighted estimated effect",
                                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                              guides = ggplot2::guide_legend(ncol = 2),
@@ -130,13 +130,13 @@ scoreBarchart_decisions_criteria <- function(weightedEstimates,
 
   res <-
     ggplot2::ggplot(data = tmpDf,
-                    mapping = ggplot2::aes_string(x=decisionLabel_col,
+                    mapping = ggplot2::aes_string(x=criterionLabel_col,
                                                   y=estimateCol,
-                                                  fill=criterionLabel_col)) +
+                                                  fill=decisionLabel_col)) +
     ggplot2::geom_col(color =strokeColor,
                       size = strokeSize,
                       linetype = strokeType) +
-    ggplot2::scale_fill_viridis_d(name = "Criterion") +
+    ggplot2::scale_fill_viridis_d(name = "Decision") +
     ggplot2::scale_x_discrete(position="bottom") +
     theme +
     ggplot2::guides(fill = guides) +
