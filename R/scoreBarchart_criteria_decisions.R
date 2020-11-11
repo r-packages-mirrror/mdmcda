@@ -143,7 +143,8 @@ scoreBarchart_criteria_decisions <- function(weightedEstimates,
     ggplot2::theme(axis.text.x.bottom = axis.text.x.bottom,
                    plot.title.position = "plot",
                    legend.position = legend.position,
-                   legend.box.margin = legend.box.margin) +
+                   legend.box.margin = legend.box.margin,
+                   legend.text = ggtext::element_markdown()) +
     ggplot2::labs(title=title,
                   x=xLab,
                   y=yLab) +
