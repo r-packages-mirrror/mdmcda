@@ -1,6 +1,6 @@
 #' Create a data frame with scores per criteria cluster per scenario
 #'
-#' @param weighedEstimates A `weighedEstimates` object.
+#' @param weightedEstimates A `weightedEstimates` object.
 #' @param estimateCol The column name with the estimates to use.
 #' @param parentCriterionOrder The parent criteria to include.
 #' @param parentCriterionLabels The labels for the parent criteria.
@@ -12,11 +12,11 @@
 #'
 #' @return A data frame.
 #' @export
-criteriaCluster_df <- function(weighedEstimates,
+criteriaCluster_df <- function(weightedEstimates,
                                estimateCol,
-                               parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+                               parentCriterionOrder = unique(weightedEstimates$parentCriterion_id),
                                parentCriterionLabels = NULL,
-                               scenarioOrder = unique(weighedEstimates$scenario_id),
+                               scenarioOrder = unique(weightedEstimates$scenario_id),
                                scenarioLabels = NULL,
                                sortByScore = FALSE,
                                decreasing = TRUE) {
@@ -46,8 +46,8 @@ criteriaCluster_df <- function(weighedEstimates,
         function(scenario_id) {
           res <-
             aggregate_estimates_by_criterionCluster(
-              weighedEstimates[
-                weighedEstimates[, scenarioId_col]==scenario_id,
+              weightedEstimates[
+                weightedEstimates[, scenarioId_col]==scenario_id,
                 ,
                 drop=FALSE
               ],
@@ -72,10 +72,10 @@ criteriaCluster_df <- function(weighedEstimates,
 
   if (sortByScore) {
     scenarioScores <- scores_by_scenario(
-      weighedEstimates = weighedEstimates[
-        (weighedEstimates[, scenarioId_col] %in%
+      weightedEstimates = weightedEstimates[
+        (weightedEstimates[, scenarioId_col] %in%
            scenarioOrder) &
-          (weighedEstimates[, parentCriterionId_col] %in%
+          (weightedEstimates[, parentCriterionId_col] %in%
              parentCriterionOrder),
         ,
         drop=FALSE

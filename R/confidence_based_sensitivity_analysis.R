@@ -109,9 +109,9 @@ confidence_based_sensitivity_analysis <-
             cat0("\nPreparing dataframe to weigh estimates.\n");
           }
 
-          ### Create dataframe for the weighed estimates
-          res$weighedEstimates <-
-            build_weighed_estimate_df(multiEstimateDf = res$multiEstimateDf,
+          ### Create dataframe for the weighted estimates
+          res$weightedEstimates <-
+            build_weighted_estimate_df(multiEstimateDf = res$multiEstimateDf,
                                       criterionOrder = unique(res$multiEstimateDf[, criterionId_col]),
                                       decisionOrder = unique(res$multiEstimateDf[, decisionId_col]),
                                       scenarioOrder = scenarioOrder,
@@ -122,12 +122,12 @@ confidence_based_sensitivity_analysis <-
                                       warnForDuplicateEstimates = !silent);
 
           if (!silent) {
-            cat0("Actually weighing estimates.\n");
+            cat0("Actually weighting estimates.\n");
           }
 
           ### Actually weigh the estimates
-          res$weighedEstimates <-
-            weigh_estimates_by_profile(weighed_estimate_df = res$weighedEstimates,
+          res$weightedEstimates <-
+            weight_estimates_by_profile(weighted_estimate_df = res$weightedEstimates,
                                        weight_profiles = weightProfiles,
                                        weightProfileNames = names(weightProfiles));
           if (!silent) {
@@ -142,8 +142,8 @@ confidence_based_sensitivity_analysis <-
             compute_best_alternatives(scores_per_alternative=res$scores_per_alternative);
 
           res$scoresPerScenario <-
-            by(res$weighedEstimates[, estimate_col],
-               res$weighedEstimates[, scenarioId_col],
+            by(res$weightedEstimates[, estimate_col],
+               res$weightedEstimates[, scenarioId_col],
                sum);
           return(res);
         });

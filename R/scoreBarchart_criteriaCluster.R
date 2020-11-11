@@ -1,6 +1,6 @@
 #' Create a bar chart with scores per criteria cluster
 #'
-#' @param weighedEstimates A `weighedEstimates` object.
+#' @param weightedEstimates A `weightedEstimates` object.
 #' @param estimateCol The column name with the estimates to use.
 #' @param parentCriterion_ids The parent criteria to include.
 #' @param parentCriterion_labels The labels for the parent criteria.
@@ -15,11 +15,11 @@
 #'
 #' @return A `ggplot2` plot.
 #' @export
-scoreBarchart_criteriaCluster <- function(weighedEstimates,
+scoreBarchart_criteriaCluster <- function(weightedEstimates,
                                           estimateCol,
-                                          parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+                                          parentCriterionOrder = unique(weightedEstimates$parentCriterion_id),
                                           parentCriterionLabels = parentCriterion_ids,
-                                          scenarioOrder = unique(weighedEstimates$scenario_id),
+                                          scenarioOrder = unique(weightedEstimates$scenario_id),
                                           scenarioLabels = scenario_ids,
                                           strokeColor = "black",
                                           strokeSize = .1,
@@ -35,7 +35,7 @@ scoreBarchart_criteriaCluster <- function(weighedEstimates,
 
 
   tmpDf <-
-    criteriaCluster_df(weighedEstimates = weighedEstimates,
+    criteriaCluster_df(weightedEstimates = weightedEstimates,
                        estimateCol = estimateCol,
                        parentCriterionOrder = parentCriterionOrder,
                        parentCriterionLabels = parentCriterionLabels,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_estimates_by_decision.R
 \name{aggregate_estimates_by_decision}
 \alias{aggregate_estimates_by_decision}
-\title{Aggregate the (potentially weighed) estimates by decision}
+\title{Aggregate the (potentially weighted) estimates by decision}
 \usage{
 aggregate_estimates_by_decision(
   multiEstimateDf,
@@ -29,5 +29,5 @@ decision identifiers and the values in each decision}
 A data frame with aggregated estimates.
 }
 \description{
-Aggregate the (potentially weighed) estimates by decision
+Aggregate the (potentially weighted) estimates by decision
 }

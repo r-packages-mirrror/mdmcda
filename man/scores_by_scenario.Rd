@@ -4,12 +4,12 @@
 \alias{scores_by_scenario}
 \title{Get the aggregated scores for each scenario}
 \usage{
-scores_by_scenario(weighedEstimates, estimateCols, fun = sum, ...)
+scores_by_scenario(weightedEstimates, estimateCols, fun = sum, ...)
 }
 \arguments{
-\item{weighedEstimates}{The `weighedEstimates` object as created by
-[mdmcda::build_weighed_estimate_df()] and filled with the desired
-weighed estimates by [mdmcda::weigh_estimates_by_profile()].}
+\item{weightedEstimates}{The `weightedEstimates` object as created by
+[mdmcda::build_weighted_estimate_df()] and filled with the desired
+weighted estimates by [mdmcda::weight_estimates_by_profile()].}
 
 \item{estimateCols}{The column name(s) of the estimates to aggregate using
 function `fun`}

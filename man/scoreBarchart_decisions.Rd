@@ -10,7 +10,7 @@ scoreBarchart_decisions(
   fill = "black",
   strokeColor = "black",
   strokeSize = 0.1,
-  title = "MDMCDA decisions bar chart",
+  title = "MDMCDA scores per decision",
   xLab = "Decisions",
   yLab = estimateCol,
   decisionOrder = NULL,

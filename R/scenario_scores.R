@@ -70,7 +70,7 @@ scenario_scores <- function(criteria,
                                    currentCriterion,
                                    "', this alternative has score '",
                                    currentScore,
-                                   "' for weighing profile '",
+                                   "' for weighting profile '",
                                    currentWtProf,
                                    "'."));
 
@@ -83,7 +83,7 @@ scenario_scores <- function(criteria,
                       currentAlternative
                       , "', and criterion '",
                       currentCriterion,
-                      "', weighing profile '",
+                      "', weighting profile '",
                       currentWtProf,
                       "'! Specifically, ",
                       vecTxtQ(currentScore),
@@ -126,11 +126,11 @@ scenario_scores <- function(criteria,
   res$scoresDf <- data.frame();
 
   for (currentScenario in scenariosMetadataDf$scenario_id) {
-    for (currentWeighingProfile in unique(weightsDf$weight_profile_id)) {
+    for (currentWeightingProfile in unique(weightsDf$weight_profile_id)) {
       res$scoresDf[nrow(res$scoresDf) + 1, 'scenario'] <- currentScenario;
-      res$scoresDf[nrow(res$scoresDf), 'weightProfile'] <- currentWeighingProfile;
+      res$scoresDf[nrow(res$scoresDf), 'weightProfile'] <- currentWeightingProfile;
       res$scoresDf[nrow(res$scoresDf), 'score'] <-
-        sum(scenarioScores[[currentScenario]][[currentWeighingProfile]]$score,
+        sum(scenarioScores[[currentScenario]][[currentWeightingProfile]]$score,
             na.rm=TRUE);
     }
   }

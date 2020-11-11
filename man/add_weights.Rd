@@ -2,13 +2,13 @@
 % Please edit documentation in R/add_weights.R
 \name{add_weights}
 \alias{add_weights}
-\title{Add weights to a data frame for weighed estimates}
+\title{Add weights to a data frame for weighted estimates}
 \usage{
-add_weights(weighedEstimates, weightProfiles, weightProfileNames)
+add_weights(weightedEstimates, weightProfiles, weightProfileNames)
 }
 \arguments{
-\item{weighedEstimates}{A `weighedEstimates` data frame as returned
-by [mdmcda::build_weighed_estimate_df()].}
+\item{weightedEstimates}{A `weightedEstimates` data frame as returned
+by [mdmcda::build_weighted_estimate_df()].}
 
 \item{weightProfiles}{The weight profiles object}
 
@@ -16,8 +16,8 @@ by [mdmcda::build_weighed_estimate_df()].}
 weights for.}
 }
 \value{
-The `weighedEstimates` object with added weights.
+The `weightedEstimates` object with added weights.
 }
 \description{
-Add weights to a data frame for weighed estimates
+Add weights to a data frame for weighted estimates
 }

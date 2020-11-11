@@ -5,18 +5,18 @@
 \title{Create a data frame with scores per criteria cluster per scenario}
 \usage{
 criteriaCluster_df(
-  weighedEstimates,
+  weightedEstimates,
   estimateCol,
-  parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+  parentCriterionOrder = unique(weightedEstimates$parentCriterion_id),
   parentCriterionLabels = NULL,
-  scenarioOrder = unique(weighedEstimates$scenario_id),
+  scenarioOrder = unique(weightedEstimates$scenario_id),
   scenarioLabels = NULL,
   sortByScore = FALSE,
   decreasing = TRUE
 )
 }
 \arguments{
-\item{weighedEstimates}{A `weighedEstimates` object.}
+\item{weightedEstimates}{A `weightedEstimates` object.}
 
 \item{estimateCol}{The column name with the estimates to use.}
 

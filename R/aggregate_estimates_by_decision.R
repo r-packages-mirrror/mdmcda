@@ -1,4 +1,4 @@
-#' Aggregate the (potentially weighed) estimates by decision
+#' Aggregate the (potentially weighted) estimates by decision
 #'
 #' @param multiEstimateDf The `multiEstimateDf`.
 #' @param estimateCol The name of the column with the estimates to aggregate.

@@ -1,5 +1,5 @@
 #' @export
-weigh_estimates <- function(estimates,
+weight_estimates <- function(estimates,
                             weights) {
 
   weightsDf <- weights$weightsDf;

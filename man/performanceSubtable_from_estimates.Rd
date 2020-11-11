@@ -49,7 +49,7 @@ performance subtable.}
 
 \item{estimateColumn}{The column with the estimates; this can be changed to,
 for example, the column with the estimates of a specific scorer, or the
-weighed estimates, etc.}
+weighted estimates, etc.}
 
 \item{humanReadableOnly}{Whether to strip the columns with the decision
 identifiers and the alternative values (if `humanReadableOnly=TRUE`).}

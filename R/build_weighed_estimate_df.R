@@ -1,7 +1,7 @@
-#' Build a dataframe for weighed estimates
+#' Build a dataframe for weighted estimates
 #'
 #' This function is used to produce a data frame that can then be filled with
-#' weighed estimates using [weigh_estimates_by_profile()].
+#' weighted estimates using [weight_estimates_by_profile()].
 #'
 #' @param multiEstimateDf A multi estimate data frame that should contain
 #' columns `decision_id`, `decision_label`, `alternative_value`,
@@ -31,9 +31,9 @@
 #'
 #' @return A dataframe with columns `scenario_id`, `decision_id`,
 #' `alternative_value`, `criterion_id`, and `estimate`. This data frame can
-#' be supplied to [weigh_estimates_by_profile()].
+#' be supplied to [weight_estimates_by_profile()].
 #' @export
-build_weighed_estimate_df <-
+build_weighted_estimate_df <-
   function(multiEstimateDf,
            criterionOrder,
            scorer,
@@ -96,7 +96,7 @@ build_weighed_estimate_df <-
       alternative_values <-
         unique(multiEstimateDf[, alternativeValue_col]);
 
-      weighedEstimates <- data.frame(scenario_id=character(),
+      weightedEstimates <- data.frame(scenario_id=character(),
                                      decision_id=character(),
                                      alternative_value=numeric(),
                                      criterion_id=character(),
@@ -140,8 +140,8 @@ build_weighed_estimate_df <-
             }
             estimate <- mean(estimate, na.rm = TRUE);
           }
-          weighedEstimates <-
-            rbind(weighedEstimates,
+          weightedEstimates <-
+            rbind(weightedEstimates,
                   data.frame(scenario_id="none",
                              decision_id=currentDecision,
                              alternative_value=currentAlternativeValue,
@@ -158,7 +158,7 @@ build_weighed_estimate_df <-
                !is.null(scenarioDefinitions) &&
                !is.null(decisionOrder)) {
 
-      weighedEstimates <- data.frame(scenario_id=character(),
+      weightedEstimates <- data.frame(scenario_id=character(),
                                      decision_id=character(),
                                      alternative_value=numeric(),
                                      criterion_id=character(),
@@ -209,9 +209,9 @@ build_weighed_estimate_df <-
               }
               estimate <- mean(estimate, na.rm = TRUE);
             }
-            weighedEstimates <-
+            weightedEstimates <-
               rbind(
-                weighedEstimates,
+                weightedEstimates,
                 stats::setNames(
                   data.frame(scenario_id=currentScenario,
                              decision_id=currentDecision,
@@ -236,12 +236,12 @@ build_weighed_estimate_df <-
           "sticking to one decision), none of these three must be provided!");
     }
 
-    class(weighedEstimates) <-
-      c("mdmcda_weighedEstimates",
-        class(weighedEstimates)
+    class(weightedEstimates) <-
+      c("mdmcda_weightedEstimates",
+        class(weightedEstimates)
       );
 
-    return(weighedEstimates);
+    return(weightedEstimates);
 
   }
 

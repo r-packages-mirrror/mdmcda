@@ -8,6 +8,7 @@ scenario_overview(
   multiEstimateDf,
   estimateCol,
   scenario,
+  scenarioLabel = NULL,
   createPlots = TRUE,
   decisionPlotOrder = "decreasing",
   criterionPlotOrder = "decreasing",
@@ -17,13 +18,13 @@ scenario_overview(
   criterionLabels = NULL,
   decisionLabels = NULL,
   alternativeLabels = NULL,
-  scenarioLabel = NULL,
   parentCriterionIds_by_childId = NULL,
   verticalPlots = FALSE,
   useDecisionAlternativeLabels = TRUE,
   decision_alternative_pre = "**",
   decision_alternative_sep = "**:<br />",
   decision_alternative_suf = "",
+  alternativeToOmitInTable = "Not applicable",
   scoreBarchart_criteria_args = NULL,
   scoreBarchart_decisions_args = NULL
 )
@@ -66,6 +67,9 @@ the scenario.}
 \item{decision_alternative_pre, decision_alternative_sep, decision_alternative_suf}{If
 `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 are used to compose the decision plot labels.}
+
+\item{alternativeToOmitInTable}{This alternative is not shown in the
+table with highlighted options, unless it's selected for a scenario.}
 
 \item{scoreBarchart_criteria_args, scoreBarchart_decisions_args}{These
 arguments can be used to specify named lists with additional arguments for
