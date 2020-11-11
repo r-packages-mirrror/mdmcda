@@ -95,6 +95,11 @@ scorerWeightPlot <- function(weights,
       weightsMeansAndSDs[
         weightsMeansAndSDs[, parentCriterionId_col]==parentCriterion_id,
       ];
+    tmpDf[, criterionLabel_col] <-
+      factor(tmpDf[, criterionId_col],
+             levels = criterionOrder,
+             labels = criterionLabels);
+
     tmpDf$ymin <- as.numeric(factor(tmpDf[, criterionId_col]))-.4;
     tmpDf$ymax <- as.numeric(factor(tmpDf[, criterionId_col]))+.4;
 
