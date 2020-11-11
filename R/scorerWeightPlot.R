@@ -2,13 +2,14 @@
 scorerWeightPlot <- function(weights,
                              weightsMeansAndSDs,
                              parentCriterion_id,
+                             parentCriterion_label = parentCriterion_id,
                              criterionOrder = NULL,
                              criterionLabels = NULL,
                              meanColumns = c("weight_mean",
                                              "weight_mean_rescaled"),
                              meanColors = c("black", "black"),
                              meanAlphas = c(0.2, 1),
-                             title = "Scorer weight plot for criterion cluster %s",
+                             title = paste0("Scorer weight plot for criterion cluster ", parentCriterion_label),
                              subtitle = "Grey lines are means; black lines are rescaled means.",
                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
 
@@ -19,14 +20,6 @@ scorerWeightPlot <- function(weights,
   decisionLabel_col <- mdmcda::opts$get("decisionLabel_col");
   scenarioId_col <- mdmcda::opts$get("scenarioId_col");
   scenarioLabel_col <- mdmcda::opts$get("scenarioLabel_col");
-
-  if (!is.null(criterionLabels)) {
-    parentCriterion_label <- criterionLabels[parentCriterion_id];
-  } else {
-    parentCriterion_label <- parentCriterion_id;
-  }
-
-  title <- sprintf(title, parentCriterion_label);
 
   tmpWeightDf <-
     weights$allWeights[
