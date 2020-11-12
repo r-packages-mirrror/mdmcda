@@ -245,39 +245,45 @@ scenario_overview <- function(multiEstimateDf,
         scoreBarchart_criteria_args
       );
 
-    ###-------------------------------------------------------------------------
-    ### Table with only the selected alternatives
-    ###-------------------------------------------------------------------------
-
-    res$scenario_alternative_table <-
-      mdmcda::scenario_alternative_table(
-        scenarioDefinition = scenario,
-        alternativeLabels = alternativeLabels,
-        decisionOrder = decisionOrder,
-        decisionLabels = decisionLabels
-      );
-
-    ###-------------------------------------------------------------------------
-    ### Table with selected alternatives highlighted
-    ###-------------------------------------------------------------------------
-
-    res$highlighted_alternative_table <-
-      mdmcda::highlighted_alternative_table(
-        scores_per_alternative,
-        scenario=scenario,
-        alternativeLabels = alternativeLabels,
-        decisionOrder = decisionOrder,
-        decisionLabels = decisionLabels,
-        colNames = c("Policy instruments and selected options", "Scores"),
-        omit = alternativeToOmitInTable,
-        caption = paste0("Overview of alternatives ",
-                         "with the alternatives selected in scenario '",
-                         scenarioLabel, "' in bold."),
-        estimateParseFunction = round,
-        digits = 0
-      );
-
   }
+
+  ###-------------------------------------------------------------------------
+  ### Table with only the selected alternatives
+  ###-------------------------------------------------------------------------
+
+  res$scenario_alternative_table <-
+    mdmcda::scenario_alternative_table(
+      scenarioDefinition = scenario,
+      alternativeLabels = alternativeLabels,
+      decisionOrder = decisionOrder,
+      decisionLabels = decisionLabels
+    );
+
+  ###-------------------------------------------------------------------------
+  ### Table with selected alternatives highlighted
+  ###-------------------------------------------------------------------------
+
+  scores_per_alternative <-
+    mdmcda::compute_scores_per_alternative(
+      multiEstimateDf = estimates$multiEstimateDf,
+      weightProfiles = weightProfiles
+    );
+
+  res$highlighted_alternative_table <-
+    mdmcda::highlighted_alternative_table(
+      scores_per_alternative = scores_per_alternative,
+      scenario=scenario,
+      alternativeLabels = alternativeLabels,
+      decisionOrder = decisionOrder,
+      decisionLabels = decisionLabels,
+      colNames = c("Policy instruments and selected options", "Scores"),
+      omit = alternativeToOmitInTable,
+      caption = paste0("Overview of alternatives ",
+                       "with the alternatives selected in scenario '",
+                       scenarioLabel, "' in bold."),
+      estimateParseFunction = round,
+      digits = 0
+    );
 
   return(res);
 }
