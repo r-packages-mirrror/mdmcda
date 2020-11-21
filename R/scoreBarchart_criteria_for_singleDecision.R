@@ -33,7 +33,8 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
                                                       fill = "black",
                                                       strokeColor = "black",
                                                       strokeSize = .1,
-                                                      title = "MDMCDA criteria bar chart for %s",
+                                                      title = "MDMCDA criteria bar chart for '%s'",
+                                                      subtitle = "Scores for alternative '%s' (total: %s)",
                                                       xLab = "Criteria",
                                                       yLab = "Score",
                                                       criterionOrder = NULL,
@@ -80,17 +81,6 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
     }
   }
 
-
-
-  title <-
-    sprintf(title,
-            paste0(
-              decision_label,
-              ": ",
-              alternative_label
-            )
-          );
-
   estimatesByCriterion <-
     multiEstimateDf[
       (multiEstimateDf[, decisionId_col] == decision_id) &
@@ -135,6 +125,12 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
            labels = criterionLabels[criterionOrder],
            ordered = TRUE);
 
+  ### Prepare title & subtitle
+  title <- sprintf(title, decision_label);
+  subtitle <- sprintf(subtitle,
+                      alternative_label,
+                      sum(estimatesByCriterion[, estimateCol]));
+
   if (!is.null(parentCriterionIds_by_childId)) {
 
     estimatesByCriterion$clusters <-
@@ -178,6 +174,7 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
                    legend.position = legend.position,
                    legend.box.margin = legend.box.margin) +
     ggplot2::labs(title = title,
+                  subtitle = subtitle,
                   x = xLab,
                   y = yLab) +
     NULL;
