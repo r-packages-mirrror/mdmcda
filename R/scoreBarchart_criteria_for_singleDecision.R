@@ -1,7 +1,6 @@
-#' Create a bar chart with scores per criterion
+#' Create a bar chart with scores per criterion for one alternative
 #'
-#' @param estimatesByCriterion An `estimatesByCriterion` object as created by
-#' [aggregate_estimates_by_criterion()].
+#' @param multiEstimateDf A `multiEstimateDf` object.
 #' @param estimateCol The column name with the estimates to use.
 #' @param fill The color to use to fill the bars, if not by criterion cluster.
 #' @param strokeColor,strokeSize The color and pen width of the stroke.
