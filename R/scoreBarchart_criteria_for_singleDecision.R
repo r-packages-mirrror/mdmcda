@@ -47,6 +47,7 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
                                                       xLabelRotationAngle = 45,
                                                       normalizeScoreAxis = TRUE,
                                                       verticalPlot = FALSE,
+                                                      scoreDigits = 0,
                                                       theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                                       guides = ggplot2::guide_legend(nrow = 2),
                                                       legend.position = "top",
@@ -130,7 +131,8 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
   title <- sprintf(title, decision_label);
   subtitle <- sprintf(subtitle,
                       alternative_label,
-                      sum(estimatesByCriterion[, estimateCol]));
+                      round(sum(estimatesByCriterion[, estimateCol]),
+                            scoreDigits));
 
   if (!is.null(parentCriterionIds_by_childId)) {
 
