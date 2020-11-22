@@ -45,6 +45,7 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
                                                       decisionLabels = NULL,
                                                       alternativeLabels = NULL,
                                                       xLabelRotationAngle = 45,
+                                                      normalizeScoreAxis = TRUE,
                                                       verticalPlot = FALSE,
                                                       theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                                       guides = ggplot2::guide_legend(nrow = 2),
@@ -178,6 +179,14 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
                   x = xLab,
                   y = yLab) +
     NULL;
+
+  if (normalizeScoreAxis) {
+    yMin <- min(multiEstimateDf[, estimateCol], na.rm=TRUE);
+    yMax <- max(multiEstimateDf[, estimateCol], na.rm=TRUE);
+    res <-
+      res +
+      ggplot2::coord_cartesian(ylim = c(yMin, yMax));
+  }
 
   if (verticalPlot) {
     res <- res +
