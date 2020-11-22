@@ -185,6 +185,8 @@ scoreBarchart_criteria_for_singleDecision <- function(multiEstimateDf,
     yMax <- max(multiEstimateDf[, estimateCol], na.rm=TRUE);
     res <-
       res +
+      ggplot2::geom_hline(yintercept = yMin) +
+      ggplot2::geom_hline(yintercept = yMax) +
       ggplot2::coord_cartesian(ylim = c(yMin, yMax));
   }
 
