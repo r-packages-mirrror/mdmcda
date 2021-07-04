@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import scenario definitions defined in columns — read_scenarioDefinitions_in_columns_from_xl • mdmcda</title>
+<title>Create a data frame with scores per criteria cluster per alternative — criteriaCluster_df_perAlternative • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Import scenario definitions defined in columns — read_scenarioDefinitions_in_columns_from_xl" />
-<meta property="og:description" content="Import scenario definitions defined in columns" />
+<meta property="og:title" content="Create a data frame with scores per criteria cluster per alternative — criteriaCluster_df_perAlternative" />
+<meta property="og:description" content="Create a data frame with scores per criteria cluster per alternative" />
 
 
 
@@ -103,45 +103,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import scenario definitions defined in columns</h1>
+    <h1>Create a data frame with scores per criteria cluster per alternative</h1>
     
-    <div class="hidden name"><code>read_scenarioDefinitions_in_columns_from_xl.Rd</code></div>
+    <div class="hidden name"><code>criteriaCluster_df_perAlternative.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Import scenario definitions defined in columns</p>
+    <p>Create a data frame with scores per criteria cluster per alternative</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_scenarioDefinitions_in_columns_from_xl</span><span class='op'>(</span>
-  <span class='va'>file</span>,
-  decisionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionId_col"</span><span class='op'>)</span>,
-  decisionLabel_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionLabel_col"</span><span class='op'>)</span>,
-  decisionDescription_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionDescription_col"</span><span class='op'>)</span>,
-  decisionAlternatives_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionAlternatives_col"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>criteriaCluster_df_perAlternative</span><span class='op'>(</span>
+  <span class='va'>multiEstimateDf</span>,
+  <span class='va'>estimateCol</span>,
+  <span class='va'>criteria</span>,
+  <span class='va'>alternativeLabels</span>,
+  parentCriterionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weightedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
+  parentCriterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  decisionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weightedEstimates</span><span class='op'>$</span><span class='va'>decision_id</span><span class='op'>)</span>,
+  decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>The filename holding the scenario definitions, with the first
-three columns specifying the decision identifiers, labels, and descriptions,
-the fourth column specifying the concatenated alternative labels and values,
-and the other columns specifying scenarios, with each column name being
-a scenario identifier, and the values in each column indicating the selected
-alternative value for each decision.</p></td>
+      <th>multiEstimateDf</th>
+      <td><p>A `multiEstimateDf` data frame.</p></td>
     </tr>
     <tr>
-      <th>decisionId_col, decisionLabel_col, decisionDescription_col, decisionAlternatives_col</th>
-      <td><p>The
-column names.</p></td>
+      <th>estimateCol</th>
+      <td><p>The column name with the estimates to use.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionOrder</th>
+      <td><p>The parent criteria to include.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionLabels</th>
+      <td><p>The labels for the parent criteria.</p></td>
+    </tr>
+    <tr>
+      <th>decisionOrder</th>
+      <td><p>The decisions to include.</p></td>
+    </tr>
+    <tr>
+      <th>decisionLabels</th>
+      <td><p>The labels for the decisions.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of vectors (i.e. a scenarioDefinitions object).</p>
+    <p>A data frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

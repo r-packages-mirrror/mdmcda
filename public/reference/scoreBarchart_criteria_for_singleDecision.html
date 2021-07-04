@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a bar chart with scores per criteria cluster per scenario — scoreBarchart_scenariosByCluster • mdmcda</title>
+<title>Create a bar chart with scores per criterion for one alternative — scoreBarchart_criteria_for_singleDecision • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a bar chart with scores per criteria cluster per scenario — scoreBarchart_scenariosByCluster" />
-<meta property="og:description" content="Create a bar chart with scores per criteria cluster per scenario" />
+<meta property="og:title" content="Create a bar chart with scores per criterion for one alternative — scoreBarchart_criteria_for_singleDecision" />
+<meta property="og:description" content="Create a bar chart with scores per criterion for one alternative" />
 
 
 
@@ -103,58 +103,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a bar chart with scores per criteria cluster per scenario</h1>
+    <h1>Create a bar chart with scores per criterion for one alternative</h1>
     
-    <div class="hidden name"><code>scoreBarchart_scenariosByCluster.Rd</code></div>
+    <div class="hidden name"><code>scoreBarchart_criteria_for_singleDecision.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a bar chart with scores per criteria cluster per scenario</p>
+    <p>Create a bar chart with scores per criterion for one alternative</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scoreBarchart_scenariosByCluster</span><span class='op'>(</span>
-  <span class='va'>weightedEstimates</span>,
+    <pre class="usage"><span class='fu'>scoreBarchart_criteria_for_singleDecision</span><span class='op'>(</span>
+  <span class='va'>multiEstimateDf</span>,
   <span class='va'>estimateCol</span>,
-  parentCriterionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weightedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
-  parentCriterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weightedEstimates</span><span class='op'>$</span><span class='va'>scenario_id</span><span class='op'>)</span>,
-  scenarioLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  sortByScore <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  decreasing <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  strokeSize <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>decision_id</span>,
+  scenario_id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scenarioDefinitions <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alternative_value <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fill <span class='op'>=</span> <span class='st'>"black"</span>,
   strokeColor <span class='op'>=</span> <span class='st'>"black"</span>,
-  title <span class='op'>=</span> <span class='st'>"MDMCDA scores by scenarios by criteria cluster"</span>,
-  xLab <span class='op'>=</span> <span class='st'>"Scenario"</span>,
-  yLab <span class='op'>=</span> <span class='va'>estimateCol</span>,
+  strokeSize <span class='op'>=</span> <span class='fl'>0.1</span>,
+  title <span class='op'>=</span> <span class='st'>"MDMCDA criteria bar chart for '%s'"</span>,
+  subtitle <span class='op'>=</span> <span class='st'>"Scores for alternative '%s' (total: %s)"</span>,
+  xLab <span class='op'>=</span> <span class='st'>"Criteria"</span>,
+  yLab <span class='op'>=</span> <span class='st'>"Score"</span>,
+  criterionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  criterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parentCriterionOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parentCriterionIds_by_childId <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alternative_label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alternativeLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xLabelRotationAngle <span class='op'>=</span> <span class='fl'>45</span>,
+  normalizeScoreAxis <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  verticalPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  scoreDigits <span class='op'>=</span> <span class='fl'>0</span>,
   theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>,
   guides <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>,
-  legend.position <span class='op'>=</span> <span class='st'>"top"</span>
+  legend.position <span class='op'>=</span> <span class='st'>"top"</span>,
+  legend.box.margin <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='st'>"cm"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>weightedEstimates</th>
-      <td><p>A `weightedEstimates` object.</p></td>
+      <th>multiEstimateDf</th>
+      <td><p>A `multiEstimateDf` object.</p></td>
     </tr>
     <tr>
       <th>estimateCol</th>
       <td><p>The column name with the estimates to use.</p></td>
     </tr>
     <tr>
-      <th>scenarioOrder</th>
-      <td><p>The scenarios to include.</p></td>
-    </tr>
-    <tr>
-      <th>scenarioLabels</th>
-      <td><p>The labels for the scenarios.</p></td>
-    </tr>
-    <tr>
-      <th>sortByScore, decreasing</th>
-      <td><p>Whether to sort the scenarios by their total
-scores, and if so, whether to sort them in decreasing order (from the left
-side) or in increasing order.</p></td>
+      <th>fill</th>
+      <td><p>The color to use to fill the bars, if not by criterion cluster.</p></td>
     </tr>
     <tr>
       <th>strokeColor, strokeSize</th>
@@ -163,6 +165,36 @@ side) or in increasing order.</p></td>
     <tr>
       <th>title, xLab, yLab</th>
       <td><p>The title and x and y axis labels.</p></td>
+    </tr>
+    <tr>
+      <th>criterionOrder</th>
+      <td><p>The order of the criteria, a vector
+with criterion identifiers.</p></td>
+    </tr>
+    <tr>
+      <th>criterionLabels</th>
+      <td><p>The criterion labels, a names vector where every
+element if a label and the corresponding name the criterion identifier.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionOrder</th>
+      <td><p>The order of the parent criteria (the clusters),
+a vector with criterion identifiers.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionIds_by_childId</th>
+      <td><p>A names vector to easily find the
+parent criterion identifier of each criterion identifier; the names should
+be the criterion identifiers in `criterionOrder`, and the values the
+corresponding parent criterion identifiers.</p></td>
+    </tr>
+    <tr>
+      <th>xLabelRotationAngle</th>
+      <td><p>THe angel to rotate the x axis labels.</p></td>
+    </tr>
+    <tr>
+      <th>verticalPlot</th>
+      <td><p>Whether to plot vertically.</p></td>
     </tr>
     <tr>
       <th>theme</th>
@@ -176,14 +208,6 @@ side) or in increasing order.</p></td>
       <th>legend.position, legend.box.margin</th>
       <td><p>The position and spacing for the
 legend.</p></td>
-    </tr>
-    <tr>
-      <th>parentCriterion_ids</th>
-      <td><p>The parent criteria to include.</p></td>
-    </tr>
-    <tr>
-      <th>parentCriterion_labels</th>
-      <td><p>The labels for the parent criteria.</p></td>
     </tr>
     </table>
 

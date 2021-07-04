@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,16 +112,16 @@
     <p>Get the aggregated scores for each scenario</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scores_by_scenario</span><span class='op'>(</span><span class='va'>weighedEstimates</span>, <span class='va'>estimateCols</span>, fun <span class='op'>=</span> <span class='va'>sum</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>scores_by_scenario</span><span class='op'>(</span><span class='va'>weightedEstimates</span>, <span class='va'>estimateCols</span>, fun <span class='op'>=</span> <span class='va'>sum</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>weighedEstimates</th>
-      <td><p>The `weighedEstimates` object as created by
-[mdmcda::build_weighed_estimate_df()] and filled with the desired
-weighed estimates by [mdmcda::weigh_estimates_by_profile()].</p></td>
+      <th>weightedEstimates</th>
+      <td><p>The `weightedEstimates` object as created by
+[mdmcda::build_weighted_estimate_df()] and filled with the desired
+weighted estimates by [mdmcda::weight_estimates_by_profile()].</p></td>
     </tr>
     <tr>
       <th>estimateCols</th>

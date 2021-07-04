@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import scenario definitions defined in columns — read_scenarioDefinitions_in_columns_from_xl • mdmcda</title>
+<title>Create a bar chart with scores per criteria cluster for every alternative in a decision — scoreBarchart_criteriaCluster_by_alternative • mdmcda</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Import scenario definitions defined in columns — read_scenarioDefinitions_in_columns_from_xl" />
-<meta property="og:description" content="Import scenario definitions defined in columns" />
+<meta property="og:title" content="Create a bar chart with scores per criteria cluster for every alternative in a decision — scoreBarchart_criteriaCluster_by_alternative" />
+<meta property="og:description" content="Create a bar chart with scores per criteria cluster for every alternative in a decision" />
 
 
 
@@ -103,45 +103,106 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import scenario definitions defined in columns</h1>
+    <h1>Create a bar chart with scores per criteria cluster for every alternative in a decision</h1>
     
-    <div class="hidden name"><code>read_scenarioDefinitions_in_columns_from_xl.Rd</code></div>
+    <div class="hidden name"><code>scoreBarchart_criteriaCluster_by_alternative.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Import scenario definitions defined in columns</p>
+    <p>Create a bar chart with scores per criteria cluster for every alternative in a decision</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_scenarioDefinitions_in_columns_from_xl</span><span class='op'>(</span>
-  <span class='va'>file</span>,
-  decisionId_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionId_col"</span><span class='op'>)</span>,
-  decisionLabel_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionLabel_col"</span><span class='op'>)</span>,
-  decisionDescription_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionDescription_col"</span><span class='op'>)</span>,
-  decisionAlternatives_col <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"decisionAlternatives_col"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>scoreBarchart_criteriaCluster_by_alternative</span><span class='op'>(</span>
+  <span class='va'>multiEstimateDf</span>,
+  <span class='va'>estimateCol</span>,
+  <span class='va'>criteria</span>,
+  <span class='va'>decision_id</span>,
+  alternativeValueRegex <span class='op'>=</span> <span class='st'>".*"</span>,
+  parentCriterionOrder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>weightedEstimates</span><span class='op'>$</span><span class='va'>parentCriterion_id</span><span class='op'>)</span>,
+  parentCriterionLabels <span class='op'>=</span> <span class='va'>parentCriterion_ids</span>,
+  decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alternativeLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wrapLabels <span class='op'>=</span> <span class='fl'>30</span>,
+  scoreRange <span class='op'>=</span> <span class='cn'>NULL</span>,
+  strokeColor <span class='op'>=</span> <span class='st'>"black"</span>,
+  strokeSize <span class='op'>=</span> <span class='fl'>0.1</span>,
+  title <span class='op'>=</span> <span class='st'>"MDMCDA criteria cluster bar chart by alternative"</span>,
+  xLab <span class='op'>=</span> <span class='st'>"Alternatives"</span>,
+  yLab <span class='op'>=</span> <span class='va'>estimateCol</span>,
+  theme <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fu'>mdmcda</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ggBaseSize"</span><span class='op'>)</span><span class='op'>)</span>,
+  guides <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  legend.position <span class='op'>=</span> <span class='st'>"top"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>The filename holding the scenario definitions, with the first
-three columns specifying the decision identifiers, labels, and descriptions,
-the fourth column specifying the concatenated alternative labels and values,
-and the other columns specifying scenarios, with each column name being
-a scenario identifier, and the values in each column indicating the selected
-alternative value for each decision.</p></td>
+      <th>multiEstimateDf</th>
+      <td><p>A `multiEstimateDf` data frame.</p></td>
     </tr>
     <tr>
-      <th>decisionId_col, decisionLabel_col, decisionDescription_col, decisionAlternatives_col</th>
-      <td><p>The
-column names.</p></td>
+      <th>estimateCol</th>
+      <td><p>The column name with the estimates to use.</p></td>
+    </tr>
+    <tr>
+      <th>criteria</th>
+      <td><p>A `criteria` object.</p></td>
+    </tr>
+    <tr>
+      <th>decision_id</th>
+      <td><p>The identifier of the decision to show.</p></td>
+    </tr>
+    <tr>
+      <th>alternativeValueRegex</th>
+      <td><p>Regex to select alternative values to include.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterionOrder</th>
+      <td><p>The parent criteria to use, and their order.</p></td>
+    </tr>
+    <tr>
+      <th>decisionLabels</th>
+      <td><p>The labels for the decisions (a named vector).</p></td>
+    </tr>
+    <tr>
+      <th>alternativeLabels</th>
+      <td><p>The labels for the alternatives (a list of named vectors).</p></td>
+    </tr>
+    <tr>
+      <th>wrapLabels</th>
+      <td><p>Where to wrap labels (`NULL` to not wrap).</p></td>
+    </tr>
+    <tr>
+      <th>strokeColor, strokeSize</th>
+      <td><p>The color and pen width of the stroke.</p></td>
+    </tr>
+    <tr>
+      <th>title, xLab, yLab</th>
+      <td><p>The title and x and y axis labels.</p></td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td><p>The `ggplot2` theme to use.</p></td>
+    </tr>
+    <tr>
+      <th>guides</th>
+      <td><p>A guides argument to tweak the legend.</p></td>
+    </tr>
+    <tr>
+      <th>legend.position, legend.box.margin</th>
+      <td><p>The position and spacing for the
+legend.</p></td>
+    </tr>
+    <tr>
+      <th>parentCriterion_labels</th>
+      <td><p>The labels for the parent criteria (a named vector).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of vectors (i.e. a scenarioDefinitions object).</p>
+    <p>A `ggplot2` plot.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
