@@ -2,7 +2,7 @@
 % Please edit documentation in R/scoreBarchart_criteria_for_singleDecision.R
 \name{scoreBarchart_criteria_for_singleDecision}
 \alias{scoreBarchart_criteria_for_singleDecision}
-\title{Create a bar chart with scores per criterion}
+\title{Create a bar chart with scores per criterion for one alternative}
 \usage{
 scoreBarchart_criteria_for_singleDecision(
   multiEstimateDf,
@@ -14,7 +14,8 @@ scoreBarchart_criteria_for_singleDecision(
   fill = "black",
   strokeColor = "black",
   strokeSize = 0.1,
-  title = "MDMCDA criteria bar chart for \%s",
+  title = "MDMCDA criteria bar chart for '\%s'",
+  subtitle = "Scores for alternative '\%s' (total: \%s)",
   xLab = "Criteria",
   yLab = "Score",
   criterionOrder = NULL,
@@ -25,7 +26,9 @@ scoreBarchart_criteria_for_singleDecision(
   decisionLabels = NULL,
   alternativeLabels = NULL,
   xLabelRotationAngle = 45,
+  normalizeScoreAxis = TRUE,
   verticalPlot = FALSE,
+  scoreDigits = 0,
   theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
   guides = ggplot2::guide_legend(nrow = 2),
   legend.position = "top",
@@ -33,6 +36,8 @@ scoreBarchart_criteria_for_singleDecision(
 )
 }
 \arguments{
+\item{multiEstimateDf}{A `multiEstimateDf` object.}
+
 \item{estimateCol}{The column name with the estimates to use.}
 
 \item{fill}{The color to use to fill the bars, if not by criterion cluster.}
@@ -65,13 +70,10 @@ corresponding parent criterion identifiers.}
 
 \item{legend.position, legend.box.margin}{The position and spacing for the
 legend.}
-
-\item{estimatesByCriterion}{An `estimatesByCriterion` object as created by
-[aggregate_estimates_by_criterion()].}
 }
 \value{
 A `ggplot2` plot.
 }
 \description{
-Create a bar chart with scores per criterion
+Create a bar chart with scores per criterion for one alternative
 }

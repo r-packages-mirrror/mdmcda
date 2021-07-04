@@ -8,6 +8,7 @@ aggregate_estimates_by_criterionCluster(
   multiEstimateDf,
   estimateCol,
   parentCriterionId_col = mdmcda::opts$get("parentCriterionId_col"),
+  parentCriterionOrder = NULL,
   fun = sum,
   ...
 )
