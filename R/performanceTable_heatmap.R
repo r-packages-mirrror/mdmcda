@@ -1,12 +1,12 @@
 #' Create a performance table heatmap
 #'
-#' This is a convenient visualisation that shows the (weighed) estimates
+#' This is a convenient visualisation that shows the (weighted) estimates
 #' for each decision/criterion combination. Decisions are sorted
 #' alphabetically and criteria are sorted alphabetically within their
 #' clusters, which are also sorted alphabetically.
 #'
-#' @param weighedEstimates A `weighedEstimates` data frame as produced by
-#' [mdmcda::weigh_estimates()].
+#' @param weightedEstimates A `weightedEstimates` data frame as produced by
+#' [mdmcda::weight_estimates()].
 #' @param estimateCol The name of the column with the estimates.
 #' @param scenario_id,scenario_label The identifier and label of the scenario
 #' to create the heatmap for.
@@ -16,7 +16,7 @@
 #' for the criteria and decisions. These have to be named vectors, with the
 #' elements being the labels, and the names the identifiers.
 #' @param alternativeLabels The `alternativeLabels` object; optionally, to
-#' override the alternative labels in the `weighedEstimates` object.
+#' override the alternative labels in the `weightedEstimates` object.
 #' @param useDecisionAlternativeLabels Whether to label the decision plot with
 #' the decisions or combined labels that also include the alternative for
 #' the scenario.
@@ -24,12 +24,12 @@
 #' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 #' are used to compose the decision plot labels.
 #' @param criterionId_col,parentCriterionId_col,criterionLabel_col,decisionId_col,decisionLabel_col,alternativeValue_col,alternativeLabel_col,alternativeLabel_col,scenarioId_col The
-#' column names in the `weighedEstimates` data frame.
+#' column names in the `weightedEstimates` data frame.
 #' @param theme The `ggplot2` theme to use.
 #'
 #' @return A `ggplot2` plot.
 #' @export
-performanceTable_heatmap <- function(weighedEstimates,
+performanceTable_heatmap <- function(weightedEstimates,
                                      estimateCol,
                                      scenario_id,
                                      scenario_label = scenario_id,
@@ -53,17 +53,17 @@ performanceTable_heatmap <- function(weighedEstimates,
                                      theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize"))) {
 
   fullEstimateRange <-
-    range(weighedEstimates[, estimateCol],
+    range(weightedEstimates[, estimateCol],
           na.rm=TRUE);
   tmpDf <-
-    weighedEstimates[weighedEstimates[, scenarioId_col]==scenario_id,
+    weightedEstimates[weightedEstimates[, scenarioId_col]==scenario_id,
                      c(decisionId_col,
                        alternativeValue_col,
                        criterionId_col,
                        estimateCol)];
 
   criteria_by_parent <-
-    unique(weighedEstimates[, c(criterionId_col, parentCriterionId_col)]);
+    unique(weightedEstimates[, c(criterionId_col, parentCriterionId_col)]);
   criteria_by_parent <-
     criteria_by_parent[order(criteria_by_parent[, parentCriterionId_col]),
                        criterionId_col];
@@ -141,7 +141,7 @@ performanceTable_heatmap <- function(weighedEstimates,
                                                   y=decisionLabel_col,
                                                   fill=estimateCol)) +
     ggplot2::geom_tile(color="black") +
-    ggplot2::scale_fill_viridis_c(name = "Weighed\nestimated\neffect",
+    ggplot2::scale_fill_viridis_c(name = "Weighted\nestimated\neffect",
                                   limits=fullEstimateRange) +
     theme +
     ggplot2::scale_x_discrete(position="top") +

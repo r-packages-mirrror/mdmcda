@@ -1,7 +1,7 @@
 #' @export
 weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                               weightsMeansAndSDs,
-                                              weighedEstimates,
+                                              weightedEstimates,
                                               criteria,
                                               scenarioDefinitions,
                                               scenarioOrder = names(scenarioDefinitions),
@@ -112,23 +112,23 @@ weight_based_sensitivity_analysis <- function(multiEstimateDf,
                                                     weightCol = "weight_mean_rescaled_proportion_total_percentage",
                                                     clusterWeightCol = "weight_mean_rescaled_proportion_product");
 
-                    res$weighedEstimates <-
-                      mdmcda::add_weights(weighedEstimates = weighedEstimates,
+                    res$weightedEstimates <-
+                      mdmcda::add_weights(weightedEstimates = weightedEstimates,
                                           weightProfiles = res$weightProfiles,
                                           weightProfileNames = names(res$weightProfiles));
 
                     res$scoresPerScenario <-
                       mdmcda::scores_by_scenario(
-                        weighedEstimates = res$weighedEstimates,
+                        weightedEstimates = res$weightedEstimates,
                         estimateCols = paste0(names(res$weightProfiles),
-                                              '_weighed_estimate'),
+                                              '_weighted_estimate'),
                         fun = sum,
                         na.rm=TRUE);
 
                     res$scoresPerScenario$score <-
-                      res$scoresPerScenario$sensitivityAnalysis_weighed_estimate;
+                      res$scoresPerScenario$sensitivityAnalysis_weighted_estimate;
                     res$scoresPerScenario$rank <-
-                      rank(res$scoresPerScenario$sensitivityAnalysis_weighed_estimate);
+                      rank(res$scoresPerScenario$sensitivityAnalysis_weighted_estimate);
                     res$scoresPerScenario$scenario_id <-
                       factor(res$scoresPerScenario$scenario_id,
                              levels = scenarioOrder,

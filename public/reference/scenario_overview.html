@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,6 +116,7 @@
   <span class='va'>multiEstimateDf</span>,
   <span class='va'>estimateCol</span>,
   <span class='va'>scenario</span>,
+  scenarioLabel <span class='op'>=</span> <span class='cn'>NULL</span>,
   createPlots <span class='op'>=</span> <span class='cn'>TRUE</span>,
   decisionPlotOrder <span class='op'>=</span> <span class='st'>"decreasing"</span>,
   criterionPlotOrder <span class='op'>=</span> <span class='st'>"decreasing"</span>,
@@ -125,13 +126,13 @@
   criterionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
   decisionLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
   alternativeLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenarioLabel <span class='op'>=</span> <span class='cn'>NULL</span>,
   parentCriterionIds_by_childId <span class='op'>=</span> <span class='cn'>NULL</span>,
   verticalPlots <span class='op'>=</span> <span class='cn'>FALSE</span>,
   useDecisionAlternativeLabels <span class='op'>=</span> <span class='cn'>TRUE</span>,
   decision_alternative_pre <span class='op'>=</span> <span class='st'>"**"</span>,
   decision_alternative_sep <span class='op'>=</span> <span class='st'>"**:&lt;br /&gt;"</span>,
   decision_alternative_suf <span class='op'>=</span> <span class='st'>""</span>,
+  alternativeToOmitInTable <span class='op'>=</span> <span class='st'>"Not applicable"</span>,
   scoreBarchart_criteria_args <span class='op'>=</span> <span class='cn'>NULL</span>,
   scoreBarchart_decisions_args <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -198,6 +199,11 @@ the scenario.</p></td>
       <td><p>If
 `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 are used to compose the decision plot labels.</p></td>
+    </tr>
+    <tr>
+      <th>alternativeToOmitInTable</th>
+      <td><p>This alternative is not shown in the
+table with highlighted options, unless it's selected for a scenario.</p></td>
     </tr>
     <tr>
       <th>scoreBarchart_criteria_args, scoreBarchart_decisions_args</th>

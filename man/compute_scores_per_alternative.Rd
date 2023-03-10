@@ -16,7 +16,7 @@ compute_scores_per_alternative(
 \item{multiEstimateDf}{A `multiEstimateDf` that must contain the columns
 specified in the `mdmcda` options `decisionId_col`, `alternativeValue_col`
 (see [mdmcda::opts], and for each weight profile in `weightProfiles`, its
-name appended with '`_weighed_estimate`'.}
+name appended with '`_weighted_estimate`'.}
 
 \item{weightProfiles}{A `weightProfiles` object.}
 

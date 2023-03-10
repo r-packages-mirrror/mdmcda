@@ -40,7 +40,8 @@ write_scenarioDefinitions_to_xl <- function(scenarioDefinitions,
       ),
       nm = names(scenariosToWrite)
     ),
-    file
+    file,
+    overwrite = TRUE
   );
 
   return(invisible(scenariosToWrite));

@@ -1,34 +1,34 @@
-### Add classes to estimates$multiEstimateDf and to weighedEstimates
+### Add classes to estimates$multiEstimateDf and to weightedEstimates
 ### Then make add_weights smart
 
-#' Add weights to a data frame for weighed estimates
+#' Add weights to a data frame for weighted estimates
 #'
-#' @param weighedEstimates A `weighedEstimates` data frame as returned
-#' by [mdmcda::build_weighed_estimate_df()].
+#' @param weightedEstimates A `weightedEstimates` data frame as returned
+#' by [mdmcda::build_weighted_estimate_df()].
 #' @param weightProfiles The weight profiles object
 #' @param weightProfileNames The name(s) of the weight profile(s) to add
 #' weights for.
 #'
-#' @return The `weighedEstimates` object with added weights.
+#' @return The `weightedEstimates` object with added weights.
 #' @export
-add_weights <- function(weighedEstimates,
+add_weights <- function(weightedEstimates,
                         weightProfiles,
                         weightProfileNames) {
 
-  if (!("mdmcda_weighedEstimates" %in% class(weighedEstimates))) {
-    stop("The object you pass as `weighedEstimates` must have class ",
-         "`mdmcda_weighedEstimates`, but it had class ",
-         vecTxtQ(class(weighedEstimates)), ".");
+  if (!("mdmcda_weightedEstimates" %in% class(weightedEstimates))) {
+    stop("The object you pass as `weightedEstimates` must have class ",
+         "`mdmcda_weightedEstimates`, but it had class ",
+         vecTxtQ(class(weightedEstimates)), ".");
   }
 
   for (i in weightProfileNames) {
-    weighedEstimates[, paste0(i, "_weight")] <-
-      weightProfiles[[i]][weighedEstimates$criterion_id];
-    weighedEstimates[, paste0(i, "_weighed_estimate")] <-
-      weighedEstimates$estimate *
-      weighedEstimates[, paste0(i, "_weight")];
+    weightedEstimates[, paste0(i, "_weight")] <-
+      weightProfiles[[i]][weightedEstimates$criterion_id];
+    weightedEstimates[, paste0(i, "_weighted_estimate")] <-
+      weightedEstimates$estimate *
+      weightedEstimates[, paste0(i, "_weight")];
   }
 
-  return(weighedEstimates);
+  return(weightedEstimates);
 
 }

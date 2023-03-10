@@ -14,6 +14,7 @@
 aggregate_estimates_by_criterionCluster <- function(multiEstimateDf,
                                                     estimateCol,
                                                     parentCriterionId_col = mdmcda::opts$get("parentCriterionId_col"),
+                                                    parentCriterionOrder = NULL,
                                                     fun = sum,
                                                     ...) {
   res <-
@@ -25,5 +26,10 @@ aggregate_estimates_by_criterionCluster <- function(multiEstimateDf,
                    as.data.frame));
   names(res) <- estimateCol;
   res[, parentCriterionId_col] <- row.names(res);
+  if (!is.null(parentCriterionOrder)) {
+    rowNameSorting <- intersect(parentCriterionOrder, row.names(res));
+    res <-
+      res[rowNameSorting, ];
+  }
   return(res);
 };

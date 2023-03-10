@@ -50,23 +50,16 @@ write_estimatesDf <- function(estimatesDf,
   }
 
   if (wantsXls) {
-    if (!requireNamespace("xlsx", quietly = TRUE)) {
-      stop("To export to excel format, the \"xlsx\" package is required. ",
-           "It needs to be installed and it needs to be able to load ",
-           "its dependency the \"rJava\" package. That package can only ",
-           "load if it can find where you installed Java. So, you either need ",
-           "to install the xlsx package using `install.packages('xlsx');`,",
-           "or you need to install Java (make sure to install the version ",
-           "matching your R version; so either 32-bit or 64-bit!).");
+    if (!requireNamespace("openxlsx", quietly = TRUE)) {
+      stop("To export to excel format, the \"openxlsx\" package is required");
     } else {
       writeFun <- function(performance_table,
                            file) {
-        xlsx::write.xlsx(performance_table,
-                         file = file,
-                         col.names = TRUE,
-                         row.names = FALSE,
-                         append = FALSE,
-                         ...);
+        openxlsx::write.xlsx(
+          performance_table,
+          file = file,
+          overwrite = TRUE
+        );
       }
     }
   } else {

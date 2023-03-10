@@ -1,8 +1,8 @@
 #' Get the aggregated scores for each scenario
 #'
-#' @param weighedEstimates The `weighedEstimates` object as created by
-#' [mdmcda::build_weighed_estimate_df()] and filled with the desired
-#' weighed estimates by [mdmcda::weigh_estimates_by_profile()].
+#' @param weightedEstimates The `weightedEstimates` object as created by
+#' [mdmcda::build_weighted_estimate_df()] and filled with the desired
+#' weighted estimates by [mdmcda::weight_estimates_by_profile()].
 #' @param estimateCols The column name(s) of the estimates to aggregate using
 #' function `fun`
 #' @param fun The function to use for the aggregation.
@@ -11,7 +11,7 @@
 #' @return A data frame with the scenario identifiers and the aggregated
 #' scores.
 #' @export
-scores_by_scenario <- function(weighedEstimates,
+scores_by_scenario <- function(weightedEstimates,
                                estimateCols,
                                fun = sum,
                                ...) {
@@ -21,8 +21,8 @@ scores_by_scenario <- function(weighedEstimates,
   res <- list();
   for (currentEstimateCol in estimateCols) {
     res[[currentEstimateCol]] <-
-      as.data.frame(cbind(by(weighedEstimates[[currentEstimateCol]],
-                             weighedEstimates[, scenarioId_col],
+      as.data.frame(cbind(by(weightedEstimates[[currentEstimateCol]],
+                             weightedEstimates[, scenarioId_col],
                              fun,
                              ...)),
                     stringsAsFactors = FALSE);

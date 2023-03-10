@@ -3,7 +3,7 @@
 #' @param multiEstimateDf A `multiEstimateDf` that must contain the columns
 #' specified in the `mdmcda` options `decisionId_col`, `alternativeValue_col`
 #' (see [mdmcda::opts], and for each weight profile in `weightProfiles`, its
-#' name appended with '`_weighed_estimate`'.
+#' name appended with '`_weighted_estimate`'.
 #' @param weightProfiles A `weightProfiles` object.
 #' @param silent Whether to suppress messages.
 #' @param setMissingEstimates What to set missing estimates to.
@@ -46,7 +46,7 @@ compute_scores_per_alternative <- function(multiEstimateDf,
       tmpCols <- c(criterionId_col,
                    alternativeValue_col,
                    paste0(currentWeightProfile,
-                          '_weighed_estimate'));
+                          '_weighted_estimate'));
 
       if (!(all(tmpCols %in% names(multiEstimateDf)))) {
         stop("I need columns ", vecTxtQ(tmpCols),
@@ -61,27 +61,27 @@ compute_scores_per_alternative <- function(multiEstimateDf,
         multiEstimateDf[multiEstimateDf[, decisionId_col]==currentDecision,
                         tmpCols];
 
-      missingWeighedEstimates <-
+      missingweightedEstimates <-
         is.na(tmpDf[, paste0(currentWeightProfile,
-                             '_weighed_estimate')]);
+                             '_weighted_estimate')]);
 
-      if (any(missingWeighedEstimates)) {
+      if (any(missingweightedEstimates)) {
         if (warnForMissingEstimates) {
-          cat0("\n- Warning: no weighed estimates found for weight profile '",
+          cat0("\n- Warning: no weighted estimates found for weight profile '",
                     currentWeightProfile, "' and for the effect of decision '",
                     currentDecision,
                     "', specifically not for the effects of ",
                     vecTxt(paste0("alternative '",
-                                       tmpDf[missingWeighedEstimates, alternativeValue_col],
+                                       tmpDf[missingweightedEstimates, alternativeValue_col],
                                        "' on criterion '",
-                                       tmpDf[missingWeighedEstimates, 'criterion_id'],
+                                       tmpDf[missingweightedEstimates, 'criterion_id'],
                                        "'")), ". Setting the estimate to 0.\n", sep="");
         }
         if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
             (length(setMissingEstimates) == 1)) {
-          tmpDf[missingWeighedEstimates,
+          tmpDf[missingweightedEstimates,
                 paste0(currentWeightProfile,
-                       '_weighed_estimate')] <- setMissingEstimates;
+                       '_weighted_estimate')] <- setMissingEstimates;
         } else {
           stop("You did not set `setMissingEstimates` to a number, which means ",
                "I cannot replace missing estimates. That means I cannot continue.");
@@ -89,7 +89,7 @@ compute_scores_per_alternative <- function(multiEstimateDf,
       }
 
       summedForAllCriteria <-
-        by(tmpDf$meanWeights_weighed_estimate,
+        by(tmpDf$meanWeights_weighted_estimate,
            tmpDf[, alternativeValue_col],
            sum,
            na.rm=TRUE);

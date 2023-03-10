@@ -16,10 +16,10 @@
 #' @param weightProfileNames The weight profile name(s) to process.
 #'
 #' @return The `multiEstimateDf` with columns appended with the weights
-#' and the weighed estimates.
+#' and the weighted estimates.
 #'
 #' @export
-weigh_multiEstimateDf <- function(multiEstimateDf,
+weight_multiEstimateDf <- function(multiEstimateDf,
                                   weightProfiles,
                                   scorer,
                                   weightProfileNames = names(weightProfiles)) {
@@ -32,7 +32,7 @@ weigh_multiEstimateDf <- function(multiEstimateDf,
     multiEstimateDf[[paste0(scorer,
                             "_",
                             currentWeightProfile,
-                            "_weighed_estimate")]] <-
+                            "_weighted_estimate")]] <-
       multiEstimateDf[, scorer] *
       multiEstimateDf[[paste0(currentWeightProfile,
                               "_weight")]];

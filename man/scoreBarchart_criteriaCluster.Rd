@@ -5,11 +5,11 @@
 \title{Create a bar chart with scores per criteria cluster}
 \usage{
 scoreBarchart_criteriaCluster(
-  weighedEstimates,
+  weightedEstimates,
   estimateCol,
-  parentCriterionOrder = unique(weighedEstimates$parentCriterion_id),
+  parentCriterionOrder = unique(weightedEstimates$parentCriterion_id),
   parentCriterionLabels = parentCriterion_ids,
-  scenarioOrder = unique(weighedEstimates$scenario_id),
+  scenarioOrder = unique(weightedEstimates$scenario_id),
   scenarioLabels = scenario_ids,
   strokeColor = "black",
   strokeSize = 0.1,
@@ -22,7 +22,7 @@ scoreBarchart_criteriaCluster(
 )
 }
 \arguments{
-\item{weighedEstimates}{A `weighedEstimates` object.}
+\item{weightedEstimates}{A `weightedEstimates` object.}
 
 \item{estimateCol}{The column name with the estimates to use.}
 

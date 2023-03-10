@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Create a performance table heatmap — performanceTable_heatmap" />
-<meta property="og:description" content="This is a convenient visualisation that shows the (weighed) estimates
+<meta property="og:description" content="This is a convenient visualisation that shows the (weighted) estimates
 for each decision/criterion combination. Decisions are sorted
 alphabetically and criteria are sorted alphabetically within their
 clusters, which are also sorted alphabetically." />
@@ -75,7 +75,7 @@ clusters, which are also sorted alphabetically." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmcda</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ clusters, which are also sorted alphabetically." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,14 +112,14 @@ clusters, which are also sorted alphabetically." />
     </div>
 
     <div class="ref-description">
-    <p>This is a convenient visualisation that shows the (weighed) estimates
+    <p>This is a convenient visualisation that shows the (weighted) estimates
 for each decision/criterion combination. Decisions are sorted
 alphabetically and criteria are sorted alphabetically within their
 clusters, which are also sorted alphabetically.</p>
     </div>
 
     <pre class="usage"><span class='fu'>performanceTable_heatmap</span><span class='op'>(</span>
-  <span class='va'>weighedEstimates</span>,
+  <span class='va'>weightedEstimates</span>,
   <span class='va'>estimateCol</span>,
   <span class='va'>scenario_id</span>,
   scenario_label <span class='op'>=</span> <span class='va'>scenario_id</span>,
@@ -147,9 +147,9 @@ clusters, which are also sorted alphabetically.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>weighedEstimates</th>
-      <td><p>A `weighedEstimates` data frame as produced by
-[mdmcda::weigh_estimates()].</p></td>
+      <th>weightedEstimates</th>
+      <td><p>A `weightedEstimates` data frame as produced by
+[mdmcda::weight_estimates()].</p></td>
     </tr>
     <tr>
       <th>estimateCol</th>
@@ -174,7 +174,7 @@ elements being the labels, and the names the identifiers.</p></td>
     <tr>
       <th>alternativeLabels</th>
       <td><p>The `alternativeLabels` object; optionally, to
-override the alternative labels in the `weighedEstimates` object.</p></td>
+override the alternative labels in the `weightedEstimates` object.</p></td>
     </tr>
     <tr>
       <th>useDecisionAlternativeLabels</th>
@@ -191,7 +191,7 @@ are used to compose the decision plot labels.</p></td>
     <tr>
       <th>criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, alternativeValue_col, alternativeLabel_col, alternativeLabel_col, scenarioId_col</th>
       <td><p>The
-column names in the `weighedEstimates` data frame.</p></td>
+column names in the `weightedEstimates` data frame.</p></td>
     </tr>
     <tr>
       <th>theme</th>

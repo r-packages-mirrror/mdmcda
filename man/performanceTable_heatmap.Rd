@@ -5,7 +5,7 @@
 \title{Create a performance table heatmap}
 \usage{
 performanceTable_heatmap(
-  weighedEstimates,
+  weightedEstimates,
   estimateCol,
   scenario_id,
   scenario_label = scenario_id,
@@ -30,8 +30,8 @@ performanceTable_heatmap(
 )
 }
 \arguments{
-\item{weighedEstimates}{A `weighedEstimates` data frame as produced by
-[mdmcda::weigh_estimates()].}
+\item{weightedEstimates}{A `weightedEstimates` data frame as produced by
+[mdmcda::weight_estimates()].}
 
 \item{estimateCol}{The name of the column with the estimates.}
 
@@ -46,7 +46,7 @@ for the criteria and decisions. These have to be named vectors, with the
 elements being the labels, and the names the identifiers.}
 
 \item{alternativeLabels}{The `alternativeLabels` object; optionally, to
-override the alternative labels in the `weighedEstimates` object.}
+override the alternative labels in the `weightedEstimates` object.}
 
 \item{useDecisionAlternativeLabels}{Whether to label the decision plot with
 the decisions or combined labels that also include the alternative for
@@ -57,7 +57,7 @@ the scenario.}
 are used to compose the decision plot labels.}
 
 \item{criterionId_col, parentCriterionId_col, criterionLabel_col, decisionId_col, decisionLabel_col, alternativeValue_col, alternativeLabel_col, alternativeLabel_col, scenarioId_col}{The
-column names in the `weighedEstimates` data frame.}
+column names in the `weightedEstimates` data frame.}
 
 \item{theme}{The `ggplot2` theme to use.}
 }
@@ -65,7 +65,7 @@ column names in the `weighedEstimates` data frame.}
 A `ggplot2` plot.
 }
 \description{
-This is a convenient visualisation that shows the (weighed) estimates
+This is a convenient visualisation that shows the (weighted) estimates
 for each decision/criterion combination. Decisions are sorted
 alphabetically and criteria are sorted alphabetically within their
 clusters, which are also sorted alphabetically.

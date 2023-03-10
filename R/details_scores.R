@@ -25,7 +25,7 @@ details_scores <- function(scenario_scores,
                     "\n\n## Scenario: ",
                     i,
                     " {.tabset}\n\n",
-                    "\n\n### Weighing profile: ",
+                    "\n\n### Weighting profile: ",
                     j," {.tabset}\n\n");
 
       if (knitr::is_latex_output()) {

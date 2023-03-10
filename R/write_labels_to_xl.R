@@ -44,7 +44,8 @@ write_labels_to_xl <- function(x,
 
   openxlsx::write.xlsx(
     res,
-    file
+    file,
+    overwrite = TRUE
   );
 
   return(invisible(res));
@@ -150,7 +151,8 @@ write_alternativeLabels_to_xl <- function(x,
 
   openxlsx::write.xlsx(
     res,
-    file
+    file,
+    overwrite = TRUE
   );
 
   return(invisible(res));

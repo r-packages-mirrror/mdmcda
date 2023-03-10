@@ -1,16 +1,13 @@
 #' @param alternativeLabels The `alternativeLabels` object; optionally, to
-#' override the alternative labels in the `weighedEstimates` object.
+#' override the alternative labels in the `weightedEstimates` object.
 #' @param useDecisionAlternativeLabels Whether to label the decision plot with
 #' the decisions or combined labels that also include the alternative for
 #' the scenario.
 #' @param decision_alternative_pre,decision_alternative_sep,decision_alternative_suf If
 #' `useDecisionAlternativeLabels` is `TRUE`, these prefix, separator, and suffix
 #' are used to compose the decision plot labels.
-
-
-
 #' @export
-scoreBarchart_decisions_criteria <- function(weighedEstimates,
+scoreBarchart_decisions_criteria <- function(weightedEstimates,
                                              scenario_id,
                                              scenario_label = scenario_id,
                                              estimateCol,
@@ -29,13 +26,13 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
                                              wrapCriterionLabels = 50,
                                              title = paste0("MDMCDA bar chart to compare decisions for ", scenario_label),
                                              xLab = "Decisions",
-                                             yLab = "Weighed estimated effect",
+                                             yLab = "Weighted estimated effect",
                                              theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                              guides = ggplot2::guide_legend(ncol = 2),
                                              axis.text.x.bottom = ggtext::element_markdown(
                                                angle = 90,
                                                hjust = 1,
-                                               vjust = 1
+                                               vjust = .5
                                              ),
                                              legend.position = "bottom",
                                              legend.box.margin = ggplot2::margin(.5, .5, .5, .5, "cm")) {
@@ -50,10 +47,10 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
   alternativeLabel_col <- mdmcda::opts$get("alternativeLabel_col");
 
   if (is.null(decisionOrder)) {
-    decisionOrder <- unique(weighedEstimates[, decisionId_col]);
+    decisionOrder <- unique(weightedEstimates[, decisionId_col]);
   }
   if (is.null(criterionOrder)) {
-    criterionOrder <- unique(weighedEstimates[, criterionId_col]);
+    criterionOrder <- unique(weightedEstimates[, criterionId_col]);
   }
   if (is.null(decisionLabels)) {
     decisionLabels <- stats::setNames(decisionOrder,
@@ -65,7 +62,7 @@ scoreBarchart_decisions_criteria <- function(weighedEstimates,
   }
 
   tmpDf <-
-    weighedEstimates[weighedEstimates[, scenarioId_col] == scenario_id,
+    weightedEstimates[weightedEstimates[, scenarioId_col] == scenario_id,
                      c(decisionId_col,
                        criterionId_col,
                        alternativeValue_col,

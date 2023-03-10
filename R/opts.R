@@ -169,7 +169,7 @@ opts$defaults <-
     criterionLabel_col       = "criterion_label",
     criterionDescription_col = "criterion_description",
     parentCriterionId_col    = "parentCriterion_id",
-    parentCriterionLabel_col    = "parentCriterionLabel_col",
+    parentCriterionLabel_col = "cluster_label", # "parentCriterionLabel_col",
     alternativeValue_col     = "alternative_value",
     alternativeLabel_col     = "alternative_label",
     scenarioId_col           = "scenario_id",

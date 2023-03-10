@@ -1,5 +1,5 @@
 #' @export
-scoreBarchart_scenarios_decisions <- function (weighedEstimates,
+scoreBarchart_scenarios_decisions <- function (weightedEstimates,
                                                estimateCol,
                                                decisionOrder = NULL,
                                                decisionLabels = NULL,
@@ -11,7 +11,7 @@ scoreBarchart_scenarios_decisions <- function (weighedEstimates,
                                                wrapDecisionLabels = 50,
                                                title = "MDMCDA scores by scenario by decision",
                                                xLab = "Scenario",
-                                               yLab = "Weighed estimated effect",
+                                               yLab = "Weighted estimated effect",
                                                theme = ggplot2::theme_minimal(base_size = mdmcda::opts$get("ggBaseSize")),
                                                guides = ggplot2::guide_legend(ncol = 2),
                                                axis.text.x.bottom = ggplot2::element_text(angle = 0,
@@ -28,21 +28,21 @@ scoreBarchart_scenarios_decisions <- function (weighedEstimates,
   scenarioLabel_col <- mdmcda::opts$get("scenarioLabel_col");
 
   if (is.null(criterionOrder)) {
-    criterionOrder <- unique(weighedEstimates[, criterionId_col]);
+    criterionOrder <- unique(weightedEstimates[, criterionId_col]);
   }
   if (is.null(criterionLabels)) {
     criterionLabels <- stats::setNames(criterionOrder,
                                        nm = criterionOrder);
   }
   if (is.null(decisionOrder)) {
-    decisionOrder <- unique(weighedEstimates[, decisionId_col]);
+    decisionOrder <- unique(weightedEstimates[, decisionId_col]);
   }
   if (is.null(decisionLabels)) {
     decisionLabels <- stats::setNames(decisionOrder,
                                       nm = decisionOrder);
   }
   if (is.null(scenarioOrder)) {
-    scenarioOrder <- unique(weighedEstimates[, scenarioId_col]);
+    scenarioOrder <- unique(weightedEstimates[, scenarioId_col]);
   }
   if (is.null(scenarioLabels)) {
     scenarioLabels <- stats::setNames(scenarioOrder,
@@ -58,7 +58,7 @@ scoreBarchart_scenarios_decisions <- function (weighedEstimates,
       paste(strwrap(x, wrapScenarioLabels), collapse="\n")
     ));
 
-  tmpDf <- weighedEstimates[, c(scenarioId_col,
+  tmpDf <- weightedEstimates[, c(scenarioId_col,
                                 decisionId_col,
                                 criterionId_col,
                                 estimateCol)];

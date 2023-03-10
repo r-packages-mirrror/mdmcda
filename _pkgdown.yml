@@ -1,1 +1,17 @@
+url: https://mdmcda.opens.science/
 destination: public
+# articles:
+# - title: Intro and example thread
+#   navbar: Intro and example thread
+#   contents:
+#   - quartodon
+template:
+  bootstrap: 5
+  bootswatch: slate
+  # bslib:
+  #   base_font: {google: "Nunito"}
+  #   heading_font: {google: "Nunito Black"}
+  #   code_font: {google: "JetBrains Mono"}
+navbar:
+  structure:
+    left: [intro, reference, articles]

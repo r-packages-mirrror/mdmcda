@@ -45,7 +45,8 @@ write_weightProfile_to_xl <- function(weightProfiles,
 
   openxlsx::write.xlsx(
     dat,
-    file
+    file,
+    overwrite = TRUE
   );
 
   return(invisible(dat));
