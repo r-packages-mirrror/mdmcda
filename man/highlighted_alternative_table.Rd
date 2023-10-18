@@ -51,9 +51,6 @@ object that includes intermediate steps.}
 
 \item{...}{Any additional arguments are passed on to `estimateParseFunction`.}
 }
-\value{
-
-}
 \description{
 Create a scenario overview with highlighted alternatives
 }

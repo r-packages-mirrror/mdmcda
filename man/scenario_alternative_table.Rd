@@ -31,9 +31,6 @@ scenario_alternative_table(
 \item{returnTableOnly}{Whether to return the table only, or the full
 object that includes intermediate steps.}
 }
-\value{
-
-}
 \description{
 Create a scenario overview with the selected alternatives
 }

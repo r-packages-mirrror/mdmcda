@@ -19,6 +19,7 @@
 #' and the weighted estimates.
 #'
 #' @export
+weigh_multiEstimateDf <-
 weight_multiEstimateDf <- function(multiEstimateDf,
                                   weightProfiles,
                                   scorer,
