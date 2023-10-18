@@ -18,8 +18,6 @@ scores_by_scenario <- function(weightedEstimates,
 
   scenarioId_col           <- mdmcda::opts$get("scenarioId_col");
 
-  browser();
-
   res <- list();
   for (currentEstimateCol in estimateCols) {
     res[[currentEstimateCol]] <-
