@@ -187,8 +187,6 @@ build_weighted_estimate_df <-
                                 multiEstimateDf[, criterionId_col]==currentCriterion,
                               scorer];
 
-            browser();
-
             if (is.null(estimate) || all(is.na(estimate)) || (length(estimate) == 0)) {
               if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
                   (length(setMissingEstimates) == 1)) {
