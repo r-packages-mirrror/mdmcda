@@ -81,8 +81,6 @@ build_weighted_estimate_df <-
       stop("`scenarioOrder` has to be a vector (and isn't)!");
     }
 
-    browser();
-
     if (is.null(scenarioOrder) && is.null(scenarioDefinitions) && is.null(decisionOrder)) {
 
       currentDecision <- unique(multiEstimateDf[, decisionId_col]);
