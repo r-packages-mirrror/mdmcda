@@ -170,10 +170,6 @@ build_weighted_estimate_df <-
                                      criterion_id=character(),
                                      estimate=numeric());
 
-
-      browser();
-
-
       for (currentScenario in scenarioOrder) {
 
         if (!(currentScenario %in% names(scenarioDefinitions))) {
@@ -183,12 +179,15 @@ build_weighted_estimate_df <-
 
         for (currentDecision in decisionOrder) {
           for (currentCriterion in criterionOrder) {
+
             estimate <-
               multiEstimateDf[multiEstimateDf[, decisionId_col] == currentDecision &
                                 multiEstimateDf[, alternativeValue_col] ==
                                 scenarioDefinitions[[currentScenario]][currentDecision] &
                                 multiEstimateDf[, criterionId_col]==currentCriterion,
                               scorer];
+
+            browser();
 
             if (is.null(estimate) || all(is.na(estimate)) || (length(estimate) == 0)) {
               if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
