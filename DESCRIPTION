@@ -12,7 +12,7 @@ License: GPL (>= 3)
 Description: Complex decisions can be hard to oversee. To assist in
     such efforts, Multi Criteria Decision Analysis (MCDA) has been developed.
     This package implements functionality for Multi Decision Multi Criteria
-    Decision Analysis (MDMCA). This is a form of MCDA to select a scenario: a
+    Decision Analysis (MDMCA). This is a form of MCDA to select a scenario:
     a specific configuration of selected alternatives within a set of
     decision. A common use case is comparing substance policies, where each
     policy (scenario) is defined as a series of selected alternatives for
