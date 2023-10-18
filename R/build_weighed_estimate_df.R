@@ -117,7 +117,9 @@ build_weighted_estimate_df <-
                 cat("\n- Warning: no estimate found for the effect of alternative '",
                     currentAlternativeValue,
                     "' of decision ", currentDecision, "' on criterion '",
-                    currentCriterion, "' - setting it to the value of `setMissingEstimates` ('",
+                    currentCriterion, "' in column '",
+                    scorer,
+                    "', - setting it to the value of `setMissingEstimates` ('",
                     setMissingEstimates, "')\n", sep="");
               }
               estimate <- setMissingEstimates;
@@ -126,7 +128,9 @@ build_weighted_estimate_df <-
                 cat("\n- Error: no estimate found for the effect of alternative '",
                     scenarioDefinitions[[currentScenario]][currentDecision],
                     "' of decision '", currentDecision, "' on criterion '",
-                    currentCriterion, "'.\n", sep="");
+                    currentCriterion, "'' in column '",
+                    scorer,
+                    "'.\n", sep="");
               }
               estimate <- NA;
             }
@@ -136,7 +140,9 @@ build_weighted_estimate_df <-
               cat("\n- Warning: multiple estimates found for the effect of alternative '",
                   currentAlternativeValue,
                   "' of decision '", currentDecision, "' on criterion '",
-                  currentCriterion, "'. Averaging them.\n", sep="");
+                  currentCriterion, "'' in column '",
+                  scorer,
+                  "'. Averaging them.\n", sep="");
             }
             estimate <- mean(estimate, na.rm = TRUE);
           }
@@ -187,7 +193,9 @@ build_weighted_estimate_df <-
                   cat("\n- Warning: no estimate found for the effect of alternative '",
                       scenarioDefinitions[[currentScenario]][currentDecision],
                       "' of decision '", currentDecision, "' on criterion '",
-                      currentCriterion, "' - setting it to the value of `setMissingEstimates` ('",
+                      currentCriterion, "' in column '",
+                      scorer,
+                      "', - setting it to the value of `setMissingEstimates` ('",
                       setMissingEstimates, "')\n", sep="");
                 }
                 estimate <- setMissingEstimates;
@@ -196,7 +204,9 @@ build_weighted_estimate_df <-
                   cat("\n- Error: no estimate found for the effect of alternative '",
                       scenarioDefinitions[[currentScenario]][currentDecision],
                       "' of decision '", currentDecision, "' on criterion '",
-                      currentCriterion, "'.\n", sep="");
+                      currentCriterion, "' in column '",
+                      scorer,
+                      "'.\n", sep="");
                 }
                 estimate <- NA;
               }
@@ -206,7 +216,9 @@ build_weighted_estimate_df <-
                 cat("\n- Warning: multiple estimates found for the effect of alternative '",
                     scenarioDefinitions[[currentScenario]][currentDecision],
                     "' of decision '", currentDecision, "' on criterion '",
-                    currentCriterion, "'. Averaging them.\n", sep="");
+                    currentCriterion, "' in column '",
+                    scorer,
+                    "'. Averaging them.\n", sep="");
               }
               estimate <- mean(estimate, na.rm = TRUE);
             }
