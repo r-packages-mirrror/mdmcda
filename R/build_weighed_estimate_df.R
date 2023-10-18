@@ -170,6 +170,10 @@ build_weighted_estimate_df <-
                                      criterion_id=character(),
                                      estimate=numeric());
 
+
+      browser();
+
+
       for (currentScenario in scenarioOrder) {
 
         if (!(currentScenario %in% names(scenarioDefinitions))) {
