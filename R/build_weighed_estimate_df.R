@@ -110,14 +110,6 @@ build_weighted_estimate_df <-
                               currentAlternativeValue &
                               multiEstimateDf[, criterionId_col]==currentCriterion,
                             scorer];
-          if (length(estimate) > 1) {
-            stop("Multiple (", length(estimate), ") estimates found (specifically, ",
-                 vecTxtQ(estimate), ") for the effect of alternative '",
-                 currentAlternativeValue,
-                 "' of decision ", currentDecision, "' on criterion '",
-                 currentCriterion, "'.)\n", sep="");
-
-          }
           if (is.null(estimate) || all(is.na(estimate)) || (length(estimate) == 0)) {
             if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
                 (length(setMissingEstimates) == 1)) {
@@ -187,7 +179,8 @@ build_weighted_estimate_df <-
                                 scenarioDefinitions[[currentScenario]][currentDecision] &
                                 multiEstimateDf[, criterionId_col]==currentCriterion,
                               scorer];
-            if (is.null(estimate) || is.na(estimate) || (length(estimate) == 0)) {
+
+            if (is.null(estimate) || all(is.na(estimate)) || (length(estimate) == 0)) {
               if (!is.null(setMissingEstimates) & is.numeric(setMissingEstimates) &
                   (length(setMissingEstimates) == 1)) {
                 if (warnForMissingEstimates) {
