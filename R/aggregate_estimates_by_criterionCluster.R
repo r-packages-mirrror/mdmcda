@@ -17,6 +17,7 @@ aggregate_estimates_by_criterionCluster <- function(multiEstimateDf,
                                                     parentCriterionOrder = NULL,
                                                     fun = sum,
                                                     ...) {
+
   res <-
     do.call(rbind,
             lapply(by(multiEstimateDf[, estimateCol],

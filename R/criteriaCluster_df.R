@@ -44,6 +44,7 @@ criteriaCluster_df <- function(weightedEstimates,
       lapply(
         scenarioOrder,
         function(scenario_id) {
+
           res <-
             aggregate_estimates_by_criterionCluster(
               weightedEstimates[
